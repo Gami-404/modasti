@@ -212,7 +212,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group format-area event-format-area">
+                            <div class="form-group">
                                 <div class="input-group date datetimepick">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <input name="published_at" type="text"

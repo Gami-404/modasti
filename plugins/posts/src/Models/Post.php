@@ -54,7 +54,8 @@ class Post extends Model
      * @var array
      */
     protected $creatingRules = [
-        'title' => 'required'
+        'title' => 'required',
+        'image_id' => 'required'
     ];
 
     /**

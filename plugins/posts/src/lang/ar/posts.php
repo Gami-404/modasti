@@ -1,15 +1,15 @@
 <?php
 return [
 
-    'posts' => 'المقالات',
-    'post' => 'مقال',
-    'add_new' => 'أضف مقال جديد',
-    'edit' => 'تعديل مقال',
-    'back_to_posts' => 'العودة للأخبار',
-    'no_records' => 'لا توجد أخبار',
-    'save_post' => 'حفظ الخبر',
+    'posts' => 'عناصر',
+    'post' => 'عنصر',
+    'add_new' => 'أضف عنصر جديد',
+    'edit' => 'تعديل عنصر',
+    'back_to_posts' => 'العودة للعناصر',
+    'no_records' => 'لا توجد عناصر',
+    'save_post' => 'حفظ العنصر',
     'search' => 'بحث',
-    'search_posts' => 'بحث عن خبر',
+    'search_posts' => 'بحث عن عنصر',
     'per_page' => 'لكل صفحة',
     'bulk_actions' => 'اختر أمر',
     'delete' => 'حذف',
@@ -22,15 +22,15 @@ return [
     'desc' => 'تنازلى',
     'actions' => 'تعديل',
     'filter' => 'عرض',
-    'post_status' => 'حالة الخبر',
+    'post_status' => 'حالة العنصر',
     'activate' => 'تفعيل',
     'activated' => 'مفعل',
     'all' => 'الكل',
     'deactivate' => 'غير مفعل',
     'deactivated' => 'غير مفعل',
-    'sure_activate' => "هل تريد تفعيل الخبر؟",
-    'sure_deactivate' => "هل تريد إلغاء تفعيل الخبر",
-    'sure_delete' => 'هل تريد حذف الخبر؟',
+    'sure_activate' => "هل تريد تفعيل العنصر؟",
+    'sure_deactivate' => "هل تريد إلغاء تفعيل العنصر",
+    'sure_delete' => 'هل تريد حذف العنصر؟',
     'add_category' => "أضف إلي قسم",
 
     'add_image' => 'أضف صورة',
@@ -40,8 +40,8 @@ return [
     'add_media' => 'أضف فيديو',
 
     'all_categories' => "كل التصنيفات",
-    'all_formats' => "كل أنواع الأخبار",
-    'all_blocks' => "كل أماكن الأخبار",
+    'all_formats' => "كل أنواع العناصر",
+    'all_blocks' => "كل أماكن العناصر",
     'not_image_file' => 'ملف غير مسموح به',
     'not_media_file' => 'ملف غير مسموح به',
 
@@ -64,8 +64,8 @@ return [
     "custom_value" => "القيمة",
     "sure_delete_field" => "هل أنت متأكد من الحذف ؟",
 
-    "add_block" => "أضف إلي أماكن الأخبار",
-    "no_blocks" => "لا توجد أماكن للأخبار",
+    "add_block" => "أضف إلي أماكن العناصر",
+    "no_blocks" => "لا توجد أماكن العناصر",
 
     "add_gallery" => "أضف ألبوم",
     "no_galleries_found" => "لا توجد ألبومات",
@@ -85,15 +85,15 @@ return [
     ],
 
     "events" => [
-        'created' => 'تم إضافة الخبر بنجاح',
-        'updated' => 'تم تحديث الخبر بنجاح',
-        'deleted' => 'تم حذف الخبر بنجاح',
-        'activated' => 'تم تفعيل الخبر بنجاح',
+        'created' => 'تم إضافة العنصر بنجاح',
+        'updated' => 'تم تحديث العنصر بنجاح',
+        'deleted' => 'تم حذف العنصر بنجاح',
+        'activated' => 'تم تفعيل العنصر بنجاح',
         'deactivated' => 'تم إلغاء التفعيل بنجاح'
     ],
 
     "permissions" => [
-        "manage" => "التحكم بالأخبار"
+        "manage" => "التحكم بالعناصر"
     ]
 
 ];

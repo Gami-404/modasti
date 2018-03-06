@@ -1,18 +1,18 @@
 <?php
 return [
 
-    'module' => 'Posts',
+    'module' => 'Items',
 
-    'posts' => 'Posts',
+    'posts' => 'Items',
     'videos' => 'Videos',
-    'post' => 'post',
-    'add_new' => 'Add New Post',
-    'edit' => 'Edit post',
-    'back_to_posts' => 'Back To Posts',
-    'no_records' => 'No Posts Found',
-    'save_post' => 'Save Post',
+    'post' => 'Item',
+    'add_new' => 'Add New Item',
+    'edit' => 'Edit Item',
+    'back_to_posts' => 'Back To Items',
+    'no_records' => 'No Item Found',
+    'save_post' => 'Save Item',
     'search' => 'search',
-    'search_posts' => 'Search Posts',
+    'search_posts' => 'Search Items',
     'per_page' => 'Per Page',
     'bulk_actions' => 'Bulk Actions',
     'delete' => 'delete',
@@ -29,14 +29,14 @@ return [
     'from' => "From",
     'to' => "To",
 
-    'post_status' => 'Post status',
+    'post_status' => 'Item status',
     'activate' => 'activate',
     'activated' => 'activated',
     'all' => 'All',
     'deactivate' => 'deactivate',
     'deactivated' => 'deactivated',
-    'sure_activate' => "Are you sure to activate post ?",
-    'sure_deactivate' => "Are you sure to deactivate post ?",
+    'sure_activate' => "Are you sure to activate item ?",
+    'sure_deactivate' => "Are you sure to deactivate item ?",
     'sure_delete' => 'Are you sure to delete ?',
 
     'add_image' => 'Add image',
@@ -58,7 +58,7 @@ return [
     'all_formats' => "All Formats",
     'add_category' => "Add To Category",
 
-    "format_post" => "Post",
+    "format_post" => "Item",
     "format_article" => "Article",
     "format_video" => "Video",
     "format_album" => "Album",
@@ -85,19 +85,19 @@ return [
         'status' => 'Status',
         'template' => 'Template',
         'default' => 'Default',
-        "format" => "Post format"
+        "format" => "Item format"
     ],
 
     "events" => [
-        'created' => 'Post created successfully',
-        'updated' => 'Post updated successfully',
-        'deleted' => 'Post deleted successfully',
-        'activated' => 'Post activated successfully',
-        'deactivated' => 'Post deactivated successfully'
+        'created' => 'Item created successfully',
+        'updated' => 'Item updated successfully',
+        'deleted' => 'Item deleted successfully',
+        'activated' => 'Item activated successfully',
+        'deactivated' => 'Item deactivated successfully'
     ],
 
     "permissions" => [
-        "manage" => "Manage posts"
+        "manage" => "Manage items"
     ]
 
 ];
