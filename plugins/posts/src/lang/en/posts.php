@@ -82,7 +82,7 @@ return [
         'created_at' => 'Created date',
         'updated_at' => 'Updated date',
         'published_at' => 'Event date',
-        'status' => 'Status',
+        'status' => 'Confirmed',
         'template' => 'Template',
         'default' => 'Default',
         "format" => "Item format"

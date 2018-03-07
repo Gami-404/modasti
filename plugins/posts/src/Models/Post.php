@@ -5,6 +5,7 @@ namespace Dot\Posts\Models;
 use Cache;
 use Dot\Blocks\Models\Block;
 use Dot\Categories\Models\Category;
+use Dot\Colors\Models\Color;
 use Dot\Galleries\Models\Gallery;
 use Dot\Media\Models\Media;
 use Dot\Platform\Model;
@@ -158,6 +159,16 @@ class Post extends Model
     {
         return $this->belongsToMany(Block::class, "posts_blocks", "post_id", "block_id");
     }
+
+    /**
+     * Blocks relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class, "color_post", "post_id", "color_id");
+    }
+
 
     /**
      * Categories relation
