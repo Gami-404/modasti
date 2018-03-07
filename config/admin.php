@@ -36,5 +36,6 @@ return [
     'plugins' => [
         "admin" => Dot\Platform\System::class,
         "posts" => Dot\Posts\Posts::class,
+        "colors" => Dot\Colors\Colors::class,
     ]
 ];
