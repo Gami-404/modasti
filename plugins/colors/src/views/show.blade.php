@@ -108,6 +108,7 @@
 
                                 </div>
 
+
                                 <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
 
                                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
