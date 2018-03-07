@@ -32,7 +32,8 @@
     ],
     "psr-4": {
       "App\\": "app/",
-      "Dot\\Posts\\": "plugins/posts/src/"
+      "Dot\\Posts\\": "plugins/posts/src/",
+      "Dot\\Colors\\": "plugins/colors/src/"
     }
   },
   "autoload-dev": {
