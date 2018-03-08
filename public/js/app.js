@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11014,23 +11014,164 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(8).setImmediate))
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(4);
-module.exports = __webpack_require__(19);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(15)
+/* template */
+var __vue_template__ = __webpack_require__(16)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/ProductCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6c6885b3", Component.options)
+  } else {
+    hotAPI.reload("data-v-6c6885b3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(17)
+/* template */
+var __vue_template__ = __webpack_require__(18)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/SetCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0749b026", Component.options)
+  } else {
+    hotAPI.reload("data-v-0749b026", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(19)
+/* template */
+var __vue_template__ = __webpack_require__(20)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/wrappers/WrapperCardList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6918d08e", Component.options)
+  } else {
+    hotAPI.reload("data-v-6918d08e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(7);
+module.exports = __webpack_require__(39);
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vue_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vue_Router__ = __webpack_require__(11);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -11049,15 +11190,15 @@ window.Vue = __webpack_require__(2);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('App', __webpack_require__(12));
+Vue.component('App', __webpack_require__(32));
 
 var app = new Vue({
   el: '#app',
-  router: __WEBPACK_IMPORTED_MODULE_0__vue_router__["a" /* default */]
+  router: __WEBPACK_IMPORTED_MODULE_0__vue_Router__["a" /* default */]
 });
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -11110,7 +11251,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(6);
+__webpack_require__(9);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -11124,7 +11265,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -11314,10 +11455,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(10)))
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -11507,15 +11648,24 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_home_vue__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pages_home_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_Home_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pages_Home_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_Clothing_vue__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_Clothing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__pages_Clothing_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_Profile_vue__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_Profile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__pages_Profile_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_profile_Sets_vue__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_profile_Sets_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_profile_Sets_vue__);
+
+
+
 
 
 
@@ -11526,12 +11676,24 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
   routes: [{
     path: '/',
     name: 'home',
-    component: __WEBPACK_IMPORTED_MODULE_2__pages_home_vue___default.a
+    component: __WEBPACK_IMPORTED_MODULE_2__pages_Home_vue___default.a
+  }, {
+    path: '/clothing',
+    name: 'clothing',
+    component: __WEBPACK_IMPORTED_MODULE_3__pages_Clothing_vue___default.a
+  }, {
+    path: '/profile/:id',
+    name: 'profile',
+    component: __WEBPACK_IMPORTED_MODULE_4__pages_Profile_vue___default.a,
+    children: [{
+      path: '',
+      component: __WEBPACK_IMPORTED_MODULE_5__components_profile_Sets_vue___default.a
+    }]
   }]
 }));
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14161,15 +14323,15 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(14)
 /* template */
-var __vue_template__ = __webpack_require__(11)
+var __vue_template__ = __webpack_require__(21)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14186,7 +14348,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/vue/pages/home.vue"
+Component.options.__file = "resources/assets/vue/pages/Home.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -14195,9 +14357,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-75bdc877", Component.options)
+    hotAPI.createRecord("data-v-79982c97", Component.options)
   } else {
-    hotAPI.reload("data-v-75bdc877", Component.options)
+    hotAPI.reload("data-v-79982c97", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -14208,7 +14370,1042 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 11 */
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ProductCard__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ProductCard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_SetCard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	components: {
+		ProductCard: __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default.a,
+		SetCard: __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default.a,
+		WrapperCardList: __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList___default.a
+	},
+	computed: {
+		products: function products() {
+			var _ref, _ref2, _ref3;
+
+			var arr = [];
+			var products = [(_ref = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/4.jpg',
+				price: 520
+			}, _defineProperty(_ref, 'url', ''), _defineProperty(_ref, 'like', 10), _defineProperty(_ref, 'comment', 10), _defineProperty(_ref, 'link', 'dolcegabbana.com'), _defineProperty(_ref, 'by', 'Modasti retail - Modasti'), _ref), (_ref2 = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/3.jpg',
+				price: 320
+			}, _defineProperty(_ref2, 'url', ''), _defineProperty(_ref2, 'like', 20), _defineProperty(_ref2, 'comment', 11), _defineProperty(_ref2, 'link', 'dolcegabbana.com'), _defineProperty(_ref2, 'by', 'Modasti retail - Modasti'), _ref2), (_ref3 = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/1.jpg',
+				price: 120
+			}, _defineProperty(_ref3, 'url', ''), _defineProperty(_ref3, 'like', 5), _defineProperty(_ref3, 'comment', 2), _defineProperty(_ref3, 'link', 'dolcegabbana.com'), _defineProperty(_ref3, 'by', 'Modasti retail - Modasti'), _ref3)];
+
+			for (var i = 0; i < 8; i++) {
+				arr.push(products[Math.floor(Math.random() * 3)]);
+			}
+			return arr;
+		}
+	}
+});
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['title', 'image', 'url', 'link', 'price', 'like', 'comment']
+});
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "productCard" }, [
+    _c("div", { staticClass: "avatar" }, [
+      _c("div", { staticClass: "verticalCentered" }, [
+        _c("div", { staticClass: "theCell" }, [
+          _c("img", { attrs: { src: _vm.image, alt: "" } })
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "content" }, [
+      _c("h3", [
+        _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.title))])
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("div", { staticClass: "price" }, [_vm._v(_vm._s(_vm.price) + " €")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "link" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.link))])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "likesAndComments" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-like" }),
+        _vm._v(" "),
+        _c("span", [_vm._v(_vm._s(_vm.like))])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-comment" }),
+        _vm._v(" "),
+        _c("span", [_vm._v(_vm._s(_vm.comment))])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6c6885b3", module.exports)
+  }
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['title', 'image', 'url', 'like', 'comment', 'by']
+});
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "productCard" }, [
+    _c("div", { staticClass: "avatar" }, [
+      _c("div", { staticClass: "verticalCentered" }, [
+        _c("div", { staticClass: "theCell" }, [
+          _c("img", { attrs: { src: _vm.image, alt: "" } })
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "content" }, [
+      _c("h3", [
+        _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.title))])
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("div", { staticClass: "createdBy" }, [_vm._v("Created by")]),
+      _vm._v(" "),
+      _c("div", [_vm._v(_vm._s(_vm.by))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "likesAndComments" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-like" }),
+        _c("span", [_vm._v(_vm._s(_vm.like))])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-comment" }),
+        _c("span", [_vm._v(_vm._s(_vm.comment))])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0749b026", module.exports)
+  }
+}
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['title', 'url']
+});
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "sectionTitle clearfix" }, [
+      _c("h2", { staticClass: "theName" }, [_vm._v(_vm._s(_vm.title))]),
+      _vm._v(" "),
+      _c("a", { staticClass: "more", attrs: { href: _vm.url } }, [
+        _vm._v("More")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "secPaddMd" }, [
+      _c("div", { staticClass: "myrow clearfix" }, [_vm._t("default")], 2)
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6918d08e", module.exports)
+  }
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "home" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "gridContainer" },
+      [
+        _c(
+          "WrapperCardList",
+          { attrs: { title: "Latest Trends", url: "#" } },
+          _vm._l(_vm.products, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+              [
+                _c("ProductCard", {
+                  attrs: {
+                    image: item.image,
+                    price: item.price,
+                    title: item.title,
+                    link: item.link,
+                    like: item.like,
+                    comment: item.comment
+                  }
+                })
+              ],
+              1
+            )
+          })
+        ),
+        _vm._v(" "),
+        _c(
+          "WrapperCardList",
+          { attrs: { title: "Most Liked From Our Community", url: "#" } },
+          _vm._l(_vm.products, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+              [
+                _c("ProductCard", {
+                  attrs: {
+                    image: item.image,
+                    price: item.price,
+                    title: item.title,
+                    link: item.link,
+                    like: item.like,
+                    comment: item.comment
+                  }
+                })
+              ],
+              1
+            )
+          })
+        ),
+        _vm._v(" "),
+        _c(
+          "WrapperCardList",
+          { attrs: { title: "Most Viewed Sets", url: "#" } },
+          _vm._l(_vm.products, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+              [
+                _c("SetCard", {
+                  attrs: {
+                    image: item.image,
+                    title: item.title,
+                    link: item.link,
+                    like: item.like,
+                    comment: item.comment,
+                    by: item.by
+                  }
+                })
+              ],
+              1
+            )
+          })
+        ),
+        _vm._v(" "),
+        _c(
+          "WrapperCardList",
+          { attrs: { title: "Official Contests", url: "#" } },
+          _vm._l(_vm.products, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+              [
+                _c("SetCard", {
+                  attrs: {
+                    image: item.image,
+                    title: item.title,
+                    link: item.link,
+                    like: item.like,
+                    comment: item.comment,
+                    by: item.by
+                  }
+                })
+              ],
+              1
+            )
+          })
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "secPaddLg whiteBg textCentered" }, [
+      _c("div", { staticClass: "gridContainer" }, [
+        _c("div", { staticClass: "sectionName" }, [
+          _c("div", { staticClass: "theName" }, [
+            _vm._v("MODEST FASHION FOR ALL")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "second" }, [
+            _vm._v("FASHION + INSPIRE + LOVE")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-79982c97", module.exports)
+  }
+}
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(23)
+/* template */
+var __vue_template__ = __webpack_require__(24)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/pages/Clothing.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3a159280", Component.options)
+  } else {
+    hotAPI.reload("data-v-3a159280", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ProductCard__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ProductCard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_SetCard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ProductCard: __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default.a,
+    SetCard: __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default.a,
+    WrapperCardList: __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardList___default.a
+  },
+  computed: {
+    products: function products() {
+      var _ref, _ref2, _ref3;
+
+      var arr = [];
+      var products = [(_ref = {
+        url: "",
+        title: "VELVET PUMPS WITH BEJEWELED HEELS",
+        image: "images/4.jpg",
+        price: 520
+      }, _defineProperty(_ref, "url", ""), _defineProperty(_ref, "like", 10), _defineProperty(_ref, "comment", 10), _defineProperty(_ref, "link", "dolcegabbana.com"), _defineProperty(_ref, "by", "Modasti retail - Modasti"), _ref), (_ref2 = {
+        url: "",
+        title: "VELVET PUMPS WITH BEJEWELED HEELS",
+        image: "images/3.jpg",
+        price: 320
+      }, _defineProperty(_ref2, "url", ""), _defineProperty(_ref2, "like", 20), _defineProperty(_ref2, "comment", 11), _defineProperty(_ref2, "link", "dolcegabbana.com"), _defineProperty(_ref2, "by", "Modasti retail - Modasti"), _ref2), (_ref3 = {
+        url: "",
+        title: "VELVET PUMPS WITH BEJEWELED HEELS",
+        image: "images/1.jpg",
+        price: 120
+      }, _defineProperty(_ref3, "url", ""), _defineProperty(_ref3, "like", 5), _defineProperty(_ref3, "comment", 2), _defineProperty(_ref3, "link", "dolcegabbana.com"), _defineProperty(_ref3, "by", "Modasti retail - Modasti"), _ref3)];
+
+      for (var i = 0; i < 8; i++) {
+        arr.push(products[Math.floor(Math.random() * 3)]);
+      }
+      return arr;
+    }
+  }
+});
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "clothing" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "gridContainer" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "myrow clearfix" },
+        _vm._l(_vm.products, function(item, index) {
+          return _c(
+            "div",
+            { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+            [
+              _c("ProductCard", {
+                attrs: {
+                  image: item.image,
+                  price: item.price,
+                  title: item.title,
+                  link: item.link,
+                  like: item.like,
+                  comment: item.comment
+                }
+              })
+            ],
+            1
+          )
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "topCategories whiteBg" }, [
+      _c("div", { staticClass: "gridContainer" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("DRESSES")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("SKIRTS")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("abayas")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("kaftans")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("hijabs")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("jumpsuits")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("tops")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("jackets")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("coats")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("TRENCH COATS")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("jeans")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("pants")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("NIGHTWEARS")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("UNDERWEAR")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("COSTUMES")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("sportswear")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sectionTitle clearfix" }, [
+      _c("h2", { staticClass: "theName" }, [_vm._v("Clothing")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "filters" }, [
+        _c("span", { staticClass: "icon" }, [
+          _c("i", { staticClass: "fa fa-sliders" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "in" }, [
+          _c("div", { staticClass: "one" }, [
+            _c("div", { staticClass: "title dropdownTitle" }, [
+              _vm._v("colors\n                            "),
+              _c("i", { staticClass: "fa fa-angle-down" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "selectios dropdownContent" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 1")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 2")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 3")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 4")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "one" }, [
+            _c("div", { staticClass: "title dropdownTitle" }, [
+              _vm._v("coverage\n                            "),
+              _c("i", { staticClass: "fa fa-angle-down" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "selectios dropdownContent" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 1")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 2")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 3")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 4")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "one" }, [
+            _c("div", { staticClass: "title dropdownTitle" }, [
+              _vm._v("Price\n                            "),
+              _c("i", { staticClass: "fa fa-angle-down" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "selectios dropdownContent" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 1")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 2")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 3")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 4")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "one" }, [
+            _c("div", { staticClass: "title dropdownTitle" }, [
+              _vm._v("size\n                            "),
+              _c("i", { staticClass: "fa fa-angle-down" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "selectios dropdownContent" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 1")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 2")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 3")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 4")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "one" }, [
+            _c("div", { staticClass: "title dropdownTitle" }, [
+              _vm._v("brand\n                            "),
+              _c("i", { staticClass: "fa fa-angle-down" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "selectios dropdownContent" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 1")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 2")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 3")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("color 4")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "theBtn", attrs: { href: "#" } }, [
+            _vm._v("Apply")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3a159280", module.exports)
+  }
+}
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(26)
+/* template */
+var __vue_template__ = __webpack_require__(29)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/pages/Profile.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-471f6f21", Component.options)
+  } else {
+    hotAPI.reload("data-v-471f6f21", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_profile_ProfileNav__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_profile_ProfileNav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_profile_ProfileNav__);
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ProfileNav: __WEBPACK_IMPORTED_MODULE_0__components_profile_ProfileNav___default.a
+  }
+});
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(28)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/profile/ProfileNav.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6233e008", Component.options)
+  } else {
+    hotAPI.reload("data-v-6233e008", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -14222,894 +15419,58 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "secPaddLg whiteBg textCentered" }, [
+    return _c("div", { attrs: { id: "profilenav" } }, [
+      _c("div", { staticClass: "secPaddLg whiteBg" }, [
         _c("div", { staticClass: "gridContainer" }, [
-          _c("div", { staticClass: "sectionName" }, [
-            _c("div", { staticClass: "theName" }, [
-              _vm._v("MODEST FASHION FOR ALL")
+          _c("div", { staticClass: "top_userProfile clearfix" }, [
+            _c("div", { staticClass: "avatar" }, [
+              _c("img", { attrs: { src: "images/img2.jpg", alt: "" } })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "second" }, [
-              _vm._v("FASHION + INSPIRE + LOVE")
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "info" }, [
+                _c("div", { staticClass: "name" }, [_vm._v("user name")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "other" }, [_vm._v("test")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "top_message" }, [
+                _c("div", [_vm._v("Create 15 sets to become a STYLIST!")]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", [_vm._v("0 / 15 Sets")])
+              ])
             ])
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "topHeadBtn", attrs: { href: "#" } }, [
+            _vm._v("Edit Profile")
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "gridContainer" }, [
-        _c("div", { staticClass: "sectionTitle clearfix" }, [
-          _c("h2", { staticClass: "theName" }, [_vm._v("Latest Trends")]),
+      _c("div", { staticClass: "categoriesTop whiteBg" }, [
+        _c("div", { staticClass: "gridContainer clearfix" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Sets")]),
           _vm._v(" "),
-          _c("a", { staticClass: "more", attrs: { href: "#" } }, [
-            _vm._v("More")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "secPaddMd" }, [
-          _c("div", { staticClass: "myrow clearfix" }, [
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sectionTitle clearfix" }, [
-          _c("h2", { staticClass: "theName" }, [
-            _vm._v("Most Liked From Our Community")
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Items")]),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Collections")]),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Likes")]),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Following")]),
+          _vm._v(" "),
+          _c("a", { staticClass: "active", attrs: { href: "#" } }, [
+            _vm._v("Followers")
           ]),
           _vm._v(" "),
-          _c("a", { staticClass: "more", attrs: { href: "#" } }, [
-            _vm._v("More")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "secPaddMd" }, [
-          _c("div", { staticClass: "myrow clearfix" }, [
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("dolcegabbana.com")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sectionTitle clearfix" }, [
-          _c("h2", { staticClass: "theName" }, [_vm._v("Most Viewed Sets")]),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Groups")]),
           _vm._v(" "),
-          _c("a", { staticClass: "more", attrs: { href: "#" } }, [
-            _vm._v("More")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "secPaddMd" }, [
-          _c("div", { staticClass: "myrow clearfix" }, [
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sectionTitle clearfix" }, [
-          _c("h2", { staticClass: "theName" }, [_vm._v("Official Contests")]),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Wins")]),
           _vm._v(" "),
-          _c("a", { staticClass: "more", attrs: { href: "#" } }, [
-            _vm._v("More")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "secPaddMd" }, [
-          _c("div", { staticClass: "myrow clearfix" }, [
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-              _c("div", { staticClass: "productCard" }, [
-                _c("div", { staticClass: "avatar" }, [
-                  _c("div", { staticClass: "verticalCentered" }, [
-                    _c("div", { staticClass: "theCell" }, [
-                      _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content" }, [
-                  _c("h3", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "createdBy" }, [
-                    _vm._v("Created by")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("Modasti retail - Modasti")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "likesAndComments" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-like" }),
-                    _c("span", [_vm._v("10")])
-                  ]),
-                  _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icon-comment" }),
-                    _c("span", [_vm._v("10")])
-                  ])
-                ])
-              ])
-            ])
-          ])
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Blocked users")])
         ])
       ])
     ])
@@ -15120,20 +15481,45 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-75bdc877", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6233e008", module.exports)
   }
 }
 
 /***/ }),
-/* 12 */
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "profile" } },
+    [_c("ProfileNav"), _vm._v(" "), _c("router-view")],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-471f6f21", module.exports)
+  }
+}
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(13)
+var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(18)
+var __vue_template__ = __webpack_require__(31)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15150,7 +15536,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/vue/app.vue"
+Component.options.__file = "resources/assets/vue/components/profile/Sets.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -15159,9 +15545,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-e2e7f178", Component.options)
+    hotAPI.createRecord("data-v-2a1c2cda", Component.options)
   } else {
-    hotAPI.reload("data-v-e2e7f178", Component.options)
+    hotAPI.reload("data-v-2a1c2cda", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -15172,15 +15558,89 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("\n        SETS\n    ")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2a1c2cda", module.exports)
+  }
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(33)
+/* template */
+var __vue_template__ = __webpack_require__(38)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/App.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1c76c1b8", Component.options)
+  } else {
+    hotAPI.reload("data-v-1c76c1b8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_navbar_vue__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_navbar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layout_navbar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_footer_vue__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_footer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_footer_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_Navbar_vue__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_Navbar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layout_Navbar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_Footer_vue__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_Footer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_Footer_vue__);
 //
 //
 //
@@ -15194,8 +15654,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        'app-navbar': __WEBPACK_IMPORTED_MODULE_0__layout_navbar_vue___default.a,
-        'app-footer': __WEBPACK_IMPORTED_MODULE_1__layout_footer_vue___default.a
+        'app-navbar': __WEBPACK_IMPORTED_MODULE_0__layout_Navbar_vue___default.a,
+        'app-footer': __WEBPACK_IMPORTED_MODULE_1__layout_Footer_vue___default.a
     },
     mounted: function mounted() {
         console.log('Vue App Mounted !');
@@ -15203,7 +15663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 14 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -15211,7 +15671,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(15)
+var __vue_template__ = __webpack_require__(35)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15228,7 +15688,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/vue/layout/navbar.vue"
+Component.options.__file = "resources/assets/vue/layout/Navbar.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -15237,9 +15697,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-185dc010", Component.options)
+    hotAPI.createRecord("data-v-6aa2fc18", Component.options)
   } else {
-    hotAPI.reload("data-v-185dc010", Component.options)
+    hotAPI.reload("data-v-6aa2fc18", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -15250,7 +15710,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 15 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15376,12 +15836,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-185dc010", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6aa2fc18", module.exports)
   }
 }
 
 /***/ }),
-/* 16 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -15389,7 +15849,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(17)
+var __vue_template__ = __webpack_require__(37)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15406,7 +15866,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/vue/layout/footer.vue"
+Component.options.__file = "resources/assets/vue/layout/Footer.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -15415,9 +15875,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-551efc03", Component.options)
+    hotAPI.createRecord("data-v-681e4fba", Component.options)
   } else {
-    hotAPI.reload("data-v-551efc03", Component.options)
+    hotAPI.reload("data-v-681e4fba", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -15428,7 +15888,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 17 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15558,12 +16018,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-551efc03", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-681e4fba", module.exports)
   }
 }
 
 /***/ }),
-/* 18 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15588,12 +16048,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-e2e7f178", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1c76c1b8", module.exports)
   }
 }
 
 /***/ }),
-/* 19 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -8,7 +8,7 @@
 // require('./bootstrap');
 
 window.Vue = require('vue');
-import router from '../vue/router';
+import router from '../vue/Router';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,7 +18,7 @@ import router from '../vue/router';
 
 Vue.component(
     'App', 
-    require('../vue/app.vue')
+    require('../vue/App.vue')
 );
 
 const app = new Vue({
