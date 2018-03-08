@@ -78,10 +78,11 @@ return [
         'created_at' => 'تاريخ الإضافة',
         'updated_at' => 'تاريخ التعديل',
         'published_at' => 'تاريخ الحدث',
-        'status' => 'الحالة',
+        'status' => 'مؤاكد',
         'template' => 'القالب',
         'default' => 'إفتراضى',
-        "format" => "نوع الخبر"
+        "format" => "نوع الخبر",
+
     ],
 
     "events" => [

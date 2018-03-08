@@ -71,64 +71,6 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading">
-                            <i class="fa fa-camera"></i>
-                            {{ trans("posts::posts.add_fields") }}
-                            <a class="add-custom-field pull-right" href="javascript:void(0)">
-                                <i class="fa fa-plus text-navy"></i>
-                            </a>
-
-                        </div>
-
-                        <div class="panel-body">
-
-                            <div class="form-group meta-rows">
-
-                                @foreach ($post->meta as $meta)
-                                    <div class="meta-row">
-
-                                        <input type="text" name="custom_names[]" value="{{ $meta->name }}"
-                                               class="form-control input-md pull-left custom-field-name"
-                                               placeholder="{{ trans("posts::posts.custom_name") }}"/>
-
-                                        <textarea name="custom_values[]"
-                                                  class="form-control input-lg pull-left custom-field-value"
-                                                  rows="1"
-                                                  placeholder="{{ trans("posts::posts.custom_value") }}">{{ $meta->value }}</textarea>
-
-                                        <a class="remove-custom-field pull-right" href="javascript:void(0)">
-                                            <i class="fa fa-times text-navy"></i>
-                                        </a>
-
-                                    </div>
-                                @endforeach
-
-                                <div class="meta-row">
-
-                                    <input type="text" name="custom_names[]"
-                                           class="form-control input-md pull-left custom-field-name"
-                                           placeholder="{{ trans("posts::posts.custom_name") }}"/>
-
-                                    <textarea name="custom_values[]"
-                                              class="form-control input-lg pull-left custom-field-value"
-                                              rows="1"
-                                              placeholder="{{ trans("posts::posts.custom_value") }}"></textarea>
-
-                                    <a class="remove-custom-field pull-right" href="javascript:void(0)">
-                                        <i class="fa fa-times text-navy"></i>
-                                    </a>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-
-
                     <div class="row">
 
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -249,6 +191,9 @@
 
                     </div>
 
+                    <input type="hidden" name="format" value="item">
+
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-folder"></i>
@@ -273,34 +218,6 @@
                                 </ul>
                             @else
                                 {{ trans("categories::categories.no_records") }}
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-th-large"></i>
-                            {{ trans("posts::posts.add_block") }}
-                        </div>
-                        <div class="panel-body">
-                            @if (Dot\Blocks\Models\Block::count())
-                                <ul class='tree-views'>
-                                    @foreach(Dot\Blocks\Models\Block::all() as $block)
-                                        <li>
-                                            <div class='tree-row checkbox i-checks'>
-                                                <label>
-                                                    <input type='checkbox'
-                                                           @if ($post and in_array($block->id, $post_blocks->pluck("id")->toArray())) checked="checked"
-                                                           @endif
-                                                           name='blocks[]'
-                                                           value='{{ $block->id }}'>
-                                                    &nbsp; {{ $block->name }}
-                                                </label>
-                                            </div>
-                                    @endforeach
-                                </ul>
-                            @else
-                                {{ trans("posts::posts.no_blocks") }}
                             @endif
                         </div>
                     </div>
