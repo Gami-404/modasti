@@ -1,0 +1,869 @@
+/* mixins */
+img, object, embed, video {
+  max-width: 100%; }
+
+.ie6 img {
+  width: 100%; }
+
+body, html {
+  height: 100%; }
+
+body {
+  background: #f8f8f8; }
+
+.relative {
+  position: relative; }
+
+.inlineBlock {
+  display: inline-block; }
+
+.textCentered {
+  text-align: center; }
+
+.maxWidthSmall {
+  max-width: 50%; }
+
+.verticalCentered {
+  display: table;
+  width: 100%;
+  height: 100%; }
+  .verticalCentered .theCell {
+    display: table-cell;
+    vertical-align: middle; }
+
+.secPaddLg {
+  padding: 25px 0; }
+
+.secPaddMd {
+  padding: 15px 0; }
+
+.mrgBtmLg {
+  margin-bottom: 40px; }
+
+.whiteBg {
+  background: #fff; }
+
+.brandColor {
+  color: #ffbeb8 !important; }
+
+.gridContainer {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1520px; }
+
+.fixHeaderSpace {
+  height: 134px; }
+
+#header {
+  background: #000;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999; }
+  #header a {
+    color: #fff; }
+    #header a:hover {
+      color: #ffbeb8; }
+  #header .top {
+    padding: 20px 0;
+    text-align: right;
+    border-bottom: 1px solid #666; }
+    #header .top .logo {
+      float: left; }
+      #header .top .logo img {
+        width: 150px; }
+    #header .top .rightArea {
+      float: right; }
+      #header .top .rightArea .userActions {
+        margin: 0 0 30px;
+        display: none; }
+        #header .top .rightArea .userActions .one {
+          display: inline-block;
+          padding: 0 20px;
+          border-right: 1px solid #fff; }
+          #header .top .rightArea .userActions .one i {
+            font-size: 120%; }
+          #header .top .rightArea .userActions .one:last-of-type {
+            border: none;
+            padding-right: 0; }
+      #header .top .rightArea .search {
+        position: relative; }
+        #header .top .rightArea .search .icon {
+          font-size: 16px;
+          color: #ffbeb8;
+          padding: 0 7px; }
+        #header .top .rightArea .search form {
+          position: absolute;
+          top: 0;
+          right: -7px;
+          width: 250px;
+          background: #000;
+          display: none; }
+          #header .top .rightArea .search form select {
+            background: none;
+            border: none;
+            color: #ffbeb8;
+            font-family: "'Lato', sans-serif"; }
+          #header .top .rightArea .search form input[type='text'] {
+            border: none;
+            border-bottom: 1px solid #666;
+            background: none;
+            color: #fff;
+            font-family: "'Lato', sans-serif"; }
+          #header .top .rightArea .search form button[type='submit'] {
+            background: none;
+            border: none;
+            color: #ffbeb8;
+            font-size: 16px; }
+        #header .top .rightArea .search.formOpened form {
+          display: block; }
+  #header .bottom #nav {
+    line-height: 63px;
+    float: left;
+    font-family: "'Lato', sans-serif"; }
+    #header .bottom #nav .icon {
+      font-size: 20px;
+      cursor: pointer; }
+    #header .bottom #nav ul {
+      display: none; }
+      #header .bottom #nav ul li {
+        margin: 0 50px 0 0;
+        float: left; }
+        #header .bottom #nav ul li a {
+          display: block;
+          text-transform: uppercase;
+          border-bottom: 2px solid #000; }
+          #header .bottom #nav ul li a i {
+            font-size: 120%;
+            color: #ffbeb8; }
+          #header .bottom #nav ul li a span {
+            margin: 0 0 0 10px; }
+          #header .bottom #nav ul li a:hover {
+            border-bottom-color: #ffbeb8; }
+  #header .bottom .contest {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
+    color: #000;
+    background: #ffbeb8; }
+    #header .bottom .contest img {
+      max-height: 55px;
+      margin: 0 20px 0 0; }
+
+.mobileMenu {
+  position: fixed;
+  top: 135px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid #666;
+  z-index: 998;
+  display: none; }
+  .mobileMenu .in {
+    width: 450px;
+    max-width: 100%;
+    height: 100%;
+    background: #000; }
+    .mobileMenu .in .nav li a {
+      display: block;
+      color: #fff;
+      padding: 30px;
+      border-bottom: 1px solid #666;
+      font-family: "'Lato', sans-serif";
+      font-size: 20px; }
+      .mobileMenu .in .nav li a i {
+        margin: 0 30px 0 0;
+        color: #ffbeb8; }
+    .mobileMenu .in .userArea {
+      padding: 45px 0;
+      text-align: center;
+      font-size: 20px; }
+      .mobileMenu .in .userArea a {
+        color: #fff;
+        border-right: 1px solid #666;
+        padding: 0 20px; }
+        .mobileMenu .in .userArea a:last-of-type {
+          border: none; }
+
+.sectionName {
+  font-size: 20px; }
+  .sectionName .theName {
+    font-size: 100%;
+    margin: 0 0 15px; }
+  .sectionName .second {
+    font-size: 50%;
+    color: #ffbeb8; }
+
+.sectionTitle {
+  border-bottom: 1px solid #000; }
+  .sectionTitle .theName {
+    float: left;
+    padding: 20px 10px;
+    background: #000;
+    color: #fff; }
+  .sectionTitle .more {
+    float: right;
+    line-height: 50px; }
+    .sectionTitle .more:hover {
+      color: #ffbeb8; }
+  .sectionTitle .filters {
+    float: right;
+    line-height: 50px; }
+    .sectionTitle .filters .icon {
+      font-size: 30px;
+      line-height: initial; }
+    .sectionTitle .filters .in {
+      display: none; }
+      .sectionTitle .filters .in .one {
+        display: inline-block;
+        margin: 0 40px 0 0;
+        position: relative; }
+        .sectionTitle .filters .in .one .title {
+          cursor: pointer; }
+        .sectionTitle .filters .in .one .selectios {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          min-width: 150px;
+          z-index: 99;
+          background: #fff;
+          display: none; }
+          .sectionTitle .filters .in .one .selectios a {
+            display: block;
+            line-height: normal;
+            padding: 10px; }
+      .sectionTitle .filters .in .theBtn {
+        background: #ffbeb8;
+        display: inline-block;
+        padding: 0 15px; }
+
+.productCard {
+  background: #fff;
+  text-align: center;
+  font-size: 18px;
+  margin: 0 0 20px; }
+  .productCard .avatar {
+    padding: 20px 20px 0;
+    height: 340px;
+    overflow: hidden; }
+  .productCard .content {
+    padding: 20px;
+    border-bottom: 1px solid #ccc; }
+    .productCard .content h3 {
+      text-align: center;
+      font-size: 100%;
+      height: 44px;
+      overflow: hidden; }
+      .productCard .content h3 a:hover {
+        color: #ffbeb8; }
+    .productCard .content hr {
+      width: 30%;
+      height: 2px;
+      margin: 15px auto;
+      background: #ffbeb8; }
+    .productCard .content .price {
+      margin: 0 0 10px; }
+    .productCard .content .link {
+      font-family: "'Lato', sans-serif"; }
+      .productCard .content .link a {
+        color: #1e1eff; }
+    .productCard .content .createdBy {
+      color: #ffbeb8;
+      margin: 0 0 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%; }
+  .productCard .likesAndComments {
+    padding: 20px; }
+    .productCard .likesAndComments a {
+      margin: 0 10px; }
+      .productCard .likesAndComments a i {
+        color: #ffbeb8;
+        margin: 0 5px 0 0; }
+      .productCard .likesAndComments a:hover {
+        color: #ffbeb8; }
+
+#footer {
+  padding: 40px 0;
+  background: #000;
+  border-top: 3px solid #ffbeb8;
+  font-family: "'Lato', sans-serif";
+  color: #666; }
+  #footer .logoFooter {
+    margin: 0 0 40px;
+    text-align: center; }
+    #footer .logoFooter .theLogo {
+      margin: 0 0 20px; }
+    #footer .logoFooter p {
+      margin: 0 0 20px;
+      text-align: justify; }
+    #footer .logoFooter .social {
+      font-size: 18px; }
+      #footer .logoFooter .social a {
+        color: #fff;
+        margin: 0 10px 0 0; }
+        #footer .logoFooter .social a:hover {
+          color: #ffbeb8; }
+  #footer .menu {
+    width: 45%;
+    margin: 0 5% 40px 0;
+    float: left; }
+    #footer .menu ul li {
+      margin: 0 0 10px; }
+      #footer .menu ul li a {
+        color: #666;
+        text-transform: uppercase; }
+        #footer .menu ul li a:hover {
+          color: #ffbeb8; }
+  #footer .contactFooter {
+    clear: both; }
+    #footer .contactFooter .description {
+      margin: 0 0 20px;
+      text-align: justify; }
+    #footer .contactFooter .info {
+      margin: 0 0 20px; }
+      #footer .contactFooter .info i {
+        font-size: 25px;
+        color: #ffbeb8;
+        margin: 0 20px 0 0;
+        vertical-align: middle; }
+      #footer .contactFooter .info a {
+        color: #666; }
+  #footer .footerTitle {
+    font-size: 18px;
+    font-family: "Cheque-Black";
+    padding: 0 0 10px;
+    color: #fff;
+    position: relative;
+    margin: 0 0 20px; }
+    #footer .footerTitle:before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 50%;
+      max-width: 60px;
+      height: 2px;
+      background: #ffbeb8; }
+
+.aboutPage {
+  font-family: "'Lato', sans-serif";
+  font-size: 18px;
+  text-align: justify; }
+  .aboutPage p {
+    font-size: 100%; }
+  .aboutPage .avatar {
+    background: #eee;
+    text-align: center;
+    margin: 40px 0; }
+
+.topCategories {
+  font-size: 0;
+  padding: 30px 0 15px; }
+  .topCategories a {
+    opacity: 0.3;
+    width: 10%;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 2% 15px 0;
+    font-family: "'Lato', sans-serif";
+    text-transform: uppercase; }
+    .topCategories a:hover, .topCategories a.active {
+      opacity: 1; }
+
+.top_userProfile {
+  margin: 0 0 20px; }
+  .top_userProfile .avatar {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 0 15px 0 0;
+    float: left; }
+  .top_userProfile .content {
+    float: left; }
+  .top_userProfile .info {
+    font-size: 25px;
+    margin: 0 0 10px; }
+    .top_userProfile .info .name {
+      font-size: 100%;
+      margin: 0 0 10px; }
+    .top_userProfile .info .other {
+      font-size: 50%;
+      color: #ffbeb8; }
+  .top_userProfile .top_message {
+    padding: 10px 0 0;
+    border-top: 1px solid #b2b2b2; }
+    .top_userProfile .top_message hr {
+      max-width: 120px;
+      background: #ffbeb8;
+      height: 2px; }
+
+.topHeadBtn {
+  display: block;
+  padding: 10px 15px;
+  background: #000;
+  color: #fff;
+  text-align: center; }
+
+.categoriesTop {
+  line-height: 58px;
+  border-top: 2px solid #000;
+  font-family: "'Lato', sans-serif"; }
+  .categoriesTop a {
+    margin: 0 70px 0 0;
+    float: left;
+    border-bottom: 1px solid transparent; }
+    .categoriesTop a:hover, .categoriesTop a.active {
+      border-bottom-color: #ffbeb8; }
+
+.groupPage {
+  position: relative; }
+  .groupPage .theChat {
+    background: #fff;
+    margin: 0 0 50px; }
+    .groupPage .theChat .content {
+      padding: 30px;
+      height: 600px;
+      overflow: auto; }
+      .groupPage .theChat .content .oneMessage {
+        padding: 0 0 0 70px;
+        position: relative;
+        font-family: "'Lato', sans-serif";
+        margin: 0 0 20px; }
+        .groupPage .theChat .content .oneMessage .avatar {
+          position: absolute;
+          top: 0;
+          left: 0; }
+          .groupPage .theChat .content .oneMessage .avatar img {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            overflow: hidden;
+            margin: 0 0 10px; }
+        .groupPage .theChat .content .oneMessage .theMessage {
+          width: 270px;
+          max-width: 100%;
+          padding: 25px;
+          background: #ffbeb8;
+          box-sizing: border-box;
+          text-transform: uppercase;
+          position: relative; }
+          .groupPage .theChat .content .oneMessage .theMessage:before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 100%;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6.5px 6px 6.5px 0;
+            border-color: transparent #ffbeb8 transparent transparent; }
+        .groupPage .theChat .content .oneMessage.second {
+          padding: 0 70px 0 0; }
+          .groupPage .theChat .content .oneMessage.second .avatar {
+            left: auto;
+            right: 0; }
+          .groupPage .theChat .content .oneMessage.second .theMessage {
+            float: right;
+            background: #000;
+            color: #fff; }
+            .groupPage .theChat .content .oneMessage.second .theMessage:before {
+              right: auto;
+              left: 100%;
+              border-width: 6.5px 0 6.5px 6px;
+              border-color: transparent transparent transparent #000; }
+    .groupPage .theChat .sendNew {
+      padding: 30px 60px 30px 30px;
+      border-top: 1px solid #000;
+      position: relative; }
+      .groupPage .theChat .sendNew .theInput input {
+        width: 96%;
+        height: 45px;
+        padding: 0 2%;
+        background: #f8f8f8;
+        border: none; }
+      .groupPage .theChat .sendNew .theIcon {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        line-height: 45px;
+        font-size: 20px;
+        color: #ffbeb8; }
+  .groupPage .onlinePersons {
+    height: 500px;
+    background: #fff;
+    overflow: auto; }
+    .groupPage .onlinePersons .title {
+      padding: 25px 15px;
+      background: #000;
+      color: #fff;
+      font-size: 18px; }
+    .groupPage .onlinePersons .content .item {
+      padding: 25px 15px;
+      display: block;
+      font-size: 16px; }
+      .groupPage .onlinePersons .content .item .avatar {
+        position: relative;
+        margin: 0 20px 0 0; }
+        .groupPage .onlinePersons .content .item .avatar img {
+          width: 50px;
+          height: 50px;
+          border-radius: 100%;
+          overflow: hidden; }
+        .groupPage .onlinePersons .content .item .avatar:before {
+          content: '';
+          width: 11px;
+          height: 11px;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          margin: -9px -9px 0 0;
+          border-radius: 100%;
+          border: 4px solid #fff;
+          background: #000; }
+      .groupPage .onlinePersons .content .item span {
+        display: inline-block;
+        vertical-align: middle; }
+      .groupPage .onlinePersons .content .item.online .avatar:before {
+        background: #ffbeb8; }
+
+.messagesPage {
+  padding: 0 20px; }
+  .messagesPage .item {
+    padding: 30px 0;
+    border-bottom: 1px solid; }
+    .messagesPage .item .theUser {
+      margin: 0 0 30px; }
+      .messagesPage .item .theUser .avatar {
+        width: 60px;
+        float: left; }
+        .messagesPage .item .theUser .avatar img {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          border-radius: 100%; }
+      .messagesPage .item .theUser .data {
+        margin: 0 0 0 80px;
+        font-size: 18px; }
+        .messagesPage .item .theUser .data .theName {
+          margin: 0 0 5px; }
+        .messagesPage .item .theUser .data .time {
+          font-size: 70%; }
+    .messagesPage .item .theMessage {
+      font-family: "'Lato', sans-serif"; }
+    .messagesPage .item:last-of-type {
+      border: none; }
+
+.userCard {
+  margin: 0 0 40px; }
+  .userCard .avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 0 auto 20px; }
+    .userCard .avatar img {
+      width: 100%;
+      height: 100%; }
+  .userCard .name {
+    font-size: 170%;
+    margin: 0 0 10px; }
+  .userCard .joined {
+    color: #ffbeb8;
+    margin: 0 0 10px; }
+  .userCard .followBtn {
+    display: block;
+    background: #000;
+    color: #fff;
+    max-width: 185px;
+    margin: 0 auto;
+    padding: 15px 0; }
+    .userCard .followBtn.follow {
+      background: #ffbeb8; }
+
+.groupCard {
+  background: #fff;
+  margin: 0 0 40px; }
+  .groupCard .coverPhoto {
+    height: 120px;
+    overflow: hidden;
+    background: #000; }
+    .groupCard .coverPhoto img {
+      width: 100%;
+      opacity: 0.5; }
+  .groupCard .content {
+    position: relative;
+    padding: 90px 30px 30px; }
+    .groupCard .content .avatar {
+      width: 130px;
+      height: 130px;
+      border: 3px solid #fff;
+      border-radius: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin: -65px 0 0 -65px; }
+      .groupCard .content .avatar img {
+        width: 100%;
+        height: 100%; }
+    .groupCard .content .title {
+      font-size: 120%;
+      margin: 0 0 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%; }
+    .groupCard .content .description {
+      color: #ffbeb8;
+      margin: 0 0 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%; }
+    .groupCard .content .theBtn {
+      background: #000;
+      color: #fff;
+      padding: 15px 30px;
+      display: inline-block; }
+
+.newsfeedPage .item {
+  max-width: 770px;
+  margin: 0 auto 40px; }
+  .newsfeedPage .item .top {
+    margin: 0 0 20px; }
+    .newsfeedPage .item .top .avatar {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 0 0; }
+      .newsfeedPage .item .top .avatar img {
+        width: 85px;
+        height: 85px;
+        border-radius: 100%; }
+    .newsfeedPage .item .top .info {
+      display: inline-block;
+      vertical-align: middle; }
+      .newsfeedPage .item .top .info .name {
+        font-size: 140%;
+        margin: 0 0 5px; }
+      .newsfeedPage .item .top .info .time {
+        color: #ffbeb8; }
+  .newsfeedPage .item .content {
+    padding: 20px;
+    background: #fff; }
+    .newsfeedPage .item .content .thePost {
+      font-family: "'Lato', sans-serif";
+      font-size: 18px;
+      margin: 0 0 20px; }
+      .newsfeedPage .item .content .thePost a {
+        color: #3a58bb; }
+    .newsfeedPage .item .content .theGallery .oneImg {
+      width: 30%;
+      height: 60px;
+      margin: 0 5% 0 0;
+      float: left;
+      position: relative; }
+      .newsfeedPage .item .content .theGallery .oneImg img {
+        width: 100%;
+        min-height: 100%; }
+      .newsfeedPage .item .content .theGallery .oneImg:first-of-type {
+        width: 100%;
+        height: auto;
+        margin: 0 0 20px; }
+        .newsfeedPage .item .content .theGallery .oneImg:first-of-type img {
+          min-height: auto; }
+      .newsfeedPage .item .content .theGallery .oneImg:last-of-type {
+        margin: 0; }
+      .newsfeedPage .item .content .theGallery .oneImg .moreImgs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        text-align: center;
+        color: #ffbeb8;
+        font-size: 20px;
+        line-height: 60px; }
+
+@media only screen and (min-width: 481px) {
+  .secPaddLg {
+    padding: 40px 0; }
+
+  .secPaddMd {
+    padding: 30px 0; }
+
+  .mobileMenu .in .nav li a {
+    font-size: 30px; }
+
+  .mobileMenu .in .userArea {
+    font-size: 30px; }
+
+  .sectionName {
+    font-size: 40px; }
+
+  .sectionName .theName {
+    margin-bttom: 25px; }
+
+  .sectionMargin {
+    margin: 0 0 100px; }
+
+  .sectionTitle .theName {
+    padding: 30px 20px;
+    font-size: 18px; }
+
+  .sectionTitle .more {
+    line-height: 77px; }
+
+  .sectionTitle .filters {
+    line-height: 82px; }
+
+  #footer .menu {
+    width: 25%;
+    margin: 0 5% 0 0; }
+
+  #footer .contactFooter {
+    width: 40%;
+    float: right;
+    clear: none; }
+
+  .top_userProfile {
+    display: inline-block;
+    margin: 0; }
+
+  .top_userProfile .avatar {
+    width: 140px;
+    height: 140px; }
+
+  .topHeadBtn {
+    float: right;
+    text-align: inherit; }
+
+  .newsfeedPage .item .content .theGallery .oneImg {
+    min-height: 150px; }
+
+  .newsfeedPage .item .content .theGallery .oneImg .moreImgs {
+    line-height: 150px;
+    font-size: 40px; } }
+@media only screen and (min-width: 769px) {
+  .secPaddLg {
+    padding: 60px 0; }
+
+  .secPaddMd {
+    padding: 45px 0; }
+
+  .sectionName {
+    font-size: 55px; }
+
+  .sectionName .theName {
+    margin-bttom: 40px; }
+
+  #footer .logoFooter {
+    width: 25%;
+    margin: 0 5% 0px 0;
+    float: left;
+    text-align: inherit; }
+
+  #footer .menu {
+    width: 15%; }
+
+  #footer .contactFooter {
+    width: 30%; }
+
+  .groupPage {
+    padding: 0 320px 0 0; }
+
+  .groupPage .onlinePersons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%; }
+
+  .groupPage .theChat {
+    margin: 0; }
+
+  .topHeadBtn {
+    padding: 20px 30px; }
+
+  .messagesPage .item .theUser {
+    width: 300px;
+    float: left;
+    margin: 0; }
+
+  .messagesPage .item .theMessage {
+    margin: 0 0 0 320px; } }
+@media only screen and (min-width: 1000px) {
+  .fixHeaderSpace {
+    height: 0; }
+
+  #header {
+    position: static; }
+
+  #header .top {
+    padding: 40px 0; }
+
+  #header .top .logo img {
+    width: auto; }
+
+  #header .top .rightArea .userActions {
+    display: block; }
+
+  #header .top .rightArea .search .icon {
+    display: none; }
+
+  #header .top .rightArea .search form {
+    position: static;
+    background: none;
+    width: auto;
+    display: block; }
+
+  #header .bottom #nav .icon {
+    display: none; }
+
+  #header .bottom #nav ul {
+    display: block; }
+
+  .mobileMenu {
+    display: none !important; }
+
+  .sectionTitle .filters .icon {
+    display: none; }
+
+  .sectionTitle .filters .in {
+    display: block; } }
+@media only screen and (min-width: 1230px) {
+  .top_userProfile .avatar {
+    display: inline-block;
+    float: none;
+    vertical-align: middle; }
+
+  .top_userProfile .content {
+    display: inline-block;
+    float: none;
+    vertical-align: middle; }
+
+  .top_userProfile .info {
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid;
+    padding: 0 0 0 15px;
+    margin: 0 15px 0 0;
+    font-size: 37px; }
+
+  .top_userProfile .top_message {
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid;
+    margin: 0 0 20px;
+    padding: 0 0 0 15px;
+    font-size: 18px;
+    border-top: none; } }
+
+/*# sourceMappingURL=main.css.map */
