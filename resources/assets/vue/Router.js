@@ -6,7 +6,7 @@ import Profile from './pages/Profile.vue';
   //Profile sub pages
   import ProfileSets from './components/profile/SubPageSets.vue';
   import ProfileCollections from './components/profile/SubPageCollections';
-  import ProfileItems from './components/profile/SubPageItem.vue';
+  import ProfileItems from './components/profile/SubPageItems.vue';
   import ProfileLikes from './components/profile/SubPageLikes.vue';
   import ProfileWins from './components/profile/SubPageWins.vue';
   import ProfileFollowing from './components/profile/SubPageFollowing.vue';
