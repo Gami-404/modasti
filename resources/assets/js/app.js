@@ -9,6 +9,7 @@
 
 window.Vue = require('vue');
 import router from '../vue/Router';
+import store from '../vue/store';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -23,5 +24,6 @@ Vue.component(
 
 const app = new Vue({
     el: '#app',
+    store,
     router
 });
