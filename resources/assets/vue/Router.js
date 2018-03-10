@@ -12,6 +12,7 @@ import Profile from './pages/Profile.vue';
   import ProfileFollowing from './components/profile/SubPageFollowing.vue';
   import ProfileFollowers from './components/profile/SubPageFollowers.vue';
   import ProfileBlockedUsers from './components/profile/SubPageBlockedUsers.vue';
+  import ProfileMessages from './components/profile/SubPageMessages.vue';
 
 Vue.use(Router);
 
@@ -67,6 +68,10 @@ export default new Router({
         {
           path: 'wins',
           component: ProfileWins
+        },
+        {
+          path: 'messages',
+          component: ProfileMessages
         },
         { path: '/', redirect: '/sets' },        
       ]
