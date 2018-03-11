@@ -88,14 +88,6 @@
                                 @endforeach
                             </select>
 
-                            <select name="format" class="form-control chosen-select chosen-rtl">
-                                <option value="">{{ trans("posts::posts.all_formats") }}</option>
-                                @foreach (config("posts.formats") as $format => $icon)
-                                    <option @if (Request::get("format") == $format) selected='selected' @endif
-                                    value="{{ $format }}">
-                                        {{ trans("posts::posts.format_" . $format) }}</option>
-                                @endforeach
-                            </select>
 
                             <button type="submit"
                                     class="btn btn-primary">{{ trans("posts::posts.filter") }}</button>
@@ -189,6 +181,7 @@
                                         <th>{{ trans("posts::posts.tags") }}</th>
                                         <th>{{ trans("posts::posts.attributes.status") }}</th>
                                         <th>{{ trans("posts::posts.actions") }}</th>
+                                        <th>{{ trans("posts::posts.attributes.image_id") }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -262,6 +255,7 @@
                                                     <i class="fa fa-times text-navy"></i>
                                                 </a>
                                             </td>
+                                            <td><img src="{{thumbnail($post->image->path)}}" class="img-responsive" alt="Image"></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -293,6 +287,12 @@
 
     <link href="{{ assets('admin::css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}"
           rel="stylesheet" type="text/css">
+    <style>
+        .img-responsive{
+            height: 72px;
+            width: 72px;
+        }
+    </style>
 
 @stop
 

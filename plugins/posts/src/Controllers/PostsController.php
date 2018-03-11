@@ -182,10 +182,19 @@ class PostsController extends Controller
             $post->title = Request::get('title');
             $post->excerpt = Request::get('excerpt');
             $post->content = Request::get('content');
+            $post->url = Request::get('url');
+            $post->reason = Request::get('reason');
+            $post->front_page = Request::get("front_page");
+            $post->price = Request::get('price');
+            $post->sale_price = Request::get("sale_price");
+            $post->coverage=Request::get('coverage');
             $post->image_id = Request::get('image_id', 0);
             $post->media_id = Request::get('media_id', 0);
             $post->user_id = Auth::user()->id;
             $post->status = Request::get("status", 0);
+            $post->color_id = Request::get('color_id', 0);
+
+
             $post->format = Request::get("format", "post");
             $post->lang = app()->getLocale();
 
@@ -255,6 +264,13 @@ class PostsController extends Controller
             $post->image_id = Request::get('image_id', 0);
             $post->media_id = Request::get('media_id', 0);
             $post->status = Request::get("status", 0);
+            $post->front_page = Request::get("front_page", 0);
+            $post->url = Request::get('url');
+            $post->reason = Request::get('reason');
+            $post->color_id = Request::get('color_id', 0);
+            $post->price = Request::get('price');
+            $post->sale_price = Request::get("sale_price");
+            $post->coverage=Request::get('coverage');
             $post->format = Request::get("format", "post");
             $post->published_at = Request::get('published_at') != "" ? Request::get('published_at') : date("Y-m-d H:i:s");
             $post->lang = app()->getLocale();

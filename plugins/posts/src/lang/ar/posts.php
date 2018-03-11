@@ -69,7 +69,14 @@ return [
 
     "add_gallery" => "أضف ألبوم",
     "no_galleries_found" => "لا توجد ألبومات",
-
+    'select_coverage'=>'اختر التغطية ',
+    "select_color"=>'اختر اللون',
+    'sales'=>'مبيعات',
+    'coverage'=>[
+        'low'=>'منخفض',
+        'medium'=>'متوسط',
+        'high'=>'عالى'
+    ],
 
     'attributes' => [
         'title' => 'العنوان',
@@ -82,6 +89,14 @@ return [
         'template' => 'القالب',
         'default' => 'إفتراضى',
         "format" => "نوع الخبر",
+        'url'=>'الرابط',
+        'front_page'=>'الصفحة الامامية',
+        'coverage'=>'تغطية',
+        'reason'=>'السبب',
+        'color_id'=>'اللون',
+        'price'=>'سعر',
+        'sale_price'=>'سعر البيع',
+        'image_id'=>'صورة'
 
     ],
 

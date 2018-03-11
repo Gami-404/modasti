@@ -31,14 +31,14 @@ return [
 
     'post_status' => 'Item status',
     'activate' => 'activate',
-    'activated' => 'activated',
+    'activated' => 'confirmed',
     'all' => 'All',
     'deactivate' => 'deactivate',
-    'deactivated' => 'deactivated',
-    'sure_activate' => "Are you sure to activate item ?",
-    'sure_deactivate' => "Are you sure to deactivate item ?",
+    'deactivated' => 'unconfirmed',
+    'sure_activate' => "Are you sure to confirm item ?",
+    'sure_deactivate' => "Are you sure to unconfirmed item ?",
     'sure_delete' => 'Are you sure to delete ?',
-
+    'post_url' => 'Enter the url',
     'add_image' => 'Add image',
     'change_image' => 'change image',
     'change_media' => 'change media',
@@ -74,7 +74,15 @@ return [
 
     "add_gallery" => "Add gallery",
     "no_galleries_found" => "No Galleries Found",
+    'select_coverage' => 'Select coverage ',
+    "select_color"=>'Select color',
+    'sales'=>'Sales',
 
+    'coverage' => [
+        'low' => 'Low',
+        'medium' => 'Medium',
+        'high' => 'High'
+    ],
     'attributes' => [
         'title' => 'Title',
         'excerpt' => 'Excerpt',
@@ -85,7 +93,15 @@ return [
         'status' => 'Confirmed',
         'template' => 'Template',
         'default' => 'Default',
-        "format" => "Item format"
+        "format" => "Item format",
+        'url' => 'Url',
+        'front_page' => 'In front page',
+        'coverage' => ' Coverage',
+        'reason' => 'Reason',
+        'color_id' => 'Color',
+        'price'=>'Price ',
+        'sale_price'=>'Sales price',
+        'image_id'=>'Image'
     ],
 
     "events" => [

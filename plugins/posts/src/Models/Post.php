@@ -56,14 +56,18 @@ class Post extends Model
      */
     protected $creatingRules = [
         'title' => 'required',
-        'image_id' => 'required'
+        'price' => 'numeric',
+        'sale_price' => 'numeric',
+
     ];
 
     /**
      * @var array
      */
     protected $updatingRules = [
-        'title' => 'required'
+        'title' => 'required',
+        'price' => 'numeric',
+        'sale_price' => 'numeric',
     ];
 
     /**
