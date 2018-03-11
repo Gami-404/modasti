@@ -1,5 +1,5 @@
 <template>
-    <div class="ItemCard">
+    <div class="itemCard">
         <div class="avatar">
             <div class="verticalCentered">
                 <div class="theCell"><img :src="image" alt=""></div>
