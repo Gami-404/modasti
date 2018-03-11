@@ -28,6 +28,15 @@ body{background: #f8f8f8;}
 
 .brandColor{color: $brandColor!important;}
 
+.getMore{
+	text-align: center;
+	a{
+		display: inline-block;
+		padding: 20px 60px;
+		background: $brandColor;
+		font-size: 18px;
+	}
+}
 
 .gridContainer{margin: 0 auto;width: 90%;max-width: 1520px;}
 .fixHeaderSpace{height: 134px;}
@@ -510,7 +519,6 @@ body{background: #f8f8f8;}
 }
 
 
-
 .groupPage{
 	position: relative;
 	.theChat{
@@ -853,12 +861,211 @@ body{background: #f8f8f8;}
 	}
 }
 
+.termsPage{
+	max-width: 780px;
+	margin: 0 auto;
+	.mainTitle{
+		font-size: 28px;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		position: relative;
+		&:before{
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 75px;
+			max-width: 100%;
+			height: 2px;
+			background: $brandColor;
+		}
+		&.second{
+			font-size: 18px;
+		}
+	}
+	.content{
+		font-family: $lato;
+		text-align: justify;
+		margin: 0 0 50px;
+		p{
+			opacity: 0.5;
+			margin: 0 0 20px;
+			font-size: 18px;
+			a{
+				color: #201cbb;
+			}
+		}
+		img{
+			width: 100%;
+			margin: 0 0 20px;
+		}
+	}
+}
 
+.proudctDetails{
+	background: #fff;
+	margin: 45px 0;
+	.avatar{
+		padding: 50px 0;
+		text-align: center;
+	}
+	.content{
+		padding: 0 0 50px;
+		.in{
+			padding: 0 20px;
+			.paging{
+				font-family: $lato;
+				margin: 0 0 20px;
+				a{
+					opacity: 0.5;
+					padding: 0 10px 0 0;
+					&:after{
+						content: '>';
+						margin: 0 0 0 10px;
+						font-size: 13px;
+					}
+					&:last-of-type{
+						opacity: 1;
+						&:after{
+							content: '';
+						}
+					}
+				}
+			}
+			.title{
+				font-size: 140%;
+				padding: 0 0 10px;
+				margin: 0 0 10px;
+				position: relative;
+				&:after{
+					content: '';
+					position: absolute;
+					top: 100%;
+					left: 0;
+					width: 75px;
+					max-width: 100%;
+					height: 2px;
+					background: $brandColor;
+				}
+				
+			}
+			.description{
+				font-family: $lato;
+				margin: 0 0 40px;
+				color: rgba(0, 0, 0, 0.5);
+				text-align: justify;
+			}
+			.info{
+				margin: 0 0 40px;
+				.price{
+					float: left;
+					font-size: 120%;
+					color: $brandColor;
+				}
+				.link{
+					float: right;
+					color: #1e1eff;
+					font-family: $lato;
+				}
+			}
+			.likesAndComments{
+				a{
+					margin: 0 10px 0 0;
+					i{
+						color: $brandColor;
+						margin: 0 5px 0 0;
+					}
+					&:hover{
+						color: $brandColor;
+					}
+				}
+			}
+		}
+	}
+}
 
+.popupPage{
+	background: rgba(255, 255, 255, 0.9);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	.outerClose{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+	}
+	.thePage{
+		width: 90%;
+		margin: 0 auto;
+		max-width: 750px;
+		font-size: 18px;
+		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+		position: relative;
+		z-index: 2;
+		.head{
+			background: #000;
+			color: #fff;
+			padding: 30px 20px;
+			font-size: 120%;
+			.icon{
+				float: right;
+			}
+		}
+		.content{
+			padding: 20px;
+			background: #fff;
+			.theForm{
+				.formEle{
+					width: 100%;
+					height: 40px;
+					display: block;
+					border: none;
+					border-bottom: 1px solid $borderColor;
+					margin: 0 0 20px;
+					font-family: $lato;
+					&.btn{
+						background: #000;
+						border: none;
+						color: #fff;
+						height: 60px;
+						font-family: $cheque;
+					}
+					&::placeholder{
+						color: #000;
+					}
+				}
+			}
+			.otherLinks{
+				.one{
+					margin: 0 0 10px;
+					font-family: $lato;
+					a{
+						color: $brandColor;
+						margin: 0 0 0 10px;
+						font-family: $cheque;
+					}
+				}
+			}
+		}
+	}
+}
 
-
-
-
+.thePopup{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	iframe{
+		width: 100%;
+		height: 100%;
+	}
+}
 
 
 
@@ -882,6 +1089,9 @@ body{background: #f8f8f8;}
 	.topHeadBtn{float: right;text-align: inherit;}
 	.newsfeedPage .item .content .theGallery .oneImg{min-height: 150px;}
 	.newsfeedPage .item .content .theGallery .oneImg .moreImgs{line-height: 150px;font-size: 40px;}
+	.proudctDetails{width: 100%;display: table;}
+	.proudctDetails .avatar{display: table-cell;vertical-align: middle;width: 40%;}
+	.proudctDetails .content{display: table-cell;vertical-align: middle;width: 60%;padding: 50px 0;border-left: 1px solid $borderColor;}
 	
 }
 
@@ -899,6 +1109,7 @@ body{background: #f8f8f8;}
 	.topHeadBtn{padding: 20px 30px;}
 	.messagesPage .item .theUser{width:300px;float: left;margin: 0;}
 	.messagesPage .item .theMessage{margin: 0 0 0 320px;}
+	.proudctDetails .content .in{padding: 0 50px;font-size: 18px;}
 	
 }
 
