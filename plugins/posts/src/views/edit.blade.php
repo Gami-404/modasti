@@ -100,35 +100,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <i class="fa fa-camera"></i>
-                                    {{ trans("posts::posts.add_media") }}
-                                    <a class="remove-post-media pull-right" href="javascript:void(0)">
-                                        <i class="fa fa-times text-navy"></i>
-                                    </a>
-                                </div>
-                                <div class="panel-body form-group">
-                                    <div class="row post-media-block">
-                                        <input type="hidden" name="media_id" class="post-media-id"
-                                               value="{{ ($post->media) ? $post->media->id : 0 }}">
-
-
-                                        <a class="change-post-media label" href="javascript:void(0)">
-                                            <i class="fa fa-pencil text-navy"></i>
-                                            {{ trans("posts::posts.change_media") }}
-                                        </a>
-
-                                        <a class="post-media-preview" href="javascript:void(0)">
-                                            <img width="100%" height="130px" class="post-media"
-                                                 src="{{ ($post and @ $post->media) ? ($post->media->provider_image) : assets("admin::default/video.png") }}">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -144,6 +115,19 @@
                             {{ trans("posts::posts.post_status") }}
                         </div>
                         <div class="panel-body">
+
+                            <div class="form-group switch-row">
+                                <label class="col-sm-9 control-label"
+                                       for="input-front_page">{{ trans("posts::posts.attributes.front_page") }}</label>
+                                <div class="col-sm-3">
+                                    <input type="checkbox"
+                                           @if (@Request::old("front_page", $post->front_page)) checked="checked"
+                                           @endif id="input-front_page" name="front_page" value="1"
+                                           class="status-switcher switcher-sm">
+                                </div>
+                            </div>
+
+
                             <div class="form-group switch-row">
                                 <label class="col-sm-9 control-label"
                                        for="input-status">{{ trans("posts::posts.attributes.status") }}</label>
@@ -153,8 +137,18 @@
                                            class="status-switcher switcher-sm">
                                 </div>
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group  reason"
+                                 style="margin-left: -14px; display:{{@Request::old("status", $post->status)?'none':'block'}};">
+                                <label class="col-sm-3 control-label"
+                                       for="input-reason">{{ trans("posts::posts.attributes.reason") }}</label>
+                                <div class="col-sm-9" style="padding: 5px;">
+                                    <textarea name="reason"
+                                              placeholder="{{ trans("posts::posts.attributes.reason") }} ..."
+                                              style="resize: none" class="col-sm-9 form-control"
+                                              rows="4">{{@Request::old("reason", $post->reason)}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group date-time-pick">
                                 <div class="input-group date datetimepick">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <input name="published_at" type="text"
@@ -166,29 +160,22 @@
                         </div>
                     </div>
 
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-folder"></i>
-                            {{ trans("posts::posts.attributes.format") }}
+                            <i class="fa fa-link"></i>
+                            {{ trans("posts::posts.post_url") }}
                         </div>
                         <div class="panel-body">
-                            <div class="form-group" style="margin-bottom:0px">
-
-                                @foreach (config("posts.formats") as $format => $icon)
-                                    <div class="radio" style="margin-top: 0;">
-                                        <label>
-                                            <input type="radio" name="format" value="{{ $format }}"
-                                                   class="i-checks"
-                                                   @if ((!$post->id and $format == "post") or ($post and $post->format == $format)) checked @endif>&nbsp;
-                                            <i class="fa {{ $icon }}"></i>&nbsp;
-                                            <span class="lbl">{{ trans('posts::posts.format_' . $format) }}</span>
-                                        </label>
-                                    </div>
-                                @endforeach
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding-top: 8px"
+                                       for="input-url">{{ trans("posts::posts.attributes.url") }}</label>
+                                <div class="col-sm-10">
+                                    <input type="url" class="col-sm-10 form-control" id="input-url"
+                                           value="{{@Request::old("url", $post->url)}}" name="url">
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
 
                     <input type="hidden" name="format" value="item">
@@ -219,6 +206,68 @@
                             @else
                                 {{ trans("categories::categories.no_records") }}
                             @endif
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-th-list"></i>
+                            {{ trans("posts::posts.attributes.coverage") }}
+                        </div>
+                        <div class="panel-body">
+                            <select name="coverage" class="form-control chosen-select chosen-rtl">
+                                <option value=""
+                                        {{Request::get("coverage")==0?'selected':''}} disabled>{{ trans("posts::posts.select_coverage") }}</option>
+                                @foreach(config('posts.coverage') as $key=>$value)
+                                    <option @if (Request::get("coverage",$key) == $post->coverage) selected='selected'
+                                            @endif
+                                            value="{{ $key }}">{{ trans('posts::posts.coverage.'.$value) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-paint-brush"></i>
+                            {{ trans("posts::posts.attributes.color_id") }}
+                        </div>
+                        <div class="panel-body">
+                            <select name="color_id" class="form-control chosen-select chosen-rtl">
+                                <option value=""
+                                        {{Request::get("color_id",$post->color_id)==0?'selected':''}} disabled>{{ trans("posts::posts.select_color") }}</option>
+                                @foreach(Dot\Colors\Models\Color::all() as $color)
+                                    <option
+                                        @if (Request::get("color_id",$color->id) == $post->color_id) selected='selected'
+                                        @endif
+                                        value="{{ $color->id }}">{{ $color->name or $color->value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-credit-card"></i>
+                            {{ trans("posts::posts.sales") }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"
+                                       for="input-price">{{ trans("posts::posts.attributes.price") }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="col-sm-9 form-control" id="input-price"
+                                           value="{{@Request::old("price", $post->price)}}" name="price">
+                                </div>
+                            </div>
+
+                            <div class="form-group sale_price">
+                                <label class="col-sm-3 control-label"
+                                       for="input-sale_price">{{ trans("posts::posts.attributes.sale_price") }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="col-sm-9 form-control" id="input-sale_price"
+                                           value="{{@Request::old("sale_price", $post->sale_price)}}" name="sale_price">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -257,7 +306,7 @@
                     </div>
 
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" style="display: none">
                         <div class="panel-heading">
                             <i class="fa fa-tags"></i>
                             {{ trans("posts::posts.add_tag") }}
@@ -320,6 +369,9 @@
             margin-top: 4px;
         }
 
+        .sale_price {
+            padding-top: 25px;
+        }
     </style>
 
 @stop
@@ -335,6 +387,7 @@
 
         $(document).ready(function () {
 
+
             $('.datetimepick').datetimepicker({
                 format: 'YYYY-MM-DD HH:mm:ss',
             });
@@ -346,6 +399,13 @@
                 switch_format($(this));
             });
 
+            $("[name=status]").change(function (e) {
+                if (e.target.checked) {
+                    $('.reason').fadeOut();
+                } else {
+                    $('.reason').fadeIn();
+                }
+            });
             switch_format($("[name=format]:checked"));
 
             function switch_format(radio) {
@@ -361,35 +421,6 @@
             elems.forEach(function (html) {
                 var switchery = new Switchery(html, {size: 'small'});
             });
-
-            $("body").on("click", ".remove-custom-field", function () {
-
-                var item = $(this);
-                confirm_box("{{ trans("posts::posts.sure_delete_field") }}", function () {
-                    item.parents(".meta-row").remove();
-                });
-
-            });
-
-            $(".add-custom-field").click(function () {
-
-                var html = ' <div class="meta-row">'
-                    + '<input type="text" name="custom_names[]"'
-                    + 'class="form-control input-md pull-left custom-field-name"'
-                    + ' placeholder="{{ trans("posts::posts.custom_name") }}"/>'
-                    + '   <textarea name="custom_values[]" class="form-control input-lg pull-left custom-field-value"'
-                    + '   rows="1"'
-                    + '   placeholder="{{ trans("posts::posts.custom_value") }}"></textarea>'
-                    + '   <a class="remove-custom-field pull-right" href="javascript:void(0)">'
-                    + '   <i class="fa fa-times text-navy"></i>'
-                    + '   </a>'
-                    + '   </div>';
-
-                $(".meta-rows").append(html);
-
-
-            });
-
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
