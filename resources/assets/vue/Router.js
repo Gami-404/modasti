@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import Clothing from './pages/Clothing';
 import Contests from './pages/Contests';
 import Product from './pages/Product';
+import SearchItems from './pages/SearchItems';
+import SearchUsers from './pages/SearchUsers';
 import Single from './pages/Single';
 import Profile from './pages/Profile';
   //Profile sub pages
@@ -40,6 +42,16 @@ export default new Router({
       path: '/product',
       name: 'product',
       component: Product
+    },
+    {
+      path: '/search/items',
+      name: 'items',
+      component: SearchItems
+    },
+    {
+      path: '/search/users',
+      name: 'users',
+      component: SearchUsers
     },
     {
       path: '/page/:slug',
