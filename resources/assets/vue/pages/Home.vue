@@ -11,7 +11,7 @@
 	
 	<div class="gridContainer">
 		
-		<WrapperHomeCardList title="Latest Trends" url="#" >			
+		<WrapperCardListTitled title="Latest Trends" url="#" >			
 				<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
 					<ProductCard
 						:image="item.image"
@@ -22,10 +22,10 @@
 						:comment="item.comment"
 					/>
 				</div>
-		</WrapperHomeCardList>	
+		</WrapperCardListTitled>	
 
 		
-		<WrapperHomeCardList title="Most Liked From Our Community" url="#">	
+		<WrapperCardListTitled title="Most Liked From Our Community" url="#">	
 				<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
 					<ProductCard
 						:image="item.image"
@@ -36,9 +36,9 @@
 						:comment="item.comment"
 					/>
 				</div>
-		</WrapperHomeCardList>
+		</WrapperCardListTitled>
 
-		<WrapperHomeCardList title="Most Viewed Sets" url="#" >
+		<WrapperCardListTitled title="Most Viewed Sets" url="#" >
 			<div v-for="(item,index) in products" :key="index" class="mycol-lg-3 mycol-sm-6">
 				<SetCard
 					:image="item.image"
@@ -49,9 +49,9 @@
 					:by="item.by"
 				/>
 			</div>
-		</WrapperHomeCardList>
+		</WrapperCardListTitled>
 
-		<WrapperHomeCardList title="Official Contests" url="#" >
+		<WrapperCardListTitled title="Official Contests" url="#" >
 				<div v-for="(item,index) in products" :key="index" class="mycol-lg-3 mycol-sm-6">
 					<SetCard
 						:image="item.image"
@@ -62,7 +62,7 @@
 						:by="item.by"
 					/>
 				</div>
-		</WrapperHomeCardList>		
+		</WrapperCardListTitled>		
 
 	</div>
 	
@@ -72,13 +72,13 @@
 <script>
 import ProductCard from '../components/ProductCard';
 import SetCard from '../components/SetCard';
-import WrapperHomeCardList from '../components/wrappers/WrapperHomeCardList'
+import WrapperCardListTitled from '../components/wrappers/WrapperCardListTitled'
 
 export default {
   components:{
 	  ProductCard,
 	  SetCard,
-	  WrapperHomeCardList
+	  WrapperCardListTitled
   },
   computed: {
 		products(){

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import WrapperCardList from "../wrappers/WrapperHomeCardList";
+import WrapperCardList from "../wrappers/WrapperCardList";
 import MessageCard from '../MessageCard';
 
 export default {
