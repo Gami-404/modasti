@@ -3,106 +3,26 @@
 		<div class="followersPage secPaddLg">
 			<div class="myrow clearfix">
 			
-		
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-			
-				
-
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-			
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn">unfollow</a>
-					</div>
-				</div>
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-				
-			
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn">unfollow</a>
-					</div>
-				</div>
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-				
-			
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn">unfollow</a>
-					</div>
-				</div>
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-				
-			
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn">unfollow</a>
-					</div>
-				</div>
-				
-				<div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
-					<div class="userCard textCentered">
-						<div class="avatar"><img src="images/img3.jpg" alt=""></div>
-						<div class="name">User name</div>
-						<div class="joined">Joined on 22. 02. 2018.</div>
-						<a href="#" class="followBtn follow">follow</a>
-					</div>
-				</div>
-				
+				<UserCard
+                    v-for="user of users"
+                    :key="user.id"
+                    :name="user.name"
+                    :img="user.img"
+                    :date="user.date"
+                    :follow="user.follow"
+                />				
 				
 			</div>
 		</div>
 	</div>
 </template>
+
+<script>
+import UserCard from '../UserCard';
+export default {
+  components: {
+    UserCard
+  }
+}
+</script>
+

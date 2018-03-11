@@ -16412,11 +16412,12 @@ module.exports = Component.exports
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(120)
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(121)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -16435,6 +16436,22 @@ var Component = normalizeComponent(
 )
 Component.options.__file = "resources/assets/vue/components/profile/SubPageFollowing.vue"
 
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-29f8f424", Component.options)
+  } else {
+    hotAPI.reload("data-v-29f8f424", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
 module.exports = Component.exports
 
 
@@ -16445,7 +16462,7 @@ module.exports = Component.exports
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(116)
 /* template */
 var __vue_template__ = __webpack_require__(115)
 /* template functional */
@@ -19940,218 +19957,251 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "gridContainer" }, [
-      _c("div", { staticClass: "followersPage secPaddLg" }, [
-        _c("div", { staticClass: "myrow clearfix" }, [
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
-                _vm._v("unfollow")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
-                _vm._v("unfollow")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
-                _vm._v("unfollow")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
-                _vm._v("unfollow")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
-            _c("div", { staticClass: "userCard textCentered" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "joined" }, [
-                _vm._v("Joined on 22. 02. 2018.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "followBtn follow", attrs: { href: "#" } },
-                [_vm._v("follow")]
-              )
-            ])
-          ])
-        ])
-      ])
+  return _c("div", { staticClass: "gridContainer" }, [
+    _c("div", { staticClass: "followersPage secPaddLg" }, [
+      _c(
+        "div",
+        { staticClass: "myrow clearfix" },
+        _vm._l(_vm.users, function(user) {
+          return _c("UserCard", {
+            key: user.id,
+            attrs: {
+              name: user.name,
+              img: user.img,
+              date: user.date,
+              follow: user.follow
+            }
+          })
+        })
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5ddc83a8", module.exports)
+  }
+}
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UserCard__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UserCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__UserCard__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    UserCard: __WEBPACK_IMPORTED_MODULE_0__UserCard___default.a
+  }
+});
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(118)
+/* template */
+var __vue_template__ = __webpack_require__(119)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/UserCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-69230e17", Component.options)
+  } else {
+    hotAPI.reload("data-v-69230e17", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 118 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['img', 'name', 'date', 'follow']
+});
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+    _c("div", { staticClass: "userCard textCentered" }, [
+      _c("div", { staticClass: "avatar" }, [
+        _c("img", { attrs: { src: _vm.img, alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "name" }, [_vm._v(_vm._s(_vm.name))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "joined" }, [_vm._v(_vm._s(_vm.date))]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "followBtn",
+          class: { follow: "follow" },
+          attrs: { href: "#" }
+        },
+        [_vm._v(_vm._s(_vm.follow ? "follow" : "unfollow"))]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-69230e17", module.exports)
+  }
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UserCard__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UserCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__UserCard__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    UserCard: __WEBPACK_IMPORTED_MODULE_0__UserCard___default.a
+  }
+});
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "gridContainer" }, [
+    _c("div", { staticClass: "followersPage secPaddLg" }, [
+      _c(
+        "div",
+        { staticClass: "myrow clearfix" },
+        _vm._l(_vm.users, function(user) {
+          return _c("UserCard", {
+            key: user.id,
+            attrs: {
+              name: user.name,
+              img: user.img,
+              date: user.date,
+              follow: user.follow
+            }
+          })
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-29f8f424", module.exports)
   }
 }
 

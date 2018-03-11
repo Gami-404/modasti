@@ -4,7 +4,7 @@
             <div class="avatar"><img :src="img" alt=""></div>
             <div class="name">{{name}}</div>
             <div class="joined">{{date}}</div>
-            <a href="#" class="followBtn">{{follow ? 'follow':'unfollow'}}</a>
+            <a href="#" class="followBtn" :class="{ follow :'follow' }" >{{follow ? 'follow':'unfollow'}}</a>
         </div>
     </div>
 </template>
