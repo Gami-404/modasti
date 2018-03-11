@@ -15275,7 +15275,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "ItemCard" }, [
+  return _c("div", { staticClass: "itemCard" }, [
     _c("div", { staticClass: "avatar" }, [
       _c("div", { staticClass: "verticalCentered" }, [
         _c("div", { staticClass: "theCell" }, [
@@ -18782,65 +18782,120 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { attrs: { id: "header" } }, [
-      _c("div", { staticClass: "top" }, [
-        _c("div", { staticClass: "gridContainer clearfix" }, [
-          _c("h1", { staticClass: "logo" }, [
-            _c("img", { attrs: { src: "images/logo.png", alt: "Modacity" } })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rightArea" }, [
-            _c("div", { staticClass: "userActions" }, [
-              _c("a", { staticClass: "one", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icon-headicon" })
+    return _c("div", [
+      _c("header", { attrs: { id: "header" } }, [
+        _c("div", { staticClass: "top" }, [
+          _c("div", { staticClass: "gridContainer clearfix" }, [
+            _c("h1", { staticClass: "logo" }, [
+              _c("img", { attrs: { src: "images/logo.png", alt: "Modacity" } })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "rightArea" }, [
+              _c("div", { staticClass: "userActions" }, [
+                _c("a", { staticClass: "one", attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "icon-headicon" })
+                ]),
+                _vm._v(" "),
+                _c("a", { staticClass: "one", attrs: { href: "#" } }, [
+                  _vm._v("SIGNUP")
+                ]),
+                _vm._v(" "),
+                _c("a", { staticClass: "one", attrs: { href: "#" } }, [
+                  _vm._v("LOGIN")
+                ])
               ]),
               _vm._v(" "),
-              _c("a", { staticClass: "one", attrs: { href: "#" } }, [
-                _vm._v("SIGNUP")
+              _c("div", { staticClass: "search" }, [
+                _c("span", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fa fa-search" })
+                ]),
+                _vm._v(" "),
+                _c("form", { attrs: { action: "#" } }, [
+                  _c("select", [
+                    _c("option", { attrs: { value: "0" } }, [_vm._v("Items")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("Users")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("Group")])
+                  ]),
+                  _vm._v(" "),
+                  _c("input", { attrs: { type: "text" } }),
+                  _vm._v(" "),
+                  _c("button", { attrs: { type: "submit" } }, [
+                    _c("i", { staticClass: "fa fa-search" })
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bottom" }, [
+          _c("div", { staticClass: "gridContainer clearfix relative" }, [
+            _c("nav", { attrs: { id: "nav" } }, [
+              _c("div", { staticClass: "icon" }, [
+                _c("i", { staticClass: "fa fa-bars" })
               ]),
               _vm._v(" "),
-              _c("a", { staticClass: "one", attrs: { href: "#" } }, [
-                _vm._v("LOGIN")
+              _c("ul", { staticClass: "clearfix" }, [
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "icon-home" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Home")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "icon-dressing" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Clothing")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "icon-shoe" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Shoes")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "icon-accessories" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Accessories")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "icon-beauty" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("beauty")])
+                  ])
+                ])
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "search" }, [
-              _c("span", { staticClass: "icon" }, [
-                _c("i", { staticClass: "fa fa-search" })
-              ]),
+            _c("a", { staticClass: "contest", attrs: { href: "#" } }, [
+              _c("img", { attrs: { src: "images/new.png", alt: "" } }),
               _vm._v(" "),
-              _c("form", { attrs: { action: "#" } }, [
-                _c("select", [
-                  _c("option", { attrs: { value: "0" } }, [_vm._v("Items")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "1" } }, [_vm._v("Users")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [_vm._v("Group")])
-                ]),
-                _vm._v(" "),
-                _c("input", { attrs: { type: "text" } }),
-                _vm._v(" "),
-                _c("button", { attrs: { type: "submit" } }, [
-                  _c("i", { staticClass: "fa fa-search" })
-                ])
-              ])
+              _c("span", [_vm._v("CONTESTS")])
             ])
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "bottom" }, [
-        _c("div", { staticClass: "gridContainer clearfix relative" }, [
-          _c("nav", { attrs: { id: "nav" } }, [
-            _c("div", { staticClass: "icon" }, [
-              _c("i", { staticClass: "fa fa-bars" })
-            ]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "clearfix" }, [
+      _c("div", { staticClass: "mobileMenu" }, [
+        _c("div", { staticClass: "in" }, [
+          _c("div", { staticClass: "nav" }, [
+            _c("ul", [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
                   _c("i", { staticClass: "icon-home" }),
-                  _vm._v(" "),
                   _c("span", [_vm._v("Home")])
                 ])
               ]),
@@ -18848,7 +18903,6 @@ var staticRenderFns = [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
                   _c("i", { staticClass: "icon-dressing" }),
-                  _vm._v(" "),
                   _c("span", [_vm._v("Clothing")])
                 ])
               ]),
@@ -18856,7 +18910,6 @@ var staticRenderFns = [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
                   _c("i", { staticClass: "icon-shoe" }),
-                  _vm._v(" "),
                   _c("span", [_vm._v("Shoes")])
                 ])
               ]),
@@ -18864,7 +18917,6 @@ var staticRenderFns = [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
                   _c("i", { staticClass: "icon-accessories" }),
-                  _vm._v(" "),
                   _c("span", [_vm._v("Accessories")])
                 ])
               ]),
@@ -18872,17 +18924,16 @@ var staticRenderFns = [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
                   _c("i", { staticClass: "icon-beauty" }),
-                  _vm._v(" "),
                   _c("span", [_vm._v("beauty")])
                 ])
               ])
             ])
           ]),
           _vm._v(" "),
-          _c("a", { staticClass: "contest", attrs: { href: "#" } }, [
-            _c("img", { attrs: { src: "images/new.png", alt: "" } }),
+          _c("div", { staticClass: "userArea" }, [
+            _c("a", { attrs: { href: "#" } }, [_vm._v("Signup")]),
             _vm._v(" "),
-            _c("span", [_vm._v("CONTESTS")])
+            _c("a", { attrs: { href: "#" } }, [_vm._v("login")])
           ])
         ])
       ])
@@ -20537,7 +20588,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "ItemCard" }, [
+  return _c("div", { staticClass: "itemCard" }, [
     _c("div", { staticClass: "avatar" }, [
       _c("div", { staticClass: "verticalCentered" }, [
         _c("div", { staticClass: "theCell" }, [
