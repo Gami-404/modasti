@@ -1,0 +1,926 @@
+@import 'assets';
+
+img, object, embed, video {max-width: 100%;}
+.ie6 img {width:100%;}
+body, html{height: 100%;}
+body{background: #f8f8f8;}
+
+.relative{position: relative;}
+.inlineBlock{display:inline-block;}
+.textCentered{text-align: center;}
+
+.maxWidthSmall{max-width: 50%;}
+.verticalCentered{
+	display: table;
+	width: 100%;
+	height: 100%;
+	.theCell{
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.secPaddLg{padding: 25px 0;}
+.secPaddMd{padding: 15px 0;}
+.mrgBtmLg{margin-bottom: 40px;}
+
+.whiteBg{background: #fff;}
+
+.brandColor{color: $brandColor!important;}
+
+
+.gridContainer{margin: 0 auto;width: 90%;max-width: 1520px;}
+.fixHeaderSpace{height: 134px;}
+#header{
+	background: #000;
+	color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	a{
+		color: #fff;
+		&:hover{
+			color: $brandColor;
+		}
+	}
+	.top{
+		padding: 20px 0;
+		text-align: right;
+		border-bottom: 1px solid #666;
+		.logo{
+			float: left;
+			img{
+				width: 150px;
+			}
+		}
+		.rightArea{
+			float: right;
+			.userActions{
+				margin: 0 0 30px;
+				display: none;
+				.one{
+					display: inline-block;
+					padding: 0 20px;
+					border-right: 1px solid #fff;
+					i{
+						font-size: 120%;
+					}
+					&:last-of-type{
+						border: none;
+						padding-right: 0;
+					}
+				}
+			}
+			.search{
+				position: relative;
+				.icon{
+					font-size: 16px;
+					color: #ffbeb8;
+					padding: 0 7px;
+				}
+				form{
+					position: absolute;
+					top: 0;
+					right: -7px;
+					width: 250px;
+					background: #000;
+					display: none;
+					select{
+						background: none;
+						border: none;
+						color: $brandColor;
+						font-family: $lato;
+					}
+					input[type='text']{
+						border: none;
+						border-bottom: 1px solid #666;
+						background: none;
+						color: #fff;
+						font-family: $lato;
+					}
+					button[type='submit']{
+						background: none;
+						border: none;
+						color: $brandColor;
+						font-size: 16px;
+					}
+				}
+				&.formOpened{
+					form{
+						display: block;
+					}
+				}
+			}
+		}
+	}
+	.bottom{
+		#nav{
+			line-height: 63px;
+			float: left;
+			font-family: $lato;
+			.icon{
+				font-size: 20px;
+				cursor: pointer;
+			}
+			ul{
+				display: none;
+				li{
+					margin: 0 50px 0 0;
+					float: left;
+					a{
+						display: block;
+						text-transform: uppercase;
+						border-bottom: 2px solid #000;
+						i{
+							font-size: 120%;
+							color: $brandColor;
+						}
+						span{
+							margin: 0 0 0 10px;
+						}
+						&:hover{
+							border-bottom-color: $brandColor;
+						}
+					}
+				}
+			}
+			
+		}
+		.contest{
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 10px 20px;
+			color: #000;
+			background: $brandColor;
+			img{
+				max-height: 55px;
+				margin: 0 20px 0 0;
+			}
+		}
+	}
+}
+.mobileMenu{
+	position: fixed;
+	top: 135px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	border-top: 1px solid #666;
+	z-index: 998;
+	display: none;
+	.in{
+		width: 450px;
+		max-width: 100%;
+		height: 100%;
+		background: #000;
+		.nav{
+			li{
+				a{
+					display: block;
+					color: #fff;
+					padding: 30px;
+					border-bottom: 1px solid #666;
+					font-family: $lato;
+					font-size: 20px;
+					i{
+						margin: 0 30px 0 0;
+						color: $brandColor;
+					}
+				}
+			}
+		}
+		.userArea{
+			padding: 45px 0;
+			text-align: center;
+				font-size: 20px;
+			a{
+				color: #fff;
+				border-right: 1px solid #666;
+				padding: 0 20px;
+				&:last-of-type{
+					border: none;
+				}
+			}
+		}
+	}
+}
+.sectionName{
+	font-size: 20px;
+	.theName{
+		font-size: 100%;
+		margin: 0 0 15px;
+	}
+	.second{
+		font-size: 50%;
+		color: $brandColor;
+	}
+}
+.sectionTitle{
+	border-bottom: 1px solid #000;
+	.theName{
+		float: left;
+		padding: 20px 10px;
+		background: #000;
+		color: #fff;
+	}
+	.more{
+		float: right;
+		line-height: 50px;
+		&:hover{
+			color: $brandColor;
+		}
+	}
+	.filters{
+		float: right;
+		line-height: 50px;
+		.icon{
+			font-size: 30px;
+			line-height: initial;
+		}
+		.in{
+			display: none;
+			.one{
+				display: inline-block;
+				margin: 0 40px 0 0;
+				position: relative;
+				.title{
+					cursor: pointer;
+				}
+				.selectios{
+					position: absolute;
+					top: 100%;
+					left: 0;
+					min-width: 150px;
+					z-index: 99;
+					background: #fff;
+					display: none;
+					a{
+						display: block;
+						line-height: normal;
+						padding: 10px;
+					}
+				}
+			}
+			.theBtn{
+				background: $brandColor;
+				display: inline-block;
+				padding: 0 15px;
+			}
+		}
+		
+	}
+}
+
+.productCard{
+	background: #fff;
+	text-align: center;
+	font-size: 18px;
+	margin: 0 0 20px;
+	.avatar{
+		padding: 20px 20px 0;
+		height: 340px;
+		overflow: hidden;
+	}
+	.content{
+		padding: 20px;
+		border-bottom: 1px solid $borderColor;
+		h3{
+			text-align: center;
+			font-size: 100%;
+			height: 44px;
+			overflow: hidden;
+			a{
+				&:hover{
+					color: $brandColor;
+				}
+			}
+		}
+		hr{
+			width: 30%;
+			height: 2px;
+			margin: 15px auto;
+			background: $brandColor;
+		}
+		.price{
+			margin: 0 0 10px;
+		}
+		.link{
+			font-family: $lato;
+			a{
+				color: #1e1eff;
+			}
+		}
+		.createdBy{
+			color: $brandColor;
+			margin: 0 0 10px;
+			@include ellipsisOverFllow();
+		}
+		
+	}
+	.likesAndComments{
+		padding: 20px;
+		a{
+			margin: 0 10px;
+			i{
+				color: $brandColor;
+				margin: 0 5px 0 0;
+			}
+			&:hover{
+				color: $brandColor;
+			}
+		}
+	}
+}
+
+#footer{
+	padding: 40px 0;
+	background: #000;
+	border-top: 3px solid $brandColor;
+	font-family: $lato;
+	color: #666;
+	.logoFooter{
+		margin: 0 0 40px;
+		text-align: center;
+		.theLogo{
+			margin: 0 0 20px;
+		}
+		p{
+			margin: 0 0 20px;
+			text-align: justify;
+		}
+		.social{
+			font-size: 18px;
+			a{
+				color: #fff;
+				margin: 0 10px 0 0;
+				&:hover{
+					color: $brandColor;
+				}
+			}
+		}
+	}
+	.menu{
+		width: 45%;
+		margin: 0 5% 40px 0;
+		float: left;
+		ul{
+			li{
+				margin: 0 0 10px;
+				a{
+					color: #666;
+					text-transform: uppercase;
+					&:hover{
+						color: $brandColor;
+					}
+				}
+			}
+		}
+		
+	}
+	.contactFooter{
+		clear: both;
+		.description{
+			margin: 0 0 20px;
+			text-align: justify;
+		}
+		.info{
+			margin: 0 0 20px;
+			i{
+				font-size: 25px;
+				color: $brandColor;
+				margin: 0 20px 0 0;
+				vertical-align: middle;
+			}
+			a{
+				color: #666;
+			}
+		}
+	}
+	.footerTitle{
+		font-size: 18px;
+		font-family: $cheque;
+		padding: 0 0 10px;
+		color: #fff;
+		position: relative;
+		margin: 0 0 20px;
+		&:before{
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 50%;
+			max-width: 60px;
+			height: 2px;
+			background: $brandColor;
+		}
+	}
+}
+
+.aboutPage{
+	font-family: $lato;
+	font-size: 18px;
+	text-align: justify;
+	p{
+		font-size: 100%;
+	}
+	.avatar{
+		background: #eee;
+		text-align: center;
+		margin: 40px 0;
+	}
+}
+
+.topCategories{
+	font-size: 0;
+	padding: 30px 0 15px;
+	a{
+		opacity: 0.3;
+		width: 10%;
+		display: inline-block;
+		font-size: 12px;
+		margin: 0 2% 15px 0;
+		font-family: $lato;
+		text-transform: uppercase;
+		&:hover, &.active{
+			opacity: 1;
+		}
+	}
+}
+
+.top_userProfile{
+	margin: 0 0 20px;
+	.avatar{
+		width: 70px;
+		height: 70px;
+		overflow: hidden;
+		border-radius: 100%;
+		margin: 0 15px 0 0;
+		float: left;
+	}
+	.content{
+		float: left;
+	}
+	.info{
+		font-size: 25px;
+		margin: 0 0 10px;
+		.name{
+			font-size: 100%;
+			margin: 0 0 10px;
+		}
+		.other{
+			font-size: 50%;
+			color: $brandColor;
+		}
+	}
+	.top_message{
+		padding: 10px 0 0;
+		border-top: 1px solid #b2b2b2;
+		hr{
+			max-width: 120px;
+			background: $brandColor;
+			height: 2px;
+		}
+	}
+}
+
+.topHeadBtn{
+	display: block;
+	padding: 10px 15px;
+	background: #000;
+	color: #fff;
+	text-align: center;
+}
+
+.categoriesTop{
+	line-height: 58px;
+	border-top: 2px solid #000;
+	font-family: $lato;
+	a{
+		margin: 0 70px 0 0;
+		float: left;
+		border-bottom: 1px solid transparent;
+		&:hover, &.active{
+			border-bottom-color: $brandColor;
+		}
+	}
+}
+
+
+
+.groupPage{
+	position: relative;
+	.theChat{
+		background: #fff;
+		margin: 0 0 50px;
+		.content{
+			padding: 30px;
+			height: 600px;
+			overflow: auto;
+			.oneMessage{
+				padding: 0 0 0 70px;
+				position: relative;
+				font-family: $lato;
+				margin: 0 0 20px;
+				.avatar{
+					position: absolute;
+					top: 0;
+					left: 0;
+					img{
+						width: 50px;
+						height: 50px;
+						border-radius: 100%;
+						overflow: hidden;
+						margin: 0 0 10px;
+					}
+				}
+				.theMessage{
+					width: 270px;
+					max-width: 100%;
+					padding: 25px;
+					background: $brandColor;
+					box-sizing: border-box;
+					text-transform: uppercase;
+					position: relative;
+					&:before{
+						content: '';
+						position: absolute;
+						top: 25px;
+						right: 100%;
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 6.5px 6px 6.5px 0;
+						border-color: transparent $brandColor transparent transparent;
+					}
+				}
+				&.second{
+					padding: 0 70px 0 0;
+					.avatar{
+						left: auto;
+						right: 0;
+					}
+					.theMessage{
+						float: right;
+						background: #000;
+						color: #fff;
+						&:before{
+							right: auto;
+							left: 100%;
+							border-width: 6.5px 0 6.5px 6px;
+							border-color: transparent transparent transparent #000;
+
+						}
+					}
+				}
+			}
+		}
+		.sendNew{
+			padding: 30px 60px 30px 30px;
+			border-top: 1px solid #000;
+			position: relative;
+			.theInput{
+				input{
+					width: 96%;
+					height: 45px;
+					padding: 0 2%;
+					background: #f8f8f8;
+					border: none;
+				}
+			}
+			.theIcon{
+				position: absolute;
+				top: 30px;
+				right: 30px;
+				line-height: 45px;
+				font-size: 20px;
+				color: $brandColor;
+			}
+		}
+	}
+	.onlinePersons{
+		height: 500px;
+		background: #fff;
+		overflow: auto;
+		.title{
+			padding: 25px 15px;
+			background: #000;
+			color: #fff;
+			font-size: 18px;
+		}
+		.content{
+			.item{
+				padding: 25px 15px;
+				display: block;
+				font-size: 16px;
+				.avatar{
+					position: relative;
+					margin: 0 20px 0 0;
+					img{
+						width: 50px;
+						height: 50px;
+						border-radius: 100%;
+						overflow: hidden;
+					}
+					&:before{
+						content: '';
+						width: 11px;
+						height: 11px;
+						position: absolute;
+						top: 50%;
+						right: 0;
+						margin: -9px -9px 0 0;
+						border-radius: 100%;
+						border: 4px solid #fff;
+						background: #000;
+					}
+				}
+				span{
+					display: inline-block;
+					vertical-align: middle;
+				}
+				&.online{
+					.avatar{
+						&:before{
+							background: $brandColor;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.messagesPage{
+	padding: 0 20px;
+	.item{
+		padding: 30px 0;
+		border-bottom: 1px solid;
+		.theUser{
+			margin: 0 0 30px;
+			.avatar{
+				width: 60px;
+				float: left;
+				img{
+					width: 60px;
+					height: 60px;
+					overflow: hidden;
+					border-radius: 100%;
+				}
+			}
+			.data{
+				margin: 0 0 0 80px;
+				font-size: 18px;
+				.theName{
+					margin: 0 0 5px;
+				}
+				.time{
+					font-size: 70%;
+				}
+			}
+		}
+		.theMessage{
+			font-family: $lato;
+		}
+		&:last-of-type{
+			border: none;
+		}
+	}
+}
+
+.userCard{
+	margin: 0 0 40px;
+	.avatar{
+		width: 140px;
+		height: 140px;
+		border-radius: 100%;
+		overflow: hidden;
+		margin: 0 auto 20px;
+		img{
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.name{
+		font-size: 170%;
+		margin: 0 0 10px;
+	}
+	.joined{
+		color: $brandColor;
+		margin: 0 0 10px;
+	}
+	.followBtn{
+		display: block;
+		background: #000;
+		color: #fff;
+		max-width: 185px;
+		margin: 0 auto;
+		padding: 15px 0;
+		&.follow{
+			background: $brandColor;
+		}
+	}
+}
+
+.groupCard{
+	background: #fff;
+	margin: 0 0 40px;
+	.coverPhoto{
+		height: 120px;
+		overflow: hidden;
+		background: #000;
+		img{
+			width: 100%;
+			opacity: 0.5;
+		}
+	}
+	.content{
+		position: relative;
+		padding: 90px 30px 30px;
+		.avatar{
+			width: 130px;
+			height: 130px;
+			border: 3px solid #fff;
+				border-radius: 100%;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin: -65px 0 0 -65px;
+			img{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.title{
+			font-size: 120%;
+			margin: 0 0 10px;
+			@include ellipsisOverFllow();
+		}
+		.description{
+			color: $brandColor;
+			margin: 0 0 10px;
+			@include ellipsisOverFllow();
+		}
+		.theBtn{
+			background: #000;
+			color: #fff;
+			padding: 15px 30px;
+			display: inline-block;
+		}
+	}
+}
+
+.newsfeedPage{
+	.item{
+		max-width: 770px;
+		margin: 0 auto 40px;
+		.top{
+			margin: 0 0 20px;
+			.avatar{
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 10px 0 0;
+				img{
+					width: 85px;
+					height: 85px;
+					border-radius: 100%;
+				}
+			}
+			.info{
+				display: inline-block;
+				vertical-align: middle;
+				.name{
+					font-size: 140%;
+					margin: 0 0 5px;
+				}
+				.time{
+					color: $brandColor;
+				}
+			}
+		}
+		.content{
+			padding: 20px;
+			background: #fff;
+			.thePost{
+				font-family: $lato;
+				font-size: 18px;
+				margin: 0 0 20px;
+				a{
+					color: #3a58bb;
+				}
+			}
+			.theGallery{
+				.oneImg{
+					width: 30%;
+					height: 60px;
+					margin: 0 5% 0 0;
+					float: left;
+					position: relative;
+					img{
+						width: 100%;
+						min-height: 100%;
+					}
+					&:first-of-type{
+						width: 100%;
+						height: auto;
+						margin: 0 0 20px;
+						img{
+							min-height: auto;
+						}
+					}
+					&:last-of-type{
+						margin: 0;
+					}
+					.moreImgs{
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						background: rgba(0, 0, 0, 0.6);
+						text-align: center;
+						color: $brandColor;
+						font-size: 20px;
+						line-height: 60px
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 481px) {
+	.secPaddLg{padding: 40px 0;}
+	.secPaddMd{padding: 30px 0;}
+	.mobileMenu .in .nav li a{font-size: 30px;}
+	.mobileMenu .in .userArea{font-size: 30px;}
+	.sectionName{font-size: 40px;}
+	.sectionName .theName{margin-bttom: 25px;}
+	.sectionMargin{margin: 0 0 100px;}
+	.sectionTitle .theName{padding: 30px 20px;font-size: 18px;}
+	.sectionTitle .more{line-height: 77px;}
+	.sectionTitle .filters{line-height: 82px;}
+	#footer .menu{width:25%;margin: 0 5% 0 0;}
+	#footer .contactFooter{width: 40%;float: right;clear: none;}
+	.top_userProfile{display: inline-block;margin: 0;}
+	.top_userProfile .avatar{width: 140px;height: 140px;}
+	.topHeadBtn{float: right;text-align: inherit;}
+	.newsfeedPage .item .content .theGallery .oneImg{min-height: 150px;}
+	.newsfeedPage .item .content .theGallery .oneImg .moreImgs{line-height: 150px;font-size: 40px;}
+	
+}
+
+@media only screen and (min-width: 769px) {
+	.secPaddLg{padding: 60px 0;}
+	.secPaddMd{padding: 45px 0;}
+	.sectionName{font-size: 55px;}
+	.sectionName .theName{margin-bttom: 40px;}
+	#footer .logoFooter{width: 25%;margin: 0 5% 0px 0;float: left;text-align: inherit;}
+	#footer .menu{width: 15%;}
+	#footer .contactFooter{width: 30%;}
+	.groupPage{padding: 0 320px 0 0;}
+	.groupPage .onlinePersons{position: absolute;top: 0;right: 0;width: 300px;height: 100%;}
+	.groupPage .theChat{margin: 0;}
+	.topHeadBtn{padding: 20px 30px;}
+	.messagesPage .item .theUser{width:300px;float: left;margin: 0;}
+	.messagesPage .item .theMessage{margin: 0 0 0 320px;}
+	
+}
+
+@media only screen and (min-width: 1000px) {
+	.fixHeaderSpace{height: 0;}
+	#header{position: static;}
+	#header .top{padding: 40px 0;}
+	#header .top .logo img{width: auto;}
+	#header .top .rightArea .userActions{display: block;}
+	#header .top .rightArea .search .icon{display: none;}
+	#header .top .rightArea .search form{position: static;background: none;width: auto;display: block;}
+	#header .bottom #nav .icon{display: none;}
+	#header .bottom #nav ul{display: block;}
+	.mobileMenu{display: none !important;}
+	.sectionTitle .filters .icon{display: none;}
+	.sectionTitle .filters .in{display: block;}
+}
+
+@media only screen and (min-width: 1230px){
+	.top_userProfile .avatar{display: inline-block; float: none;vertical-align: middle;}
+	.top_userProfile .content{display: inline-block;float: none;vertical-align: middle;}
+	.top_userProfile .info{display: inline-block;vertical-align: middle;border-left: 1px solid;padding: 0 0 0 15px;margin: 0 15px 0 0;font-size: 37px;}
+	.top_userProfile .top_message{display: inline-block;vertical-align: middle;border-left: 1px solid;margin: 0 0 20px;padding: 0 0 0 15px;font-size: 18px;border-top: none;}
+	
+}

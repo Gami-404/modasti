@@ -1,0 +1,86 @@
+<template>
+    <header id="header">
+
+        <div class="top">
+            <div class="gridContainer clearfix">
+
+                <h1 class="logo"><img src="images/logo.png" alt="Modacity"></h1>
+                <div class="rightArea">
+
+                    <div class="userActions">
+                        <a href="#" class="one">
+                            <i class="icon-headicon"></i>
+                        </a>
+                        <a href="#" class="one">SIGNUP</a>
+                        <a href="#" class="one">LOGIN</a>
+                    </div>
+                    <div class="search">
+                        <span class="icon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <form action="#">
+                            <select>
+                                <option value="0">Items</option>
+                                <option value="1">Users</option>
+                                <option value="2">Group</option>
+                            </select>
+                            <input type="text">
+                            <button type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="gridContainer clearfix relative">
+                <nav id="nav">
+                    <div class="icon">
+                        <i class="fa fa-bars"></i>
+                    </div>
+                    <ul class="clearfix">
+                        <li>
+                            <a href="#">
+                                <i class="icon-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-dressing"></i>
+                                <span>Clothing</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-shoe"></i>
+                                <span>Shoes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-accessories"></i>
+                                <span>Accessories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-beauty"></i>
+                                <span>beauty</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <a href="#" class="contest">
+                    <img src="images/new.png" alt="">
+                    <span>CONTESTS</span>
+                </a>
+            </div>
+        </div>
+
+    </header>
+</template>
