@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/Home.vue';
 import Clothing from './pages/Clothing.vue';
+import Single from './pages/Single.vue';
 import Profile from './pages/Profile.vue';
   //Profile sub pages
   import ProfileSets from './components/profile/SubPageSets.vue';
@@ -29,8 +30,12 @@ export default new Router({
       component: Clothing
     },
     {
+      path: '/page/:slug',
+      name: 'page',
+      component: Single
+    },
+    {
       path: '/profile/:id',
-      name: 'profile',
       component: Profile,
       children: [
         {
