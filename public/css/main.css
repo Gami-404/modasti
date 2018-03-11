@@ -249,51 +249,51 @@ body {
         display: inline-block;
         padding: 0 15px; }
 
-.productCard {
+.itemCard {
   background: #fff;
   text-align: center;
   font-size: 18px;
   margin: 0 0 20px; }
-  .productCard .avatar {
+  .itemCard .avatar {
     padding: 20px 20px 0;
     height: 340px;
     overflow: hidden; }
-  .productCard .content {
+  .itemCard .content {
     padding: 20px;
     border-bottom: 1px solid #ccc; }
-    .productCard .content h3 {
+    .itemCard .content h3 {
       text-align: center;
       font-size: 100%;
       height: 44px;
       overflow: hidden; }
-      .productCard .content h3 a:hover {
+      .itemCard .content h3 a:hover {
         color: #ffbeb8; }
-    .productCard .content hr {
+    .itemCard .content hr {
       width: 30%;
       height: 2px;
       margin: 15px auto;
       background: #ffbeb8; }
-    .productCard .content .price {
+    .itemCard .content .price {
       margin: 0 0 10px; }
-    .productCard .content .link {
+    .itemCard .content .link {
       font-family: "'Lato', sans-serif"; }
-      .productCard .content .link a {
+      .itemCard .content .link a {
         color: #1e1eff; }
-    .productCard .content .createdBy {
+    .itemCard .content .createdBy {
       color: #ffbeb8;
       margin: 0 0 10px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       width: 100%; }
-  .productCard .likesAndComments {
+  .itemCard .likesAndComments {
     padding: 20px; }
-    .productCard .likesAndComments a {
+    .itemCard .likesAndComments a {
       margin: 0 10px; }
-      .productCard .likesAndComments a i {
+      .itemCard .likesAndComments a i {
         color: #ffbeb8;
         margin: 0 5px 0 0; }
-      .productCard .likesAndComments a:hover {
+      .itemCard .likesAndComments a:hover {
         color: #ffbeb8; }
 
 #footer {
