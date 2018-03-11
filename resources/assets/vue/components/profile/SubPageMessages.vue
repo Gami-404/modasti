@@ -1,4 +1,5 @@
 <template>
+	<div class="gridContainer">
     <WrapperCardList>
         <div class="messagesPage whiteBg">
             <MessageCard v-for="(message,i) of messages" :key="i">
@@ -6,10 +7,11 @@
             </MessageCard>
         </div>
     </WrapperCardList>
+	</div>
 </template>
 
 <script>
-import WrapperCardList from "../wrappers/WrapperCardList";
+import WrapperCardList from "../wrappers/WrapperHomeCardList";
 import MessageCard from '../MessageCard';
 
 export default {

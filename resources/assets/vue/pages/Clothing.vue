@@ -112,13 +112,12 @@
 <script>
 import ProductCard from "../components/ProductCard";
 import SetCard from "../components/SetCard";
-import WrapperCardList from "../components/wrappers/WrapperCardList";
+import Wrapper  from "../components/wrappers/WrapperHomeCardList";
 
 export default {
   components: {
     ProductCard,
-    SetCard,
-    WrapperCardList
+    SetCard
   },
   computed: {
     products() {
