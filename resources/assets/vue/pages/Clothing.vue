@@ -23,8 +23,8 @@
         <div class="gridContainer">
             <ClothingFilter/>
             <WrapperCardList>
-                <div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-                    <ProductCard :image="item.image" :price="item.price" :title="item.title" :link="item.link" :like="item.like" :comment="item.comment" />
+                <div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+                    <ItemCard :image="item.image" :price="item.price" :title="item.title" :link="item.link" :like="item.like" :comment="item.comment" />
                 </div>
             </WrapperCardList>
         </div>
@@ -32,20 +32,20 @@
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard";
+import ItemCard from "../components/ItemCard";
 import ClothingFilter from "../components/ClothingFilter";
 import WrapperCardList from "../components/wrappers/WrapperCardList";
 
 export default {
   components: {
-    ProductCard,
+    ItemCard,
     WrapperCardList,
     ClothingFilter
   },
   computed: {
-    products() {
+    Items() {
       let arr = [];
-      const products = [
+      const Items = [
         {
           url: "",
           title: "VELVET PUMPS WITH BEJEWELED HEELS",
@@ -82,7 +82,7 @@ export default {
       ];
 
       for (let i = 0; i < 8; i++) {
-        arr.push(products[Math.floor(Math.random() * 3)]);
+        arr.push(Items[Math.floor(Math.random() * 3)]);
       }
       return arr;
     }

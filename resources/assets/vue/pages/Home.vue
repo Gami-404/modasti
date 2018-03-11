@@ -12,8 +12,8 @@
 	<div class="gridContainer">
 		
 		<WrapperCardListTitled title="Latest Trends" url="#" >			
-				<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-					<ProductCard
+				<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard
 						:image="item.image"
 						:price="item.price"
 						:title="item.title"
@@ -26,8 +26,8 @@
 
 		
 		<WrapperCardListTitled title="Most Liked From Our Community" url="#">	
-				<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-					<ProductCard
+				<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard
 						:image="item.image"
 						:price="item.price"
 						:title="item.title"
@@ -39,7 +39,7 @@
 		</WrapperCardListTitled>
 
 		<WrapperCardListTitled title="Most Viewed Sets" url="#" >
-			<div v-for="(item,index) in products" :key="index" class="mycol-lg-3 mycol-sm-6">
+			<div v-for="(item,index) in Items" :key="index" class="mycol-lg-3 mycol-sm-6">
 				<SetCard
 					:image="item.image"
 					:title="item.title"
@@ -52,7 +52,7 @@
 		</WrapperCardListTitled>
 
 		<WrapperCardListTitled title="Official Contests" url="#" >
-				<div v-for="(item,index) in products" :key="index" class="mycol-lg-3 mycol-sm-6">
+				<div v-for="(item,index) in Items" :key="index" class="mycol-lg-3 mycol-sm-6">
 					<SetCard
 						:image="item.image"
 						:title="item.title"
@@ -70,20 +70,20 @@
 </template>
 
 <script>
-import ProductCard from '../components/ProductCard';
+import ItemCard from '../components/ItemCard';
 import SetCard from '../components/SetCard';
 import WrapperCardListTitled from '../components/wrappers/WrapperCardListTitled'
 
 export default {
   components:{
-	  ProductCard,
+	  ItemCard,
 	  SetCard,
 	  WrapperCardListTitled
   },
   computed: {
-		products(){
+		Items(){
 			let arr = [];
-			const  products = [ 
+			const  Items = [ 
 				{
 					url: '',
 					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
@@ -120,7 +120,7 @@ export default {
 			];
 			
 			for (let i = 0; i < 8; i++) {
-				arr.push( products[Math.floor(Math.random()*3)] );
+				arr.push( Items[Math.floor(Math.random()*3)] );
 			} 
 			return arr;
 		}

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './pages/Home';
 import Clothing from './pages/Clothing';
 import Contests from './pages/Contests';
-import Product from './pages/Product';
+import Item from './pages/Item';
 import SearchItems from './pages/SearchItems';
 import SearchUsers from './pages/SearchUsers';
 import Single from './pages/Single';
@@ -39,9 +39,9 @@ export default new Router({
       component: Contests
     },
     {
-      path: '/product',
-      name: 'product',
-      component: Product
+      path: '/item',
+      name: 'item',
+      component: Item
     },
     {
       path: '/search/items',

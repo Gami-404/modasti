@@ -1,8 +1,8 @@
 <template>
 	<div class="gridContainer">
 		<WrapperCardList>
-			<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-                <ProductCard
+			<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+                <ItemCard
                     :image="item.image"
                     :price="item.price"
                     :title="item.title"
@@ -26,9 +26,9 @@ export default {
     WrapperCardList
   },
   computed: {
-    products() {
+    Items() {
       let arr = [];
-      const products = [
+      const Items = [
         {
           url: "",
           title: "VELVET PUMPS WITH BEJEWELED HEELS",
@@ -65,7 +65,7 @@ export default {
       ];
 
       for (let i = 0; i < 8; i++) {
-        arr.push(products[Math.floor(Math.random() * 3)]);
+        arr.push(Items[Math.floor(Math.random() * 3)]);
       }
       return arr;
     }

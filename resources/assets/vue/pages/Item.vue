@@ -33,8 +33,8 @@
         </div>
 
         <WrapperCardListTitled title="Latest Trends" url="#">
-            <div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-                <ProductCard 
+            <div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+                <ItemCard 
                 :image="item.image" 
                 :price="item.price" 
                 :title="item.title" 
@@ -48,17 +48,17 @@
 
 <script>
 import WrapperCardListTitled from "../components/wrappers/WrapperCardListTitled";
-import ProductCard from "../components/ProductCard";
+import ItemCard from "../components/ItemCard";
 
 export default {
   components: {
     WrapperCardListTitled,
-    ProductCard
+    ItemCard
   },
   computed: {
-      products(){
+      Items(){
 			let arr = [];
-			const  products = [ 
+			const  Items = [ 
 				{
 					url: '',
 					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
@@ -95,7 +95,7 @@ export default {
 			];
 			
 			for (let i = 0; i < 8; i++) {
-				arr.push( products[Math.floor(Math.random()*3)] );
+				arr.push( Items[Math.floor(Math.random()*3)] );
 			} 
 			return arr;
 		}
