@@ -2,7 +2,14 @@
 	<div class="gridContainer">
 		<WrapperCardList>
 			<div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-				<ProductCard :image="item.image" :price="item.price" :title="item.title" :link="item.link" :like="item.like" :comment="item.comment" />
+        <SetCard
+          :image="item.image"
+          :title="item.title"
+          :link="item.link"
+          :like="item.like"
+          :comment="item.comment"
+          :by="item.by"
+				/>
 			</div>
 		</WrapperCardList>
 	</div>
@@ -10,12 +17,12 @@
 
 <script>
 import Nav from "./Nav";
-import ProductCard from "../ProductCard";
+import SetCard from "../SetCard";
 import WrapperCardList from "../wrappers/WrapperCardList";
 
 export default {
   components: {
-    ProductCard,
+    SetCard,
     WrapperCardList
   },
   computed: {

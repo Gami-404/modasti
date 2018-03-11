@@ -2,9 +2,12 @@
 	<div class="gridContainer">
     <WrapperCardList>
         <div class="messagesPage whiteBg">
-            <MessageCard v-for="(message,i) of messages" :key="i">
-
-            </MessageCard>
+            <MessageCard v-for="(message,i) of messages" :key="i" 
+            :message="message.message"
+            :sender="message.sender"
+            :img="message.img"
+            :time="message.time"
+            />
         </div>
     </WrapperCardList>
 	</div>

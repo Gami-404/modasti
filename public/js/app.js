@@ -11387,53 +11387,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(28)
-/* template */
-var __vue_template__ = __webpack_require__(29)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/vue/components/wrappers/WrapperHomeCardList.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-777221e6", Component.options)
-  } else {
-    hotAPI.reload("data-v-777221e6", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 6 */,
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15196,8 +15150,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ProductCard__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_SetCard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperHomeCardList__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperHomeCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperHomeCardList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardListTitled__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardListTitled___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardListTitled__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -15280,7 +15234,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 	components: {
 		ProductCard: __WEBPACK_IMPORTED_MODULE_0__components_ProductCard___default.a,
 		SetCard: __WEBPACK_IMPORTED_MODULE_1__components_SetCard___default.a,
-		WrapperHomeCardList: __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperHomeCardList___default.a
+		WrapperCardListTitled: __WEBPACK_IMPORTED_MODULE_2__components_wrappers_WrapperCardListTitled___default.a
 	},
 	computed: {
 		products: function products() {
@@ -15494,64 +15448,8 @@ if (false) {
 }
 
 /***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['title', 'url']
-});
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "sectionTitle clearfix" }, [
-      _c("h2", { staticClass: "theName" }, [_vm._v(_vm._s(_vm.title))]),
-      _vm._v(" "),
-      _c("a", { staticClass: "more", attrs: { href: _vm.url } }, [
-        _vm._v("More")
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "secPaddMd" }, [
-      _c("div", { staticClass: "myrow clearfix" }, [_vm._t("default")], 2)
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-777221e6", module.exports)
-  }
-}
-
-/***/ }),
+/* 28 */,
+/* 29 */,
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15567,7 +15465,7 @@ var render = function() {
       { staticClass: "gridContainer" },
       [
         _c(
-          "WrapperHomeCardList",
+          "WrapperCardListTitled",
           { attrs: { title: "Latest Trends", url: "#" } },
           _vm._l(_vm.products, function(item, index) {
             return _c(
@@ -15591,7 +15489,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "WrapperHomeCardList",
+          "WrapperCardListTitled",
           { attrs: { title: "Most Liked From Our Community", url: "#" } },
           _vm._l(_vm.products, function(item, index) {
             return _c(
@@ -15615,7 +15513,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "WrapperHomeCardList",
+          "WrapperCardListTitled",
           { attrs: { title: "Most Viewed Sets", url: "#" } },
           _vm._l(_vm.products, function(item, index) {
             return _c(
@@ -15639,7 +15537,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "WrapperHomeCardList",
+          "WrapperCardListTitled",
           { attrs: { title: "Official Contests", url: "#" } },
           _vm._l(_vm.products, function(item, index) {
             return _c(
@@ -16279,12 +16177,19 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Nav__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Nav__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProductCard__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProductCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProductCard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SetCard__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SetCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SetCard__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -16302,7 +16207,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ProductCard: __WEBPACK_IMPORTED_MODULE_1__ProductCard___default.a,
+    SetCard: __WEBPACK_IMPORTED_MODULE_1__SetCard___default.a,
     WrapperCardList: __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList___default.a
   },
   computed: {
@@ -16354,14 +16259,14 @@ var render = function() {
             "div",
             { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
             [
-              _c("ProductCard", {
+              _c("SetCard", {
                 attrs: {
                   image: item.image,
-                  price: item.price,
                   title: item.title,
                   link: item.link,
                   like: item.like,
-                  comment: item.comment
+                  comment: item.comment,
+                  by: item.by
                 }
               })
             ],
@@ -16537,11 +16442,12 @@ module.exports = Component.exports
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(115)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -16559,6 +16465,22 @@ var Component = normalizeComponent(
   __vue_module_identifier__
 )
 Component.options.__file = "resources/assets/vue/components/profile/SubPageFollowers.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5ddc83a8", Component.options)
+  } else {
+    hotAPI.reload("data-v-5ddc83a8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 module.exports = Component.exports
 
@@ -16646,10 +16568,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperHomeCardList__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperHomeCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperHomeCardList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperCardList__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperCardList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MessageCard__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MessageCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MessageCard__);
+//
+//
+//
 //
 //
 //
@@ -16668,7 +16593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    WrapperCardList: __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperHomeCardList___default.a,
+    WrapperCardList: __WEBPACK_IMPORTED_MODULE_0__wrappers_WrapperCardList___default.a,
     MessageCard: __WEBPACK_IMPORTED_MODULE_1__MessageCard___default.a
   },
   data: function data() {
@@ -16814,7 +16739,15 @@ var render = function() {
           "div",
           { staticClass: "messagesPage whiteBg" },
           _vm._l(_vm.messages, function(message, i) {
-            return _c("MessageCard", { key: i })
+            return _c("MessageCard", {
+              key: i,
+              attrs: {
+                message: message.message,
+                sender: message.sender,
+                img: message.img,
+                time: message.time
+              }
+            })
           })
         )
       ])
@@ -19651,7 +19584,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(114)
 /* template */
 var __vue_template__ = __webpack_require__(110)
 /* template functional */
@@ -19699,231 +19632,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "gridContainer" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "WrapperCardListTitled",
+        { attrs: { title: "Latest Trends", url: "#" } },
+        _vm._l(_vm.products, function(item, index) {
+          return _c(
+            "div",
+            { key: index, staticClass: "mycol-lg-3 mycol-sm-6" },
+            [
+              _c("ProductCard", {
+                attrs: {
+                  image: item.image,
+                  price: item.price,
+                  title: item.title,
+                  link: item.link,
+                  like: item.like,
+                  comment: item.comment
+                }
+              })
+            ],
+            1
+          )
+        })
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "gridContainer" }, [
-      _c("div", { staticClass: "proudctDetails" }, [
-        _c("div", { staticClass: "avatar" }, [
-          _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "content" }, [
-          _c("div", { staticClass: "in" }, [
-            _c("div", { staticClass: "paging" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Clothing")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Dresses")])
-            ]),
-            _vm._v(" "),
-            _c("h2", { staticClass: "title" }, [
-              _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "description" }, [
-              _vm._v(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "info clearfix" }, [
-              _c("div", { staticClass: "price" }, [_vm._v("725$")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "link", attrs: { href: "#" } }, [
-                _vm._v("dolcegabbana.com")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "likesAndComments" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icon-like" }),
-                _c("span", [_vm._v("10")])
-              ]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icon-comment" }),
-                _c("span", [_vm._v("10")])
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "proudctDetails" }, [
+      _c("div", { staticClass: "avatar" }, [
+        _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "sectionTitle clearfix" }, [
-        _c("h2", { staticClass: "theName" }, [_vm._v("Similar items")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "secPaddMd" }, [
-        _c("div", { staticClass: "myrow clearfix" }, [
-          _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-            _c("div", { staticClass: "productCard" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("div", { staticClass: "verticalCentered" }, [
-                  _c("div", { staticClass: "theCell" }, [
-                    _c("img", { attrs: { src: "images/1.jpg", alt: "" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "content" }, [
-                _c("h3", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "link" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("dolcegabbana.com")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "likesAndComments" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-like" }),
-                  _c("span", [_vm._v("10")])
-                ]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-comment" }),
-                  _c("span", [_vm._v("10")])
-                ])
-              ])
+      _c("div", { staticClass: "content" }, [
+        _c("div", { staticClass: "in" }, [
+          _c("div", { staticClass: "paging" }, [
+            _c("a", { attrs: { href: "#" } }, [_vm._v("Clothing")]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "#" } }, [_vm._v("Dresses")])
+          ]),
+          _vm._v(" "),
+          _c("h2", { staticClass: "title" }, [
+            _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "description" }, [
+            _vm._v(
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "info clearfix" }, [
+            _c("div", { staticClass: "price" }, [_vm._v("725$")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "link", attrs: { href: "#" } }, [
+              _vm._v("dolcegabbana.com")
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-            _c("div", { staticClass: "productCard" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("div", { staticClass: "verticalCentered" }, [
-                  _c("div", { staticClass: "theCell" }, [
-                    _c("img", { attrs: { src: "images/2.jpg", alt: "" } })
-                  ])
-                ])
-              ]),
+          _c("div", { staticClass: "likesAndComments" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icon-like" }),
               _vm._v(" "),
-              _c("div", { staticClass: "content" }, [
-                _c("h3", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "link" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("dolcegabbana.com")
-                  ])
-                ])
-              ]),
+              _c("span", [_vm._v("10")])
+            ]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icon-comment" }),
               _vm._v(" "),
-              _c("div", { staticClass: "likesAndComments" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-like" }),
-                  _c("span", [_vm._v("10")])
-                ]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-comment" }),
-                  _c("span", [_vm._v("10")])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-            _c("div", { staticClass: "productCard" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("div", { staticClass: "verticalCentered" }, [
-                  _c("div", { staticClass: "theCell" }, [
-                    _c("img", { attrs: { src: "images/3.jpg", alt: "" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "content" }, [
-                _c("h3", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "link" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("dolcegabbana.com")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "likesAndComments" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-like" }),
-                  _c("span", [_vm._v("10")])
-                ]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-comment" }),
-                  _c("span", [_vm._v("10")])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mycol-lg-3 mycol-sm-6" }, [
-            _c("div", { staticClass: "productCard" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("div", { staticClass: "verticalCentered" }, [
-                  _c("div", { staticClass: "theCell" }, [
-                    _c("img", { attrs: { src: "images/4.jpg", alt: "" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "content" }, [
-                _c("h3", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("VELVET PUMPS WITH BEJEWELED HEELS")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "price" }, [_vm._v("825 €")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "link" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("dolcegabbana.com")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "likesAndComments" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-like" }),
-                  _c("span", [_vm._v("10")])
-                ]),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-comment" }),
-                  _c("span", [_vm._v("10")])
-                ])
-              ])
+              _c("span", [_vm._v("10")])
             ])
           ])
         ])
@@ -19937,6 +19725,433 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-38c0c132", module.exports)
+  }
+}
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(112)
+/* template */
+var __vue_template__ = __webpack_require__(113)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/wrappers/WrapperCardListTitled.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16ba9f3a", Component.options)
+  } else {
+    hotAPI.reload("data-v-16ba9f3a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 112 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['title', 'url']
+});
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "sectionTitle clearfix" }, [
+      _c("h2", { staticClass: "theName" }, [_vm._v(_vm._s(_vm.title))]),
+      _vm._v(" "),
+      _c("a", { staticClass: "more", attrs: { href: _vm.url } }, [
+        _vm._v("More")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "secPaddMd" }, [
+      _c("div", { staticClass: "myrow clearfix" }, [_vm._t("default")], 2)
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-16ba9f3a", module.exports)
+  }
+}
+
+/***/ }),
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_wrappers_WrapperCardListTitled__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_wrappers_WrapperCardListTitled___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_wrappers_WrapperCardListTitled__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ProductCard__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ProductCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_ProductCard__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	components: {
+		WrapperCardListTitled: __WEBPACK_IMPORTED_MODULE_0__components_wrappers_WrapperCardListTitled___default.a,
+		ProductCard: __WEBPACK_IMPORTED_MODULE_1__components_ProductCard___default.a
+	},
+	computed: {
+		products: function products() {
+			var _ref, _ref2, _ref3;
+
+			var arr = [];
+			var products = [(_ref = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/4.jpg',
+				price: 520
+			}, _defineProperty(_ref, "url", ''), _defineProperty(_ref, "like", 10), _defineProperty(_ref, "comment", 10), _defineProperty(_ref, "link", 'dolcegabbana.com'), _defineProperty(_ref, "by", 'Modasti retail - Modasti'), _ref), (_ref2 = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/3.jpg',
+				price: 320
+			}, _defineProperty(_ref2, "url", ''), _defineProperty(_ref2, "like", 20), _defineProperty(_ref2, "comment", 11), _defineProperty(_ref2, "link", 'dolcegabbana.com'), _defineProperty(_ref2, "by", 'Modasti retail - Modasti'), _ref2), (_ref3 = {
+				url: '',
+				title: 'VELVET PUMPS WITH BEJEWELED HEELS',
+				image: 'images/1.jpg',
+				price: 120
+			}, _defineProperty(_ref3, "url", ''), _defineProperty(_ref3, "like", 5), _defineProperty(_ref3, "comment", 2), _defineProperty(_ref3, "link", 'dolcegabbana.com'), _defineProperty(_ref3, "by", 'Modasti retail - Modasti'), _ref3)];
+
+			for (var i = 0; i < 8; i++) {
+				arr.push(products[Math.floor(Math.random() * 3)]);
+			}
+			return arr;
+		}
+	}
+});
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "gridContainer" }, [
+      _c("div", { staticClass: "followersPage secPaddLg" }, [
+        _c("div", { staticClass: "myrow clearfix" }, [
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
+                _vm._v("unfollow")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
+                _vm._v("unfollow")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
+                _vm._v("unfollow")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "followBtn", attrs: { href: "#" } }, [
+                _vm._v("unfollow")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mycol-lg-3 mycol-md-4 mycol-sm-6" }, [
+            _c("div", { staticClass: "userCard textCentered" }, [
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", { attrs: { src: "images/img3.jpg", alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "name" }, [_vm._v("User name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "joined" }, [
+                _vm._v("Joined on 22. 02. 2018.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "followBtn follow", attrs: { href: "#" } },
+                [_vm._v("follow")]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5ddc83a8", module.exports)
   }
 }
 
