@@ -72,13 +72,13 @@
 <script>
 import ProductCard from '../components/ProductCard';
 import SetCard from '../components/SetCard';
-import WrapperCardList from '../components/wrappers/WrapperHomeCardList'
+import WrapperHomeCardList from '../components/wrappers/WrapperHomeCardList'
 
 export default {
   components:{
 	  ProductCard,
 	  SetCard,
-	  WrapperCardList
+	  WrapperHomeCardList
   },
   computed: {
 		products(){
