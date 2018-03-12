@@ -68,6 +68,16 @@ class Posts extends \Dot\Platform\Plugin
             }
         });
 
+        Navigation::menu("sidebar", function ($menu) {
+
+            if (Auth::user()->can("posts.manage")) {
+
+                $menu->item('collections', trans("posts::collections.posts"), route("admin.posts.collections.show"))
+                    ->order(1)
+                    ->icon("fa-clone");
+            }
+        });
+
         Action::listen("dashboard.featured", function () {
 
             $data = [];

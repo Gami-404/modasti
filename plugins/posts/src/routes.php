@@ -26,13 +26,21 @@ Route::group([
         $route->any('/{status}/status', ["as" => "admin.posts.brands.status", "uses" => "BrandsController@status"]);
     });
 
-
     $route->group(["prefix" => "sets"], function ($route) {
         $route->any('/', ["as" => "admin.posts.sets.show", "uses" => "SetsController@index"]);
         $route->any('/create', ["as" => "admin.posts.sets.create", "uses" => "SetsController@create"]);
         $route->any('/{id}/edit', ["as" => "admin.posts.sets.edit", "uses" => "SetsController@edit"]);
         $route->any('/delete', ["as" => "admin.posts.sets.delete", "uses" => "SetsController@delete"]);
         $route->any('/{status}/status', ["as" => "admin.posts.sets.status", "uses" => "SetsController@status"]);
+    });
+
+
+    $route->group(["prefix" => 'collections'], function ($route) {
+        $route->any('/', ["as" => "admin.posts.collections.show", "uses" => "CollectionsController@index"]);
+        $route->any('/create', ["as" => "admin.posts.collections.create", "uses" => "CollectionsController@create"]);
+        $route->any('/{id}/edit', ["as" => "admin.posts.collections.edit", "uses" => "CollectionsController@edit"]);
+        $route->any('/delete', ["as" => "admin.posts.collections.delete", "uses" => "CollectionsController@delete"]);
+        $route->any('/{status}/status', ["as" => "admin.posts.collections.status", "uses" => "CollectionsController@status"]);
     });
 });
 
