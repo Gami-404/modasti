@@ -3,6 +3,7 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
+use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
 use Dot\Posts\Models\Post;
@@ -187,10 +188,12 @@ class PostsController extends Controller
             $post->front_page = Request::get("front_page");
             $post->price = Request::get('price');
             $post->sale_price = Request::get("sale_price");
+            $post->size_system = Request::get("size_system");
             $post->coverage=Request::get('coverage');
             $post->image_id = Request::get('image_id', 0);
             $post->media_id = Request::get('media_id', 0);
             $post->user_id = Auth::user()->id;
+            $post->brand_id = Request::get('brand_id', 0);
             $post->status = Request::get("status", 0);
             $post->color_id = Request::get('color_id', 0);
 
@@ -221,6 +224,14 @@ class PostsController extends Controller
             // Saving post meta
 
             $custom_fields = array_filter(array_combine(Request::get("custom_names", []), Request::get("custom_values", [])));
+            $sizes_fields = explode(',',Request::get("sizes", ''));
+
+
+            foreach ($sizes_fields as $value) {
+                $meta = new PostSize();
+                $meta->size = $value;
+                $post->sizes()->save($meta);
+            }
 
             foreach ($custom_fields as $name => $value) {
                 $meta = new PostMeta();
@@ -238,6 +249,8 @@ class PostsController extends Controller
         }
 
         $this->data["post_tags"] = array();
+        $this->data["post_sizes"] = $post->sizes->pluck("size")->toArray();
+
         $this->data["post_categories"] = collect([]);
         $this->data["post_galleries"] = collect([]);
         $this->data["post_blocks"] = collect([]);
@@ -265,9 +278,12 @@ class PostsController extends Controller
             $post->media_id = Request::get('media_id', 0);
             $post->status = Request::get("status", 0);
             $post->front_page = Request::get("front_page", 0);
+            $post->size_system = Request::get("size_system");
+
             $post->url = Request::get('url');
             $post->reason = Request::get('reason');
             $post->color_id = Request::get('color_id', 0);
+            $post->brand_id = Request::get('brand_id', 0);
             $post->price = Request::get('price');
             $post->sale_price = Request::get("sale_price");
             $post->coverage=Request::get('coverage');
@@ -292,8 +308,18 @@ class PostsController extends Controller
             // Fire saved action
 
             PostMeta::where("post_id", $post->id)->delete();
+            PostSize::where("post_id", $post->id)->delete();
 
             $custom_fields = array_filter(array_combine(Request::get("custom_names", []), Request::get("custom_values", [])));
+
+            $sizes_fields = explode(',',Request::get("sizes", ''));
+
+
+            foreach ($sizes_fields as $value) {
+                $meta = new PostSize();
+                $meta->size = $value;
+                $post->sizes()->save($meta);
+            }
 
             foreach ($custom_fields as $name => $value) {
                 $meta = new PostMeta();
@@ -310,10 +336,12 @@ class PostsController extends Controller
         }
 
         $this->data["post_tags"] = $post->tags->pluck("name")->toArray();
+        $this->data["post_sizes"] = $post->sizes->pluck("size")->toArray();
         $this->data["post_categories"] = $post->categories;
         $this->data["post_galleries"] = $post->galleries;
         $this->data["post_blocks"] = $post->blocks;
         $this->data["post"] = $post;
+
 
         return View::make("posts::edit", $this->data);
     }

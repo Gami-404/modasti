@@ -8,7 +8,7 @@
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <h2>
-                    <i class="fa fa-newspaper-o"></i>
+                    <i class="fa fa-cart-plus"></i>
                     {{ $post->id ? trans("posts::posts.edit") : trans("posts::posts.add_new") }}
                 </h2>
                 <ol class="breadcrumb">
@@ -164,7 +164,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-link"></i>
-                            {{ trans("posts::posts.post_url") }}
+                            {{ trans("posts::posts.post_url_brand") }}
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
@@ -175,6 +175,24 @@
                                            value="{{@Request::old("url", $post->url)}}" name="url">
                                 </div>
                             </div>
+                            <div class="form-group" style="margin-top: 37px">
+                                <label class="col-sm-2 control-label" style="padding-top: 8px;"
+                                       for="input-brand_id">{{ trans("posts::posts.brand") }}</label>
+                                <div class="col-sm-10">
+                                    <select name="brand_id" class="form-control chosen-select chosen-rtl"
+                                            id="input-brand_id">
+                                        <option value=""
+                                                {{Request::get("brand_id",$post->brand_id)==0?'selected':''}} disabled>{{ trans("posts::posts.select_brand") }}</option>
+                                        @foreach(Dot\Posts\Models\Brand::all() as $brand)
+                                            <option
+                                                @if (Request::get("brand_id",$brand->id) == $post->brand_id) selected='selected'
+                                                @endif
+                                                value="{{ $brand->id }}">{{ $brand->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -271,7 +289,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default sizes">
                         <div class="panel-heading">
                             <i class="fa fa-credit-card"></i>
                             {{ trans("posts::posts.attributes.size_system") }}
@@ -281,59 +299,29 @@
                                 <label class="col-sm-3 control-label"
                                        for="input-size_system">{{ trans("posts::posts.attributes.size_system") }}</label>
                                 <div class="col-sm-9">
-                                    <select name="size_system"  class="form-control chosen-select chosen-rtl" id="input-size_system">
-                                        <option value=""
-                                                {{Request::get("size_system",$post->color_id)==0?'selected':''}} disabled>{{ trans("posts::posts.select_color") }}</option>
+                                    <select name="size_system" class="form-control chosen-select chosen-rtl"
+                                            id="input-size_system">
+                                        <option value="" selected
+                                                disabled>{{ trans("posts::posts.select_size_system") }}</option>
                                         @foreach(config('posts.size_system') as $key=>$value)
                                             <option
-                                                @if (Request::get("size_system",$color->id) == $post->color_id) selected='selected'
-                                                @endif
-                                                value="{{ $key }}">{{ $color->name or $color->value}}</option>
+                                                @if (Request::get("size_system", $post->size_system)==$key) selected='selected'
+                                                @endif value="{{ $key }}">{{ $value}}</option>
                                         @endforeach
-                                        <option value="uk"></option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group sale_price">
                                 <label class="col-sm-3 control-label"
-                                       for="input-sale_price">{{ trans("posts::posts.attributes.sale_price") }}</label>
+                                       for="input-sale_price">{{ trans("posts::posts.attributes.sizes") }}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="col-sm-9 form-control" id="input-sale_price"
-                                           value="{{@Request::old("sale_price", $post->sale_price)}}" name="sale_price">
+                                    <div class="form-group" style="position:relative">
+                                        <input type="hidden" name="sizes" id="sizes_names"
+                                               value="{{ join(",",  $post_sizes) }}">
+                                        <ul id="mySizes"></ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default format-area album-format-area">
-                        <div class="panel-heading">
-                            <i class="fa fa-camera"></i>
-                            {{ trans("posts::posts.add_gallery") }}
-                            <a href="javascript:void(0)" class="add_gallery pull-right text-navy"><i
-                                    class="fa fa-plus"></i></a>
-                        </div>
-                        <div class="panel-body">
-                            <div class="iwell add_gallery"
-                                 @if ($post and count($post_galleries->toArray()) > 0) style="display:none" @endif>
-                                {{ trans("posts::posts.no_galleries_found") }}
-                                <a href="javascript:void(0)" class="add_gallery pull-right text-navy"><i
-                                        class="fa fa-info-circle"></i></a>
-                            </div>
-
-                            <div class="post_galleries">
-                                @if ($post)
-                                    @foreach ($post_galleries->toArray() as $gallery)
-                                        <div class="iwell post_gallery"
-                                             data-gallery-id="{{ $gallery["id"] }}">{{ $gallery["name"] }}
-                                            <input type="hidden" name="galleries[]" value="{{ $gallery["id"] }}"/>
-                                            <a href="javascript:void(0)"
-                                               class="remove_gallery pull-right text-navy">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                @endif
-
                             </div>
                         </div>
                     </div>
@@ -404,6 +392,10 @@
 
         .sale_price {
             padding-top: 25px;
+        }
+
+        .sizes {
+            margin-bottom: 100px;
         }
     </style>
 
@@ -562,6 +554,18 @@
                         }
                     });
                 },
+                beforeTagAdded: function (event, ui) {
+                    $("#metakeywords").tagit("createTag", ui.tagLabel);
+                }
+            });
+
+            $("#mySizes").tagit({
+                singleField: true,
+                singleFieldNode: $('#sizes_names'),
+                allowSpaces: true,
+                minLength: 2,
+                placeholderText: "",
+                removeConfirmation: true,
                 beforeTagAdded: function (event, ui) {
                     $("#metakeywords").tagit("createTag", ui.tagLabel);
                 }
