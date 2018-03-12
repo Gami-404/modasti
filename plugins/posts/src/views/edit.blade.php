@@ -271,7 +271,40 @@
                         </div>
                     </div>
 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-credit-card"></i>
+                            {{ trans("posts::posts.attributes.size_system") }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"
+                                       for="input-size_system">{{ trans("posts::posts.attributes.size_system") }}</label>
+                                <div class="col-sm-9">
+                                    <select name="size_system"  class="form-control chosen-select chosen-rtl" id="input-size_system">
+                                        <option value=""
+                                                {{Request::get("size_system",$post->color_id)==0?'selected':''}} disabled>{{ trans("posts::posts.select_color") }}</option>
+                                        @foreach(config('posts.size_system') as $key=>$value)
+                                            <option
+                                                @if (Request::get("size_system",$color->id) == $post->color_id) selected='selected'
+                                                @endif
+                                                value="{{ $key }}">{{ $color->name or $color->value}}</option>
+                                        @endforeach
+                                        <option value="uk"></option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div class="form-group sale_price">
+                                <label class="col-sm-3 control-label"
+                                       for="input-sale_price">{{ trans("posts::posts.attributes.sale_price") }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="col-sm-9 form-control" id="input-sale_price"
+                                           value="{{@Request::old("sale_price", $post->sale_price)}}" name="sale_price">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="panel panel-default format-area album-format-area">
                         <div class="panel-heading">
                             <i class="fa fa-camera"></i>
