@@ -114,8 +114,8 @@ return [
         'created' => 'Item created successfully',
         'updated' => 'Item updated successfully',
         'deleted' => 'Item deleted successfully',
-        'activated' => 'Item activated successfully',
-        'deactivated' => 'Item deactivated successfully'
+        'activated' => 'Item confirmed successfully',
+        'deactivated' => 'Item unconfirmed successfully'
     ],
 
     "permissions" => [
