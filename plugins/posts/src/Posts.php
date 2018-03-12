@@ -58,6 +58,15 @@ class Posts extends \Dot\Platform\Plugin
                     ->icon("fa-fort-awesome");
             }
         });
+        Navigation::menu("sidebar", function ($menu) {
+
+            if (Auth::user()->can("posts.manage")) {
+
+                $menu->item('sets', trans("posts::sets.posts"), route("admin.posts.sets.show"))
+                    ->order(1)
+                    ->icon("fa-clone");
+            }
+        });
 
         Action::listen("dashboard.featured", function () {
 

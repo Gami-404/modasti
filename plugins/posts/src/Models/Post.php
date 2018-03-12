@@ -175,7 +175,7 @@ class Post extends Model
     }
 
     /**
-     * Blocks relation
+     * colors relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function colors()
@@ -185,7 +185,7 @@ class Post extends Model
 
 
     /**
-     * Blocks relation
+     * brand relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function brand()

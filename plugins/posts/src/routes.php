@@ -25,6 +25,15 @@ Route::group([
         $route->any('/delete', ["as" => "admin.posts.brands.delete", "uses" => "BrandsController@delete"]);
         $route->any('/{status}/status', ["as" => "admin.posts.brands.status", "uses" => "BrandsController@status"]);
     });
+
+
+    $route->group(["prefix" => "sets"], function ($route) {
+        $route->any('/', ["as" => "admin.posts.sets.show", "uses" => "SetsController@index"]);
+        $route->any('/create', ["as" => "admin.posts.sets.create", "uses" => "SetsController@create"]);
+        $route->any('/{id}/edit', ["as" => "admin.posts.sets.edit", "uses" => "SetsController@edit"]);
+        $route->any('/delete', ["as" => "admin.posts.sets.delete", "uses" => "SetsController@delete"]);
+        $route->any('/{status}/status', ["as" => "admin.posts.sets.status", "uses" => "SetsController@status"]);
+    });
 });
 
 /*

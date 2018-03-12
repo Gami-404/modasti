@@ -98,6 +98,9 @@ class PostsController extends Controller
         }
         $this->data["posts"] = $query->paginate($this->data['per_page']);
 
+        if (Request::ajax()) {
+            return response()->json($this->data["posts"]->items());
+        }
         return View::make("posts::show", $this->data);
     }
 
@@ -125,6 +128,8 @@ class PostsController extends Controller
             $post->blocks()->detach();
 
             $post->delete();
+            PostSize::where("post_id", $post->id)->delete();
+
 
             // Fire deleted action
 
