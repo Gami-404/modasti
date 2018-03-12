@@ -1,6 +1,5 @@
 <template>
     <div id="clothing">
-        
         <div class="topCategories whiteBg">
             <div class="gridContainer">
                 <a href="#">DRESSES</a>
@@ -21,109 +20,32 @@
                 <a href="#">sportswear</a>
             </div>
         </div>
-
         <div class="gridContainer">
-            <div class="sectionTitle clearfix">
-                <h2 class="theName">Clothing</h2>
-                <div class="filters">
-                    <span class="icon">
-                        <i class="fa fa-sliders"></i>
-                    </span>
-                    <div class="in">
-
-                        <div class="one">
-                            <div class="title dropdownTitle">colors
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="selectios dropdownContent">
-                                <a href="#">color 1</a>
-                                <a href="#">color 2</a>
-                                <a href="#">color 3</a>
-                                <a href="#">color 4</a>
-                            </div>
-                        </div>
-
-                        <div class="one">
-                            <div class="title dropdownTitle">coverage
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="selectios dropdownContent">
-                                <a href="#">color 1</a>
-                                <a href="#">color 2</a>
-                                <a href="#">color 3</a>
-                                <a href="#">color 4</a>
-                            </div>
-                        </div>
-
-                        <div class="one">
-                            <div class="title dropdownTitle">Price
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="selectios dropdownContent">
-                                <a href="#">color 1</a>
-                                <a href="#">color 2</a>
-                                <a href="#">color 3</a>
-                                <a href="#">color 4</a>
-                            </div>
-                        </div>
-
-                        <div class="one">
-                            <div class="title dropdownTitle">size
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="selectios dropdownContent">
-                                <a href="#">color 1</a>
-                                <a href="#">color 2</a>
-                                <a href="#">color 3</a>
-                                <a href="#">color 4</a>
-                            </div>
-                        </div>
-
-                        <div class="one">
-                            <div class="title dropdownTitle">brand
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="selectios dropdownContent">
-                                <a href="#">color 1</a>
-                                <a href="#">color 2</a>
-                                <a href="#">color 3</a>
-                                <a href="#">color 4</a>
-                            </div>
-                        </div>
-
-                        <a href="#" class="theBtn">Apply</a>
-
-                    </div>
-
+            <ClothingFilter/>
+            <WrapperCardList>
+                <div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+                    <ItemCard :image="item.image" :price="item.price" :title="item.title" :link="item.link" :like="item.like" :comment="item.comment" />
                 </div>
-            </div>
-
-            <div class="myrow clearfix">
-                <div v-for="(item,index) in products" :key='index' class="mycol-lg-3 mycol-sm-6">
-                    <ProductCard :image="item.image" :price="item.price" :title="item.title" :link="item.link" :like="item.like" :comment="item.comment" />
-                </div>
-            </div>
-        
+            </WrapperCardList>
         </div>
-
     </div>
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard";
-import SetCard from "../components/SetCard";
+import ItemCard from "../components/ItemCard";
+import ClothingFilter from "../components/ClothingFilter";
 import WrapperCardList from "../components/wrappers/WrapperCardList";
 
 export default {
   components: {
-    ProductCard,
-    SetCard,
-    WrapperCardList
+    ItemCard,
+    WrapperCardList,
+    ClothingFilter
   },
   computed: {
-    products() {
+    Items() {
       let arr = [];
-      const products = [
+      const Items = [
         {
           url: "",
           title: "VELVET PUMPS WITH BEJEWELED HEELS",
@@ -160,7 +82,7 @@ export default {
       ];
 
       for (let i = 0; i < 8; i++) {
-        arr.push(products[Math.floor(Math.random() * 3)]);
+        arr.push(Items[Math.floor(Math.random() * 3)]);
       }
       return arr;
     }

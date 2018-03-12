@@ -1,18 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './pages/Home.vue';
-import Clothing from './pages/Clothing.vue';
-import Profile from './pages/Profile.vue';
+import Home from './pages/Home';
+import Clothing from './pages/Clothing';
+import Contests from './pages/Contests';
+import Item from './pages/Item';
+import SearchItems from './pages/SearchItems';
+import SearchUsers from './pages/SearchUsers';
+import Single from './pages/Single';
+import Profile from './pages/Profile';
   //Profile sub pages
-  import ProfileSets from './components/profile/SubPageSets.vue';
+  import ProfileSets from './components/profile/SubPageSets';
   import ProfileCollections from './components/profile/SubPageCollections';
-  import ProfileItems from './components/profile/SubPageItems.vue';
-  import ProfileLikes from './components/profile/SubPageLikes.vue';
-  import ProfileWins from './components/profile/SubPageWins.vue';
-  import ProfileFollowing from './components/profile/SubPageFollowing.vue';
-  import ProfileFollowers from './components/profile/SubPageFollowers.vue';
-  import ProfileBlockedUsers from './components/profile/SubPageBlockedUsers.vue';
-  import ProfileMessages from './components/profile/SubPageMessages.vue';
+  import ProfileItems from './components/profile/SubPageItems';
+  import ProfileLikes from './components/profile/SubPageLikes';
+  import ProfileWins from './components/profile/SubPageWins';
+  import ProfileFollowing from './components/profile/SubPageFollowing';
+  import ProfileFollowers from './components/profile/SubPageFollowers';
+  import ProfileBlockedUsers from './components/profile/SubPageBlockedUsers';
+  import ProfileMessages from './components/profile/SubPageMessages';
 
 Vue.use(Router);
 
@@ -29,8 +34,32 @@ export default new Router({
       component: Clothing
     },
     {
+      path: '/contests',
+      name: 'contests',
+      component: Contests
+    },
+    {
+      path: '/item',
+      name: 'item',
+      component: Item
+    },
+    {
+      path: '/search/items',
+      name: 'items',
+      component: SearchItems
+    },
+    {
+      path: '/search/users',
+      name: 'users',
+      component: SearchUsers
+    },
+    {
+      path: '/page/:slug',
+      name: 'page',
+      component: Single
+    },
+    {
       path: '/profile/:id',
-      name: 'profile',
       component: Profile,
       children: [
         {

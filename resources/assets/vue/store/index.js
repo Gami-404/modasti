@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import users from './modules/users'
 import sets from './modules/sets'
-import products from './modules/products'
+import items from './modules/items'
 import collections from './modules/collections'
 
 Vue.use(Vuex);
@@ -13,7 +13,7 @@ export default new Vuex.Store({
     auth,
     users,
     sets,
-    products,
+    items,
     collections
   }
 })

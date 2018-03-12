@@ -1,4 +1,5 @@
 <template>
+<div>
     <header id="header">
 
         <div class="top">
@@ -12,7 +13,7 @@
                             <i class="icon-headicon"></i>
                         </a>
                         <a href="#" class="one">SIGNUP</a>
-                        <a href="#" class="one">LOGIN</a>
+                        <router-link to="?popup=login" class="one">LOGIN</router-link>
                     </div>
                     <div class="search">
                         <span class="icon">
@@ -44,7 +45,7 @@
                     </div>
                     <ul class="clearfix">
                         <li>
-                            <a href="#">
+                            <a href="#/">
                                 <i class="icon-home"></i>
                                 <span>Home</span>
                             </a>
@@ -83,4 +84,33 @@
         </div>
 
     </header>
+    	<div class="mobileMenu">
+		<div class="in">
+			<div class="nav">
+				<ul>
+					<li><a href="#"><i class="icon-home"></i><span>Home</span></a></li>
+					<li><a href="#"><i class="icon-dressing"></i><span>Clothing</span></a></li>
+					<li><a href="#"><i class="icon-shoe"></i><span>Shoes</span></a></li>
+					<li><a href="#"><i class="icon-accessories"></i><span>Accessories</span></a></li>
+					<li><a href="#"><i class="icon-beauty"></i><span>beauty</span></a></li>
+				</ul>
+			</div>
+			<div class="userArea">
+				<a href="#">Signup</a>
+				<a href="#">login</a>
+			</div>
+		</div>
+	</div>
+    <Login v-if="this.$route.query.popup=='login'" ></Login>
+</div>
 </template>
+
+<script>
+import Login from '../components/popups/Login';
+
+export default {
+    components: {
+        Login
+    }
+}
+</script>
