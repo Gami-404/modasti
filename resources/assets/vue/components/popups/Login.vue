@@ -18,8 +18,8 @@
 						<form @submit="login" class="theForm">
 							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
 							<input type="password" class="formEle" placeholder="Password" v-model="password" required>
-							<div v-for="(error,i) in errors" :key="i" >
-								<h4 class="errors" >
+							<div v-for="(error,i) in errors" :key="i">
+								<h4 class="errors">
 									{{error}}
 								</h4>
 								<br/>
@@ -28,10 +28,10 @@
 						</form>
 						<div class="otherLinks">
 							<div class="one">Forgot Password?
-								<a href="#">Get New</a>
+								<router-link to="?popup=forget">Get New</router-link>
 							</div>
 							<div class="one">Not Registered?
-								<a href="#">Sign Up</a>
+								<router-link to="?popup=signup">Sign Up</router-link>
 							</div>
 						</div>
 					</div>
@@ -47,7 +47,8 @@ export default {
     return {
       email: "",
       password: "",
-      loading: false
+			loading: false,
+			errors:[]
     };
   },
   methods: {
@@ -58,21 +59,23 @@ export default {
         .dispatch("login", {
           email: this.email,
           password: this.password
-        }).then( res =>{
-			if(res.errors.length != 0 )
-			this.$router.push('/');	
-		}).finally( ()=>{
-			this.loading = false;
-		});
+        })
+        .then(res => {
+          if (res.errors.length == 0) this.$router.push("/");
+					else this.errors = res.errors;	
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   computed: {
     isLoading() {
       return this.loading ? "Loading.." : "login";
-	},
-	errors(){
-		return this.$store.getters.errors;
-	}
+    },
+    errors() {
+      return this.errors;
+    }
   }
 };
 </script>
@@ -82,9 +85,9 @@ export default {
 input:invalid {
   background-color: #fff;
 }
-.errors{
-	font-family: "Cheque-Black";
-	color:RED;
+.errors {
+  font-family: "Cheque-Black";
+  color: RED;
 }
 </style>
 

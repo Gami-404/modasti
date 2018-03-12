@@ -13,7 +13,7 @@
                             <i class="icon-headicon"></i>
                         </a>
                     <span v-if="!isAuth">
-                        <a href="#" class="one">SIGNUP</a>
+                        <router-link to="?popup=signup" class="one">SIGNUP</router-link>
                         <router-link to="?popup=login" class="one">LOGIN</router-link>
                     </span>
                     <a href="#" class="one" v-if="isAuth" @click="logout" >LOGOUT</a>
@@ -49,16 +49,16 @@
                     </div>
                     <ul class="clearfix">
                         <li>
-                            <a href="#/">
+                            <router-link  to="/">
                                 <i class="icon-home"></i>
                                 <span>Home</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="#">
+                            <router-link to="/clothing">
                                 <i class="icon-dressing"></i>
                                 <span>Clothing</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
                             <a href="#">
@@ -75,7 +75,7 @@
                         <li>
                             <a href="#">
                                 <i class="icon-beauty"></i>
-                                <span>beauty</span>
+                                <span>Beauty</span>
                             </a>
                         </li>
                     </ul>
@@ -106,15 +106,21 @@
 		</div>
 	</div>
     <Login v-if="this.$route.query.popup=='login'" ></Login>
+    <SignUp v-if="this.$route.query.popup=='signup'"></SignUp>
+    <Forget v-if="this.$route.query.popup=='forget'"></Forget>
 </div>
 </template>
 
 <script>
 import Login from '../components/popups/Login';
+import SignUp from '../components/popups/Signup';
+import Forget from '../components/popups/Forget';
 
 export default {
     components: {
-        Login
+        Login,
+        SignUp,
+        Forget
     },
     methods: {
         logout(){
