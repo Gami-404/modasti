@@ -1,18 +1,18 @@
 <?php
 return [
 
-    'module' => 'Items',
+    'module' => 'Brands',
 
-    'posts' => 'Items',
+    'posts' => 'Brands',
     'videos' => 'Videos',
-    'post' => 'Item',
-    'add_new' => 'Add New Item',
-    'edit' => 'Edit Item',
-    'back_to_posts' => 'Back To Items',
-    'no_records' => 'No Item Found',
-    'save_post' => 'Save Item',
+    'post' => 'brand',
+    'add_new' => 'Add New brand',
+    'edit' => 'Edit brand',
+    'back_to_posts' => 'Back To brands',
+    'no_records' => 'No brand Found',
+    'save_post' => 'Save brand',
     'search' => 'search',
-    'search_posts' => 'Search Items',
+    'search_posts' => 'Search brands',
     'per_page' => 'Per Page',
     'bulk_actions' => 'Bulk Actions',
     'delete' => 'delete',
@@ -29,14 +29,14 @@ return [
     'from' => "From",
     'to' => "To",
 
-    'post_status' => 'Item status',
+    'post_status' => 'brand status',
     'activate' => 'activate',
     'activated' => 'confirmed',
     'all' => 'All',
     'deactivate' => 'deactivate',
     'deactivated' => 'unconfirmed',
-    'sure_activate' => "Are you sure to confirm item ?",
-    'sure_deactivate' => "Are you sure to unconfirmed item ?",
+    'sure_activate' => "Are you sure to confirm brand ?",
+    'sure_deactivate' => "Are you sure to unconfirmed brand ?",
     'sure_delete' => 'Are you sure to delete ?',
     'post_url' => 'Enter the url',
     'add_image' => 'Add image',
@@ -58,7 +58,7 @@ return [
     'all_formats' => "All Formats",
     'add_category' => "Add To Category",
 
-    "format_post" => "Item",
+    "format_post" => "brand",
     "format_article" => "Article",
     "format_video" => "Video",
     "format_album" => "Album",
@@ -78,8 +78,6 @@ return [
     "select_color"=>'Select color',
     'sales'=>'Sales',
     'select_size_system'=>'Select size system',
-    'brand'=>'Brand',
-    'post_url_brand'=>'Enter url and brand',
 
 
     'coverage' => [
@@ -97,7 +95,7 @@ return [
         'status' => 'Confirmed',
         'template' => 'Template',
         'default' => 'Default',
-        "format" => "Item format",
+        "format" => "brand format",
         'url' => 'Url',
         'front_page' => 'In front page',
         'coverage' => ' Coverage',
@@ -111,15 +109,15 @@ return [
     ],
 
     "events" => [
-        'created' => 'Item created successfully',
-        'updated' => 'Item updated successfully',
-        'deleted' => 'Item deleted successfully',
-        'activated' => 'Item activated successfully',
-        'deactivated' => 'Item deactivated successfully'
+        'created' => 'brand created successfully',
+        'updated' => 'brand updated successfully',
+        'deleted' => 'brand deleted successfully',
+        'activated' => 'brand activated successfully',
+        'deactivated' => 'brand deactivated successfully'
     ],
 
     "permissions" => [
-        "manage" => "Manage items"
+        "manage" => "Manage brands"
     ]
 
 ];

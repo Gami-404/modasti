@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->integer('coverage')->nullable();
             $table->text('reason')->nullable();
             $table->integer('color_id')->default(0);
+            $table->integer('brand_id')->default(0);
             $table->integer('image_id')->default(0)->index();
             $table->integer('media_id')->default(0)->index();
             $table->integer('user_id')->default(0)->index();

@@ -17,6 +17,14 @@ Route::group([
         $route->any('/{status}/status', ["as" => "admin.posts.status", "uses" => "PostsController@status"]);
         $route->post('newSlug', 'PostsController@new_slug');
     });
+
+    $route->group(["prefix" => "brands"], function ($route) {
+        $route->any('/', ["as" => "admin.posts.brands.show", "uses" => "BrandsController@index"]);
+        $route->any('/create', ["as" => "admin.posts.brands.create", "uses" => "BrandsController@create"]);
+        $route->any('/{id}/edit', ["as" => "admin.posts.brands.edit", "uses" => "BrandsController@edit"]);
+        $route->any('/delete', ["as" => "admin.posts.brands.delete", "uses" => "BrandsController@delete"]);
+        $route->any('/{status}/status', ["as" => "admin.posts.brands.status", "uses" => "BrandsController@status"]);
+    });
 });
 
 /*

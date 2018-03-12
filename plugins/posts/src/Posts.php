@@ -46,7 +46,16 @@ class Posts extends \Dot\Platform\Plugin
 
                 $menu->item('posts', trans("posts::posts.posts"), route("admin.posts.show"))
                     ->order(0)
-                    ->icon("fa-newspaper-o");
+                    ->icon("fa-cart-plus");
+            }
+        });
+        Navigation::menu("sidebar", function ($menu) {
+
+            if (Auth::user()->can("posts.manage")) {
+
+                $menu->item('posts.brands', trans("posts::brands.posts"), route("admin.posts.brands.show"))
+                    ->order(1)
+                    ->icon("fa-fort-awesome");
             }
         });
 

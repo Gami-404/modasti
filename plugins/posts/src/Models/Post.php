@@ -119,6 +119,16 @@ class Post extends Model
         return $this->hasMany(PostMeta::class);
     }
 
+
+    /**
+     * Meta relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sizes()
+    {
+        return $this->hasMany(PostSize::class);
+    }
+
     /**
      * Seo relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -173,6 +183,15 @@ class Post extends Model
         return $this->belongsToMany(Color::class, "color_post", "post_id", "color_id");
     }
 
+
+    /**
+     * Blocks relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class,"brand_id","id");
+    }
 
     /**
      * Categories relation
@@ -240,4 +259,6 @@ class Post extends Model
         }
 
     }
+
+//    public function
 }
