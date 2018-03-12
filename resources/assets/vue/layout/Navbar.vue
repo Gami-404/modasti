@@ -12,8 +12,12 @@
                         <a href="#" class="one">
                             <i class="icon-headicon"></i>
                         </a>
+                    <span v-if="!isAuth">
                         <a href="#" class="one">SIGNUP</a>
                         <router-link to="?popup=login" class="one">LOGIN</router-link>
+                    </span>
+                    <a href="#" class="one" v-if="isAuth" @click="logout" >LOGOUT</a>
+
                     </div>
                     <div class="search">
                         <span class="icon">
@@ -111,6 +115,18 @@ import Login from '../components/popups/Login';
 export default {
     components: {
         Login
-    }
+    },
+    methods: {
+        logout(){
+            this.$store.dispatch('logout')
+            this.$router.push('/');
+        }
+    },
+    computed: {
+        isAuth(){
+            console.log(this.$store.getters.auth);
+            return this.$store.getters.auth;
+        }
+    }   
 }
 </script>

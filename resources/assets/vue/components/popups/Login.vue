@@ -18,6 +18,12 @@
 						<form @submit="login" class="theForm">
 							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
 							<input type="password" class="formEle" placeholder="Password" v-model="password" required>
+							<div v-for="(error,i) in errors" :key="i" >
+								<h4 class="errors" >
+									{{error}}
+								</h4>
+								<br/>
+							</div>
 							<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
 						</form>
 						<div class="otherLinks">
@@ -52,7 +58,8 @@ export default {
         .dispatch("login", {
           email: this.email,
           password: this.password
-        }).then(()=>{
+        }).then( res =>{
+			if(res.errors.length != 0 )
 			this.$router.push('/');	
 		}).finally( ()=>{
 			this.loading = false;
@@ -62,7 +69,10 @@ export default {
   computed: {
     isLoading() {
       return this.loading ? "Loading.." : "login";
-    }
+	},
+	errors(){
+		return this.$store.getters.errors;
+	}
   }
 };
 </script>
@@ -71,6 +81,10 @@ export default {
 <style scoped>
 input:invalid {
   background-color: #fff;
+}
+.errors{
+	font-family: "Cheque-Black";
+	color:RED;
 }
 </style>
 

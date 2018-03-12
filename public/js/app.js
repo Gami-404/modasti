@@ -20009,8 +20009,7 @@ var state = {
   auth: localStorage.getItem('api_token') ? true : false,
   user: JSON.parse(localStorage.getItem('user')) || {},
   api_token: localStorage.getItem('api_token') || '',
-  errors: [],
-  loading: false
+  errors: []
 };
 
 // getters
@@ -20026,9 +20025,6 @@ var getters = {
   },
   auth: function auth(state) {
     return state.auth;
-  },
-  authLoading: function authLoading(state) {
-    return state.loading;
   }
 };
 
@@ -20039,8 +20035,10 @@ var actions = {
 
     return axios.post('/signIn', formData).then(function (res) {
       commit('login', res.data);
+      return res;
     }).catch(function (err) {
       commit('errors', err.response.data.errors);
+      return err;
     });
   },
   logout: function logout(_ref2, formData) {
@@ -20064,6 +20062,7 @@ var mutations = {
   },
   logout: function logout(state) {
     localStorage.removeItem('api_token');
+    state.api_token = '';
     state.auth = false;
     state.user = {};
   },
@@ -20431,12 +20430,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         Login: __WEBPACK_IMPORTED_MODULE_0__components_popups_Login___default.a
+    },
+    methods: {
+        logout: function logout() {
+            this.$store.dispatch('logout');
+            this.$router.push('/');
+        }
+    },
+    computed: {
+        isAuth: function isAuth() {
+            console.log(this.$store.getters.auth);
+            return this.$store.getters.auth;
+        }
     }
 });
 
@@ -20534,6 +20549,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -20553,8 +20574,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password
-      }).then(function () {
-        _this.$router.push('/');
+      }).then(function (res) {
+        if (res.errors.length != 0) _this.$router.push('/');
       }).finally(function () {
         _this.loading = false;
       });
@@ -20563,6 +20584,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     isLoading: function isLoading() {
       return this.loading ? "Loading.." : "login";
+    },
+    errors: function errors() {
+      return this.$store.getters.errors;
     }
   }
 });
@@ -20585,24 +20609,39 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "rightArea" }, [
-              _c(
-                "div",
-                { staticClass: "userActions" },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("a", { staticClass: "one", attrs: { href: "#" } }, [
-                    _vm._v("SIGNUP")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    { staticClass: "one", attrs: { to: "?popup=login" } },
-                    [_vm._v("LOGIN")]
-                  )
-                ],
-                1
-              ),
+              _c("div", { staticClass: "userActions" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                !_vm.isAuth
+                  ? _c(
+                      "span",
+                      [
+                        _c("a", { staticClass: "one", attrs: { href: "#" } }, [
+                          _vm._v("SIGNUP")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          { staticClass: "one", attrs: { to: "?popup=login" } },
+                          [_vm._v("LOGIN")]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.isAuth
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "one",
+                        attrs: { href: "#" },
+                        on: { click: _vm.logout }
+                      },
+                      [_vm._v("LOGOUT")]
+                    )
+                  : _vm._e()
+              ]),
               _vm._v(" "),
               _vm._m(2)
             ])
@@ -21131,7 +21170,7 @@ exports = module.exports = __webpack_require__(123)(false);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-0ea8e006]:invalid {\n  background-color: #fff;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-0ea8e006]:invalid {\n  background-color: #fff;\n}\n.errors[data-v-0ea8e006]{\n\tfont-family: \"Cheque-Black\";\n\tcolor:RED;\n}\n", ""]);
 
 // exports
 
@@ -21492,12 +21531,27 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
+                  _vm._l(_vm.errors, function(error, i) {
+                    return _c("div", { key: i }, [
+                      _c("h4", { staticClass: "errors" }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(error) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br")
+                    ])
+                  }),
+                  _vm._v(" "),
                   _c("input", {
                     staticClass: "formEle btn",
                     attrs: { type: "submit", disabled: _vm.loading },
                     domProps: { value: _vm.isLoading }
                   })
-                ]
+                ],
+                2
               ),
               _vm._v(" "),
               _vm._m(0)

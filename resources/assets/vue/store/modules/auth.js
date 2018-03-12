@@ -3,7 +3,6 @@ const state = {
   user: JSON.parse(localStorage.getItem('user')) || {},
   api_token: localStorage.getItem('api_token') || '',
   errors: [],
-  loading: false
 };
 
 // getters
@@ -19,9 +18,6 @@ const getters = {
   },
   auth(state) {
     return state.auth;
-  },
-  authLoading(state) {
-    return state.loading;
   }
 };
 
@@ -30,8 +26,10 @@ const actions = {
   login({ commit }, formData) {
     return axios.post('/signIn', formData).then(res => {
       commit('login', res.data);
+      return res;
     }).catch(err => {
       commit('errors', err.response.data.errors);
+      return err;
     });
   },
   logout({ commit }, formData) {
@@ -53,6 +51,7 @@ const mutations = {
   },
   logout(state) {
     localStorage.removeItem('api_token');
+    state.api_token = '';
     state.auth = false;
     state.user = {};
   },
