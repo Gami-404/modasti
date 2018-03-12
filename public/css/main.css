@@ -796,6 +796,7 @@ body {
 
 .popupPage {
   background: rgba(255, 255, 255, 0.9);
+  z-index: 100;
   position: fixed;
   top: 0;
   left: 0;

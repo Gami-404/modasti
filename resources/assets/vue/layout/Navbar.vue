@@ -13,7 +13,7 @@
                             <i class="icon-headicon"></i>
                         </a>
                         <a href="#" class="one">SIGNUP</a>
-                        <a href="#" class="one">LOGIN</a>
+                        <router-link to="?popup=login" class="one">LOGIN</router-link>
                     </div>
                     <div class="search">
                         <span class="icon">
@@ -45,7 +45,7 @@
                     </div>
                     <ul class="clearfix">
                         <li>
-                            <a href="#">
+                            <a href="#/">
                                 <i class="icon-home"></i>
                                 <span>Home</span>
                             </a>
@@ -101,5 +101,16 @@
 			</div>
 		</div>
 	</div>
+    <Login v-if="this.$route.query.popup=='login'" ></Login>
 </div>
 </template>
+
+<script>
+import Login from '../components/popups/Login';
+
+export default {
+    components: {
+        Login
+    }
+}
+</script>
