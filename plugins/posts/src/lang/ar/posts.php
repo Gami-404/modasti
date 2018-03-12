@@ -96,7 +96,8 @@ return [
         'color_id'=>'اللون',
         'price'=>'سعر',
         'sale_price'=>'سعر البيع',
-        'image_id'=>'صورة'
+        'image_id'=>'صورة',
+        'size_system'=>'نظام الحجم',
 
     ],
 

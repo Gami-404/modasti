@@ -101,7 +101,8 @@ return [
         'color_id' => 'Color',
         'price'=>'Price ',
         'sale_price'=>'Sales price',
-        'image_id'=>'Image'
+        'image_id'=>'Image',
+        'size_system'=>'Size system'
     ],
 
     "events" => [
