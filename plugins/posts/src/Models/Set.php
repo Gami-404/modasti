@@ -3,8 +3,15 @@
 namespace Dot\Posts\Models;
 
 use Cache;
+use Dot\Blocks\Models\Block;
+use Dot\Categories\Models\Category;
+use Dot\Colors\Models\Color;
+use Dot\Galleries\Models\Gallery;
 use Dot\Media\Models\Media;
 use Dot\Platform\Model;
+use Dot\Posts\Scopes\Post as PostScope;
+use Dot\Seo\Models\SEO;
+use Dot\Tags\Models\Tag;
 use Dot\Users\Models\User;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +23,7 @@ use Illuminate\Database\Eloquent\Scope;
  * Class Post
  * @package Dot\Posts\Models
  */
-class Brand extends Model
+class Set extends Model
 {
 
     /**
@@ -26,7 +33,7 @@ class Brand extends Model
     /**
      * @var string
      */
-    protected $table = 'brands';
+    protected $table = 'sets';
     /**
      * @var string
      */
@@ -34,7 +41,7 @@ class Brand extends Model
     /**
      * @var array
      */
-    protected $searchable = ['title', 'excerpt'];
+    protected $searchable = ['title', 'excerpt', 'content'];
 
     /**
      * @var int
@@ -53,7 +60,6 @@ class Brand extends Model
      */
     protected $creatingRules = [
         'title' => 'required',
-
     ];
 
     /**
@@ -91,13 +97,31 @@ class Brand extends Model
                 }
 
                 if ($lang) {
-                    return $builder->where('brands.lang', $lang);
+                    return $builder->where('sets.lang', $lang);
                 }
 
             }
         });
     }
 
+
+    /**
+     * Status scope
+     * @param $query
+     * @param $status
+     */
+    public function scopeStatus($query, $status)
+    {
+        switch ($status) {
+            case "published":
+                $query->where("status", 1);
+                break;
+
+            case "unpublished":
+                $query->where("status", 0);
+                break;
+        }
+    }
 
     /**
      * Image relation
@@ -108,7 +132,6 @@ class Brand extends Model
         return $this->hasOne(Media::class, "id", "image_id");
     }
 
-
     /**
      * User relation
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -117,6 +140,17 @@ class Brand extends Model
     {
         return $this->hasOne(User::class, "id", "user_id");
     }
+
+    /**
+     * Items relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function items()
+    {
+        return $this->belongsToMany(Post::class, 'sets_posts', "set_id", "post_id");
+    }
+
+
 
 //    public function
 }
