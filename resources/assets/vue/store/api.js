@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'http://stage-api.modasti.net/api'
+    baseURL: 'https://cors-anywhere.herokuapp.com/http://stage-api.modasti.net/api'
 });
