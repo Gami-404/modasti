@@ -2,7 +2,9 @@
 	<div class="popupPage">
 		<div class="verticalCentered">
 			<div class="theCell">
-				<router-link to="?popup="><div class="outerClose"></div></router-link>
+				<router-link to="?popup=">
+					<div class="outerClose"></div>
+				</router-link>
 				<div class="thePage">
 					<div class="head">
 						<span>Login</span>
@@ -13,11 +15,11 @@
 						</router-link>
 					</div>
 					<div class="content">
-						<div class="theForm">
-							<input type="text" class="formEle" placeholder="Email">
-							<input type="password" class="formEle" placeholder="Password">
-							<input type="submit" @click="login" class="formEle btn" value="login">
-						</div>
+						<form @submit="login" class="theForm">
+							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
+							<input type="password" class="formEle" placeholder="Password" v-model="password" required>
+							<input type="submit" :disabled="$store.getters.authLoading" class="formEle btn" :value="loading">
+						</form>
 
 						<div class="otherLinks">
 							<div class="one">Forgot Password?
@@ -36,14 +38,34 @@
 
 <script>
 export default {
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
   methods: {
-    login() {
+    login(e) {
+      e.preventDefault();
       this.$store.dispatch("login", {
-        email: "yoyoa96@hotmail.it",
-        password: "123456"
+        email: this.email,
+        password: this.password
       });
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.authLoading ? "Loading.." : "login";
     }
   }
 };
 </script>
+
+
+<style scoped>
+input:invalid {
+  background-color: #fff;
+}
+</style>
+
 

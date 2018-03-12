@@ -1,12 +1,9 @@
-import API from '../api';
-
 const state = {
   
 };
 
 // getters
 const getters = {
-
 };
 
 // actions
