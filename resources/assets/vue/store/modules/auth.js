@@ -28,13 +28,10 @@ const getters = {
 // actions
 const actions = {
   login({ commit }, formData) {
-    commit('loading');
-    axios.post('/signIn', formData).then(res => {
+    return axios.post('/signIn', formData).then(res => {
       commit('login', res.data);
-      commit('loading');
     }).catch(err => {
       commit('errors', err.response.data.errors);
-      commit('loading');
     });
   },
   logout({ commit }, formData) {
@@ -61,9 +58,6 @@ const mutations = {
   },
   errors(state, errors) {
     state.errors = errors;
-  },
-  loading(state) {
-    state.loading = !state.loading;
   }
 };
 

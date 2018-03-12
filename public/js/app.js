@@ -20037,13 +20037,10 @@ var actions = {
   login: function login(_ref, formData) {
     var commit = _ref.commit;
 
-    commit('loading');
-    axios.post('/signIn', formData).then(function (res) {
+    return axios.post('/signIn', formData).then(function (res) {
       commit('login', res.data);
-      commit('loading');
     }).catch(function (err) {
       commit('errors', err.response.data.errors);
-      commit('loading');
     });
   },
   logout: function logout(_ref2, formData) {
@@ -20072,9 +20069,6 @@ var mutations = {
   },
   errors: function errors(state, _errors) {
     state.errors = _errors;
-  },
-  loading: function loading(state) {
-    state.loading = !state.loading;
   }
 };
 
@@ -20138,8 +20132,7 @@ var mutations = {};
 "use strict";
 var state = {
   item: {},
-  error: [],
-  loading: false
+  error: []
 };
 
 // getters
@@ -20155,12 +20148,8 @@ var actions = {
     var commit = _ref.commit;
 
     commit('loading');
-    axios.post('itemDetails', { "itemId": 0 }).then(function (res) {
+    return axios.post('itemDetails', { "itemId": 0 }).then(function (res) {
       commit('item', res.data);
-      commit('loading');
-    }).catch(function (err) {
-      commit('error');
-      commit('loading');
     });
   }
 };
@@ -20169,9 +20158,6 @@ var actions = {
 var mutations = {
   item: function item(state, _item) {
     state.item = _item;
-  },
-  loading: function loading(state) {
-    state.loading = !state.loading;
   }
 };
 
@@ -20548,28 +20534,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      loading: false
     };
   },
 
   methods: {
     login: function login(e) {
+      var _this = this;
+
       e.preventDefault();
+      this.loading = true;
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password
+      }).then(function () {
+        _this.$router.push('/');
+      }).finally(function () {
+        _this.loading = false;
       });
     }
   },
   computed: {
-    loading: function loading() {
-      return this.$store.getters.authLoading ? "Loading.." : "login";
+    isLoading: function isLoading() {
+      return this.loading ? "Loading.." : "login";
     }
   }
 });
@@ -21501,11 +21494,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("input", {
                     staticClass: "formEle btn",
-                    attrs: {
-                      type: "submit",
-                      disabled: _vm.$store.getters.authLoading
-                    },
-                    domProps: { value: _vm.loading }
+                    attrs: { type: "submit", disabled: _vm.loading },
+                    domProps: { value: _vm.isLoading }
                   })
                 ]
               ),

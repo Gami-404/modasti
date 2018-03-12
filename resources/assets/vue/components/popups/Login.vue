@@ -18,9 +18,8 @@
 						<form @submit="login" class="theForm">
 							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
 							<input type="password" class="formEle" placeholder="Password" v-model="password" required>
-							<input type="submit" :disabled="$store.getters.authLoading" class="formEle btn" :value="loading">
+							<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
 						</form>
-
 						<div class="otherLinks">
 							<div class="one">Forgot Password?
 								<a href="#">Get New</a>
@@ -41,21 +40,28 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      loading: false
     };
   },
   methods: {
     login(e) {
       e.preventDefault();
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password
-      });
+      this.loading = true;
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        }).then(()=>{
+			this.$router.push('/');	
+		}).finally( ()=>{
+			this.loading = false;
+		});
     }
   },
   computed: {
-    loading() {
-      return this.$store.getters.authLoading ? "Loading.." : "login";
+    isLoading() {
+      return this.loading ? "Loading.." : "login";
     }
   }
 };
