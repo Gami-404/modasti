@@ -20812,7 +20812,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_popups_Signup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_popups_Signup__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_popups_Forget__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_popups_Forget___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_popups_Forget__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavbarRoutes__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_wrappers_WrapperPopups__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_wrappers_WrapperPopups__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavbarRoutes__ = __webpack_require__(136);
 //
 //
 //
@@ -20906,6 +20908,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
+
 
 
 
@@ -20915,11 +20923,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Login: __WEBPACK_IMPORTED_MODULE_0__components_popups_Login___default.a,
     SignUp: __WEBPACK_IMPORTED_MODULE_1__components_popups_Signup___default.a,
-    Forget: __WEBPACK_IMPORTED_MODULE_2__components_popups_Forget___default.a
+    Forget: __WEBPACK_IMPORTED_MODULE_2__components_popups_Forget___default.a,
+    WrapperPopups: __WEBPACK_IMPORTED_MODULE_3__components_wrappers_WrapperPopups___default.a
   },
   data: function data() {
     return {
-      routes: __WEBPACK_IMPORTED_MODULE_3__NavbarRoutes__["a" /* default */]
+      routes: __WEBPACK_IMPORTED_MODULE_4__NavbarRoutes__["a" /* default */]
     };
   },
 
@@ -21070,13 +21079,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -21098,7 +21100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         email: this.email,
         password: this.password
       }).then(function (res) {
-        if (res.errors.length == 0) _this.$router.push("/");else _this.errors = res.errors;
+        if (res.errors.length == 0) _this.$router.push({ query: {} });else _this.errors = res.errors;
       }).finally(function () {
         _this.loading = false;
       });
@@ -21107,9 +21109,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     isLoading: function isLoading() {
       return this.loading ? "Loading.." : "login";
-    },
-    errors: function errors() {
-      return this.errors;
     }
   }
 });
@@ -21122,148 +21121,131 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "popupPage" }, [
-    _c("div", { staticClass: "verticalCentered" }, [
-      _c(
-        "div",
-        { staticClass: "theCell" },
-        [
-          _c("router-link", { attrs: { to: "?popup=" } }, [
-            _c("div", { staticClass: "outerClose" })
-          ]),
+  return _c(
+    "transition",
+    { attrs: { name: "popups", "enter-active-class": "animated bounceIn" } },
+    [
+      _c("div", [
+        _c(
+          "div",
+          { staticClass: "head" },
+          [
+            _c("span", [_vm._v("login")]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              { staticClass: "head", attrs: { to: "?popup=" } },
+              [
+                _c("span", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fa fa-close" })
+                ])
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "content" }, [
+          _c(
+            "form",
+            { staticClass: "theForm", on: { submit: _vm.login } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                staticClass: "formEle",
+                attrs: { type: "email", placeholder: "Email", required: "" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "formEle",
+                attrs: {
+                  type: "password",
+                  placeholder: "Password",
+                  required: ""
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.errors, function(error, i) {
+                return _c("div", { key: i }, [
+                  _c("h4", { staticClass: "errors" }, [
+                    _vm._v("\n\t\t\t\t\t\t" + _vm._s(error) + "\n\t\t\t\t\t")
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "formEle btn",
+                attrs: { type: "submit", disabled: _vm.loading },
+                domProps: { value: _vm.isLoading }
+              })
+            ],
+            2
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "thePage" }, [
+          _c("div", { staticClass: "otherLinks" }, [
             _c(
               "div",
-              { staticClass: "head" },
+              { staticClass: "one" },
               [
-                _c("span", [_vm._v("Login")]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "head", attrs: { to: "?popup=" } },
-                  [
-                    _c("span", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-close" })
-                    ])
-                  ]
-                )
+                _vm._v("Forgot Password?\n\t\t\t\t\t"),
+                _c("router-link", { attrs: { to: "?popup=forget" } }, [
+                  _vm._v("Get New")
+                ])
               ],
               1
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "content" }, [
-              _c(
-                "form",
-                { staticClass: "theForm", on: { submit: _vm.login } },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Email",
-                      required: ""
-                    },
-                    domProps: { value: _vm.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.email = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.password,
-                        expression: "password"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "password",
-                      placeholder: "Password",
-                      required: ""
-                    },
-                    domProps: { value: _vm.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.password = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.errors, function(error, i) {
-                    return _c("div", { key: i }, [
-                      _c("h4", { staticClass: "errors" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
-                            _vm._s(error) +
-                            "\n\t\t\t\t\t\t\t"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "formEle btn",
-                    attrs: { type: "submit", disabled: _vm.loading },
-                    domProps: { value: _vm.isLoading }
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "otherLinks" }, [
-                _c(
-                  "div",
-                  { staticClass: "one" },
-                  [
-                    _vm._v("Forgot Password?\n\t\t\t\t\t\t\t"),
-                    _c("router-link", { attrs: { to: "?popup=forget" } }, [
-                      _vm._v("Get New")
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "one" },
-                  [
-                    _vm._v("Not Registered?\n\t\t\t\t\t\t\t"),
-                    _c("router-link", { attrs: { to: "?popup=signup" } }, [
-                      _vm._v("Sign Up")
-                    ])
-                  ],
-                  1
-                )
-              ])
-            ])
+            _c(
+              "div",
+              { staticClass: "one" },
+              [
+                _vm._v("Not Registered?\n\t\t\t\t\t"),
+                _c("router-link", { attrs: { to: "?popup=signup" } }, [
+                  _vm._v("Sign Up")
+                ])
+              ],
+              1
+            )
           ])
-        ],
-        1
-      )
-    ])
-  ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21402,15 +21384,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -21449,9 +21422,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     isLoading: function isLoading() {
       return this.loading ? "Loading.." : "login";
-    },
-    errors: function errors() {
-      return this.errors;
     }
   }
 });
@@ -21464,174 +21434,153 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "popupPage" }, [
-    _c("div", { staticClass: "verticalCentered" }, [
-      _c(
-        "div",
-        { staticClass: "theCell" },
-        [
-          _c("router-link", { attrs: { to: "?popup=" } }, [
-            _c("div", { staticClass: "outerClose" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "thePage" }, [
-            _c(
-              "div",
-              { staticClass: "head" },
-              [
-                _c("span", [_vm._v("SignUp")]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "head", attrs: { to: "?popup=" } },
-                  [
-                    _c("span", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-close" })
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
+  return _c(
+    "transition",
+    { attrs: { name: "popups", "enter-active-class": "animated bounceIn" } },
+    [
+      _c("div", [
+        _c(
+          "div",
+          { staticClass: "head" },
+          [
+            _c("span", [_vm._v("signup")]),
             _vm._v(" "),
-            _c("div", { staticClass: "content" }, [
-              _c(
-                "form",
-                { staticClass: "theForm", on: { submit: _vm.signUp } },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name,
-                        expression: "name"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Full Name",
-                      required: ""
-                    },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.name = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Email",
-                      required: ""
-                    },
-                    domProps: { value: _vm.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.email = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.password,
-                        expression: "password"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "password",
-                      placeholder: "Password",
-                      required: ""
-                    },
-                    domProps: { value: _vm.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.password = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.password2,
-                        expression: "password2"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "password",
-                      placeholder: "Repeat Password",
-                      required: ""
-                    },
-                    domProps: { value: _vm.password2 },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.password2 = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.errors, function(error, i) {
-                    return _c("div", { key: i }, [
-                      _c("h4", { staticClass: "errors" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
-                            _vm._s(error) +
-                            "\n\t\t\t\t\t\t\t"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "formEle btn",
-                    attrs: { type: "submit", disabled: _vm.loading },
-                    domProps: { value: _vm.isLoading }
-                  })
+            _c(
+              "router-link",
+              { staticClass: "head", attrs: { to: "?popup=" } },
+              [
+                _c("span", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fa fa-close" })
+                ])
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "content" }, [
+          _c(
+            "form",
+            { staticClass: "theForm", on: { submit: _vm.signUp } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
                 ],
-                2
-              )
-            ])
-          ])
-        ],
-        1
-      )
-    ])
-  ])
+                staticClass: "formEle",
+                attrs: { type: "text", placeholder: "Full Name", required: "" },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                staticClass: "formEle",
+                attrs: { type: "email", placeholder: "Email", required: "" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "formEle",
+                attrs: {
+                  type: "password",
+                  placeholder: "Password",
+                  required: ""
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password2,
+                    expression: "password2"
+                  }
+                ],
+                staticClass: "formEle",
+                attrs: {
+                  type: "password",
+                  placeholder: "Repeat Password",
+                  required: ""
+                },
+                domProps: { value: _vm.password2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password2 = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.errors, function(error, i) {
+                return _c("div", { key: i }, [
+                  _c("h4", { staticClass: "errors" }, [
+                    _vm._v("\n            " + _vm._s(error) + "\n          ")
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "formEle btn",
+                attrs: { type: "submit", disabled: _vm.loading },
+                domProps: { value: _vm.isLoading }
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21768,15 +21717,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -21790,15 +21730,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     send: function send(e) {
       e.preventDefault();
-      this.errors = ['no API'];
+      this.errors = ["no API"];
     }
   },
   computed: {
     isLoading: function isLoading() {
       return this.loading ? "Loading.." : "login";
-    },
-    errors: function errors() {
-      return this.errors;
     }
   }
 });
@@ -21811,96 +21748,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "popupPage" }, [
-    _c("div", { staticClass: "verticalCentered" }, [
-      _c(
-        "div",
-        { staticClass: "theCell" },
-        [
-          _c("router-link", { attrs: { to: "?popup=" } }, [
-            _c("div", { staticClass: "outerClose" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "thePage" }, [
-            _c(
-              "div",
-              { staticClass: "head" },
-              [
-                _c("span", [_vm._v("Forget Password")]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "head", attrs: { to: "?popup=" } },
-                  [
-                    _c("span", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-close" })
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
+  return _c(
+    "transition",
+    { attrs: { name: "popups", "enter-active-class": "animated bounceIn" } },
+    [
+      _c("div", [
+        _c(
+          "div",
+          { staticClass: "head" },
+          [
+            _c("span", [_vm._v("forget")]),
             _vm._v(" "),
-            _c("div", { staticClass: "content" }, [
-              _c(
-                "form",
-                { staticClass: "theForm", on: { submit: _vm.send } },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Email",
-                      required: ""
-                    },
-                    domProps: { value: _vm.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.email = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.errors, function(error, i) {
-                    return _c("div", { key: i }, [
-                      _c("h4", { staticClass: "errors" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
-                            _vm._s(error) +
-                            "\n\t\t\t\t\t\t\t"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "formEle btn",
-                    attrs: { type: "submit", disabled: _vm.loading },
-                    domProps: { value: _vm.isLoading }
-                  })
+            _c(
+              "router-link",
+              { staticClass: "head", attrs: { to: "?popup=" } },
+              [
+                _c("span", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fa fa-close" })
+                ])
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "content" }, [
+          _c(
+            "form",
+            { staticClass: "theForm", on: { submit: _vm.send } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
                 ],
-                2
-              )
-            ])
-          ])
-        ],
-        1
-      )
-    ])
-  ])
+                staticClass: "formEle",
+                attrs: { type: "email", placeholder: "Email", required: "" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.errors, function(error, i) {
+                return _c("div", { key: i }, [
+                  _c("h4", { staticClass: "errors" }, [
+                    _vm._v("\n\t\t\t\t\t\t" + _vm._s(error) + "\n\t\t\t\t\t")
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "formEle btn",
+                attrs: { type: "submit", disabled: _vm.loading },
+                domProps: { value: _vm.isLoading }
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22108,11 +22028,32 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      this.$route.query.popup == "login" ? _c("Login") : _vm._e(),
-      _vm._v(" "),
-      this.$route.query.popup == "signup" ? _c("SignUp") : _vm._e(),
-      _vm._v(" "),
-      this.$route.query.popup == "forget" ? _c("Forget") : _vm._e()
+      _c(
+        "transition",
+        {
+          attrs: {
+            name: "popups",
+            "enter-active-class": "animated fadeIn",
+            "leave-active-class": "animated fadeOut"
+          }
+        },
+        [
+          _vm.$route.query.popup
+            ? _c(
+                "WrapperPopups",
+                [
+                  _vm.$route.query.popup == "login" ? _c("Login") : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$route.query.popup == "signup" ? _c("SignUp") : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$route.query.popup == "forget" ? _c("Forget") : _vm._e()
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
@@ -22410,6 +22351,122 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(152)
+/* template */
+var __vue_template__ = __webpack_require__(153)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/components/wrappers/WrapperPopups.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4eccb8f2", Component.options)
+  } else {
+    hotAPI.reload("data-v-4eccb8f2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 152 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['title']
+});
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "popupPage" }, [
+    _c("div", { staticClass: "verticalCentered" }, [
+      _c(
+        "div",
+        { staticClass: "theCell" },
+        [
+          _c("router-link", { attrs: { to: "?popup=" } }, [
+            _c("div", { staticClass: "outerClose" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "thePage" }, [_vm._t("default")], 2)
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4eccb8f2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -85,9 +85,13 @@
                 </div>
             </div>
         </div>
-        <Login v-if="this.$route.query.popup=='login'"></Login>
-        <SignUp v-if="this.$route.query.popup=='signup'"></SignUp>
-        <Forget v-if="this.$route.query.popup=='forget'"></Forget>
+        <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <WrapperPopups v-if="$route.query.popup">
+                <Login v-if="$route.query.popup=='login'"></Login>
+                <SignUp v-if="$route.query.popup=='signup'"></SignUp>
+                <Forget v-if="$route.query.popup=='forget'"></Forget>
+            </WrapperPopups>
+        </transition>
     </div>
 </template>
 
@@ -95,12 +99,15 @@
 import Login from "../components/popups/Login";
 import SignUp from "../components/popups/Signup";
 import Forget from "../components/popups/Forget";
+import WrapperPopups from "../components/wrappers/WrapperPopups";
+
 import routes from "./NavbarRoutes";
 export default {
   components: {
     Login,
     SignUp,
-    Forget
+    Forget,
+    WrapperPopups
   },
   data() {
     return {
