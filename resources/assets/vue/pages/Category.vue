@@ -43,8 +43,16 @@ export default {
     ClothingFilter
   },
   computed: {
-    items(){
+    items() {
       return this.$store.getters.items;
+    }
+  },
+  created () {
+    this.$store.dispatch("items", this.$route.params.name);  
+  },
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch("items", to.params.name);
     }
   }
 };
