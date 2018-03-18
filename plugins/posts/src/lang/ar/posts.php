@@ -63,7 +63,8 @@ return [
     "custom_name" => "الإسم",
     "custom_value" => "القيمة",
     "sure_delete_field" => "هل أنت متأكد من الحذف ؟",
-
+    'confirmed'=>'مؤاكد',
+    'unconfirmed'=>'غير مؤاكد',
     "add_block" => "أضف إلي أماكن العناصر",
     "no_blocks" => "لا توجد أماكن العناصر",
 
