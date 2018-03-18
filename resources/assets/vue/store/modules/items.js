@@ -1,32 +1,32 @@
+import mock from './mocks/items.mock';
+
 const state = {
   item: {},
-  error: [],
+  items:[],
 };
 
 // getters
 const getters = {
-  item(state) {
-    return state.item;
+  items(state) {
+    return state.items;
   }
 };
 
 // actions
 const actions = {
-  item({ commit }, id) {
-    commit('loading');
-    return axios.post('itemDetails', { "itemId": 0 }).then(res => {
-      commit('item', res.data);
-    });
+  items({ commit }, type ) {
+    console.log('getting items with type '+ type);
+    setTimeout( ()=>{
+      commit('items', mock(8));
+    } , 300 );
   }
 };
 
 // mutations
 const mutations = {
-
-  item(state, item) {
-    state.item = item;
+  items(state, items) {
+    state.items = items;
   }
-
 };
 
 export default {

@@ -1,37 +1,28 @@
 <template>
-	<div class="popupPage">
-		<div class="verticalCentered">
-			<div class="theCell">
-
-				<router-link to="?popup=">
-					<div class="outerClose"></div>
+	<transition name="popups" enter-active-class="animated bounceIn">
+		<div>
+			<div class="head">
+				<span>forget</span>
+				<router-link class="head" to="?popup=">
+					<span class="icon">
+						<i class="fa fa-close"></i>
+					</span>
 				</router-link>
-				<div class="thePage">
-					<div class="head">
-						<span>Forget Password</span>
-						<router-link class="head" to="?popup=">
-							<span class="icon">
-								<i class="fa fa-close"></i>
-							</span>
-						</router-link>
+			</div>
+			<div class="content">
+				<form @submit="send" class="theForm">
+					<input type="email" class="formEle" placeholder="Email" v-model="email" required>
+					<div v-for="(error,i) in errors" :key="i">
+						<h4 class="errors">
+							{{error}}
+						</h4>
+						<br/>
 					</div>
-					<div class="content">
-						<form @submit="send" class="theForm">
-							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
-							<div v-for="(error,i) in errors" :key="i">
-								<h4 class="errors">
-									{{error}}
-								</h4>
-								<br/>
-							</div>
-							<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading"> 
-						</form>
-					</div>
-				</div>
-
+					<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
+				</form>
 			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 
@@ -46,16 +37,13 @@ export default {
   },
   methods: {
     send(e) {
-	  e.preventDefault();
-	  this.errors = ['no API'];
+      e.preventDefault();
+      this.errors = ["no API"];
     }
   },
   computed: {
     isLoading() {
       return this.loading ? "Loading.." : "login";
-    },
-    errors() {
-      return this.errors;
     }
   }
 };

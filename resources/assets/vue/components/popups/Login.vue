@@ -1,44 +1,37 @@
 <template>
-	<div class="popupPage">
-		<div class="verticalCentered">
-			<div class="theCell">
-				<router-link to="?popup=">
-					<div class="outerClose"></div>
+	<transition name="popups" enter-active-class="animated bounceIn">
+		<div>
+			<div class="head">
+				<span>login</span>
+				<router-link class="head" to="?popup=">
+					<span class="icon">
+						<i class="fa fa-close"></i>
+					</span>
 				</router-link>
-				<div class="thePage">
-					<div class="head">
-						<span>Login</span>
-						<router-link class="head" to="?popup=">
-							<span class="icon">
-								<i class="fa fa-close"></i>
-							</span>
-						</router-link>
+			</div>
+			<div class="content">
+				<form @submit="login" class="theForm">
+					<input type="email" class="formEle" placeholder="Email" v-model="email" required>
+					<input type="password" class="formEle" placeholder="Password" v-model="password" required>
+					<div v-for="(error,i) in errors" :key="i">
+						<h4 class="errors">
+							{{error}}
+						</h4>
+						<br/>
 					</div>
-					<div class="content">
-						<form @submit="login" class="theForm">
-							<input type="email" class="formEle" placeholder="Email" v-model="email" required>
-							<input type="password" class="formEle" placeholder="Password" v-model="password" required>
-							<div v-for="(error,i) in errors" :key="i">
-								<h4 class="errors">
-									{{error}}
-								</h4>
-								<br/>
-							</div>
-							<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
-						</form>
-						<div class="otherLinks">
-							<div class="one">Forgot Password?
-								<router-link to="?popup=forget">Get New</router-link>
-							</div>
-							<div class="one">Not Registered?
-								<router-link to="?popup=signup">Sign Up</router-link>
-							</div>
-						</div>
+					<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
+				</form>
+				<div class="otherLinks">
+					<div class="one">Forgot Password?
+						<router-link to="?popup=forget">Get New</router-link>
+					</div>
+					<div class="one">Not Registered?
+						<router-link to="?popup=signup">Sign Up</router-link>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -47,8 +40,8 @@ export default {
     return {
       email: "",
       password: "",
-			loading: false,
-			errors:[]
+      loading: false,
+      errors: []
     };
   },
   methods: {
@@ -61,8 +54,8 @@ export default {
           password: this.password
         })
         .then(res => {
-          if (res.errors.length == 0) this.$router.push("/");
-					else this.errors = res.errors;	
+          if (res.errors.length == 0) this.$router.push({query:{}});
+          else this.errors = res.errors;
         })
         .finally(() => {
           this.loading = false;
@@ -72,9 +65,6 @@ export default {
   computed: {
     isLoading() {
       return this.loading ? "Loading.." : "login";
-    },
-    errors() {
-      return this.errors;
     }
   }
 };
