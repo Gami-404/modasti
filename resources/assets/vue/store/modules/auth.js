@@ -11,9 +11,6 @@ const getters = {
   user(state) {
     return state.user;
   },
-  errors(state) {
-    return state.errors;
-  },
   api_token(state) {
     return state.api_token;
   },
@@ -26,21 +23,21 @@ const getters = {
 const actions = {
   login({ commit }, formData) {
     return API.post('/signIn', formData).then(res => {
-      commit('login', res.data);
-      return res.data;
+      commit('LOGIN', res.data);
+      return res.data.errors;
     }).catch(err => {
-      return err.response.data;
+      return err.response.data.errors;
     });
   },
   logout({ commit }, formData) {
-    commit('logout');
+    commit('LOGOUT');
   },
   register({ commit }, formData) {
     return API.post('/register', formData).then(res => {
-      commit('register', res.data);
-      return res.data;
+      commit('REGISTER', res.data);
+      return res.data.errors;
     }).catch(err => {
-      return err.response.data;
+      return err.response.data.errors;
     });
   }
 
@@ -48,33 +45,29 @@ const actions = {
 
 // mutations
 const mutations = {
-  login(state, data) {
+  LOGIN(state, data) {
     if (data.errors.length == 0) {
       localStorage.setItem('api_token', data.token);
       localStorage.setItem('user', JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
       state.api_token = data.token;
-    } else {
-      state.errors = data.errors;
     }
   },
-  logout(state) {
+  LOGOUT(state) {
     localStorage.removeItem('api_token');
+    localStorage.removeItem('user');
     state.api_token = '';
     state.auth = false;
     state.user = {};
-    state.errors = [];
   },
-  register(state,data){
+  REGISTER(state,data){
     if (data.errors.length == 0) {
       localStorage.setItem('api_token', data.token);
       localStorage.setItem('user', JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
       state.api_token = data.token;      
-    } else {
-      state.errors = data.errors;
     }
   },
 

@@ -25,16 +25,16 @@
 	
 	<div class="categoriesTop whiteBg">
 		<div class="gridContainer clearfix">
-			<a href="#">Sets</a>
-			<a href="#">Items</a>
-			<a href="#">Collections</a>
-			<a href="#">Likes</a>
-			<a href="#">Following</a>
-			<a href="#" class="active">Followers</a>
-			<a href="#">Groups</a>
-			<a href="#">Wins</a>
-			<a href="#">Blocked users</a>
+			<router-link to="items">Items</router-link>
+			<router-link to="sets">Sets</router-link>
+			<router-link to="collections">Collections</router-link>
+			<router-link to="likes">Likes</router-link>
+			<router-link to="following">Following</router-link>
+			<router-link to="followers">Followers</router-link>
+			<router-link to="groups">Groups</router-link>
+			<router-link to="wins">Wins</router-link>
+			<router-link to="blocked"> Blocked users </router-link>
 		</div>
 	</div>
   </div>
-</template>
+</templrouter-linkte>

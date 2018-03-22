@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import Nav from "./Nav";
 import SetCard from "../SetCard";
 import WrapperCardList from "../wrappers/WrapperCardList";
 

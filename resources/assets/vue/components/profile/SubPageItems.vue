@@ -16,13 +16,12 @@
 </template>
 
 <script>
-import Nav from "./Nav";
-import SetCard from "../SetCard";
+import ItemCard from "../ItemCard";
 import WrapperCardList from "../wrappers/WrapperCardList";
 
 export default {
   components: {
-    SetCard,
+    ItemCard,
     WrapperCardList
   },
   computed: {

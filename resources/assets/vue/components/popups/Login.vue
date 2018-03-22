@@ -53,9 +53,9 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(res => {
-          if (res.errors.length == 0) this.$router.push({query:{}});
-          else this.errors = res.errors;
+        .then(errors => {
+          if ( errors.length == 0) this.$router.push({query:{}});
+          else this.errors = errors;
         })
         .finally(() => {
           this.loading = false;
