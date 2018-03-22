@@ -1,9 +1,9 @@
-import API from '../api';
+import API from "../api";
 
 const state = {
-  auth: localStorage.getItem('api_token') ? true : false,
-  user: JSON.parse(localStorage.getItem('user')) || {},
-  api_token: localStorage.getItem('api_token') || '',
+  auth: localStorage.getItem("api_token") ? true : false,
+  user: JSON.parse(localStorage.getItem("user")) || {},
+  api_token: localStorage.getItem("api_token") || ""
 };
 
 // getters
@@ -22,55 +22,57 @@ const getters = {
 // actions
 const actions = {
   login({ commit }, formData) {
-    return API.post('/signIn', formData).then(res => {
-      commit('LOGIN', res.data);
-      return res.data.errors;
-    }).catch(err => {
-      return err.response.data.errors;
-    });
+    return API.post("/signIn", formData)
+      .then(res => {
+        commit("LOGIN", res.data);
+        return res.data.errors;
+      })
+      .catch(err => {
+        return err.response.data.errors;
+      });
   },
   logout({ commit }, formData) {
-    commit('LOGOUT');
+    commit("LOGOUT");
   },
   register({ commit }, formData) {
-    return API.post('/register', formData).then(res => {
-      commit('REGISTER', res.data);
-      return res.data.errors;
-    }).catch(err => {
-      return err.response.data.errors;
-    });
+    return API.post("/register", formData)
+      .then(res => {
+        commit("REGISTER", res.data);
+        return res.data.errors;
+      })
+      .catch(err => {
+        return err.response.data.errors;
+      });
   }
-
 };
 
 // mutations
 const mutations = {
   LOGIN(state, data) {
     if (data.errors.length == 0) {
-      localStorage.setItem('api_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.data));
+      localStorage.setItem("api_token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
       state.api_token = data.token;
     }
   },
   LOGOUT(state) {
-    localStorage.removeItem('api_token');
-    localStorage.removeItem('user');
-    state.api_token = '';
+    localStorage.removeItem("api_token");
+    localStorage.removeItem("user");
+    state.api_token = "";
     state.auth = false;
     state.user = {};
   },
-  REGISTER(state,data){
+  REGISTER(state, data) {
     if (data.errors.length == 0) {
-      localStorage.setItem('api_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.data));
+      localStorage.setItem("api_token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
-      state.api_token = data.token;      
+      state.api_token = data.token;
     }
-  },
-
+  }
 };
 
 export default {

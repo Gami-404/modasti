@@ -6,24 +6,24 @@ const state = {
 
 // getters
 const getters = {
-  userProfileById(state) {
-    return id => state.users[id];
+  userProfile(state) {
+    return state.userProfile;
   }
 };
 
 // actions
 const actions = {
-  userProfileById({ commit }, id) {
+  userProfile({ commit }, id) {
     return API.get("").then(res => {
-      commit('USER_PROFILE' , res.data );
+      commit("USER_PROFILE", res.data);
     });
   }
 };
 
 // mutations
 const mutations = {
-  USER_PROFILE(state, data){
-      state.userProfile = data;
+  USER_PROFILE(state, data) {
+    state.userProfile = data;
   }
 };
 

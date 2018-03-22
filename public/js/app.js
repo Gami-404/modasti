@@ -18462,6 +18462,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_auth__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_users__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_users___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modules_users__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_sets__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_items__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_collections__ = __webpack_require__(112);
@@ -18478,7 +18479,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   modules: {
     auth: __WEBPACK_IMPORTED_MODULE_2__modules_auth__["a" /* default */],
-    users: __WEBPACK_IMPORTED_MODULE_3__modules_users__["a" /* default */],
+    users: __WEBPACK_IMPORTED_MODULE_3__modules_users__["default"],
     sets: __WEBPACK_IMPORTED_MODULE_4__modules_sets__["a" /* default */],
     items: __WEBPACK_IMPORTED_MODULE_5__modules_items__["a" /* default */],
     collections: __WEBPACK_IMPORTED_MODULE_6__modules_collections__["a" /* default */]
@@ -19439,9 +19440,9 @@ var index_esm = {
 
 
 var state = {
-  auth: localStorage.getItem('api_token') ? true : false,
-  user: JSON.parse(localStorage.getItem('user')) || {},
-  api_token: localStorage.getItem('api_token') || ''
+  auth: localStorage.getItem("api_token") ? true : false,
+  user: JSON.parse(localStorage.getItem("user")) || {},
+  api_token: localStorage.getItem("api_token") || ""
 };
 
 // getters
@@ -19462,8 +19463,8 @@ var actions = {
   login: function login(_ref, formData) {
     var commit = _ref.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].post('/signIn', formData).then(function (res) {
-      commit('LOGIN', res.data);
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].post("/signIn", formData).then(function (res) {
+      commit("LOGIN", res.data);
       return res.data.errors;
     }).catch(function (err) {
       return err.response.data.errors;
@@ -19472,13 +19473,13 @@ var actions = {
   logout: function logout(_ref2, formData) {
     var commit = _ref2.commit;
 
-    commit('LOGOUT');
+    commit("LOGOUT");
   },
   register: function register(_ref3, formData) {
     var commit = _ref3.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].post('/register', formData).then(function (res) {
-      commit('REGISTER', res.data);
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].post("/register", formData).then(function (res) {
+      commit("REGISTER", res.data);
       return res.data.errors;
     }).catch(function (err) {
       return err.response.data.errors;
@@ -19490,24 +19491,24 @@ var actions = {
 var mutations = {
   LOGIN: function LOGIN(state, data) {
     if (data.errors.length == 0) {
-      localStorage.setItem('api_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.data));
+      localStorage.setItem("api_token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
       state.api_token = data.token;
     }
   },
   LOGOUT: function LOGOUT(state) {
-    localStorage.removeItem('api_token');
-    localStorage.removeItem('user');
-    state.api_token = '';
+    localStorage.removeItem("api_token");
+    localStorage.removeItem("user");
+    state.api_token = "";
     state.auth = false;
     state.user = {};
   },
   REGISTER: function REGISTER(state, data) {
     if (data.errors.length == 0) {
-      localStorage.setItem('api_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.data));
+      localStorage.setItem("api_token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.data));
       state.auth = true;
       state.user = data.data;
       state.api_token = data.token;
@@ -20412,49 +20413,10 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 108 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(2);
-
-
-var state = {
-  userProfile: {}
-};
-
-// getters
-var getters = {
-  userProfileById: function userProfileById(state) {
-    return function (id) {
-      return state.users[id];
-    };
-  }
-};
-
-// actions
-var actions = {
-  userProfileById: function userProfileById(_ref, id) {
-    var commit = _ref.commit;
-
-    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].get("").then(function (res) {
-      commit('USER_PROFILE', res.data);
-    });
-  }
-};
-
-// mutations
-var mutations = {
-  USER_PROFILE: function USER_PROFILE(state, data) {
-    state.userProfile = data;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/home/mnasser/Documents/Uni/modisti/resources/assets/vue/store/modules/users.js'");
 
 /***/ }),
 /* 109 */
@@ -20464,16 +20426,48 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(2);
 
 
-var state = {};
+var state = {
+  set: {},
+  sets: []
+};
 
 // getters
-var getters = {};
+var getters = {
+  set: function set(state) {
+    return state.set;
+  },
+  sets: function sets(state) {
+    return state.sets;
+  }
+};
 
 // actions
-var actions = {};
+var actions = {
+  getSet: function getSet(_ref, state) {
+    var commit = _ref.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].get("").then(function (res) {
+      commit("SET", res.data);
+    });
+  },
+  getSets: function getSets(_ref2, state) {
+    var commit = _ref2.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].get("").then(function (res) {
+      commit("SETS", res.data);
+    });
+  }
+};
 
 // mutations
-var mutations = {};
+var mutations = {
+  SET: function SET(state, data) {
+    state.set = data;
+  },
+  SETS: function SETS(state, data) {
+    state.sets = data;
+  }
+};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   state: state,
@@ -20499,6 +20493,9 @@ var state = {
 
 // getters
 var getters = {
+  item: function item(state) {
+    return state.item;
+  },
   items: function items(state) {
     return state.items;
   }
@@ -20506,20 +20503,29 @@ var getters = {
 
 // actions
 var actions = {
-  items: function items(_ref, type) {
+  item: function item(_ref, type) {
     var commit = _ref.commit;
 
-    console.log('getting items with type ' + type);
     setTimeout(function () {
-      commit('items', Object(__WEBPACK_IMPORTED_MODULE_1__mocks_items_mock__["a" /* default */])(8));
+      commit("ITEM", Object(__WEBPACK_IMPORTED_MODULE_1__mocks_items_mock__["a" /* default */])(8)[0]);
+    }, 300);
+  },
+  items: function items(_ref2, type) {
+    var commit = _ref2.commit;
+
+    setTimeout(function () {
+      commit("ITEMS", Object(__WEBPACK_IMPORTED_MODULE_1__mocks_items_mock__["a" /* default */])(8));
     }, 300);
   }
 };
 
 // mutations
 var mutations = {
-  items: function items(state, _items) {
-    state.items = _items;
+  ITEM: function ITEM(state, data) {
+    state.item = data;
+  },
+  ITEMS: function ITEMS(state, data) {
+    state.items = data;
   }
 };
 
@@ -20574,16 +20580,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(2);
 
 
-var state = {};
+var state = {
+  collection: {},
+  collections: []
+};
 
 // getters
-var getters = {};
+var getters = {
+  collection: function collection(state) {
+    return state.collection;
+  },
+  collections: function collections(state) {
+    return state.collections;
+  }
+};
 
 // actions
-var actions = {};
+var actions = {
+  getCollection: function getCollection(_ref, state) {
+    var commit = _ref.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].get("").then(function (res) {
+      commit("COLLECTION", res.data);
+    });
+  },
+  getCollections: function getCollections(_ref2, state) {
+    var commit = _ref2.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__api__["a" /* default */].get("").then(function (res) {
+      commit("COLLECTIONS", res.data);
+    });
+  }
+};
 
 // mutations
-var mutations = {};
+var mutations = {
+  COLLECTION: function COLLECTION(state, data) {
+    state.collection = data;
+  },
+  COLLECTIONS: function COLLECTIONS(state, data) {
+    state.collections = data;
+  }
+};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   state: state,

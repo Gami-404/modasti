@@ -1,20 +1,42 @@
-import API from '../api';
+import API from "../api";
 
 const state = {
-  
+  collection: {},
+  collections: []
 };
 
 // getters
 const getters = {
-
+  collection(state) {
+    return state.collection;
+  },
+  collections(state) {
+    return state.collections;
+  }
 };
 
 // actions
 const actions = {
+  getCollection({ commit }, state) {
+    return API.get("").then(res => {
+      commit("COLLECTION", res.data);
+    });
+  },
+  getCollections({ commit }, state) {
+    return API.get("").then(res => {
+      commit("COLLECTIONS", res.data);
+    });
+  }
 };
 
 // mutations
 const mutations = {
+  COLLECTION(state, data) {
+    state.collection = data;
+  },
+  COLLECTIONS(state, data) {
+    state.collections = data;
+  }
 };
 
 export default {
