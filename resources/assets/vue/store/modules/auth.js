@@ -1,3 +1,5 @@
+import API from '../api';
+
 const state = {
   auth: localStorage.getItem('api_token') ? true : false,
   user: JSON.parse(localStorage.getItem('user')) || {},
@@ -23,7 +25,7 @@ const getters = {
 // actions
 const actions = {
   login({ commit }, formData) {
-    return axios.post('/signIn', formData).then(res => {
+    return API.post('/signIn', formData).then(res => {
       commit('login', res.data);
       return res.data;
     }).catch(err => {
@@ -34,7 +36,7 @@ const actions = {
     commit('logout');
   },
   register({ commit }, formData) {
-    return axios.post('/register', formData).then(res => {
+    return API.post('/register', formData).then(res => {
       commit('register', res.data);
       return res.data;
     }).catch(err => {

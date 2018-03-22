@@ -11,7 +11,6 @@
 window.Vue = require('vue');
 import router from '../vue/Router';
 import store from '../vue/store';
-import axios from 'axios';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -19,35 +18,14 @@ import axios from 'axios';
  */
 
 
-const axiosI = axios.create({
-    baseURL: 'https://cors-anywhere.herokuapp.com/http://stage-api.modasti.net/api'
-});
-
-axiosI.interceptors.request.use(function (request) {
-    request.headers['api_token'] = store.getters.api_token;
-    return request;
-}, function (error) {
-    return Promise.reject(error);
-});
-
-axiosI.interceptors.response.use(function (response) {
-    if(response.status == 401){
-        localStorage.removeItem('api_token');
-        localStorage.removeItem('user');
-        window.location = '/';
-    };
-    return response;
-}, function (error) {
-    return Promise.reject(error);
-});
-
-window.axios = axiosI;
 
 
 Vue.component(
     'App', 
     require('../vue/App.vue')
 );
+
+window.$store = store;
 
 const app = new Vue({
     el: '#app',

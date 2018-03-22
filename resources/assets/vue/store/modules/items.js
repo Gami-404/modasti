@@ -1,3 +1,4 @@
+import API from '../api';
 import mock from './mocks/items.mock';
 
 const state = {
