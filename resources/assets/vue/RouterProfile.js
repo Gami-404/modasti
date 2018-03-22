@@ -1,15 +1,15 @@
 import Profile from './pages/Profile';
 //Profile sub pages
-import ProfileSets from "./components/profile/SubPageSets";
-import ProfileCollections from "./components/profile/SubPageCollections";
-import ProfileItems from "./components/profile/SubPageItems";
-import ProfileLikes from "./components/profile/SubPageLikes";
-import ProfileWins from "./components/profile/SubPageWins";
-import ProfileFollowing from "./components/profile/SubPageFollowing";
-import ProfileFollowers from "./components/profile/SubPageFollowers";
-import ProfileBlockedUsers from "./components/profile/SubPageBlocked";
-import ProfileMessages from "./components/profile/SubPageMessages";
-import ProfileGroups from "./components/profile/SubPageGroups";
+import ProfileSets from "./components/profile/Sets";
+import ProfileCollections from "./components/profile/Collections";
+import ProfileItems from "./components/profile/Items";
+import ProfileLikes from "./components/profile/Likes";
+import ProfileWins from "./components/profile/Wins";
+import ProfileFollowing from "./components/profile/Following";
+import ProfileFollowers from "./components/profile/Followers";
+import ProfileBlocked from "./components/profile/Blocked";
+import ProfileMessages from "./components/profile/Messages";
+import ProfileGroups from "./components/profile/Groups";
 
 export default {
   path: "/profile/:id",
@@ -17,7 +17,7 @@ export default {
   children: [
     {
       path: "blocked",
-      component: ProfileBlockedUsers
+      component: ProfileBlocked
     },
     {
       path: "collections",
