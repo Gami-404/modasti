@@ -81,7 +81,8 @@ return [
     'brand'=>'Brand',
     'post_url_brand'=>'Enter url and brand',
 
-
+    'confirmed'=>'Confirmed',
+    'unconfirmed'=>'Unconfirmed',
     'coverage' => [
         'low' => 'Low',
         'medium' => 'Medium',
