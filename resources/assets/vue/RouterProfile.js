@@ -9,7 +9,6 @@ import ProfileFollowing from "./components/profile/Following";
 import ProfileFollowers from "./components/profile/Followers";
 import ProfileBlocked from "./components/profile/Blocked";
 import ProfileMessages from "./components/profile/Messages";
-import ProfileGroups from "./components/profile/Groups";
 
 export default {
   path: "/profile/:id",
@@ -54,10 +53,6 @@ export default {
     {
       path: "messages",
       component: ProfileMessages
-    },
-    {
-      path:"groups",
-      component : ProfileGroups
     },
     { path: "/", redirect: "sets" },
     { path: "**", redirect: "sets" }

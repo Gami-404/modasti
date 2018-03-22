@@ -90,6 +90,7 @@
                 <Login v-if="$route.query.popup=='login'"></Login>
                 <SignUp v-if="$route.query.popup=='signup'"></SignUp>
                 <Forget v-if="$route.query.popup=='forget'"></Forget>
+                <Reset v-if="$route.query.popup=='reset'"></Reset>
             </WrapperPopups>
         </transition>
     </div>
@@ -99,6 +100,7 @@
 import Login from "../components/popups/Login";
 import SignUp from "../components/popups/Signup";
 import Forget from "../components/popups/Forget";
+import Reset from "../components/popups/Reset";
 import WrapperPopups from "../components/wrappers/WrapperPopups";
 
 import routes from "./NavbarRoutes";
@@ -107,6 +109,7 @@ export default {
     Login,
     SignUp,
     Forget,
+    Reset,
     WrapperPopups
   },
   data() {
