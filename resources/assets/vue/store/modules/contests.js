@@ -8,12 +8,8 @@ const state = {
 
 // getters
 const getters = {
-  contest(state) {
-    return state.contest;
-  },
-  contests(state) {
-    return state.contests;
-  }
+  contest:(state) => state.contest,
+  contests: (state) => state.contests
 };
 
 // actions

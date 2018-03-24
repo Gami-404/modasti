@@ -8,15 +8,9 @@ const state = {
 
 // getters
 const getters = {
-  user(state) {
-    return state.user;
-  },
-  api_token(state) {
-    return state.api_token;
-  },
-  auth(state) {
-    return state.auth;
-  }
+  user: (state) => state.user,
+  api_token: (state) => state.api_token,
+  auth: (state) => state.auth
 };
 
 // actions

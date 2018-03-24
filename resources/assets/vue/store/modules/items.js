@@ -8,12 +8,8 @@ const state = {
 
 // getters
 const getters = {
-  item(state) {
-    return state.item;
-  },
-  items(state) {
-    return state.items;
-  }
+  item: (state) => state.item,
+  items:(state) => state.items
 };
 
 // actions

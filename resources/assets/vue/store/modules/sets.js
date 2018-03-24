@@ -7,12 +7,8 @@ const state = {
 
 // getters
 const getters = {
-  set(state) {
-    return state.set;
-  },
-  sets(state) {
-    return state.sets;
-  }
+  set: (state) => state.set,
+  sets: (state) => state.sets
 };
 
 // actions

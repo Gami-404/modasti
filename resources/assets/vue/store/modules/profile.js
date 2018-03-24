@@ -6,9 +6,7 @@ const state = {
 
 // getters
 const getters = {
-  userProfile(state) {
-    return state.userProfile;
-  }
+  userProfile:(state) => state.userProfile
 };
 
 // actions

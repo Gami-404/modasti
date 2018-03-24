@@ -7,12 +7,8 @@ const state = {
 
 // getters
 const getters = {
-  collection(state) {
-    return state.collection;
-  },
-  collections(state) {
-    return state.collections;
-  }
+  collection: (state) => state.collection,
+  collections: (state) => state.collections
 };
 
 // actions
