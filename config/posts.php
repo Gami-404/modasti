@@ -15,11 +15,11 @@ return [
         2=>'medium',
         3=>'high'
     ],
+
     'size_system'=>[
         'eu'=>'EU',
         'uk'=>'UK',
         'us'=>'US'
     ]
-
 
 ];

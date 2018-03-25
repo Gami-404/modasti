@@ -130,11 +130,11 @@
                                         <th style="width:35px">
                                             <input type="checkbox" class="i-checks check_all" name="ids[]"/>
                                         </th>
+                                        <th>{{ trans("posts::collections.attributes.image_id") }}</th>
                                         <th>{{ trans("posts::collections.attributes.title") }}</th>
                                         <th>{{ trans("posts::collections.attributes.created_at") }}</th>
                                         <th>{{ trans("posts::collections.user") }}</th>
                                         <th>{{ trans("posts::collections.actions") }}</th>
-                                        <th>{{ trans("posts::collections.attributes.image_id") }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -145,6 +145,8 @@
                                                 <input type="checkbox" class="i-checks" name="id[]"
                                                        value="{{ $collection->id }}"/>
                                             </td>
+
+                                            <td><img src="{{$collection->image_id?thumbnail($collection->image->path):'/plugins/admin/default/image.png'}}" class="img-responsive img-preview" alt="Image"></td>
 
                                             <td>
                                                 <a data-toggle="tooltip" data-placement="bottom"
@@ -179,7 +181,7 @@
                                                     <i class="fa fa-times text-navy"></i>
                                                 </a>
                                             </td>
-                                            <td><img src="{{$collection->image_id?thumbnail($collection->image->path):'/plugins/admin/default/image.png'}}" class="img-responsive" alt="Image"></td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

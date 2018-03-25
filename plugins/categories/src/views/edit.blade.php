@@ -96,67 +96,59 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <p>{{trans('categories::categories.block')}}</p>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="col-sm-push-2 col-sm-8 ui-front">
-                                <input type="search" name="items" id="group-items" class="form-control"
-                                       title="{{trans('categories::categories.item-search')}}"
-                                       placeholder="{{trans('categories::categories.item-search')}}"
-                                       required="required"/>
+                    @if($category)
 
-                                <hr>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <p>{{trans('categories::categories.block')}}</p>
+                                </h3>
                             </div>
+                            <div class="panel-body">
+                                <div class="col-sm-push-2 col-sm-8 ui-front">
+                                    <input type="search" name="items" id="group-items" class="form-control"
+                                           title="{{trans('categories::categories.item-search')}}"
+                                           placeholder="{{trans('categories::categories.item-search')}}"/>
+                                    <hr>
+                                </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>{{trans('posts::posts.attributes.title')}}</th>
-                                                <th>{{trans('posts::posts.brand')}}</th>
-                                                <th>{{trans('posts::posts.attributes.status')}}</th>
-                                                <th>{{trans('posts::posts.attributes.image_id')}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="sortable">
-                                            @if(!empty($category->posts))
-                                                @foreach($category->posts as $post)
-                                                    <tr id="item-{{$post->id}}" class="items">
-                                                        <input type="hidden" name="items[]" value="{{$post->id}}">
-                                                        <td class="title">{{$post->title}}</td>
-                                                        <td>{{$post->brand->title or '-'}}</td>
-                                                        <td><span
-                                                                class="label label-{{$post->status==0?'warning':'success'}}">
-                                                                {{$post->status==0?trans('posts::posts.unconfirmed'):
-                                                                trans('posts::posts.confirmed')}}
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <img class="img-responsive"
-                                                                 src="{{$post->image_id?thumbnail($post->image->path):'/plugins/admin/default/image.png'}}"/>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)" class="close">
-                                                                <i class="fa fa-times" hidden="true"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                            </tbody>
-                                        </table>
-                                        <p class="no-record" style="display: {{empty($category->posts)?'block':'none'}}">{{ trans("posts::posts.no_records") }}</p>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+
+                                                <tbody id="sortable">
+                                                @if(!empty($category->posts))
+                                                    @foreach($category->posts as $post)
+                                                        <tr id="item-{{$post->id}}" class="items">
+                                                            <input type="hidden" name="items[]" value="{{$post->id}}">
+                                                            <td>
+                                                                <img class="img-responsive img-preview"
+                                                                     src="{{$post->image_id?thumbnail($post->image->path):'/plugins/admin/default/image.png'}}"/>
+                                                            </td>
+                                                            <td class="title">
+                                                                <strong>{{$post->title}}</strong>
+                                                                <br/>
+                                                                <small>{{$post->brand->title or ''}}</small>
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" class="close">
+                                                                    <i class="fa fa-times" hidden="true"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                                </tbody>
+                                            </table>
+                                            <p class="no-record"
+                                               style="display: {{empty($category->posts)?'block':'none'}}">{{ trans("posts::posts.no_records") }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="col-md-4">
 
@@ -269,6 +261,7 @@
                     event.preventDefault();
                 }
             }).autocomplete({
+
                 source: function (request, response) {
                     $.getJSON("{{route('admin.posts.show')}}", {
                         q: request.term
@@ -282,45 +275,43 @@
                         response(newData);
                     });
                 },
-                search: function () {
-                    // custom minLength
-                    var term = this.value;
-                    if (term.length < 2) {
+
+                select: function (event, ui) {
+
+                    let post = ui.item.item;
+
+                    this.value = "";
+
+                    if($("#item-"+post.id).length){
                         return false;
                     }
-                },
-                focus: function () {
-                    // prevent value inserted on focus
-                    return false;
-                },
-                select: function (event, ui) {
-                    this.value = "";
-                    $('#sortable').prepend();
+
+                    var html = `<tr id="item-${post.id}" class="items">
+                            <input type="hidden" name="items[]" value="${post.id}">
+                            <td>
+                                <img class="img-responsive img-preview" src="${post.image ? '{{ uploads_url() }}/' + post.image.path : '{{ url("/") }}/plugins/admin/default/image.png' }"/>
+                            </td>
+                            <td class="title">
+                                <strong>${post.title}</strong>
+                                <br/>
+                                <small>${ post.brand ? post.brand.title : "" }</small>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="close">
+                                    <i class="fa fa-times" hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>`;
+
+                    $('#sortable').append(html);
                     $("#sortable").sortable("refresh");
                     $('.no-record').fadeOut();
+
                     return false;
                 },
 
             });
 
-            function createItem(item) {
-                return '<tr id="item-1" class="items" style="display: table-row;">\n' +
-                    '<input type="hidden" name="items[]" value="1" style="">\n' +
-                    '<td class="title">Test item</td>\n' +
-                    '<td>text</td>\n' +
-                    '<td><span class="label label-success">Confirmed' +
-                    '                                                            </span>\n' +
-                    '                                                        </td>\n' +
-                    '                                                        <td>\n' +
-                    '                                                            <img class="img-responsive" src="http://modisti.local/uploads/2018/03/thumbnail-2887556827112145120.jpg">\n' +
-                    '                                                        </td>\n' +
-                    '                                                        <td>\n' +
-                    '                                                            <a href="javascript:void(0)" class="close">\n' +
-                    '                                                                <i class="fa fa-times" hidden="true"></i>\n' +
-                    '                                                            </a>\n' +
-                    '                                                        </td>\n' +
-                    '</tr>';
-            }
             $("#sortable").sortable({
                 placeholder: "ui-state-highlight-2",
                 axis: "y",
@@ -341,7 +332,7 @@
 
             $('table').on('click', '.close', function () {
 
-                if($('#sortable tr').length==1){
+                if ($('#sortable tr').length == 1) {
                     $('.no-record').fadeIn();
                 }
                 $(this).closest('tr').fadeOut().remove();

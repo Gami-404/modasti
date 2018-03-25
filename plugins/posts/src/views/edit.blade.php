@@ -116,7 +116,7 @@
                         </div>
                         <div class="panel-body">
 
-                            <div class="form-group switch-row">
+                            {{--<div class="form-group switch-row">
                                 <label class="col-sm-9 control-label"
                                        for="input-front_page">{{ trans("posts::posts.attributes.front_page") }}</label>
                                 <div class="col-sm-3">
@@ -125,7 +125,7 @@
                                            @endif id="input-front_page" name="front_page" value="1"
                                            class="status-switcher switcher-sm">
                                 </div>
-                            </div>
+                            </div>--}}
 
 
                             <div class="form-group switch-row">

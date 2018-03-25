@@ -132,8 +132,8 @@
                                         <th style="width:35px">
                                             <input type="checkbox" class="i-checks check_all" name="ids[]"/>
                                         </th>
-                                        <th>{{ trans("colors::colors.attributes.name") }}</th>
                                         <th>{{ trans("colors::colors.attributes.value") }}</th>
+                                        <th>{{ trans("colors::colors.attributes.name") }}</th>
                                         <th>{{ trans("colors::colors.attributes.created_at") }}</th>
                                         <th>{{ trans("colors::colors.user") }}</th>
                                         <th>{{ trans("colors::colors.in_filter") }}</th>
@@ -150,6 +150,10 @@
                                             </td>
 
                                             <td>
+                                                <div style="height: 45px;width:45px;background-color:{{$color->value}}"></div>
+                                            </td>
+
+                                            <td>
                                                 <a data-toggle="tooltip" data-placement="bottom"
                                                    title="{{ trans("colors::colors.edit") }}" class="text-navy"
                                                    href="{{ route("admin.colors.edit", array("id" => $color->id)) }}">
@@ -157,9 +161,6 @@
                                                 </a>
                                             </td>
 
-                                            <td>
-                                                <div style="height: 40px;width:40px;background-color:{{$color->value}}"></div>
-                                            </td>
                                             <td>
                                                 <small>{{ $color->created_at->render() }}</small>
                                             </td>
@@ -229,17 +230,13 @@
 @stop
 
 @section("head")
-
-    <link href="{{ assets('admin::css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}"
-          rel="stylesheet" type="text/css">
-
+    <link href="{{ assets('admin::css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
 @stop
 
 @section("footer")
 
     <script type="text/javascript" src="{{ assets('admin::js/plugins/moment/moment.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ assets('admin::js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ assets('admin::js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 
     <script>
 

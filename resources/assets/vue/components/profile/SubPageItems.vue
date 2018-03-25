@@ -2,20 +2,21 @@
 	<div class="gridContainer">
 		<WrapperCardList>
 			<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
-        <SetCard
-          :image="item.image"
-          :title="item.title"
-          :link="item.link"
-          :like="item.like"
-          :comment="item.comment"
-          :by="item.by"
-				/>
+                <ItemCard
+                    :image="item.image"
+                    :price="item.price"
+                    :title="item.title"
+                    :link="item.link"
+                    :like="item.like"
+                    :comment="item.comment"
+                />
 			</div>
 		</WrapperCardList>
 	</div>
 </template>
 
 <script>
+import Nav from "./Nav";
 import SetCard from "../SetCard";
 import WrapperCardList from "../wrappers/WrapperCardList";
 

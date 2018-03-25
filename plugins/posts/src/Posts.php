@@ -58,6 +58,7 @@ class Posts extends \Dot\Platform\Plugin
                     ->icon("fa-fort-awesome");
             }
         });
+
         Navigation::menu("sidebar", function ($menu) {
 
             if (Auth::user()->can("posts.manage")) {
@@ -112,6 +113,10 @@ class Posts extends \Dot\Platform\Plugin
 
             return view("posts::widgets.featured", $data);
 
+        });
+
+        Action::listen('admin.head', function(){
+            return view("posts::styles");
         });
     }
 }
