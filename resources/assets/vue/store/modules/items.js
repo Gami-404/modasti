@@ -1,38 +1,31 @@
-import API from "../api";
-import mock from "./mocks/items.mock";
+import mock from './mocks/items.mock';
 
 const state = {
   item: {},
-  items: []
+  items:[],
 };
 
 // getters
 const getters = {
-  item: (state) => state.item,
-  items:(state) => state.items
+  items(state) {
+    return state.items;
+  }
 };
 
 // actions
 const actions = {
-  item({ commit }, type) {
-    setTimeout(() => {
-      commit("ITEM", mock(8)[0]);
-    }, 300);
-  },
-  items({ commit }, type) {
-    setTimeout(() => {
-      commit("ITEMS", mock(8));
-    }, 300);
+  items({ commit }, type ) {
+    console.log('getting items with type '+ type);
+    setTimeout( ()=>{
+      commit('items', mock(8));
+    } , 300 );
   }
 };
 
 // mutations
 const mutations = {
-  ITEM(state, data) {
-    state.item = data;
-  },
-  ITEMS(state, data) {
-    state.items = data;
+  items(state, items) {
+    state.items = items;
   }
 };
 

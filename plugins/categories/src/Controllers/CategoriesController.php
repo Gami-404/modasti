@@ -149,6 +149,16 @@ class CategoriesController extends Controller
 
             $category->save();
 
+            $items = [];
+            $i = 1;
+
+            foreach ((array)Request::get("items") as $item_id) {
+                $items[$item_id] = ["order" => $i];
+                $i++;
+            }
+
+            $category->posts()->sync($items);
+
             // Fire saved action
 
             Action::fire("category.saved", $category);
@@ -162,7 +172,8 @@ class CategoriesController extends Controller
     }
 
 
-    public function filter(){
+    public function filter()
+    {
 
     }
 

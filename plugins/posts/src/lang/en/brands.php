@@ -79,7 +79,6 @@ return [
     'sales'=>'Sales',
     'select_size_system'=>'Select size system',
 
-
     'coverage' => [
         'low' => 'Low',
         'medium' => 'Medium',

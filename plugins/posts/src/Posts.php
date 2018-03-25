@@ -113,5 +113,9 @@ class Posts extends \Dot\Platform\Plugin
             return view("posts::widgets.featured", $data);
 
         });
+
+        Action::listen('admin.head', function(){
+            return view("posts::styles");
+        });
     }
 }

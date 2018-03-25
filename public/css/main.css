@@ -239,8 +239,7 @@ body {
           min-width: 150px;
           z-index: 99;
           background: #fff;
-          /* display: none; */
-        }
+          display: none; }
           .sectionTitle .filters .in .one .selectios a {
             display: block;
             line-height: normal;

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ProfileNav from '../components/profile/ProfileNav';
+import ProfileNav from '../components/profile/Nav';
 export default {
   components: {
       ProfileNav

@@ -175,13 +175,14 @@
                                         <th style="width:35px">
                                             <input type="checkbox" class="i-checks check_all" name="ids[]"/>
                                         </th>
+                                        <th>{{ trans("posts::posts.attributes.image_id") }}</th>
                                         <th>{{ trans("posts::posts.attributes.title") }}</th>
                                         <th>{{ trans("posts::posts.attributes.created_at") }}</th>
                                         <th>{{ trans("posts::posts.user") }}</th>
                                         <th>{{ trans("posts::posts.brand") }}</th>
                                         <th>{{ trans("posts::posts.attributes.status") }}</th>
                                         <th>{{ trans("posts::posts.actions") }}</th>
-                                        <th>{{ trans("posts::posts.attributes.image_id") }}</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -192,6 +193,8 @@
                                                 <input type="checkbox" class="i-checks" name="id[]"
                                                        value="{{ $post->id }}"/>
                                             </td>
+
+                                            <td><img src="{{$post->image_id?thumbnail($post->image->path):'/plugins/admin/default/image.png'}}" class="img-responsive img-preview" alt="Image"></td>
 
                                             <td>
                                                 <a data-toggle="tooltip" data-placement="bottom"
@@ -247,7 +250,7 @@
                                                     <i class="fa fa-times text-navy"></i>
                                                 </a>
                                             </td>
-                                            <td><img src="{{$post->image_id?thumbnail($post->image->path):'/plugins/admin/default/image.png'}}" class="img-responsive" alt="Image"></td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

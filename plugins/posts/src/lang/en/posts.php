@@ -83,6 +83,9 @@ return [
 
     'confirmed'=>'Confirmed',
     'unconfirmed'=>'Unconfirmed',
+
+    'select_brand' => 'Select brand',
+
     'coverage' => [
         'low' => 'Low',
         'medium' => 'Medium',

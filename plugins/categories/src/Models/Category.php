@@ -123,7 +123,7 @@ class Category extends Model
    */
     function posts()
     {
-        return $this->belongsToMany(Post::class, "posts_categories", "category_id",'post_id');
+        return $this->belongsToMany(Post::class, "posts_categories", "category_id",'post_id')->withPivot('order')->orderBy("order", "ASC");
     }
 
 

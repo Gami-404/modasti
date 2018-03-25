@@ -7,6 +7,10 @@ $('#header .top .rightArea .search .icon, #header .top .rightArea .search form, 
 	e.stopPropagation();
 });
 
+$('.dropdownTitle').click(function(){
+	$('.dropdownContent').css('display', 'none');
+	$(this).next('.dropdownContent').stop().slideToggle();
+});
 
 $('#header .bottom #nav .icon').click(function(){
 	$('.mobileMenu').fadeToggle();
@@ -16,4 +20,13 @@ $('#header .bottom #nav .icon').click(function(){
 $(document).click(function(){
 	$('#header .search').removeClass('formOpened');
 	$('.dropdownContent').css('display', 'none');
+});
+
+$('.openPopup').click(function(){
+	var theUrl = $(this).attr('data-link');
+	$('body').append('<div class="thePopup"><div class="closePopup"></div><iframe src="' + theUrl + '" frameborder="0"></iframe></div>')
+});
+
+$('body').on('click', '.closePopup', function(){
+	$('.thePopup').remove();
 });
