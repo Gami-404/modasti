@@ -58,6 +58,7 @@ class Posts extends \Dot\Platform\Plugin
                     ->icon("fa-fort-awesome");
             }
         });
+
         Navigation::menu("sidebar", function ($menu) {
 
             if (Auth::user()->can("posts.manage")) {
