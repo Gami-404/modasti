@@ -2,7 +2,6 @@
   <div class="gridContainer">
 		<div class="followersPage secPaddLg">
 			<div class="myrow clearfix">
-			
 				<UserCard
                     v-for="user of users"
                     :key="user.id"
@@ -18,11 +17,11 @@
 </template>
 
 <script>
-import UserCard from '../UserCard';
+import UserCard from '@/components/UserCard';
 export default {
   components: {
     UserCard
-  }
+  },
 }
 </script>
 

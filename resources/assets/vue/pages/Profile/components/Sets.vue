@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import Nav from "./Nav";
-import SetCard from "../SetCard";
-import WrapperCardList from "../wrappers/WrapperCardList";
+import SetCard from "@/components/SetCard";
+import WrapperCardList from "@/wrappers/WrapperCardList";
 
 export default {
   components: {

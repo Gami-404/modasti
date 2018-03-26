@@ -51,9 +51,9 @@ export default {
             password: this.password,
             name: this.name
           })
-          .then(res => {
-            if (res.errors.length == 0) this.$router.push("/");
-            else this.errors = res.errors;
+          .then( errors => {
+            if ( errors.length == 0) this.$router.push("/");
+            else this.errors = errors;
           })
           .finally(() => {
             this.loading = false;

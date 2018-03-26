@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import WrapperCardList from "../wrappers/WrapperCardList";
-import MessageCard from '../MessageCard';
+import WrapperCardList from "@/wrappers/WrapperCardList";
+import MessageCard from '@/components/MessageCard';
 
 export default {
   components: {

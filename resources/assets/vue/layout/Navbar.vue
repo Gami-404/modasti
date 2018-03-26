@@ -1,10 +1,9 @@
 <template>
     <div>
+        <div class="fixHeaderSpace"></div>
         <header id="header">
-
             <div class="top">
                 <div class="gridContainer clearfix">
-
                     <h1 class="logo"><img src="images/logo.png" alt="Modacity"></h1>
                     <div class="rightArea">
 
@@ -17,7 +16,6 @@
                                 <router-link to="?popup=login" class="one">LOGIN</router-link>
                             </span>
                             <a href="#" class="one" v-if="isAuth" @click="logout">LOGOUT</a>
-
                         </div>
                         <div class="search">
                             <span class="icon">
@@ -64,7 +62,7 @@
             </div>
 
         </header>
-        <div class="mobileMenu">
+        <div class="mobileMenu" style="display: block;">
             <div class="in">
                 <div class="nav">
                     <ul>
@@ -85,23 +83,25 @@
                 </div>
             </div>
         </div>
+
         <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <WrapperPopups v-if="$route.query.popup">
+            <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
                 <Login v-if="$route.query.popup=='login'"></Login>
                 <SignUp v-if="$route.query.popup=='signup'"></SignUp>
                 <Forget v-if="$route.query.popup=='forget'"></Forget>
             </WrapperPopups>
         </transition>
+
     </div>
 </template>
 
 <script>
-import Login from "../components/popups/Login";
-import SignUp from "../components/popups/Signup";
-import Forget from "../components/popups/Forget";
-import WrapperPopups from "../components/wrappers/WrapperPopups";
-
+import Login from "./popups/Login";
+import SignUp from "./popups/Signup";
+import Forget from "./popups/Forget";
+import WrapperPopups from "@/wrappers/WrapperPopups";
 import routes from "./NavbarRoutes";
+
 export default {
   components: {
     Login,
@@ -132,5 +132,8 @@ export default {
 <style>
 .active-header {
   border-bottom-color: #ffbeb8 !important;
+}
+.popupPage{
+    z-index: 50;
 }
 </style>

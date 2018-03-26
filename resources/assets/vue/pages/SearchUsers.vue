@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import SearchNav from "../components/SearchNav";
+import SearchNav from "@/components/SearchNav";
 
 export default {
   

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import WrapperCardListTitled from "../components/wrappers/WrapperCardListTitled";
-import ItemCard from "../components/ItemCard";
+import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
+import ItemCard from "@/components/ItemCard";
 
 export default {
   components: {

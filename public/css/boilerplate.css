@@ -150,6 +150,12 @@ td { vertical-align: top; }
 .icon-home:before { content: '\e805'; }
 .icon-like:before { content: '\e806'; }
 .icon-shoe:before { content: '\e807'; }
+.icon-closeset:before { content: '\e808'; }
+.icon-noresults:before { content: '\e809'; }
+.icon-changeindex:before { content: '\e80a'; }
+.icon-flip:before { content: '\e80b'; }
+.icon-rotate:before { content: '\e80c'; }
+.icon-backarrow:before { content: '\e80d'; } 
 
 
 h1,h2,h3,h4,h5,h6,p{font-weight:100;margin:0;font-size: 16px;}

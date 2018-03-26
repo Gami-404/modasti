@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import UserCard from '../UserCard';
+import UserCard from '@/components/UserCard';
 export default {
   components: {
     UserCard

@@ -1,129 +1,105 @@
 <template>
-  <div id="home">
-	<div class="secPaddLg whiteBg textCentered">
-		<div class="gridContainer">
-			<div class="sectionName">
-				<div class="theName">MODEST FASHION FOR ALL</div>
-				<div class="second">FASHION + INSPIRE + LOVE</div>
+	<div id="home">
+		<div class="secPaddLg whiteBg textCentered">
+			<div class="gridContainer">
+				<div class="sectionName">
+					<div class="theName">MODEST FASHION FOR ALL</div>
+					<div class="second">FASHION + INSPIRE + LOVE</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="gridContainer">
-		
-		<WrapperCardListTitled title="Latest Trends" url="#" >			
-				<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+
+		<div class="gridContainer">
+
+			<WrapperCardListTitled title="Latest Trends" url="#">
+				<div v-for="(item,index) in items_latest_trends" :key='index' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard
-						:image="item.image"
-						:price="item.price"
-						:title="item.title"
-						:link="item.link"
-						:like="item.like"
-						:comment="item.comment"
-					/>
+					:item-id="item.id" 
+					:image="item.photos[0]['photo_name']" 
+					:price="item.price" 
+					:title="item.title_en" 
+					:url="item.url_en" 
+					:brand="item.brand" 
+					:likes="item.likes" 
+					:is-liked="item.is_liked" 
+					:comment="item.comment" />
 				</div>
-		</WrapperCardListTitled>	
+			</WrapperCardListTitled>
 
-		
-		<WrapperCardListTitled title="Most Liked From Our Community" url="#">	
-				<div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
+			<WrapperCardListTitled title="Most Liked From Our Community" url="#">
+				<div v-for="(item,index) in items_most_popular" :key='index' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard
-						:image="item.image"
-						:price="item.price"
-						:title="item.title"
-						:link="item.link"
-						:like="item.like"
-						:comment="item.comment"
-					/>
+					:item-id="item.id" 					
+					:image="item.photos[0]['photo_name']" 
+					:price="item.price" 
+					:title="item.title_en" 
+					:url="item.url_en" 
+					:brand="item.brand" 
+					:likes="item.likes" 
+					:is-liked="item.is_liked" 
+					:comment="item.comment" />
 				</div>
-		</WrapperCardListTitled>
+			</WrapperCardListTitled>
 
-		<WrapperCardListTitled title="Most Viewed Sets" url="#" >
-			<div v-for="(item,index) in Items" :key="index" class="mycol-lg-3 mycol-sm-6">
-				<SetCard
-					:image="item.image"
-					:title="item.title"
-					:link="item.link"
-					:like="item.like"
-					:comment="item.comment"
-					:by="item.by"
-				/>
-			</div>
-		</WrapperCardListTitled>
-
-		<WrapperCardListTitled title="Official Contests" url="#" >
-				<div v-for="(item,index) in Items" :key="index" class="mycol-lg-3 mycol-sm-6">
-					<SetCard
-						:image="item.image"
-						:title="item.title"
-						:link="item.link"
-						:like="item.like"
-						:comment="item.comment"
-						:by="item.by"
-					/>
+			<WrapperCardListTitled title="Most Viewed Sets" url="#">
+				<div v-for="(item,index) in sets_best_from_community" :key="index" class="mycol-lg-3 mycol-sm-6">
+					<SetCard 
+					:image="item['photo']['photo_name']" 
+					:price="item.price" 
+					:title="item.title_en" 
+					:url="item.url_en" 
+					:brand="item.brand" 
+					:likes="item.likes" 
+					:is-liked="item.is_liked" 
+					:comment="item.comment" />
 				</div>
-		</WrapperCardListTitled>		
+			</WrapperCardListTitled>
+
+			<WrapperCardListTitled title="Official Contests" url="#">
+				<div v-for="(item,index) in sets_best_from_community" :key="index" class="mycol-lg-3 mycol-sm-6">
+					<SetCard 
+					:image="item['photo']['photo_name']" 
+					:price="item.price" 
+					:title="item.title_en" 
+					:url="item.url_en"
+					:user-id="item['user']['id']"
+					:username="item['user']['username']" 
+					:likes="item.likes"
+					:is-liked="item.is_liked" 
+					:comment="item.comments_counter" />
+				</div>
+			</WrapperCardListTitled>
+
+		</div>
+		
 
 	</div>
-	
-  </div>
 </template>
 
 <script>
-import ItemCard from '../components/ItemCard';
-import SetCard from '../components/SetCard';
-import WrapperCardListTitled from '../components/wrappers/WrapperCardListTitled'
+import ItemCard from "@/components/ItemCard";
+import SetCard from "@/components/SetCard";
+import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
+import { mapGetters } from "vuex";
 
 export default {
-  components:{
-	  ItemCard,
-	  SetCard,
-	  WrapperCardListTitled
+  components: {
+    ItemCard,
+    SetCard,
+    WrapperCardListTitled
   },
   computed: {
-		Items(){
-			let arr = [];
-			const  Items = [ 
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/4.jpg',
-					price: 520 ,
-					url:'',
-					like: 10,
-					comment: 10,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 					
-				},
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/3.jpg',
-					price: 320 ,
-					url:'',
-					like: 20,
-					comment: 11,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 					
-				},
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/1.jpg',
-					price: 120 ,
-					url:'',
-					like: 5,
-					comment: 2,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 
-				},
-			];
-			
-			for (let i = 0; i < 8; i++) {
-				arr.push( Items[Math.floor(Math.random()*3)] );
-			} 
-			return arr;
-		}
+    ...mapGetters([
+      "items_most_popular",
+      "sets_best_from_community",
+      "sets_best_from_modasti"
+	]),
+	items_latest_trends(){
+		return this.$store.getters.items_latest_trends.slice(0,8);
+	}
+  },
+  created() {
+    this.$store.dispatch("home_items");
   }
-}
+};
 </script>

@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import ItemCard from "../components/ItemCard";
-import ClothingFilter from "../components/ClothingFilter";
-import WrapperCardList from "../components/wrappers/WrapperCardList";
+import ItemCard from "@/components/ItemCard";
+import ClothingFilter from "@/components/ClothingFilter";
+import WrapperCardList from "@/wrappers/WrapperCardList";
 
 export default {
   components: {

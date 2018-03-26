@@ -1,5 +1,5 @@
 <template>
-    <div class="itemCard">
+    <div class="productCard">
         <div class="avatar">
             <div class="verticalCentered">
                 <div class="theCell"><img :src="image" alt=""></div>
@@ -8,18 +8,19 @@
 
         <div class="content">
             <h3>
-                <a href="#">{{title}}</a>
+                <router-link :to="itemId?'/item/'+itemId : ''">{{title}}</router-link>
             </h3>
             <hr>
             <div class="price">{{price}} €</div>
             <div class="link">
-                <a href="#">{{link}}</a>
+                <a :href="url">{{brand||"Unknown"}}</a>
             </div>
         </div>
         <div class="likesAndComments">
             <a href="#">
-                <i class="icon-like"></i>
-                <span>{{like}}</span>
+                <i class="fa fa-heart" v-if="isLiked" ></i>
+                <i class="fa fa-heart-o" v-if="!isLiked" ></i>
+                <span>{{likes}}</span>
             </a>
             <a href="#">
                 <i class="icon-comment"></i>
@@ -31,6 +32,16 @@
 
 <script>
 export default {
-  props:['title', 'image', 'url','link' ,'price', 'like', 'comment']
-}
+  props: [
+    "itemId",
+    "title",
+    "image",
+    "url",
+    "brand",
+    "price",
+    "likes",
+    "isLiked",
+    "comment"
+  ]
+};
 </script>
