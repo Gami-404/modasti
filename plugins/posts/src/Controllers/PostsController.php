@@ -51,7 +51,7 @@ class PostsController extends Controller
         $this->data["order"] = (Request::filled("order")) ? Request::get("order") : "DESC";
         $this->data['per_page'] = (Request::filled("per_page")) ? Request::get("per_page") : NULL;
 
-        $query = Post::with('image', 'user', 'tags')->orderBy($this->data["sort"], $this->data["order"]);
+        $query = Post::with('image', 'user', 'tags','brand')->orderBy($this->data["sort"], $this->data["order"]);
 
         if (Request::filled("tag_id")) {
             $query->whereHas("tags", function ($query) {
