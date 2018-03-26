@@ -157,7 +157,7 @@ class CategoriesController extends Controller
                 $i++;
             }
 
-            $category->posts()->sync($items);
+            $category->blockPosts()->sync($items);
 
             // Fire saved action
 

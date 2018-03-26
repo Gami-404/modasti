@@ -34,7 +34,8 @@
       "App\\": "app/",
       "Dot\\Posts\\": "plugins/posts/src/",
       "Dot\\Colors\\": "plugins/colors/src/",
-      "Dot\\Categories\\": "plugins/categories/src/"
+      "Dot\\Categories\\": "plugins/categories/src/",
+      "Dot\\Blocks\\":"plugins/blocks/src/"
     }
   },
   "autoload-dev": {

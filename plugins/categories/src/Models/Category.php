@@ -123,9 +123,17 @@ class Category extends Model
    */
     function posts()
     {
-        return $this->belongsToMany(Post::class, "posts_categories", "category_id",'post_id')->withPivot('order')->orderBy("order", "ASC");
+        return $this->belongsToMany(Post::class, "posts_categories", "category_id",'post_id');
     }
 
+    /**
+     * posts  which in category block relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function blockPosts()
+    {
+        return $this->belongsToMany(Post::class, "posts_categories_orders", "category_id",'post_id')->withPivot('order')->orderBy("order", "ASC");
+    }
 
     /*
      * @param $query
