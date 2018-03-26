@@ -96,8 +96,7 @@
                         </div>
                     </div>
 
-                    @if($category)
-
+                    @if(isset($category->id))
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
@@ -118,10 +117,11 @@
                                             <table class="table table-hover">
 
                                                 <tbody id="sortable">
-                                                @if(!empty($category->posts))
-                                                    @foreach($category->posts as $post)
+                                                @if(!empty($category->blockPosts))
+                                                    @foreach($category->blockPosts as $post)
                                                         <tr id="item-{{$post->id}}" class="items">
-                                                            <input type="hidden" name="items[]" value="{{$post->id}}">
+                                                            <input type="hidden" name="items[]" class="item-id"
+                                                                   value="{{$post->id}}">
                                                             <td>
                                                                 <img class="img-responsive img-preview"
                                                                      src="{{$post->image_id?thumbnail($post->image->path):'/plugins/admin/default/image.png'}}"/>
@@ -264,9 +264,23 @@
 
                 source: function (request, response) {
                     $.getJSON("{{route('admin.posts.show')}}", {
-                        q: request.term
+                        q: request.term,
+                        category_id:{{isset( $category->id)?$category->id:''}}
+
                     }, function (data) {
-                        var newData = data.map(function (e) {
+                        var ids = [];
+                        $('input.item-id').each(function (e, input) {
+                            ids.push(input.value)
+                        });
+                        var filteredData = data.filter(function (item) {
+                            for (let id of ids) {
+                                if (id == item.id) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        });
+                        var newData = filteredData.map(function (e) {
                             return {
                                 label: e.title, value: e.title,
                                 item: e
@@ -282,7 +296,7 @@
 
                     this.value = "";
 
-                    if($("#item-"+post.id).length){
+                    if ($("#item-" + post.id).length) {
                         return false;
                     }
 
