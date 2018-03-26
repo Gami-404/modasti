@@ -1,19 +1,19 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./pages/Home";
-import Category from "./pages/Category";
-import Contests from "./pages/Contests";
-import Item from "./pages/Item";
-import SearchItems from "./pages/SearchItems";
-import SearchUsers from "./pages/SearchUsers";
-import Single from "./pages/Single";
-import Page404 from "./pages/404";
-import Page500 from "./pages/500";
-import About from "./pages/About";
-import BrandRegister from './pages/brandRegister'
+import Home from "@/pages/Home";
+import Category from "@/pages/Category";
+import Item from "@/pages/Item";
+import SearchItems from "@/pages/SearchItems";
+import SearchUsers from "@/pages/SearchUsers";
+import Single from "@/pages/Single";
+import Page404 from "@/pages/404";
+import Page500 from "@/pages/500";
+import About from "@/pages/About";
+import BrandRegister from '@/pages/brandRegister'
 
-// Profile Router
-import Profile from "./profile";
+// Nested Routers
+import ProfileRouter from "./profile.router";
+import ContestsRouter from "./contest.router";
 
 
 Vue.use(Router);
@@ -24,11 +24,6 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home
-    },
-    {
-      path: "/contests",
-      name: "contests",
-      component: Contests
     },
     {
       path: "/item/:id",
@@ -65,8 +60,7 @@ export default new Router({
       name: "brandRegister",
       component: BrandRegister
     },
-    { path: "/category", redirect: "/category/clothing" },
-    Profile,
+    { path: "/category", redirect: "/category/clothing" },    
     {
       path: "/404",
       name: "404",
@@ -77,6 +71,7 @@ export default new Router({
       name: "500",
       component: Page500
     },
+    ProfileRouter,  
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {

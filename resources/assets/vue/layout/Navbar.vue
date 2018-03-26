@@ -122,8 +122,7 @@ export default {
   },
   computed: {
     isAuth() {
-      console.log(this.$store.getters.auth);
-      return this.$store.getters.auth;
+      return this.$store.getters.isAuth;
     }
   }
 };
