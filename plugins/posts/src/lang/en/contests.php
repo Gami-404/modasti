@@ -31,10 +31,9 @@ return [
 
     'post_status' => 'Contest status',
     'activate' => 'activate',
-    'activated' => 'confirmed',
+    'activated' => 'activated',
     'all' => 'All',
-    'deactivate' => 'deactivate',
-    'deactivated' => 'unconfirmed',
+    'deactivate' => 'Deactivate',
     'sure_activate' => "Are you sure to confirm Contest ?",
     'sure_deactivate' => "Are you sure to unconfirmed Contest ?",
     'sure_delete' => 'Are you sure to delete ?',
@@ -81,7 +80,7 @@ return [
 
     'confirmed'=>'Confirmed',
     'unconfirmed'=>'Unconfirmed',
-
+'activated'=>'Activated',
     'select_brand' => 'Select brand',
 
     'coverage' => [
