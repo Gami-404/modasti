@@ -27,7 +27,7 @@ const actions = {
     }, 300);
   },
   get_home_items({ commit }) {
-    API.post("/homeTrends", {}).then(res => {
+    return API.post("/homeTrends", {}).then(res => {
       commit("HOME_ITEMS", res.data.data);
     });
   }
