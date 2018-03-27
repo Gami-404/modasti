@@ -4,7 +4,7 @@
 		
 			<div class="logoFooter">
 				<div class="theLogo"><img src="images/logo.png" alt=""></div>
-				<p>Modasti is the “mall” for modest fashion. We ease the shopping experience of millions of women by bringing together all the brands, and selecting the items that meet the modest fashion standards.</p>
+				<p>A place where women from all over the world meet the widest selection of modest clothing, a place where designers, stylists, influencers, and shoppers meet and inspire each other with new fashion and trends. Indeed the era of modest fashion has just begun.</p>
 				<div class="social">
 					<a href="#"><i class="fa fa-facebook-official"></i></a>
 					<a href="#"><i class="fa fa-twitter"></i></a>

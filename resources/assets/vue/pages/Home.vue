@@ -99,7 +99,7 @@ export default {
 	}
   },
   created() {
-    this.$store.dispatch("home_items");
+    this.$store.dispatch("get_home_items");
   }
 };
 </script>

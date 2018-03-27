@@ -26,7 +26,7 @@ const actions = {
       // commit("ITEM", mock(8)[0]);
     }, 300);
   },
-  home_items({ commit }) {
+  get_home_items({ commit }) {
     API.post("/homeTrends", {}).then(res => {
       commit("HOME_ITEMS", res.data.data);
     });
