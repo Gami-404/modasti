@@ -9,6 +9,7 @@ Route::group([
     "middleware" => ["web", "auth:backend", "can:posts.manage"],
     "namespace" => "Dot\\Posts\\Controllers"
 ], function ($route) {
+    // Posts Routes
     $route->group(["prefix" => "posts"], function ($route) {
         $route->any('/', ["as" => "admin.posts.show", "uses" => "PostsController@index"]);
         $route->any('/create', ["as" => "admin.posts.create", "uses" => "PostsController@create"]);
@@ -18,6 +19,7 @@ Route::group([
         $route->post('newSlug', 'PostsController@new_slug');
     });
 
+    // Brands Routes
     $route->group(["prefix" => "brands"], function ($route) {
         $route->any('/', ["as" => "admin.posts.brands.show", "uses" => "BrandsController@index"]);
         $route->any('/create', ["as" => "admin.posts.brands.create", "uses" => "BrandsController@create"]);
@@ -26,6 +28,7 @@ Route::group([
         $route->any('/{status}/status', ["as" => "admin.posts.brands.status", "uses" => "BrandsController@status"]);
     });
 
+    // Sets Routes
     $route->group(["prefix" => "sets"], function ($route) {
         $route->any('/', ["as" => "admin.posts.sets.show", "uses" => "SetsController@index"]);
         $route->any('/create', ["as" => "admin.posts.sets.create", "uses" => "SetsController@create"]);
@@ -35,12 +38,22 @@ Route::group([
     });
 
 
+    // Collections Routes
     $route->group(["prefix" => 'collections'], function ($route) {
         $route->any('/', ["as" => "admin.posts.collections.show", "uses" => "CollectionsController@index"]);
         $route->any('/create', ["as" => "admin.posts.collections.create", "uses" => "CollectionsController@create"]);
         $route->any('/{id}/edit', ["as" => "admin.posts.collections.edit", "uses" => "CollectionsController@edit"]);
         $route->any('/delete', ["as" => "admin.posts.collections.delete", "uses" => "CollectionsController@delete"]);
         $route->any('/{status}/status', ["as" => "admin.posts.collections.status", "uses" => "CollectionsController@status"]);
+    });
+
+    // Contests Routes
+    $route->group(["prefix" => 'contests'], function ($route) {
+        $route->any('/', ["as" => "admin.posts.contests.show", "uses" => "ContestsController@index"]);
+        $route->any('/create', ["as" => "admin.posts.contests.create", "uses" => "ContestsController@create"]);
+        $route->any('/{id}/edit', ["as" => "admin.posts.contests.edit", "uses" => "ContestsController@edit"]);
+        $route->any('/delete', ["as" => "admin.posts.contests.delete", "uses" => "ContestsController@delete"]);
+        $route->any('/{status}/status', ["as" => "admin.posts.contests.status", "uses" => "ContestsController@status"]);
     });
 });
 
