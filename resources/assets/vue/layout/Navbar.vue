@@ -85,7 +85,7 @@
         </div>
 
         <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
+            <WrapperPopups v-if="$route.query.popup && !$store.getters.isAuth">
                 <Login v-if="$route.query.popup=='login'"></Login>
                 <SignUp v-if="$route.query.popup=='signup'"></SignUp>
                 <Forget v-if="$route.query.popup=='forget'"></Forget>

@@ -13,7 +13,7 @@ axiosI.interceptors.request.use(
 
     request.headers["Authorization"] =
       "Bearer " +
-      (window.$store.getters.api_token ||
+      (window._store.getters.api_token ||
         localStorage.getItem("api_token") ||
         "");
 

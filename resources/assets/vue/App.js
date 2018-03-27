@@ -17,7 +17,7 @@ import store from "../vue/store";
 
 Vue.component("App", require("./App.vue"));
 
-window.$store = store;
+window._store = store;
 
 const app = new Vue({
   el: "#app",

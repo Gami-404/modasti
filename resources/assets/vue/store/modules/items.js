@@ -1,4 +1,3 @@
-import mock from "./mocks/items.mock";
 import API from "../API";
 
 const state = {
@@ -24,7 +23,7 @@ const getters = {
 const actions = {
   item({ commit }, id) {
     setTimeout(() => {
-      commit("ITEM", mock(8)[0]);
+      // commit("ITEM", mock(8)[0]);
     }, 300);
   },
   home_items({ commit }) {
