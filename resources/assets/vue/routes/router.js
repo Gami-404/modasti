@@ -71,10 +71,15 @@ export default new Router({
       name: "500",
       component: Page500
     },
-    ProfileRouter,  
+    ...ProfileRouter, 
+    ContestsRouter, 
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {
+    console.log(to);
+    if( to.fullPath == '/contest/new' || to.fullPath == '/contest/old' ){
+      return { x: 0, y: 150 };
+    }
     return { x: 0, y: 0 };
   }
 });

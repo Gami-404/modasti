@@ -1,10 +1,10 @@
 <template>
     <div>
         <app-navbar/>
-        <transition name="paget"
-        enter-active-class="animated fadeIn"
-        >
-            <router-view/>
+        <transition name="paget" enter-active-class="animated fadeIn">
+            <keep-alive>
+                <router-view/>
+            </keep-alive>
         </transition>
         <app-footer/>
     </div>
@@ -25,7 +25,5 @@ export default {
 </script>
 
 <style>
-    @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css";
-
-    
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css";
 </style>

@@ -54,10 +54,10 @@
                             </li>
                         </ul>
                     </nav>
-                    <a href="#" class="contest">
+                    <router-link to="/contest" class="contest">
                         <img src="images/new.png" alt="">
                         <span>CONTESTS</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
 

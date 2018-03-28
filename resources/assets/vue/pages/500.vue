@@ -7,7 +7,7 @@
             <div class="name">Whoops, Something went wrong.</div>
             <hr>
             <div class="message">MODASTI developers have been informed about this and will correct the issue Please try again, and if the problem persists, contact our support and let team know. Thank you!</div>
-            <a href="#" class="backToHome">Back to home</a>
+			<router-link to="/" class="backToHome">Back to home</router-link>
 
         </div>
     </div>
