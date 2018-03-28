@@ -18,7 +18,7 @@ class CreateContestsTable extends Migration
             $table->string('reward_code')->nullable()->index();
             $table->integer('reward')->nullable()->index();
             $table->string('hash_tag')->nullable()->index();
-            $table->text('content')->nullable()->index();
+            $table->text('content')->nullable();
             $table->string("lang")->nullable()->index();
             $table->integer('status')->default(0)->nullable();
             $table->integer('image_id')->default(0)->index();
