@@ -16,9 +16,10 @@ import ProfileRouter from "./profile.router";
 import ContestsRouter from "./contest.router";
 
 
+
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -83,3 +84,23 @@ export default new Router({
     return { x: 0, y: 0 };
   }
 });
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log(to.matched);
+    
+    if ( window._store.getters.isAuth ) {
+      next()
+    } else {
+      next({
+        path: '/?popup=login',
+        query: { popup:'login' , redirect: to.fullPath }
+      });
+    }
+  } else {
+    next() // make sure to always call next()!
+  }
+})
+
+export default router;

@@ -1,104 +1,89 @@
 <template>
     <div class="gridContainer">
+        <div v-if="!loading" > 
+            <div class="proudctDetails">
+                <div class="avatar"><img :src="data.photos[0].photo_name" alt=""></div>
+                <div class="content">
+                    <div class="in">
 
-        <div class="proudctDetails">
-            <div class="avatar"><img src="images/1.jpg" alt=""></div>
-            <div class="content">
-                <div class="in">
+                        <div class="paging">
+                            <a href="#">Clothing</a>
+                            <a href="#">Dresses</a>
+                        </div>
 
-                    <div class="paging">
-                        <a href="#">Clothing</a>
-                        <a href="#">Dresses</a>
+                        <h2 class="title">{{data.title_en}}</h2>
+                        <div v-html="data.text_en" class="description"></div>
+                        <div class="info clearfix">
+                            <div class="price">{{data.price}} $</div>
+                            <a :href="data.url_en" class="link">{{data.brand}}</a>
+                        </div>
+                        <div class="likesAndComments">
+                            <a href="#">
+                                <i class="icon-like"></i>
+                                <span>{{data.likes || 0}}</span>
+                            </a>
+                            <a href="#">
+                                <i class="icon-comment"></i>
+                                <span>{{ data.comments || 0}}</span>
+                            </a>
+                        </div>
+
                     </div>
-
-                    <h2 class="title">VELVET PUMPS WITH BEJEWELED HEELS</h2>
-                    <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, </div>
-                    <div class="info clearfix">
-                        <div class="price">725$</div>
-                        <a href="#" class="link">dolcegabbana.com</a>
-                    </div>
-                    <div class="likesAndComments">
-                        <a href="#">
-                            <i class="icon-like"></i>
-                            <span>10</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon-comment"></i>
-                            <span>10</span>
-                        </a>
-                    </div>
-
                 </div>
             </div>
+
+            <WrapperCardListTitled title="Similar" url="#" more="false">
+                <div v-for="(item,i) in data.similar" :key='i' class="mycol-lg-3 mycol-sm-6">
+                    <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+                </div>
+            </WrapperCardListTitled>
         </div>
-
-        <WrapperCardListTitled title="Latest Trends" url="#">
-            <div v-for="(item,index) in Items" :key='index' class="mycol-lg-3 mycol-sm-6">
-                <ItemCard 
-                :image="item.image" 
-                :price="item.price" 
-                :title="item.title" 
-                :link="item.link" :like="item.like" 
-                :comment="item.comment" />
-            </div>
-        </WrapperCardListTitled>
-
+        <Loading v-if="loading" />
     </div>
 </template>
 
 <script>
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
-
+import Loading from "@/components/Loading";
 export default {
   components: {
     WrapperCardListTitled,
-    ItemCard
+    ItemCard,
+    Loading
+  },
+  data() {
+    return {
+      loading: true
+    };
+  },
+  created() {
+    this.loading = true;
+    this.$store
+      .dispatch("get_item", this.$route.params.id)
+      .then(() => (this.loading = false))
+      .catch(() => {
+        this.loading = false;
+        this.$router.replace({ path: "/404"});
+      });
+  },
+  watch: {
+    '$route'(to, from) {
+    //BPCT
+      this.loading = true;
+      this.$store
+        .dispatch("get_item", to.params.id)
+        .then(() => (this.loading = false))
+        .catch(() => {
+          this.loading = false;
+          this.$router.replace({ path: "/404"});
+        });
+    }
   },
   computed: {
-      Items(){
-			let arr = [];
-			const  Items = [ 
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/4.jpg',
-					price: 520 ,
-					url:'',
-					like: 10,
-					comment: 10,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 					
-				},
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/3.jpg',
-					price: 320 ,
-					url:'',
-					like: 20,
-					comment: 11,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 					
-				},
-				{
-					url: '',
-					title: 'VELVET PUMPS WITH BEJEWELED HEELS',
-					image: 'images/1.jpg',
-					price: 120 ,
-					url:'',
-					like: 5,
-					comment: 2,
-					link:'dolcegabbana.com',
-					by:'Modasti retail - Modasti' 
-				},
-			];
-			
-			for (let i = 0; i < 8; i++) {
-				arr.push( Items[Math.floor(Math.random()*3)] );
-			} 
-			return arr;
-		}
+    data() {
+      return this.$store.getters.item;
+    }
   }
 };
 </script>

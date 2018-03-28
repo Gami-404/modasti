@@ -14,6 +14,7 @@ export default [
   {
     path: "/profile/:id",
     component: Profile,
+    meta:{ requiresAuth : true },
     children: [
       {
         path: "blockedusers",

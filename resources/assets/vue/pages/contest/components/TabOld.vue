@@ -9,6 +9,7 @@
                     :image="''"
                     :contest-id="contest.id"
                     :joined="contest.is_photo_submitted"
+                    :isOld="contest._type == 'old'"
                     />
                 </div>
             </div>

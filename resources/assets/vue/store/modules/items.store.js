@@ -21,10 +21,12 @@ const getters = {
 
 // actions
 const actions = {
-  item({ commit }, id) {
-    setTimeout(() => {
-      // commit("ITEM", mock(8)[0]);
-    }, 300);
+  get_item({ commit }, id) {
+    return API.post("/itemDetails", {
+      "itemId": id
+    }).then(res => {
+      commit("ITEM", res.data.data);
+    });
   },
   get_home_items({ commit }) {
     return API.post("/homeTrends", {}).then(res => {
@@ -37,9 +39,6 @@ const actions = {
 const mutations = {
   ITEM(state, data) {
     state.item = data;
-  },
-  ITEMS(state, data) {
-    state.items = data;
   },
   HOME_ITEMS(state, data) {
     state.items.items_most_popular = data.items_most_popular;
