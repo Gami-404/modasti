@@ -10,6 +10,7 @@ import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import About from "@/pages/About";
 import BrandRegister from '@/pages/brandRegister'
+import SetCreate from "@/pages/SetCreate";
 
 // Nested Routers
 import ProfileRouter from "./profile.router";
@@ -57,6 +58,12 @@ const router = new Router({
       component: About
     },
     {
+      path: "/set/create",
+      name:"set_create",
+      component: SetCreate,
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/brand/register",
       name: "brandRegister",
       component: BrandRegister
@@ -85,11 +92,9 @@ const router = new Router({
   }
 });
 
-
+// Auth guard
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log(to.matched);
-    
     if ( window._store.getters.isAuth ) {
       next()
     } else {

@@ -2,7 +2,7 @@
     <div>
         <app-navbar/>
         <transition name="paget" enter-active-class="animated fadeIn">
-            <keep-alive :exclude="['item']" >
+            <keep-alive exclude="/item*/" >
                 <router-view/>
             </keep-alive>
         </transition>

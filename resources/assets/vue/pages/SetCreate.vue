@@ -4,35 +4,35 @@
 
             <div class="leftArea">
                 <div class="areaToDrop">
-                    <div class="intialText">Drag sets or items here</div>
-                    <!-- <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div> -->
+                    <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
+                    <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div>
                 </div>
                 <div class="actionBtns">
-                    <a href="#" class="publishBtn">Publish</a>
+                    <router-link to="?popup=create_set" class="publishBtn">Publish</router-link>
                     <div class="otherBtns">
                         <div class="oneBtn">
-                            <a href="#">
-                                <i class="icon-backarrow"></i>
+                            <a @click.prevent="forward" href="#">
+                                <i class="fa fa-arrow-circle-up"></i>
                             </a>
                         </div>
                         <div class="oneBtn">
-                            <a href="#">
-                                <i class="icon-rotate"></i>
+                            <a @click.prevent="backward" href="#">
+                                <i class="fa fa-arrow-circle-down"></i>
                             </a>
                         </div>
                         <div class="oneBtn">
-                            <a href="#">
+                            <a @click.prevent="flip" href="#">
                                 <i class="icon-flip"></i>
                             </a>
                         </div>
                         <div class="oneBtn">
-                            <a href="#">
+                            <a @click.prevent="copy" href="#">
                                 <i class="icon-changeindex"></i>
                             </a>
                         </div>
                         <div class="oneBtn">
-                            <a href="#">
-                                <i class="icon-closeset"></i>
+                            <a @click.prevent="remove" href="#">
+                                <i class="fa fa-trash"></i>
                             </a>
                         </div>
                     </div>
@@ -48,69 +48,14 @@
                 <div class="theProducts">
                     <div class="myrow clearfix">
 
-                        <div class="mycol-sm-4">
-                            <div class="one">
+                        <div v-for="(item,i) of items" :key="i" class="mycol-sm-4">
+                            <div @dragstart="dragStart" draggable="true" :src="item.image" class="one">
                                 <div class="avatar">
                                     <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
+                                        <div class="theCell"><img :src="item.image" alt=""></div>
                                     </div>
                                 </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
-                            </div>
-                        </div>
-
-                        <div class="mycol-sm-4">
-                            <div class="one">
-                                <div class="avatar">
-                                    <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
-                            </div>
-                        </div>
-
-                        <div class="mycol-sm-4">
-                            <div class="one">
-                                <div class="avatar">
-                                    <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
-                            </div>
-                        </div>
-
-                        <div class="mycol-sm-4">
-                            <div class="one">
-                                <div class="avatar">
-                                    <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
-                            </div>
-                        </div>
-
-                        <div class="mycol-sm-4">
-                            <div class="one">
-                                <div class="avatar">
-                                    <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
-                            </div>
-                        </div>
-
-                        <div class="mycol-sm-4">
-                            <div class="one">
-                                <div class="avatar">
-                                    <div class="verticalCentered">
-                                        <div class="theCell"><img src="images/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="name">VELVET PUMPS WITH BEJEWELED HEELS</div>
+                                <div class="name">{{item.title_en}}</div>
                             </div>
                         </div>
 
@@ -119,29 +64,40 @@
             </div>
 
         </div>
+        <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
+                <SetCreatePopup v-if="$route.query.popup=='create_set'"></SetCreatePopup>
+            </WrapperPopups>
+        </transition>
     </div>
 </template>
 <script>
 import Knova from "konva";
+import WrapperPopups from "@/wrappers/WrapperPopups";
+import SetCreatePopup from "@/layout/popups/SetCreatePopup";
+
 export default {
+  components: {
+    SetCreatePopup,
+    WrapperPopups
+  },
   data() {
     return {
       stage: {},
       layer: {},
-      images: ["images/1.jpg", "images/1.jpg", "images/1.jpg"]
+      selected: null,
+      itemsCounter: 0,
+      items: [
+        { image: "images/1.jpg", title_en: "HEEOEE" },
+        { image: "images/1.jpg", title_en: "HEEOEE" },
+        { image: "images/1.jpg", title_en: "HEEOEE" }
+      ],
+      flipBit: -1
     };
-  },
-  computed: {
-    items() {
-      return this.$store.getters.items;
-    }
-  },
-  created() {
-    this.$store.dispatch("items", "");
   },
   mounted() {
     var width = this.$refs.droparea.offsetWidth - 20;
-    var height = 500;
+    var height = this.$refs.droparea.offsetHeight - 20;
     this.stage = new Konva.Stage({
       container: "droparea",
       width: width,
@@ -150,50 +106,48 @@ export default {
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
     let drawImage = this.drawImage;
-
-    this.stage.on("click", e => {
-      // if click on empty area - remove all transformers
+    let transformerFunction = e => {
       if (e.target === this.stage) {
         this.stage.find("Transformer").destroy();
         this.layer.draw();
+        this.selected = null;
+        this.stage.container().style.cursor = "default";
         return;
+      } else if (e.target.hasName("img") && e.target !== this.selected) {
+        this.stage.find("Transformer").destroy();
+        var tr = new Konva.Transformer();
+        this.layer.add(tr);
+        tr.attachTo(e.target);
+        this.selected = e.target;
+        this.layer.draw();
       }
-      // do nothing if clicked NOT on our rectangles
-      if (!e.target.hasName("img")) {
-        return;
-      }
-      // remove old transformers
-      // TODO: we can skip it if current rect is already selected
-      this.stage.find("Transformer").destroy();
+    };
 
-      // create new transformer
-      var tr = new Konva.Transformer();
-      this.layer.add(tr);
-      tr.attachTo(e.target);
-      this.layer.draw();
-    });
+    this.stage.on("click", transformerFunction);
+    this.stage.on("dragstart", transformerFunction);
   },
   methods: {
     nothing() {},
     dragStart(event) {
       event.dataTransfer.setData("image", event.target.src);
-      console.log(event.target.src);
     },
     drop(event) {
       event.preventDefault();
+      console.log(event);
+      this.itemsCounter++;
       let img = new Image();
       img.onload = () => {
-        this.drawImage(img);
+        this.drawImage(img, event.offsetX, event.offsetY);
       };
       img.src = event.dataTransfer.getData("image");
     },
-    drawImage(imageObj) {
+    drawImage(imageObj, x, y) {
       // darth vader
       var darthVaderImg = new Konva.Image({
         image: imageObj,
         name: "img",
-        x: this.stage.getWidth() / 2 - 200 / 2,
-        y: this.stage.getHeight() / 2 - 137 / 2,
+        x: x - imageObj.width / 2,
+        y: y - imageObj.height / 2,
         draggable: true
       });
 
@@ -205,8 +159,61 @@ export default {
         document.body.style.cursor = "default";
       });
 
+      this.stage.find("Transformer").destroy();
+
+      var tr = new Konva.Transformer();
       this.layer.add(darthVaderImg);
+      this.layer.add(tr);
+      tr.attachTo(darthVaderImg);
+      this.selected = darthVaderImg;
       this.layer.draw();
+    },
+    remove() {
+      this.itemsCounter--;
+      this.selected.destroy();
+      this.stage.find("Transformer").destroy();
+      this.layer.draw();
+    },
+    forward() {
+      this.stage.find("Transformer").destroy();
+      this.selected.moveUp();
+      this.selected = null;
+      this.layer.draw();
+    },
+    backward() {
+      this.stage.find("Transformer").destroy();
+      this.selected.moveDown();
+      this.selected = null;
+      this.layer.draw();
+    },
+    flip() {
+      this.selected.scaleX(this.flipBit);
+      this.selected.x(
+        this.selected.x() + this.selected.width() * this.flipBit * -1
+      );
+      this.flipBit *= -1;
+
+      this.stage.find("Transformer").destroy();
+
+      var tr = new Konva.Transformer();
+      this.layer.add(tr);
+
+      tr.attachTo(this.selected);
+
+      this.layer.draw();
+    },
+    copy() {
+      let cloned = this.selected.clone();
+      cloned.x(cloned.x() - 50);
+      cloned.y(cloned.y() - 50);
+      this.selected = cloned;
+      this.layer.add(cloned);
+      this.stage.find("Transformer").destroy();
+      var tr = new Konva.Transformer();
+      this.layer.add(tr);
+      tr.attachTo(cloned);
+      this.layer.draw();
+      this.itemsCounter++;
     }
   }
 };

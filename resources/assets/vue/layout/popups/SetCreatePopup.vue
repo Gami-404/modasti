@@ -2,7 +2,7 @@
   <transition name="popups" enter-active-class="animated bounceIn">
     <div>
       <div class="head">
-        <span>login</span>
+        <span>New Set</span>
         <router-link class="head" to="?popup=">
           <span class="icon">
             <i class="fa fa-close"></i>
@@ -11,8 +11,8 @@
       </div>
       <div class="content">
         <form @submit="login" class="theForm">
-          <input type="email" class="formEle" placeholder="Email" v-model="email" required>
-          <input type="password" class="formEle" placeholder="Password" v-model="password" required>
+          <input type="test" class="formEle" placeholder="Set name" v-model="name" required>
+          <input type="text" class="formEle" placeholder="Details" v-model="details" required>
           <div v-for="(error,i) in errors" :key="i">
             <h4 class="errors">
               {{error}}
@@ -21,14 +21,6 @@
           </div>
           <input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
         </form>
-        <div class="otherLinks">
-          <div class="one">Forgot Password?
-            <router-link to="?popup=forget">Get New</router-link>
-          </div>
-          <div class="one">Not Registered?
-            <router-link :to="'?popup=signup&redirect='+$route.query.redirect">Sign Up</router-link>
-          </div>
-        </div>
       </div>
     </div>
   </transition>
@@ -38,8 +30,8 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      name: "",
+      details: "",
       loading: false,
       errors: []
     };
@@ -64,7 +56,7 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.loading ? "Loading.." : "login";
+      return this.loading ? "Loading.." : "Publish";
     }
   }
 };

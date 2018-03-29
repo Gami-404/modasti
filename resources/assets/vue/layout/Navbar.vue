@@ -6,16 +6,17 @@
                 <div class="gridContainer clearfix">
                     <h1 class="logo"><img src="images/logo.png" alt="Modacity"></h1>
                     <div class="rightArea">
-
+                        
                         <div class="userActions">
-                            <a href="#" class="one">
-                                <i class="icon-headicon"></i>
-                            </a>
+                            
                             <span v-if="!isAuth">
                                 <router-link to="?popup=signup" class="one">SIGNUP</router-link>
                                 <router-link to="?popup=login" class="one">LOGIN</router-link>
                             </span>
-                            <a href="#" class="one" v-if="isAuth" @click="logout">LOGOUT</a>
+                            <span v-if="isAuth">
+                                <UserActions/>
+                                <a href="#" class="one"  @click="logout">LOGOUT</a>
+                            </span>
                         </div>
                         <div class="search">
                             <span class="icon">
@@ -99,6 +100,7 @@
 import Login from "./popups/Login";
 import SignUp from "./popups/Signup";
 import Forget from "./popups/Forget";
+import UserActions from "./UserActions";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import routes from "./NavbarRoutes";
 
@@ -107,7 +109,8 @@ export default {
     Login,
     SignUp,
     Forget,
-    WrapperPopups
+    WrapperPopups,
+    UserActions
   },
   data() {
     return {

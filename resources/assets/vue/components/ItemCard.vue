@@ -1,9 +1,9 @@
 <template>
     <div class="productCard">
         <div class="avatar">
-            <div class="verticalCentered">
+            <router-link :to="itemId?'/item/'+itemId : ''" class="verticalCentered">
                 <div class="theCell"><img :src="image" alt=""></div>
-            </div>
+            </router-link>
         </div>
 
         <div class="content">
