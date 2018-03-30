@@ -28,7 +28,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/item/:id",
+      path: "/item/:itemId",
       name: "item",
       component: Item
     },
@@ -84,7 +84,6 @@ const router = new Router({
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {
-    console.log(to);
     if( to.fullPath == '/contest/new' || to.fullPath == '/contest/old' ){
       return { x: 0, y: 150 };
     }

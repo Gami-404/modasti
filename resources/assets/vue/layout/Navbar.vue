@@ -4,7 +4,7 @@
         <header id="header">
             <div class="top">
                 <div class="gridContainer clearfix">
-                    <h1 class="logo"><img src="images/logo.png" alt="Modacity"></h1>
+                    <router-link to="/" class="logo"><img src="images/logo.png" alt="Modacity"></router-link>
                     <div class="rightArea">
                         
                         <div class="userActions">

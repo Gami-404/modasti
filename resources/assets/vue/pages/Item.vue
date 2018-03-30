@@ -1,8 +1,8 @@
 <template>
     <div class="gridContainer">
-        <div v-if="!loading" > 
+        <div v-if="!loading">
             <div class="proudctDetails">
-                <div class="avatar"><img :src="data.photos[0].photo_name" alt=""></div>
+                <div class="avatar"><img v-if="data.photos" :src="data.photos[0].photo_name" alt=""></div>
                 <div class="content">
                     <div class="in">
 
@@ -60,23 +60,23 @@ export default {
   created() {
     this.loading = true;
     this.$store
-      .dispatch("get_item", this.$route.params.id)
+      .dispatch("get_item", this.$route.params.itemId)
       .then(() => (this.loading = false))
       .catch(() => {
         this.loading = false;
-        this.$router.replace({ path: "/404"});
+        this.$router.replace({ path: "/404" });
       });
   },
   watch: {
-    '$route'(to, from) {
-    //BPCT
+    "$route.params.itemId"(itemId) {
+      if (!itemId) return;
       this.loading = true;
       this.$store
-        .dispatch("get_item", to.params.id)
+        .dispatch("get_item", itemId)
         .then(() => (this.loading = false))
         .catch(() => {
           this.loading = false;
-          this.$router.replace({ path: "/404"});
+          this.$router.replace({ path: "/404" });
         });
     }
   },
@@ -87,3 +87,10 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+    .avatar{
+        max-height: 600px
+    }
+</style>

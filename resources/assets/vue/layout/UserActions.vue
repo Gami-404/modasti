@@ -3,9 +3,9 @@
         <a href="#" class="one">
             <i class="icon-headicon"></i>
         </a>
-        <a href="#" class="one">
+        <router-link to="/messages" class="one">
             <i class="fa fa-envelope"></i>
-        </a>
+        </router-link>
         <div class="one notifications">
             <div class="theMain">
                 <i class="fa fa-bell"></i>
