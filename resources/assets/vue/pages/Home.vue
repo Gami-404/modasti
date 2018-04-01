@@ -72,8 +72,10 @@ export default {
   },
   created() {
     this.$store.dispatch("get_home_items").then( () => {
-		this.loading = false;
-	});
+			this.loading = false;
+		}).catch( err =>{
+			this.loading = false;
+		});
   }
 };
 </script>

@@ -18,7 +18,6 @@
 							<a href="#"><i class="icon-like"></i><span>10</span></a>
 							<a href="#"><i class="fa fa-share-alt"></i></a>
 						</div>
-						<a href="#" class="mainBtn">Join contest</a>
 
 					</div>
 				</div>

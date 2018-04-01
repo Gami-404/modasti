@@ -75,11 +75,17 @@
 		</div>
 		<div class="secPaddMd">
 			<div class="myrow clearfix">	
-				<div class="mycol-lg-3 mycol-sm-6">
-					
+				<div v-for="(photo,i) of contest.photos" :key="i" class="mycol-lg-3 mycol-sm-6">
+						
 				</div>
 			</div>
 		</div>
 		
 	</div>
 </template>
+
+<script>
+export default {
+  props: ['contest'],
+}
+</script>
