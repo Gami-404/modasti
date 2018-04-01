@@ -27,13 +27,11 @@ class OAuthApi
     public function handle($request, Closure $next, ...$roles)
     {
         if (!$token = $this->getAuthorizationToken($request)) {
-            dd('token-error');
             return response('Unauthorized.', 401);
         }
 
         // Authenticate
         if (!$this->authenticate($token)) {
-            dd('users-error');
             return response('Unauthorized.', 401);
         }
 

@@ -18,9 +18,5 @@ use Illuminate\Http\Request;
 //});
 
 
-
 //test router
-Route::middleware('api-auth:normal,designer')->get('/user', function (Request $request) {
-
-
-});
+Route::post('/signIn', 'Api\UserController@login');
