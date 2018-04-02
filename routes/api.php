@@ -19,4 +19,7 @@ use Illuminate\Http\Request;
 
 
 //test router
-Route::post('/signIn', 'Api\UserController@login');
+//Route::post('/signIn', 'Api\UserController@login');
+
+
+Route::fallback('Api\NotFoundController@notFound')->name('fallback');

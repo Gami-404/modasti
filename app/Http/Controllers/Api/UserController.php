@@ -41,8 +41,9 @@ class UserController extends Controller
             $response['errors'] = ["User not found."];
             return response()->json($response, '400');
         }
-
-        
+        $response['data'] = \Maps\User\login(Auth::user());
+        $response['token'] = Auth::user()->api_token;
+        return response()->json($response);
     }
 
 
