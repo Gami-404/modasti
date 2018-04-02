@@ -14,21 +14,14 @@
             <div class="createdBy">Created by</div>
             <router-link  :to="username?'/profile/'+userId:''">{{username||'Modasti'}}</router-link>
         </div>
-        <div class="likesAndComments">
-            <a href="#">
-                <i class="fa fa-heart" v-if="isLiked" ></i>
-                <i class="fa fa-heart-o" v-if="!isLiked" ></i>
-                <span>{{likes}}</span>
-            </a>
-            <a href="#">
-                <i class="icon-comment"></i>
-                <span>{{comment}}</span>
-            </a>
-        </div>
+
+        <CardActions :sharable="true" :likebale="true" :is-liked="isLiked" :obj-id="setId" :context="'set'" :num-of-likes="likes" />
+
     </div>
 </template>
 
 <script>
+import CardActions from "@/components/CardActions";
 export default {
   props: [
     "setId",
@@ -40,6 +33,9 @@ export default {
     "username",
     "isLiked",    
     "userId"
-  ]
+  ],
+  components: {
+      CardActions
+  }
 };
 </script>

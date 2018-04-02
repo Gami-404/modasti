@@ -10,28 +10,41 @@
 		</div>
 		<div class="contestTop whiteBg">
 			<div class="gridContainer clearfix">
-				<router-link active-class="active-header"  exact to="new">New Contests</router-link>
-				<router-link active-class="active-header"  exact to="old">Old Contests</router-link>
+				<router-link active-class="active-header" exact to="/contest/s/new">New Contests</router-link>
+				<router-link active-class="active-header" exact to="/contest/s/old">Old Contests</router-link>
 			</div>
 		</div>
-		<div class="gridContainer">
-        <transition name="paget" enter-active-class="animated fadeIn">
-			<router-view />
-        </transition>
+		<div v-if="!loading" class="gridContainer">
+			<transition name="paget" enter-active-class="animated fadeIn">
+				<router-view />
+			</transition>
 		</div>
+		<Loading v-if="loading" />
 	</div>
 </template>
 
 <script>
+import Loading from "@/components/Loading";
 export default {
-  created(){
-	  this.$store.dispatch('get_all_contests');
+  data() {
+    return {
+      loading: true
+    };
   },
-  computed:{
-	  isTab(){
-		  //BPCT
-		  return this.$route.path == '/contest/new' || this.$route.path == '/contest/old';
-	  }
-  }
-}
+  created() {
+    this.$store.dispatch("get_all_contests").then(() => {
+      this.loading = false;
+    });
+  },
+  computed: {
+    isTab() {
+      return (
+        this.$route.path == "/contest/s/new" || this.$route.path == "/contest/s/old"
+      );
+    }
+	},
+	components: {
+		Loading
+	}
+};
 </script>

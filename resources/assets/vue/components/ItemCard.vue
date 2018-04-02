@@ -16,21 +16,12 @@
                 <a :href="url">{{brand||"Unknown"}}</a>
             </div>
         </div>
-        <div class="likesAndComments">
-            <a href="#">
-                <i class="fa fa-heart" v-if="isLiked" ></i>
-                <i class="fa fa-heart-o" v-if="!isLiked" ></i>
-                <span>{{likes}}</span>
-            </a>
-            <a href="#">
-                <i class="icon-comment"></i>
-                <span>{{comment}}</span>
-            </a>
-        </div>
+        <CardActions :sharable="true" :likebale="true" :is-liked="isLiked" :obj-id="itemId" :context="'item'" />
     </div>
 </template>
 
 <script>
+import CardActions from "./CardActions";
 export default {
   props: [
     "itemId",
@@ -42,6 +33,9 @@ export default {
     "likes",
     "isLiked",
     "comment"
-  ]
+  ],
+  components: {
+    CardActions
+  }
 };
 </script>

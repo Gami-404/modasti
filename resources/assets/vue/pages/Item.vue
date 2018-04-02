@@ -33,8 +33,8 @@
             </div>
 
             <WrapperCardListTitled title="Similar" url="#" more="false">
-                <div v-for="(item,i) in data.similar" :key='i' class="mycol-lg-3 mycol-sm-6">
-                    <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+                <div v-for="item in data.similar" :key='item.id'  class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
                 </div>
             </WrapperCardListTitled>
         </div>

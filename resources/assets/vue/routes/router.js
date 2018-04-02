@@ -84,7 +84,7 @@ const router = new Router({
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if( to.fullPath == '/contest/new' || to.fullPath == '/contest/old' ){
+    if( to.fullPath == '/contest/s/new' || to.fullPath == '/contest/s/old' ){
       return { x: 0, y: 150 };
     }
     return { x: 0, y: 0 };

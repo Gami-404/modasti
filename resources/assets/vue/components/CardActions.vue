@@ -1,0 +1,84 @@
+<template>
+
+  <div class="likesAndComments">
+    <transition name="actions" enter-active-class="animated bounceInLeft" mode="out-in">
+      <span key="actions" v-if="!shareActions">
+        <a @click.prevent="toggleLike" href="#">
+          <transition enter-active-class="animated bounceIn" mode="out-in">
+            <i key="liked" class="fa fa-heart" v-if="liked"></i>
+            <i key="notLiked" class="fa fa-heart-o" v-if="!liked"></i>
+          </transition>
+          <span>{{numOfComments}}</span>
+        </a>
+        <a v-if="commentable" href="#">
+          <i class="icon-comment"></i>
+          <span>{{numOfComments}}</span>
+        </a>
+      </span>
+      <span key="shares" v-if="shareActions">
+        <a target="_blank" :href="facebook">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a target="_blank" :href="twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a target="_blank" :href="pinterest"> 
+          <i class="fa fa-pinterest"></i>
+        </a>
+      </span>
+    </transition>
+    <a v-if="sharable" @click.prevent="toggleShareActions" href="#">
+      <i class="fa fa-share-alt"></i>
+    </a>
+  </div>
+</template>
+
+<script>
+export default {
+  props: [
+    "sharable",
+    "likable",
+    "commentable",
+    "numOfLikes",
+    "numOfComments",
+    "objId",
+    "context",
+    "isLiked"
+  ],
+  data() {
+    return {
+      shareActions: false,
+      liked: this.isLiked
+    };
+  },
+  computed: {
+    facebook() {
+      return this.shareLink("https://www.facebook.com/sharer/sharer.php?u=");
+    },
+    twitter() {
+      return this.shareLink("http://twitter.com/share?text=");
+    },
+    pinterest() {
+      return this.shareLink("http://pinterest.com/pin/create/button/?url=");
+    }
+  },
+  methods: {
+    toggleLike() {
+      this.liked = !this.liked;
+      this.$store.dispatch("like_" + this.context, this.objId);
+    },
+    toggleShareActions() {
+      this.shareActions = !this.shareActions;
+    },
+    shareLink(url) {
+      return (
+        url + encodeURI(window.baseURL + "/#/" + this.context + "/" + this.objId)
+      );
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

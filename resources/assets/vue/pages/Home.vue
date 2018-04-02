@@ -12,26 +12,26 @@
 		<div class="gridContainer">
 
 			<WrapperCardListTitled title="Latest Trends" url="#">
-				<div v-for="(item,index) in items_latest_trends" :key='index' class="mycol-lg-3 mycol-sm-6">
+				<div v-for="item in itemsLatestTrends" :key='item.id' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Liked From Our Community" url="#">
-				<div v-for="(item,index) in items_most_popular" :key='index' class="mycol-lg-3 mycol-sm-6">
+				<div v-for="item in itemsMostPopular" :key='item.id' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Viewed Sets" url="#">
-				<div v-for="(item,index) in sets_best_from_community" :key="index" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+				<div v-for="item in setsBestFromCommunity" :key="item.id" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="item.id" :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :user-id="item['user']['id']" :username="item['user']['username']" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Official Contests" url="#">
-				<div v-for="(item,index) in sets_best_from_community" :key="index" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :user-id="item['user']['id']" :username="item['user']['username']" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comments_counter" />
+				<div v-for="item in setsBestFromCommunity" :key="item.id" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="item.id" :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :user-id="item['user']['id']" :username="item['user']['username']" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comments_counter" />
 				</div>
 			</WrapperCardListTitled>
 
@@ -62,12 +62,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "items_most_popular",
-      "sets_best_from_community",
-      "sets_best_from_modasti"
+      "itemsMostPopular",
+      "setsBestFromCommunity",
+      "setsBestFromModasti"
     ]),
-    items_latest_trends() {
-      return this.$store.getters.items_latest_trends.slice(0, 8);
+    itemsLatestTrends() {
+      return this.$store.getters.itemsLatestTrends.slice(0, 8);
     }
   },
   created() {

@@ -1,8 +1,7 @@
 import axios from "axios";
-
+window.baseURL = "http://stage-api.modasti.net/api";
 const axiosI = axios.create({
-  baseURL:
-    "http://stage-api.modasti.net/api"
+  baseURL: window.baseURL
 });
 
 axiosI.interceptors.request.use(

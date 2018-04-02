@@ -39,13 +39,24 @@ const actions = {
       commit("OLD_CONTESTS", _old);
     });
   },
-  get_contest_details({ commit }, contestId) {
-    // missing catch
-    return API.post("/getContestPhotos", {
-      contestId: contestId
-    }).then(res => {
-      commit("CONTEST", { photos: res.data, contestId });
-    });
+  get_contest_details({ commit , dispatch , state }, contestId) {
+
+    let getContest = () => {
+      return API.post("/getContestPhotos", {
+        contestId: contestId
+      }).then(res => {
+        commit("CONTEST", { photos: res.data, contestId });
+      });
+    };
+
+    if( state.contests.new.length + state.contests.old.length  == 0 ){
+      return dispatch("get_all_contests").then( ()=>{
+        return getContest();
+      })
+    }else{
+      return getContest();
+    }
+    
   }
 };
 
@@ -61,18 +72,12 @@ const mutations = {
     state.contests.old.forEach(item => {
       if (item.id == data.contestId) {
         data.contest = item;
-        +new Date() <= +new Date(data.contest.expires)
-          ? (data._type = "new")
-          : (data._type = "old");
         state.contest = data;
       }
     });
     state.contests.new.forEach(item => {
       if (item.id == data.contestId) {
         data.contest = item;
-        +new Date() <= +new Date(data.contest.expires)
-          ? (data._type = "new")
-          : (data._type = "old");
         state.contest = data;
       }
     });
