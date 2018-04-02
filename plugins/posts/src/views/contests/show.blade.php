@@ -4,7 +4,7 @@
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <h2>
-                <i class="fa fa-newspaper-o"></i>
+                <i class="fa fa-trophy"></i>
                 {{ trans("posts::contests.posts") }}
             </h2>
             <ol class="breadcrumb">
