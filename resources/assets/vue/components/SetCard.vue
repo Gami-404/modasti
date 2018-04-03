@@ -15,7 +15,7 @@
             <router-link  :to="username?'/profile/'+userId:''">{{username||'Modasti'}}</router-link>
         </div>
 
-        <CardActions :sharable="true" :likebale="true" :is-liked="isLiked" :obj-id="setId" :context="'set'" :num-of-likes="likes" />
+        <CardActions :sharable="true" :commentable="true" :num-of-likes="likes" :likebale="true" :is-liked="isLiked" :obj-id="setId" :context="'set'" />
 
     </div>
 </template>

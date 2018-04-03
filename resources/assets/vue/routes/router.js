@@ -3,8 +3,7 @@ import Router from "vue-router";
 import Home from "@/pages/Home";
 import Category from "@/pages/Category";
 import Item from "@/pages/Item";
-import SearchItems from "@/pages/SearchItems";
-import SearchUsers from "@/pages/SearchUsers";
+import Search from "@/pages/Search";
 import Single from "@/pages/Single";
 import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
@@ -33,14 +32,9 @@ const router = new Router({
       component: Item
     },
     {
-      path: "/search/items",
-      name: "items",
-      component: SearchItems
-    },
-    {
-      path: "/search/users",
+      path: "/search/:searchIn/:searchString",
       name: "users",
-      component: SearchUsers
+      component: Search
     },
     {
       path: "/page/:slug",

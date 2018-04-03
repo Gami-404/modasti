@@ -1,29 +1,23 @@
-import API from '../API';
+import API from "../API";
 
-const state = {
-  
-};
+const state = {};
 
 // getters
-const getters = {
-
-};
+const getters = {};
 
 // actions
 const actions = {
-  like_set({ commit }, objId){
-    console.log(objId);
-    return API.post('/switchLike', {
-        objId,
-        targetObject: "set"
+  like_set({ commit }, objId) {
+    commit("LIKE_SET", objId);
+    return API.post("/switchLike", {
+      objId,
+      targetObject: "set"
     });
   }
 };
 
 // mutations
-const mutations = {
-  
-};
+const mutations = {};
 
 export default {
   state,

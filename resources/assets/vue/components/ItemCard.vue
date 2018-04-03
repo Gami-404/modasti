@@ -16,7 +16,7 @@
                 <a :href="url">{{brand||"Unknown"}}</a>
             </div>
         </div>
-        <CardActions :sharable="true" :likebale="true" :is-liked="isLiked" :obj-id="itemId" :context="'item'" />
+        <CardActions :sharable="true" :num-of-likes="likes" :likebale="true" :is-liked="isLiked" :obj-id="itemId" :context="'item'" />
     </div>
 </template>
 

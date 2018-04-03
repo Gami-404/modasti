@@ -3,7 +3,7 @@
   <div class="likesAndComments">
     <transition name="actions" enter-active-class="animated bounceInLeft" mode="out-in">
       <span key="actions" v-if="!shareActions">
-        <a @click.prevent="toggleLike" href="#">
+        <a @click.prevent=" isAuth ? toggleLike : openLogin" href="#">
           <transition enter-active-class="animated bounceIn" mode="out-in">
             <i key="liked" class="fa fa-heart" v-if="liked"></i>
             <i key="notLiked" class="fa fa-heart-o" v-if="!liked"></i>
@@ -15,14 +15,14 @@
           <span>{{numOfComments}}</span>
         </a>
       </span>
-      <span key="shares" v-if="shareActions">
+      <span key="shares" v-if="isAuth ? shareActions : openLogin">
         <a target="_blank" :href="facebook">
           <i class="fa fa-facebook"></i>
         </a>
         <a target="_blank" :href="twitter">
           <i class="fa fa-twitter"></i>
         </a>
-        <a target="_blank" :href="pinterest"> 
+        <a target="_blank" :href="pinterest">
           <i class="fa fa-pinterest"></i>
         </a>
       </span>
@@ -60,6 +60,9 @@ export default {
     },
     pinterest() {
       return this.shareLink("http://pinterest.com/pin/create/button/?url=");
+    },
+    isAuth() {
+      return this.$store.getters.isAuth;
     }
   },
   methods: {
@@ -72,8 +75,12 @@ export default {
     },
     shareLink(url) {
       return (
-        url + encodeURI(window.baseURL + "/#/" + this.context + "/" + this.objId)
+        url +
+        encodeURI(window.baseURL + "/#/" + this.context + "/" + this.objId)
       );
+    },
+    openLogin() {
+      this.$router.push({ query: { popup: "login" } });
     }
   }
 };
