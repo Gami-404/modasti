@@ -124,7 +124,7 @@ const mutations = {
   },
   LIKE_PROPAGATE(state, id) {
     let toggleLikes = item => {
-      item.id == id ? (item.is_liked = !item.is_liked) : 0;      
+      item.id == id ? (item.is_liked = !item.is_liked) : 0;
     };
     state.home.itemsMostPopular.forEach(toggleLikes);
     state.home.itemsLatestTrends.forEach(toggleLikes);
@@ -132,10 +132,10 @@ const mutations = {
 
     if (state.category.items) state.category.items.forEach(toggleLikes);
 
-    if (state.category.items)
-      state.categories.forEach(category => {
-        if (state.category.items) category.items.forEach(toggleLikes);
-      });
+    for( key in state.categories){
+      if (state.categories[key].items) state.categories[key].items.forEach(toggleLikes);
+    }
+    
   },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
     searchResults.offset += 5;
