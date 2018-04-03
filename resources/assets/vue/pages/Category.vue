@@ -2,7 +2,7 @@
   <div id="category">
     <div class="topCategories whiteBg">
       <div v-if="category" class="gridContainer">
-        <a v-for="sub of category.subcategories" :key="sub.id" href="#">{{sub.title}}</a>
+        <a v-for="sub of category.subcategories" :key="sub.id" @click.prevent="selectSub(sub.id)" href="#" :class="{  'curr' : sub.id == currSub }" >{{sub.title}}</a>
       </div>
     </div>
     <div class="gridContainer">
@@ -36,7 +36,8 @@ export default {
       FilterColor: [],
       FilterPrice: [],
       FilterSize: [],
-      FilterBrand: ["SEPHORA COLLECTION"]
+      FilterBrand: [],
+      currSub: -1
     };
   },
   computed: {
@@ -45,11 +46,20 @@ export default {
     },
     items() {
       return this.$store.getters.category.items
-        ? this.$store.getters.category.items
-            .filter(item => 
-              this.FilterBrand.indexOf(item.brand) != -1 || this.FilterBrand.length == 0
-            ).filter(item => 
-              this.FilterColor.indexOf(item.color) != -1 || this.FilterColor.length == 0) 
+        ? this.$store.getters.category.items.slice(0,500)
+            .filter(item => {
+              return this.currSub == -1 || item.categories_id == this.currSub;
+            })
+            .filter(
+              item =>
+                this.FilterBrand.indexOf(item.brand) != -1 ||
+                this.FilterBrand.length == 0
+            )
+            .filter(
+              item =>
+                this.FilterColor.indexOf(item.color) != -1 ||
+                this.FilterColor.length == 0
+            )
         : [];
     }
   },
@@ -72,6 +82,19 @@ export default {
           this.loading = false;
         });
     }
+  },
+  methods: {
+    selectSub(id) {
+      this.currSub = id;
+    }
   }
 };
 </script>
+
+<style scoped>
+
+.curr{
+  color: red
+}
+
+</style>

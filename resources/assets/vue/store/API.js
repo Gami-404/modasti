@@ -28,14 +28,17 @@ axiosI.interceptors.response.use(
     if (typeof window === "undefined") {
       return response;
     }
-    if (response.status == 401) {
-      localStorage.removeItem("api_token");
-      localStorage.removeItem("user");
-      window.location = "/";
-    }
     return response;
   },
   function(error) {
+    if (error.response.status == 401) {
+      localStorage.removeItem("api_token");
+      localStorage.removeItem("user");
+      if(window.location != "/#/?popup=login");
+      window.location = "/#/?popup=login";
+    }else if(error.response.status == 500){
+      window.location = "/#/500"
+    }
     return Promise.reject(error);
   }
 );

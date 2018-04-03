@@ -119,8 +119,8 @@ const mutations = {
   CATEGORY_ITEMS({ categories }, data) {
     categories[data.id]["items"] = data.items;
   },
-  CATEGORY({ category }, id) {
-    category = state.categories[id];
+  CATEGORY(state, id) {
+    state.category = state.categories[id];
   },
   LIKE_PROPAGATE(state, id) {
     let toggleLikes = item => {
