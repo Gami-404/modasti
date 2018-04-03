@@ -22,11 +22,20 @@ const getters = {
   item: state => state.item,
   itemsMostPopular: state => state.home.itemsMostPopular,
   itemsLatestTrends: state => state.home.itemsLatestTrends,
-  setsBestFromCommunity: state => state.items.setsBestFromCommunity,
-  setsBestFromModasti: state => state.items.setsBestFromModasti,
+  setsBestFromCommunity: state => state.home.setsBestFromCommunity,
+  setsBestFromModasti: state => state.home.setsBestFromModasti,
   category: state => state.category,
-  itemSearchResults: state => state.searchResults.items  
+  itemSearchResults: state => state.searchResults.items
 };
+
+// helper function !
+const search = (searchString, offset) =>
+  API.post("/search", {
+    searchString: searchString,
+    searchArea: "items",
+    offset: offset,
+    limit: 6
+  });
 
 // actions
 const actions = {
@@ -66,31 +75,23 @@ const actions = {
     return API.post("/switchLike", {
       objId,
       targetObject: "item"
+    }).then(() => {
+      commit("LIKE_PROPAGATE", objId);
     });
   },
-  search_item({ commit, state }, serachString) {
-    return API.post("/search", {
-      searchString: serachString,
-      searchArea: "item",
-      offset: 0,
-      limit: 6
-    }).then( res => {
+  search_item({ commit, state }, searchString) {
+    return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS", res.data.data );
+      commit("SEARCH_RESULTS", res.data.data);
     });
   },
-  search_item_more({ commit, state }, serachString) {
-    return API.post("/search", {
-      searchString: serachString,
-      searchArea: "item",
-      offset: state.searchResults.offset,
-      limit: 6
-    }).then( res => {
+  search_item_more({ commit, state }, searchString) {
+    return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS_MORE", res.data.data );
+      commit("SEARCH_RESULTS_MORE", res.data.data);
     });
   },
-  search_item_offset_reset( {commit} ){
+  search_item_offset_reset({ commit }) {
     commit("SEARCH_RESULTS_OFFSET_RESET");
   }
 };
@@ -100,7 +101,7 @@ const mutations = {
   ITEM(state, data) {
     state.item = data;
   },
-  HOME_ITEMS({home}, data) {
+  HOME_ITEMS({ home }, data) {
     home.itemsMostPopular = data.items_most_popular;
     home.itemsLatestTrends = data.items_latest_trends;
     home.setsBestFromModasti = data.sets_best_from_modasti;
@@ -115,34 +116,37 @@ const mutations = {
     }
     state.categories = temp;
   },
-  CATEGORY_ITEMS({categories}, data) {
+  CATEGORY_ITEMS({ categories }, data) {
     categories[data.id]["items"] = data.items;
   },
-  CATEGORY( {category}, id) {
+  CATEGORY({ category }, id) {
     category = state.categories[id];
   },
   LIKE_PROPAGATE(state, id) {
     let toggleLikes = item => {
-      item.id == id ? (item.liked = !item.liked) : 0;
+      item.id == id ? (item.is_liked = !item.is_liked) : 0;      
     };
-    state.home.itemsMostPopular.forEatch(toggleLikes);
-    state.home.itemsLatestTrends.forEatch(toggleLikes);
-    state.searchResults.items.forEatch(toggleLikes);
-    state.category.items.forEatch(toggleLikes);
-    state.categories.forEatch(category => {
-      category.items.forEatch(toggleLikes);
-    });
+    state.home.itemsMostPopular.forEach(toggleLikes);
+    state.home.itemsLatestTrends.forEach(toggleLikes);
+    state.searchResults.items.forEach(toggleLikes);
+
+    if (state.category.items) state.category.items.forEach(toggleLikes);
+
+    if (state.category.items)
+      state.categories.forEach(category => {
+        if (state.category.items) category.items.forEach(toggleLikes);
+      });
   },
-  SEARCH_RESULTS_OFFSET({searchResults}){
-    searchResults.offset += 5;    
+  SEARCH_RESULTS_OFFSET({ searchResults }) {
+    searchResults.offset += 5;
   },
-  SEARCH_RESULTS_OFFSET_RESET({searchResults}){
-    searchResults.offset = 0;    
+  SEARCH_RESULTS_OFFSET_RESET({ searchResults }) {
+    searchResults.offset = 0;
   },
-  SEARCH_RESULTS({searchResults} , data ){
+  SEARCH_RESULTS({ searchResults }, data) {
     searchResults.items = data;
   },
-  SEARCH_RESULTS_MORE({searchResults} , data ){
+  SEARCH_RESULTS_MORE({ searchResults }, data) {
     searchResults.items.concat(data);
   }
 };

@@ -3,7 +3,7 @@
   <div class="likesAndComments">
     <transition name="actions" enter-active-class="animated bounceInLeft" mode="out-in">
       <span key="actions" v-if="!shareActions">
-        <a @click.prevent=" isAuth ? toggleLike : openLogin" href="#">
+        <a @click.prevent="toggleLike" href="#">
           <transition enter-active-class="animated bounceIn" mode="out-in">
             <i key="liked" class="fa fa-heart" v-if="liked"></i>
             <i key="notLiked" class="fa fa-heart-o" v-if="!liked"></i>
@@ -15,7 +15,7 @@
           <span>{{numOfComments}}</span>
         </a>
       </span>
-      <span key="shares" v-if="isAuth ? shareActions : openLogin">
+      <span key="shares" v-if="shareActions">
         <a target="_blank" :href="facebook">
           <i class="fa fa-facebook"></i>
         </a>
@@ -48,7 +48,8 @@ export default {
   data() {
     return {
       shareActions: false,
-      liked: this.isLiked
+      liked: this.isLiked,
+      canChange: true
     };
   },
   computed: {
@@ -67,11 +68,23 @@ export default {
   },
   methods: {
     toggleLike() {
-      this.liked = !this.liked;
-      this.$store.dispatch("like_" + this.context, this.objId);
+      if (this.isAuth) {
+        if (this.canChange) {
+          this.changeCounter++;
+          this.liked = !this.liked;
+          this.$store.dispatch("like_" + this.context, this.objId);
+        }
+        this.canChange = false;
+      } else {
+        this.openLogin();
+      }
     },
     toggleShareActions() {
-      this.shareActions = !this.shareActions;
+      if (this.isAuth) {
+        this.shareActions = !this.shareActions;
+      } else {
+        this.openLogin();
+      }
     },
     shareLink(url) {
       return (
@@ -81,6 +94,14 @@ export default {
     },
     openLogin() {
       this.$router.push({ query: { popup: "login" } });
+    }
+  },
+  watch: {
+    isLiked(isLiked) {
+      setTimeout( () => {
+        this.liked = isLiked;
+        this.canChange = true;      
+      } , 1000)
     }
   }
 };

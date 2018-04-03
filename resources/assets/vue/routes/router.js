@@ -32,8 +32,15 @@ const router = new Router({
       component: Item
     },
     {
-      path: "/search/:searchIn/:searchString",
-      name: "users",
+      path: "/search/user/:searchString",
+      name: "searchInUser",
+      props:{ searchIn :  "user" },
+      component: Search
+    },
+    {
+      path: "/search/item/:searchString",
+      name: "searchInItem",
+      props:{ searchIn :  "item" },
       component: Search
     },
     {
