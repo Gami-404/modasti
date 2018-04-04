@@ -56,6 +56,7 @@ class UserController extends Controller
      */
     function register(Request $request)
     {
+        $response = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -73,5 +74,10 @@ class UserController extends Controller
         $user->last_name = isset($names[1]) ? $names[1] : '';
         $user->username = str_slug($request->get('name'));
         $user->api_token = str_random(60);
+        $user->backend = 0;
+        $user->save();
+        $response['data'] = \Maps\User\login(Auth::user());
+        $response['token'] = Auth::user()->api_token;
+        return response()->json($response);
     }
 }
