@@ -54,7 +54,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function register(Request $request)
+    public function register(Request $request)
     {
         $response = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
