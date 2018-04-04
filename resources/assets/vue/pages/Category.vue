@@ -9,7 +9,7 @@
       <ClothingFilter/>
       <WrapperCardList v-if="category">
         <div v-for="item in items" :key='item.id' v-if="item.photos[0]" class="mycol-lg-3 mycol-sm-6">
-          <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+          <ItemCard :item="item"/>
         </div>
       </WrapperCardList>
     </div>

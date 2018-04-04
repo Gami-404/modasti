@@ -71,12 +71,12 @@ const actions = {
     }
   },
   like_item({ commit }, objId) {
-    console.log(objId);
     return API.post("/switchLike", {
       objId,
       targetObject: "item"
     }).then(() => {
-      commit("LIKE_PROPAGATE", objId);
+      commit("LIKE_ITEM_PROPAGATE", objId);
+      commit("LIKE_ITEM_PROPAGATE_IN_SETS", objId , { root: true });      
     });
   },
   search_item({ commit, state }, searchString) {
@@ -122,7 +122,7 @@ const mutations = {
   CATEGORY(state, id) {
     state.category = state.categories[id];
   },
-  LIKE_PROPAGATE(state, id) {
+  LIKE_ITEM_PROPAGATE(state, id) {
     let toggleLikes = item => {
       item.id == id ? (item.is_liked = !item.is_liked) : 0;
     };

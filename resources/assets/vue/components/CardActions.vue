@@ -8,7 +8,7 @@
             <i key="liked" class="fa fa-heart" v-if="liked"></i>
             <i key="notLiked" class="fa fa-heart-o" v-if="!liked"></i>
           </transition>
-          <span>{{numOfComments}}</span>
+          <span>{{numOfLikes}}</span>
         </a>
         <a v-if="commentable" href="#">
           <i class="icon-comment"></i>
@@ -108,5 +108,9 @@ export default {
 </script>
 
 <style>
-
+  .fa{
+    margin-left: 3px; 
+    margin-right: 3px;
+    font-size: 20px; 
+  }
 </style>

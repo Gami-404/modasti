@@ -9,6 +9,7 @@ const state = {
 // getters
 const getters = {
   user: state => state.user,
+  userId: state => state.id,
   api_token: state => state.api_token,
   isAuth: state => state.isAuth
 };

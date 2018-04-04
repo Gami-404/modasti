@@ -13,25 +13,25 @@
 
 			<WrapperCardListTitled title="Latest Trends" url="#">
 				<div v-for="item in itemsLatestTrends" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+					<ItemCard :item="item" />					
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Liked From Our Community" url="#">
 				<div v-for="item in itemsMostPopular" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+					<ItemCard :item="item" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Viewed Sets" url="#">
-				<div v-for="item in setsBestFromCommunity" :key="item.id" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :set-id="item.id" :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :user-id="item['user']['id']" :username="item['user']['username']" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+				<div v-for="set in setsBestFromCommunity" :key="set.id" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set="set" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Official Contests" url="#">
-				<div v-for="item in setsBestFromCommunity" :key="item.id" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :set-id="item.id" :image="item['photo']['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :user-id="item['user']['id']" :username="item['user']['username']" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comments_counter" />
+				<div v-for="set in setsBestFromCommunity" :key="set.id" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set="set" />
 				</div>
 			</WrapperCardListTitled>
 
