@@ -1,22 +1,18 @@
 import Contest from '@/pages/contest/Cotest';
-import TabOld from "@/pages/contest/components/TabOld";
-import TabNew from "@/pages/contest/components/TabNew";
+import ContestTab from "@/pages/contest/components/ContestTab";
 import Details from "@/pages/contest/components/Details";
 export default {
   path: "/contest",
   component: Contest,
   children: [
-    { path: "/", redirect: "new" },    
+    { path: "/", redirect: "s/new" },    
+    { path :"s" , redirect:"s/new"},
     {
-      path:"old",
-      component: TabOld
+      path:"s/:contestTab",
+      component: ContestTab
     },
     {
-      path:"new",
-      component: TabNew
-    },
-    {
-      path:":id",
+      path:":contId",
       component: Details
     }
   ]

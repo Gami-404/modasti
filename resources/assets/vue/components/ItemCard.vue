@@ -1,47 +1,31 @@
 <template>
     <div class="productCard">
         <div class="avatar">
-            <router-link :to="itemId?'/item/'+itemId : ''" class="verticalCentered">
-                <div class="theCell"><img :src="image" alt=""></div>
+            <router-link :to="item.id?'/item/'+item.id : ''" class="verticalCentered">
+                <div class="theCell"><img :src="item['photos'][0]['photo_name']" alt=""></div>
             </router-link>
         </div>
 
         <div class="content">
             <h3>
-                <router-link :to="itemId?'/item/'+itemId : ''">{{title}}</router-link>
+                <router-link :to="item.id?'/item/'+item.id : ''">{{item.title}}</router-link>
             </h3>
             <hr>
-            <div class="price">{{price}} €</div>
+            <div class="price">{{item.price}} €</div>
             <div class="link">
-                <a :href="url">{{brand||"Unknown"}}</a>
+                <a :href="item.url_en">{{item.brand||"Unknown"}}</a>
             </div>
         </div>
-        <div class="likesAndComments">
-            <a href="#">
-                <i class="fa fa-heart" v-if="isLiked" ></i>
-                <i class="fa fa-heart-o" v-if="!isLiked" ></i>
-                <span>{{likes}}</span>
-            </a>
-            <a href="#">
-                <i class="icon-comment"></i>
-                <span>{{comment}}</span>
-            </a>
-        </div>
+        <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true" :is-liked="item.is_liked" :obj-id="item.id" :context="'item'" />
     </div>
 </template>
 
 <script>
+import CardActions from "./CardActions";
 export default {
-  props: [
-    "itemId",
-    "title",
-    "image",
-    "url",
-    "brand",
-    "price",
-    "likes",
-    "isLiked",
-    "comment"
-  ]
+  props: ["item"],
+  components: {
+    CardActions
+  }
 };
 </script>

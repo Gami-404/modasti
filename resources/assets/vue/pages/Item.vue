@@ -17,24 +17,14 @@
                             <div class="price">{{data.price}} $</div>
                             <a :href="data.url_en" class="link">{{data.brand}}</a>
                         </div>
-                        <div class="likesAndComments">
-                            <a href="#">
-                                <i class="icon-like"></i>
-                                <span>{{data.likes || 0}}</span>
-                            </a>
-                            <a href="#">
-                                <i class="icon-comment"></i>
-                                <span>{{ data.comments || 0}}</span>
-                            </a>
-                        </div>
-
+                        <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
                     </div>
                 </div>
             </div>
 
             <WrapperCardListTitled title="Similar" url="#" more="false">
-                <div v-for="(item,i) in data.similar" :key='i' class="mycol-lg-3 mycol-sm-6">
-                    <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+                <div v-for="item in data.similar" :key='item.id'  class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
                 </div>
             </WrapperCardListTitled>
         </div>
@@ -45,11 +35,13 @@
 <script>
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
+import CardActions from "@/components/CardActions"
 import Loading from "@/components/Loading";
 export default {
   components: {
     WrapperCardListTitled,
     ItemCard,
+    CardActions,
     Loading
   },
   data() {
