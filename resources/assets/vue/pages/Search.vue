@@ -4,12 +4,12 @@
         <div class="gridContainer">
             <WrapperCardList>
                 <div v-if="searchIn == 'item'">
-                    <div v-for="item in itemResults" :key='item.id' class="mycol-lg-3 mycol-sm-6">
+                    <div v-for="item in itemSearchResults" :key='item.id' class="mycol-lg-3 mycol-sm-6">
                         <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
                     </div>
                 </div>
                 <div v-if="searchIn == 'user'">
-                    <UserCard v-for="user of userResults" :key="user.id" :name="user.name" :img="user.img" :date="user.date" :follow="user.follow" />
+                    <UserCard v-for="user of userSearchResults" :key="user.id" :name="user.name" :img="user.img" :date="user.date" :follow="user.follow" />
                 </div>
             </WrapperCardList>
             <div v-if="!noResults" class="getMore">
@@ -30,6 +30,7 @@
 import Loading from "@/components/Loading";
 import SearchNav from "@/components/SearchNav";
 import WrapperCardList from "@/wrappers/WrapperCardList";
+import { mapGetters } from 'vuex';
 
 export default {
   props: ["searchIn"],
@@ -40,16 +41,11 @@ export default {
     };
   },
   computed: {
-    userResults() {
-      return this.$store.getters.userSearchResults;
-    },
-    itemResults() {
-      return this.$store.getters.itemSearchResults;
-    },
+    ...mapGetters(["userSearchResults","itemSearchResults"]),
     noResults() {
       return (
-        (this.searchIn == "item" && this.itemResults.length == 0) ||
-        (this.searchIn == "user" && this.userResults.length == 0)
+        (this.searchIn == "item" && this.userSearchResults.length == 0) ||
+        (this.searchIn == "user" && this.itemSearchResults.length == 0)
       );
     }
   },
@@ -66,8 +62,8 @@ export default {
     searchIn(searchIn) {
       if (!searchIn) return;
 
-      this.$store.getters.itemSearchResults.length == 0 ||
-      this.$store.getters.userSearchResults.length == 0
+      this.itemSearchResults.length == 0 ||
+      this.userSearchResults.length == 0
         ? this.dispatchSearch()
         : 0;
     }

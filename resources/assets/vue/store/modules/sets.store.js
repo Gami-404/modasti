@@ -45,18 +45,25 @@ const mutations = {
   REMOVE_SET(state) {
     state.set = {};
   },
-  LIKE_SET_PROPAGATE(state , setId ){
-    state.set.id == setId ? state.set.is_liked = !state.set.is_liked : 0;
+  LIKE_SET_PROPAGATE(state, setId) {
+    state.set.id == setId ? (state.set.is_liked = !state.set.is_liked) : 0;
   },
-  LIKE_ITEM_PROPAGATE_IN_SETS(state , itemId){
-    state.set["items"].forEach( item => {
-        item.id == itemId ? item.is_liked = !item.is_liked : null ;
-    });
-    state.sets.forEach( set => {
-      set["items"].forEach( item =>{
-        item.id == itemId ? item.is_liked = !item.is_liked : null ;
-      });
-    });
+  LIKE_ITEM_PROPAGATE_IN_SETS(state, itemId) {
+    state.set["items"]
+      ? state.set["items"].forEach(item => {
+          item.id == itemId ? (item.is_liked = !item.is_liked) : null;
+        })
+      : null;
+
+    state.sets
+      ? state.sets.forEach(set => {
+          set["items"]
+            ? set["items"].forEach(item => {
+                item.id == itemId ? (item.is_liked = !item.is_liked) : null;
+              })
+            : null;
+        })
+      : null;
   }
 };
 

@@ -14,6 +14,13 @@ const state = {
   searchResults: {
     items: [],
     offset: 0
+  },
+  filters: {
+    byBrand: { _counter: 0 },
+    byColor: { _counter: 0, "#000": false, "#fff": false },
+    byPrice: { _counter: 0 },
+    bySize: { _counter: 0 },
+    sub: -1
   }
 };
 
@@ -25,7 +32,37 @@ const getters = {
   setsBestFromCommunity: state => state.home.setsBestFromCommunity,
   setsBestFromModasti: state => state.home.setsBestFromModasti,
   category: state => state.category,
-  itemSearchResults: state => state.searchResults.items
+  categoryItems: state => state.category.items,
+  itemSearchResults: state => state.searchResults.items,
+  filters: state => state.filters,
+  filterOptions: state => {
+    let options = {};
+    Object.keys(state.filters).forEach(key => {
+      let keys = Object.keys(state.filters[key]);
+      keys.splice(keys.indexOf("_counter"), 1);
+      keys.length > 0 ? (options[key] = keys) : null;
+    });
+    return options;
+  },
+  categoryFiltered: state =>
+    state.category.items
+      ? state.category.items
+          .filter(item => {
+            return (
+              state.filters.sub == -1 || item.categories_id == state.filters.sub
+            );
+          })
+          .filter(
+            item =>
+              state.filters.byBrand._counter == 0 ||
+              state.filters.byBrand[item.brand]
+          )
+          .filter(
+            item =>
+              state.filters.byColor._counter == 0 ||
+              state.filters.byColor[item.color]
+          )
+      : []
 };
 
 // helper function !
@@ -76,7 +113,7 @@ const actions = {
       targetObject: "item"
     }).then(() => {
       commit("LIKE_ITEM_PROPAGATE", objId);
-      commit("LIKE_ITEM_PROPAGATE_IN_SETS", objId , { root: true });      
+      commit("LIKE_ITEM_PROPAGATE_IN_SETS", objId, { root: true });
     });
   },
   search_item({ commit, state }, searchString) {
@@ -116,8 +153,8 @@ const mutations = {
     }
     state.categories = temp;
   },
-  CATEGORY_ITEMS({ categories }, data) {
-    categories[data.id]["items"] = data.items;
+  CATEGORY_ITEMS(state, data) {
+    state.categories[data.id]["items"] = data.items.slice(1, 10);
   },
   CATEGORY(state, id) {
     state.category = state.categories[id];
@@ -125,17 +162,23 @@ const mutations = {
   LIKE_ITEM_PROPAGATE(state, id) {
     let toggleLikes = item => {
       item.id == id ? (item.is_liked = !item.is_liked) : 0;
+      return { ...item };
     };
     state.home.itemsMostPopular.forEach(toggleLikes);
     state.home.itemsLatestTrends.forEach(toggleLikes);
     state.searchResults.items.forEach(toggleLikes);
-
-    if (state.category.items) state.category.items.forEach(toggleLikes);
-
-    for( key in state.categories){
-      if (state.categories[key].items) state.categories[key].items.forEach(toggleLikes);
-    }
-    
+    Object.keys(state.categories).forEach( key =>{
+      state.categories[key].items.forEach(toggleLikes);
+    });
+    // for (let key in state.categories) {
+    //   if (state.categories[key].items) {
+    //      let x = state.categories[key].items.map(
+    //       toggleLikes
+    //     );
+    //     state.categories[key].items.splice();
+    //     state.categories[key].items=x;
+    //   }
+    // }
   },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
     searchResults.offset += 5;
@@ -148,6 +191,19 @@ const mutations = {
   },
   SEARCH_RESULTS_MORE({ searchResults }, data) {
     searchResults.items.concat(data);
+  },
+  ADD_FILTER(state, payload) {
+    if (state.filters[payload.filter][payload.val]) return;
+    state.filters[payload.filter][payload.val] = true;
+    state.filters[payload.filter]._counter++;
+  },
+  REMOVE_FILTER(state, payload) {
+    if (!state.filters[payload.filter][payload.val]) return;
+    state.filters[payload.filter][payload.val] = false;
+    state.filters[payload.filter]._counter--;
+  },
+  CHANGE_FILTER_SUB(state, id) {
+    state.filters.sub = id;
   }
 };
 
