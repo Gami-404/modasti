@@ -162,10 +162,10 @@ const mutations = {
     state.categories = temp;
   },
   CATEGORY_ITEMS(state, data) {
-    state.categories[data.id]["items"] = data.items.slice(0, 10);
+    state.categories[data.id]["items"] = data.items.slice(0, 500);
   },
   CATEGORY(state, id) {
-    state.category = { ...state.categories[id] , items:[...state.categories[id].items] };
+    state.category = { ...state.categories[id] ,  items: JSON.parse( JSON.stringify( state.categories[id].items ) ) };
   },
   LIKE_ITEM_PROPAGATE(state, id) {
     let toggleLikes = item => {
@@ -175,13 +175,10 @@ const mutations = {
     state.home.itemsMostPopular.forEach(toggleLikes);
     state.home.itemsLatestTrends.forEach(toggleLikes);
     state.searchResults.items.forEach(toggleLikes);
-    if (state.category.items) state.category.items.map(toggleLikes);
-    // Object.keys(state.categories).forEach( key =>{
-    //   if(state.categories[key].items)state.categories[key].items.forEach(toggleLikes);
-    // });
+    if (state.category.items) state.category.items.forEach(toggleLikes);
     for (let key in state.categories) {
       if (state.categories[key].items) {
-        state.categories[key].items = state.categories[key].items.map(
+        state.categories[key].items = state.categories[key].items.forEach(
           toggleLikes
         );
       }
