@@ -9,7 +9,7 @@ const state = {
     setsBestFromModasti: []
   },
   categories: [],
-  category: {},
+  category: { items:[]},
   catIdMap: {},
   searchResults: {
     items: [],
@@ -106,6 +106,14 @@ const actions = {
         commit("CATEGORY", catId);
       });
     }
+
+    // return API.post("/getItemsFromCategory", {
+    //       categoryId: catId
+    //     }).then(res => {
+    //       // commit("CATEGORY_ITEMS", { items: res.data.data, id: catId });
+    //       commit("CATEGORY", { items: res.data.data, id: catId } );
+    //     });
+
   },
   like_item({ commit }, objId) {
     return API.post("/switchLike", {
@@ -154,10 +162,10 @@ const mutations = {
     state.categories = temp;
   },
   CATEGORY_ITEMS(state, data) {
-    state.categories[data.id]["items"] = data.items.slice(1, 10);
+    state.categories[data.id]["items"] = data.items.slice(0, 10);
   },
   CATEGORY(state, id) {
-    state.category = state.categories[id];
+    state.category = { ...state.categories[id] , items:[...state.categories[id].items] };
   },
   LIKE_ITEM_PROPAGATE(state, id) {
     let toggleLikes = item => {
@@ -167,18 +175,17 @@ const mutations = {
     state.home.itemsMostPopular.forEach(toggleLikes);
     state.home.itemsLatestTrends.forEach(toggleLikes);
     state.searchResults.items.forEach(toggleLikes);
-    Object.keys(state.categories).forEach( key =>{
-      state.categories[key].items.forEach(toggleLikes);
-    });
-    // for (let key in state.categories) {
-    //   if (state.categories[key].items) {
-    //      let x = state.categories[key].items.map(
-    //       toggleLikes
-    //     );
-    //     state.categories[key].items.splice();
-    //     state.categories[key].items=x;
-    //   }
-    // }
+    if (state.category.items) state.category.items.map(toggleLikes);
+    // Object.keys(state.categories).forEach( key =>{
+    //   if(state.categories[key].items)state.categories[key].items.forEach(toggleLikes);
+    // });
+    for (let key in state.categories) {
+      if (state.categories[key].items) {
+        state.categories[key].items = state.categories[key].items.map(
+          toggleLikes
+        );
+      }
+    }
   },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
     searchResults.offset += 5;
