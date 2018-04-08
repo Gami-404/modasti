@@ -91,7 +91,7 @@ return [
         'medium' => 'Medium',
         'high' => 'High'
     ],
-    "export_excel"=>"Export Excel sheet",
+    "export_excel"=>"Export Excel Sheet",
     'attributes' => [
         'title' => 'Title',
         'excerpt' => 'Excerpt',
