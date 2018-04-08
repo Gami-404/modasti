@@ -97,11 +97,10 @@ export default {
     }
   },
   watch: {
-    isLiked(isLiked) {
-      setTimeout( () => {
+    "isLiked"(isLiked) {
+      console.log("CHANGED");
         this.liked = isLiked;
         this.canChange = true;      
-      } , 1000)
     }
   }
 };

@@ -52,22 +52,6 @@
               <div class="time">02:00</div>
             </div>
           </div>
-          <div class="one clearfix">
-            <img src="images/img3.jpg" class="avatar" alt="">
-            <a href="#" class="deleteComment">Delete</a>
-            <div class="itsContent">
-              <div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-              <div class="time">02:00</div>
-            </div>
-          </div>
-          <div class="one clearfix">
-            <img src="images/img3.jpg" class="avatar" alt="">
-            <a href="#" class="deleteComment">Delete</a>
-            <div class="itsContent">
-              <div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-              <div class="time">02:00</div>
-            </div>
-          </div>
         </div>
         <a href="#" class="moreLinks">More Comments</a>
       </div>
