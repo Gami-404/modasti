@@ -148,7 +148,7 @@
                                                        value="{{ $brand->id }}"/>
                                             </td>
 
-                                            <td><img src="{{thumbnail($brand->image->path)}}" class="img-responsive img-preview" alt="Image"></td>
+                                            <td><img src="{{$brand->image ? thumbnail($brand->image->path): assets("admin::default/image.png")}}" class="img-responsive img-preview" alt="Image"></td>
 
                                             <td>
                                                 <a data-toggle="tooltip" data-placement="bottom"

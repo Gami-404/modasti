@@ -145,6 +145,7 @@ class ExportsController extends Controller
         $color->name = $name;
         $color->value = strtolower($name);
         $color->lang = "en";
+        $color->add_to_filter = 1;
         $color->user_id = Auth::user()->id;;
         $color->save();
         return $color->id;
