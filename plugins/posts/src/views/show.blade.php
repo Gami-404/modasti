@@ -20,7 +20,13 @@
         <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 text-right">
             <a href="{{ route("admin.posts.create") }}" class="btn btn-primary btn-labeled btn-main"> <span
                     class="btn-label icon fa fa-plus"></span> {{ trans("posts::posts.add_new") }}</a>
+            <button type="button" class="btn btn-flat btn-main export-file">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                {{ trans("posts::posts.export_excel") }}
+            </button>
         </div>
+
+
     </div>
 
     <div class="wrapper wrapper-content fadeInRight">
@@ -216,7 +222,7 @@
                                             </td>
 
                                             <td>
-                                              {{$post->brand_id?$post->brand->title:'-'}}
+                                              {{$post->brand?$post->brand->title:'-'}}
                                             </td>
 
                                             <td>
@@ -256,7 +262,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-lg-12 text-center">
                                     {{ trans("posts::posts.page") }}
                                     {{ $posts->currentPage() }}
@@ -342,6 +348,35 @@
                 $(".filter-form input[name=from]").val(from);
                 $(".filter-form input[name=to]").val(to);
                 $(".filter-form").submit();
+            });
+
+            $(".export-file").filemanager({
+                types: "xlsx|xls",
+                panel: "upload",
+                done: function (result, base) {
+
+                    if (result.length) {
+                        var file = result[0];
+                        $self = $('.export-file');
+                        $self.html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
+                        $self.attr('disabled',true);
+                        $.ajax({
+                            url:"{{route('admin.posts.export')}}",
+                            type:"post",
+                            data:{
+                                media_id:file.id
+                            },
+                        }).done(function (body) {
+                            console.log(body.status)
+                            if(body.status){
+                                window.location.reload(true);
+                            }
+                        });
+                    }
+                },
+                error: function (media_path) {
+                    alert_box("{{ trans("posts::posts.not_media_file") }}");
+                }
             });
         });
 

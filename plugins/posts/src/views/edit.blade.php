@@ -519,6 +519,7 @@
                 }
             });
 
+
             $(".remove-post-image").click(function () {
                 var base = $(this);
                 $(".post-image-id").first().val(0);

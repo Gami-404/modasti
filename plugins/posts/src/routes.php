@@ -15,6 +15,7 @@ Route::group([
         $route->any('/create', ["as" => "admin.posts.create", "uses" => "PostsController@create"]);
         $route->any('/{id}/edit', ["as" => "admin.posts.edit", "uses" => "PostsController@edit"]);
         $route->any('/delete', ["as" => "admin.posts.delete", "uses" => "PostsController@delete"]);
+        $route->any('/export', ["as" => "admin.posts.export", "uses" => "ExportsController@export"]);
         $route->any('/{status}/status', ["as" => "admin.posts.status", "uses" => "PostsController@status"]);
         $route->post('newSlug', 'PostsController@new_slug');
     });
