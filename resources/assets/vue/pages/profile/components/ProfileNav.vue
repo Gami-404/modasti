@@ -1,6 +1,5 @@
 <template>
   <div id="profilenav">
-	<ProfileHeader/>
 	<div class="categoriesTop whiteBg">
 		<div class="gridContainer clearfix">
 			<div class="uppercase">
@@ -17,14 +16,6 @@
 	</div>
   </div>
 </template>
-<script>
-import ProfileHeader from "./ProfileHeader";
-export default {
-	components: {
-		ProfileHeader
-	}
-}
-</script>
 
 <style scoped>
 .uppercase > a{

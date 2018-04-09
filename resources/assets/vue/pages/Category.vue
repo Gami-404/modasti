@@ -8,7 +8,7 @@
     <div class="gridContainer">
       <ClothingFilter/>
       <WrapperCardList v-if="category">
-        <div v-for="item in categoryItems" :key='item.id' v-if="item.photos[0]" class="mycol-lg-3 mycol-sm-6">
+        <div v-for="item in categoryFiltered" :key='item.id' v-if="item.photos[0]" class="mycol-lg-3 mycol-sm-6">
           <ItemCard :item="item" />
         </div>
       </WrapperCardList>

@@ -1,10 +1,11 @@
 import API from "../API";
-const state = {
+
+const emptyState = {
   searchResults: [],
   userProfile: {},
   userSets: [],
-  userFollowers: [],
-  userFollowing: [],
+  followers: [],
+  following: [],
   liked: {
     items: [],
     sets: [],
@@ -15,11 +16,15 @@ const state = {
     likedItems: 0,
     likedSets: 0,
     likedCollections: 0,
+    following:0,
+    followers:0,
     sets: 0,
     collections: 0,
     search: 0
   }
 };
+const state = JSON.parse(JSON.stringify(emptyState)) ;
+const getFreshState = () => Promise.resolve({emptyState}).then(JSON.stringify).then(JSON.parse);
 
 // getters
 const getters = {
@@ -27,6 +32,8 @@ const getters = {
   userProfile: state => state.userProfile,
   userSets: state => state.userSets,
   userCollections: state => state.userCollections,
+  followers: state => state.followers,
+  following: state => state.following,
   likedItems: state => state.liked.items,
   likedSets: state => state.liked.sets,
   likedCollections: state => state.liked.collections
@@ -43,12 +50,21 @@ const search = (searchString, offset) =>
 
 // actions
 const actions = {
-  get_user_profile({ commit }, id) {
+  async get_user_profile({ commit , state }, id) {
+    state= await getFreshState();
     return API.post("/getProfile", {
       userId: id
     }).then(res => {
-      // commit("RESET_USER_PROFILE");
       commit("USER_PROFILE", res.data[0]);
+    });
+  },
+  get_user_sets({commit}, id){
+    return API.post("/getSets", {
+      userId: id,
+      offset: state.offsets.sets,
+      limit: 8
+    }).then(res => {
+      commit("USER_SETS", res.data.data);
     });
   },
   get_user_liked_items({ commit, state }, id) {
@@ -78,6 +94,20 @@ const actions = {
       commit("USER_LIKED_COLLECTIONS", res.data.data);
     });
   },
+  get_user_followers( {commit ,state } , id ){
+    return API.post("/getFollowersUsers",{
+      userId:id
+    }).then( res =>{
+      commit("USER_FOLLOWERS", res.data.data.users );
+    });
+  },
+  get_user_following( {commit ,state } , id ){
+    return API.post("/getFollowingUsers",{
+      userId:id
+    }).then( res =>{
+      commit("USER_FOLLOWING", res.data.data.users );
+    });
+  },
   search_user({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
@@ -100,6 +130,10 @@ const mutations = {
   USER_PROFILE(state, data) {
     state.userProfile = data;
   },
+  USER_SETS(state, data){
+    state.userSets = data;
+    state.offsets.sets+=8;
+  },
   USER_LIKED_ITEMS(state, data) {
     state.liked.items = state.liked.items.concat(data);
     state.offsets.likedItems += 8;
@@ -112,9 +146,13 @@ const mutations = {
     state.liked.collections = state.liked.collections.concat(data);
     state.offsets.likedCollections += 8;
   },
-  RESET_USER_PROFILE() {
-    state.userItems = 0;
-    state.offsets.items = 0;
+  USER_FOLLOWERS(state , data){
+    state.followers = state.followers.concat(data);
+    state.offsets.followers+=8;
+  },
+  USER_FOLLOWING(state , data){
+    state.following = state.following.concat(data);
+    state.offsets.following+=8;
   },
   SEARCH_RESULTS_OFFSET({ offsets }) {
     offsets.search += 5;

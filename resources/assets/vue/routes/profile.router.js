@@ -9,13 +9,18 @@ import ProfileFollowing from "@/pages/profile/components/Following";
 import ProfileFollowers from "@/pages/profile/components/Followers";
 import ProfileBlocked from "@/pages/profile/components/Blocked";
 import ProfileMessages from "@/pages/profile/Messages.vue";
-
+import ProfileEdit from "@/pages/profile/Edit";
 export default [
+  
   {
     path: "/profile/:userId",
     component: Profile,
     meta:{ requiresAuth : true },
     children: [
+      {
+        path:"edit",
+        component: ProfileEdit
+      },
       {
         path: "blockedusers",
         component: ProfileBlocked

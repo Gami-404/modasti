@@ -1,28 +1,39 @@
 <template>
   <div class="gridContainer">
-		<div class="followersPage secPaddLg">
-			<div class="myrow clearfix">
-			
-				<UserCard
-                    v-for="user of users"
-                    :key="user.id"
-                    :name="user.name"
-                    :img="user.img"
-                    :date="user.date"
-                    :follow="user.follow"
-                />				
-				
-			</div>
-		</div>
-	</div>
+    <div class="followersPage secPaddLg">
+      <div class="myrow clearfix">
+        <UserCard v-for="user of users" :key="user.id" :user="user" />
+      </div>
+    </div>
+    <Loading v-if="loading"/>
+  </div>
 </template>
 
 <script>
-import UserCard from '@/components/UserCard';
+import UserCard from "@/components/UserCard";
+import Loading from "@/components/Loading";
 export default {
   components: {
-    UserCard
+    UserCard,
+    Loading
+  },
+  data(){
+    return {
+      loading: true
+    }
+  },
+  computed:{
+    users(){
+      return this.$store.getters.followers;
+    }
+  },
+  created(){
+    this.$store.dispatch("get_user_followers").then( () => {
+      this.loading = false;
+    }).catch( () => {
+      this.$router.push('/500');
+    });
   }
-}
+};
 </script>
 

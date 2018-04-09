@@ -21,12 +21,12 @@ export default {
   },
   computed: {
     sets() {
-      return this.$store.getters.likedSets
+      return this.$store.getters.userSets
     }
   },
   created(){
    let id = typeof this.$route.params.userId == "number" ? this.$route.params.userId : undefined;		      
-    this.$store.dispatch("get_user_liked_sets",id);
+    this.$store.dispatch("get_user_sets",id);
   }
 };
 </script>
