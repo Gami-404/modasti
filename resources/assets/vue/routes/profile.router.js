@@ -12,7 +12,7 @@ import ProfileMessages from "@/pages/profile/Messages.vue";
 
 export default [
   {
-    path: "/profile/:id",
+    path: "/profile/:userId",
     component: Profile,
     meta:{ requiresAuth : true },
     children: [

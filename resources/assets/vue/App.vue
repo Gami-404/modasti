@@ -29,7 +29,7 @@ export default {
 <style>
 @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css";
 #pageContent{
-    min-width: 100vw;
+    min-width: 99vw;
     min-height: 100vh;
 }
 </style>

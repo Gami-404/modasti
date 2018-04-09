@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth.store'
-import users from './modules/users.store'
+import profile from './modules/profile.store'
 import sets from './modules/sets.store'
 import items from './modules/items.store'
 import collections from './modules/collections.store'
@@ -12,7 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     auth,
-    users,
+    profile,
     sets,
     items,
     collections,

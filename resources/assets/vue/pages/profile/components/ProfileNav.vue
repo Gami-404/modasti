@@ -3,15 +3,16 @@
 	<ProfileHeader/>
 	<div class="categoriesTop whiteBg">
 		<div class="gridContainer clearfix">
-			<router-link to="items">Items</router-link>
-			<router-link to="sets">Sets</router-link>
-			<router-link to="collections">Collections</router-link>
-			<router-link to="likes">Likes</router-link>
-			<router-link to="following">Following</router-link>
-			<router-link to="followers">Followers</router-link>
-			<router-link to="groups">Groups</router-link>
-			<router-link to="wins">Wins</router-link>
-			<router-link to="blocked"> Blocked users </router-link>
+			<div class="uppercase">
+				<router-link active-class="active-header" to="items">Items</router-link>
+				<router-link active-class="active-header" to="sets">Sets</router-link>
+				<router-link active-class="active-header" to="collections">Collections</router-link>
+				<router-link active-class="active-header" to="likes">Likes</router-link>
+				<router-link active-class="active-header" to="following">Following</router-link>
+				<router-link active-class="active-header" to="followers">Followers</router-link>
+				<router-link active-class="active-header" to="wins">Wins</router-link>
+				<router-link active-class="active-header" to="blocked"> Blocked users </router-link>
+			</div>
 		</div>
 	</div>
   </div>
@@ -24,3 +25,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.uppercase > a{
+	text-transform: uppercase;
+}
+</style>

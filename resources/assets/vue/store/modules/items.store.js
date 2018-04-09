@@ -107,13 +107,6 @@ const actions = {
       });
     }
 
-    // return API.post("/getItemsFromCategory", {
-    //       categoryId: catId
-    //     }).then(res => {
-    //       // commit("CATEGORY_ITEMS", { items: res.data.data, id: catId });
-    //       commit("CATEGORY", { items: res.data.data, id: catId } );
-    //     });
-
   },
   like_item({ commit }, objId) {
     return API.post("/switchLike", {

@@ -2,13 +2,13 @@
     <div class="productCard">
         <div class="avatar">
             <router-link :to="item.id?'/item/'+item.id : ''" class="verticalCentered">
-                <div class="theCell"><img :src="item['photos'][0]['photo_name']" alt=""></div>
+                <div class="theCell"><img :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg" alt=""></div>
             </router-link>
         </div>
 
         <div class="content">
             <h3>
-                <router-link :to="item.id?'/item/'+item.id : ''">{{item.title}}</router-link>
+                <router-link :to="item.id?'/item/'+item.id : ''">{{item.title_en}}</router-link>
             </h3>
             <hr>
             <div class="price">{{item.price}} €</div>
@@ -26,6 +26,11 @@ export default {
   props: ["item"],
   components: {
     CardActions
+  },
+   data(){
+      return {
+          notFoundImg:"http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+      }
   }
 };
 </script>

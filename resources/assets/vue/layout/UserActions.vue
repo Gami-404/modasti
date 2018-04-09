@@ -66,11 +66,21 @@
             </div>
         </div>
         <div class="one theUser">
-            <div>
+            <router-link to="/profile/me">
                 <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" alt="">
-                <span>User Name</span>
+                <span>{{user.name}}</span>
                 <i class="fa fa-angle-down"></i>
-            </div>
+            </router-link>
         </div>
+
     </span>
 </template>
+<script>
+export default {
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  }
+};
+</script>
