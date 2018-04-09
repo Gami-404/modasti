@@ -3,6 +3,7 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
+use Dot\Media\Models\Media;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
@@ -51,7 +52,7 @@ class PostsController extends Controller
         $this->data["order"] = (Request::filled("order")) ? Request::get("order") : "DESC";
         $this->data['per_page'] = (Request::filled("per_page")) ? Request::get("per_page") : NULL;
 
-        $query = Post::with('image', 'user', 'tags','brand')->orderBy($this->data["sort"], $this->data["order"]);
+        $query = Post::with('image', 'user', 'tags', 'brand')->orderBy($this->data["sort"], $this->data["order"]);
 
         if (Request::filled("tag_id")) {
             $query->whereHas("tags", function ($query) {
@@ -194,7 +195,7 @@ class PostsController extends Controller
             $post->price = Request::get('price');
             $post->sale_price = Request::get("sale_price");
             $post->size_system = Request::get("size_system");
-            $post->coverage=Request::get('coverage');
+            $post->coverage = Request::get('coverage');
             $post->image_id = Request::get('image_id', 0);
             $post->media_id = Request::get('media_id', 0);
             $post->user_id = Auth::user()->id;
@@ -229,7 +230,7 @@ class PostsController extends Controller
             // Saving post meta
 
             $custom_fields = array_filter(array_combine(Request::get("custom_names", []), Request::get("custom_values", [])));
-            $sizes_fields = explode(',',Request::get("sizes", ''));
+            $sizes_fields = explode(',', Request::get("sizes", ''));
 
 
             foreach ($sizes_fields as $value) {
@@ -291,7 +292,7 @@ class PostsController extends Controller
             $post->brand_id = Request::get('brand_id', 0);
             $post->price = Request::get('price');
             $post->sale_price = Request::get("sale_price");
-            $post->coverage=Request::get('coverage');
+            $post->coverage = Request::get('coverage');
             $post->format = Request::get("format", "post");
             $post->published_at = Request::get('published_at') != "" ? Request::get('published_at') : date("Y-m-d H:i:s");
             $post->lang = app()->getLocale();
@@ -317,7 +318,7 @@ class PostsController extends Controller
 
             $custom_fields = array_filter(array_combine(Request::get("custom_names", []), Request::get("custom_values", [])));
 
-            $sizes_fields = explode(',',Request::get("sizes", ''));
+            $sizes_fields = explode(',', Request::get("sizes", ''));
 
 
             foreach ($sizes_fields as $value) {

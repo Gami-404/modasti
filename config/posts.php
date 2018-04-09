@@ -13,7 +13,8 @@ return [
     'coverage' => [
         1=>'low',
         2=>'medium',
-        3=>'high'
+        3=>'high',
+        4=>'full'
     ],
 
     'size_system'=>[

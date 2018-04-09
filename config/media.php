@@ -48,7 +48,7 @@ return [
      |--------------------------------------------------------------------------
      */
 
-    "allowed_file_types" => 'jpg,png,jpeg,gif,doc,docx,txt,pdf,zip',
+    "allowed_file_types" => 'jpg,png,jpeg,gif,doc,docx,txt,pdf,zip,xls,xlsx',
 
     /*
      |--------------------------------------------------------------------------
