@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         require_once app_path('helpers.php');
+        require_once app_path('maps.php');
     }
 
     /**

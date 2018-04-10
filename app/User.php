@@ -26,4 +26,21 @@ class User extends \Dot\Users\Models\User
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function following(){
+        return $this->belongsToMany(User::class,"user_follow","following_id","follower_id");
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follower(){
+        return $this->belongsToMany(User::class,"user_follow","follower_id","following_id");
+    }
 }

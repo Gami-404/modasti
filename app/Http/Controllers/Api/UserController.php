@@ -58,7 +58,7 @@ class UserController extends Controller
     {
         $response = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,[id],id',
             'password' => 'required',
             'name' => 'required',
         ]);
@@ -67,17 +67,72 @@ class UserController extends Controller
             return response()->json($response, '400');
         }
         $user = new User();
+        $user->username = $request->get('email');
         $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
         $names = explode(' ', $request->get('name'));
         $user->first_name = isset($names[0]) ? $names[0] : '';
         $user->last_name = isset($names[1]) ? $names[1] : '';
-        $user->username = str_slug($request->get('name'));
         $user->api_token = str_random(60);
         $user->backend = 0;
         $user->save();
-        $response['data'] = \Maps\User\login(Auth::user());
-        $response['token'] = Auth::user()->api_token;
+        $response['data'] = \Maps\User\login($user);
+        $response['token'] = $user->api_token;
         return response()->json($response);
     }
+
+
+    /**
+     * POST api/followUser
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function followUser(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $id = $request->get('userId');
+        if (!User::find($id)) {
+            $data['errors'][] = "User not found";
+            return response()->json($data, 400);
+        }
+        (fauth()->user()->following()->detach($id));
+        (fauth()->user()->following()->attach($id));
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/unfollowUser
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unfollowUser(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $id = $request->get('userId');
+        if (!User::find($id)) {
+            $data['errors'][] = "User not found";
+            return response()->json($data, 400);
+        }
+        (fauth()->user()->following()->detach($id));
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/getProfile
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProfile(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $id = $request->get('userId');
+        $user = User::find($id);
+        if (!$user) {
+            $data['errors'][] = "User not found";
+            return response()->json($data, 400);
+        }
+        return response()->json([\Maps\User\users($user)]);
+    }
+
+
 }
