@@ -54,7 +54,10 @@ export default {
           password: this.password
         })
         .then(errors => {
-          if (errors.length == 0) this.$router.push({ path: this.$route.query.redirect , query: {} });
+          if (errors.length == 0) {
+            this.$router.push({ path: this.$route.query.redirect , query: {} }); 
+            this.$router.go(this.$router.currentRoute);
+          }
           else this.errors = errors;
         })
         .finally(() => {

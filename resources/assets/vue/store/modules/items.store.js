@@ -82,6 +82,9 @@ const actions = {
     return API.post("/itemDetails", {
       itemId: id
     }).then(res => {
+      commit("ADD_ITEM", res.data.data , {root:true});
+      commit("ADD_ITEMS", res.data.data.similar, {root:true});
+      res.data.data.similar = res.data.data.similar.map( item => item.id );
       commit("ITEM", res.data.data);
     });
   },
@@ -135,6 +138,9 @@ const actions = {
   },
   search_item_offset_reset({ commit }) {
     commit("SEARCH_RESULTS_OFFSET_RESET");
+  },
+  like_item_toggle({commit}){
+    commit("LIKE_ITEM_TOGGLE");
   }
 };
 
@@ -191,6 +197,14 @@ const mutations = {
   },
   CHANGE_FILTER_SUB(state, id) {
     state.filters.sub = id;
+  },
+  LIKE_ITEM_TOGGLE(state){
+    console.log(state.item);
+    if(state.item.title_en){
+      state.item.is_liked = !state.item.is_liked;
+      state.item.is_liked ? state.item.likes ++ : state.item.likes --;  
+      state.item = {...state.item };
+    }
   }
 };
 

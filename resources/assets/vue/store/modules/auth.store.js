@@ -3,7 +3,8 @@ import API from "../API";
 const state = {
   isAuth: localStorage.getItem("api_token") ? true : false,
   user: JSON.parse(localStorage.getItem("user")) || {},
-  api_token: localStorage.getItem("api_token") || ""
+  api_token: localStorage.getItem("api_token") || "",
+  MessagesFromUsers: []
 };
 
 // getters
@@ -11,7 +12,8 @@ const getters = {
   user: state => state.user,
   userId: state => state.id,
   api_token: state => state.api_token,
-  isAuth: state => state.isAuth
+  isAuth: state => state.isAuth,
+  MessagesFromUsers: state => state.MessagesFromUsers
 };
 
 // actions
@@ -38,6 +40,11 @@ const actions = {
       .catch(err => {
         return err.response.data.errors;
       });
+  },
+  get_user_messages({ commit }) {
+    return API.post("/getPrivateMessageOpponents",{}).then(res => {
+      commit("ADD_MESSAGES", res.data.data);      
+    });
   }
 };
 
@@ -67,6 +74,9 @@ const mutations = {
       state.user = data.data;
       state.api_token = data.token;
     }
+  },
+  ADD_MESSAGES(state,messages){
+    state.MessagesFromUsers = state.MessagesFromUsers.concat(messages);
   }
 };
 

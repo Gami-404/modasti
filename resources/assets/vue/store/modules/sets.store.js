@@ -16,7 +16,9 @@ const actions = {
     return API.post("/setDetails", {
       setId
     }).then(res => {
-      commit("SET", res.data.data.set);
+      commit("ADD_ITEMS",res.data.data.set.items ,{root:true});
+      res.data.data.set.items = res.data.data.set.items.map(item => item.id);
+      commit("SET", res.data.data.set );
     });
   },
   remove_set({ commit }, setId) {
@@ -26,6 +28,9 @@ const actions = {
       commit("REMOVE_SET", res.data.data.set);
     });
   },
+  like_set_toggle({commit}){
+    commit("LIKE_SET_TOGGLE");
+  }
 };
 
 // mutations
@@ -35,6 +40,13 @@ const mutations = {
   },
   REMOVE_SET(state) {
     state.set = {};
+  },
+  LIKE_SET_TOGGLE(state){
+    if(state.set.title_en){
+      state.set.is_liked = !state.set.is_liked;
+      state.set.is_liked ? state.set.likes ++ : state.set.likes --;  
+      state.set = {...state.set };
+    }
   }
 };
 

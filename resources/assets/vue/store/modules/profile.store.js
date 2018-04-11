@@ -104,27 +104,21 @@ const actions = {
     return API.post("/getFollowersUsers", {
       userId: id
     }).then(res => {
-      commit("USER_FOLLOWERS", res.data.data.users);
+      commit("ADD_USERS" , res.data.data.users , {root:true});
+      commit("USER_FOLLOWERS", res.data.data.users.map(user => user.id));
     });
   },
   get_user_following({ commit, state }, id) {
     return API.post("/getFollowingUsers", {
       userId: id
     }).then(res => {
-      // TODO
-      commit("USER_FOLLOWING", res.data.data.users);
+      commit("ADD_USERS" , res.data.data.users , {root:true});      
+      commit("USER_FOLLOWING", res.data.data.users.map(user => user.id));
     });
   },
   update_user({ commit }, formData) {
     return API.post("/profileUpdate", formData).then(() => {
       commit("UPDATE_USER_PROFILE", formData);
-    });
-  },
-  follow_user({ commit }, id) {
-    return API.post("/followUser", {
-      userId: id
-    }).then(res => {
-      // TODO
     });
   },
   search_user({ commit, state }, searchString) {

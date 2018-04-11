@@ -58,8 +58,8 @@
     </div>
 
     <WrapperCardListTitled title="Items">
-      <div v-for="item in set['items']" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item="item" />        
+      <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="item" />        
       </div>
     </WrapperCardListTitled>
     <Loading v-if="loading" />
@@ -87,6 +87,9 @@ export default {
     },
     userId() {
       return this.$store.getters.userId;
+    },
+    comments(){
+      //TODO
     }
   },
   data() {
@@ -117,11 +120,15 @@ export default {
       });
     },
     remove() {
+      // TODO RECHECK THIS 
       this.loading;
       this.$store.dispatch("remove_set", this.set.setId).then(() => {
         this.$router.push("/profile/me/sets");
         this.loading = false;
       });
+    },
+    sendComment(){
+      // TODO
     }
   }
 };

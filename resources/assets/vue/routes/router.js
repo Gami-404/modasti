@@ -11,6 +11,7 @@ import Page500 from "@/pages/500";
 import About from "@/pages/About";
 import BrandRegister from "@/pages/brandRegister";
 import SetCreate from "@/pages/SetCreate";
+import Messages from "@/pages/Messages";
 
 // Nested Routers
 import ProfileRouter from "./profile.router";
@@ -67,6 +68,11 @@ const router = new Router({
       path: "/about",
       name: "about",
       component: About
+    },
+    {
+      path: "/messages",
+      name:"messages",
+      component: Messages
     },
     {
       path: "/brand/register",

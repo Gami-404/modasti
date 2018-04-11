@@ -8,7 +8,6 @@ import ProfileWins from "@/pages/profile/components/Wins";
 import ProfileFollowing from "@/pages/profile/components/Following";
 import ProfileFollowers from "@/pages/profile/components/Followers";
 import ProfileBlocked from "@/pages/profile/components/Blocked";
-import ProfileMessages from "@/pages/profile/Messages.vue";
 import ProfileEdit from "@/pages/profile/Edit";
 export default [
   {
@@ -58,10 +57,5 @@ export default [
       },
       { path: "/", redirect: "sets" }
     ]
-  },
-  {
-    path: "/messages",
-    name:"messages",
-    component: ProfileMessages
   }
 ];

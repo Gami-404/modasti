@@ -16,14 +16,28 @@ const actions = {
       commit("LIKE_ITEM_PROPAGATE", objId);
     });
   },
-  like_set({ commit }, objId) {
+  like_set({ commit , dispatch }, objId) {
     return API.post("/switchLike", {
       objId,
       targetObject: "set"
     }).then( () => {
       commit("LIKE_SET_PROPAGATE", objId);
     });
-  }
+  },
+  follow_user({ commit }, id) {
+    return API.post("/followUser", {
+      userId: id
+    }).then( () =>{
+      commit("FOLLOW_USER_PROPAGATE" ,id );
+    });
+  },
+  unfollow_user({ commit }, id) {
+    return API.post("/unfollowUser", {
+      userId: id
+    }).then( () =>{
+      commit("FOLLOW_USER_PROPAGATE" ,id );
+    });
+  },
 };
 
 // getters
@@ -40,7 +54,7 @@ const mutations = {
   ADD_USER(state, user) {
     state.users[user.id] = user;
   },
-  ADD_USERS(state, users) {
+  ADD_USERS(state, users) {   
     users.forEach(user => {
       state.users[user.id] = user;
     });
@@ -70,22 +84,18 @@ const mutations = {
     });
   },
   LIKE_ITEM_PROPAGATE(state, id) {
-    Object.keys(state.items).forEach(key => {
-      if (state.items[key].id == id) {
-        state.items[key].is_liked = !state.items[key].is_liked;
-        console.log(state.items[key]);
-      }
-    });
+    state.items[id].is_liked = !state.items[id].is_liked;
+    state.items[id].is_liked ? state.items[id].likes ++ : state.items[id].likes --;
     state.items = { ...state.items };
   },
   LIKE_SET_PROPAGATE(state, id) {
-    Object.keys(state.sets).forEach(key => {
-      if (state.sets[key].id == id) {
-        state.sets[key].is_liked = !state.sets[key].is_liked;
-        console.log(state.sets[key]);
-      }
-    });
+    state.sets[id].is_liked = !state.sets[id].is_liked;
+    state.sets[id].is_liked ? state.sets[id].likes ++ : state.sets[id].likes --;    
     state.sets = { ...state.sets };
+  },
+  FOLLOW_USER_PROPAGATE(state , id){
+    state.users[id].is_followed = !state.users[id].is_followed;
+    state.users = { ...state.users };
   }
 };
 
