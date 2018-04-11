@@ -131,8 +131,49 @@ class UserController extends Controller
             $data['errors'][] = "User not found";
             return response()->json($data, 400);
         }
-        return response()->json([\Maps\User\users($user)]);
+        return response()->json(\Maps\User\users($user));
     }
 
+    /**
+     * POST api/getFollowingUsers
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFollowingUsers(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $limit = $request->get('limit', 8);
+        $offset = $request->get('offset', 0);
+        $user = User::find($request->get('userId', 0));
+        if (!$user) {
+            $data['errors'][] = "User not found";
+            return response()->json($data);
+        }
+
+        $followingUsers = $user->following()->take($limit)->offet($offset)->get();
+        $data['data']['users'] = \Maps\User\users($followingUsers);
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/getFollowersUsers
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFollowersUsers(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $limit = $request->get('limit', 8);
+        $offset = $request->get('offset', 0);
+        $user = User::find($request->get('userId', 0));
+        if (!$user) {
+            $data['errors'][] = "User not found";
+            return response()->json($data);
+        }
+
+        $followerUsers = $user->follower()->take($limit)->offet($offset)->get();
+        $data['data']['users'] = \Maps\User\users($followerUsers);
+        return response()->json($data);
+    }
 
 }

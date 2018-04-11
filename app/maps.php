@@ -55,3 +55,32 @@ namespace Maps\User {
     }
 
 }
+
+namespace Maps\Category {
+
+    /**
+     * @param $categories
+     * @return \stdClass
+     */
+    function categories($categories)
+    {
+        $newCategories = new \stdClass();
+
+        foreach ($categories as $category) {
+            $object = $newCategories->{$category->name} = new \stdClass();
+
+            $object->id = $category->id;
+            $object->title = $category->name;
+            $object->image = $category->image ? $category->image->path : null;
+            $object->subcategories = [];
+            foreach ($category->categories as $subCategory) {
+                $subObject = new \stdClass();
+                $subObject->id = $subCategory->id;
+                $subObject->title = $subCategory->name;
+                $subObject->image = $subCategory->image ? $subCategory->image->path : null;
+                $object->subcategories[] = $subObject;
+            }
+        }
+        return $newCategories;
+    }
+}
