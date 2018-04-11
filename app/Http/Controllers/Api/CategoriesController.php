@@ -29,13 +29,16 @@ class CategoriesController extends Controller
     public function getItemsFromCategory(Request $request)
     {
         $data = ['data' => [], 'errors' => []];
-
-        $category = Category::with('categories', 'image')->where('id', $request->get('id'))->first();
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 6);
+        $category = Category::where('id', $request->get('id'))->first();
         if (!$category) {
             $data['errors'][] = 'Category not found';
             return response()->json($data);
         }
+        $items = $category->items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        $data['data'] = \Maps\Item\items($items);
 
-
+        return response()->json($data);
     }
 }

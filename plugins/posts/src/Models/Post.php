@@ -202,6 +202,17 @@ class Post extends Model
         return $this->belongsToMany(Category::class, "posts_categories", "post_id", "category_id");
     }
 
+
+    /**
+     * Likes relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
+            ->where('type','item');
+    }
+
     /**
      * Galleries relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

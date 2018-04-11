@@ -86,9 +86,38 @@ namespace Maps\Category {
 }
 
 
-namespace  Maps\Item{
+namespace Maps\Item {
 
-    function items($item){
-        // {"id":404,"title_en":"test","price":"0.00","currency":"USD","text_en":"","url_en":"","brand":"","likes":0,"categories_id":9,"color_id":0,"is_liked":false,"user_currency":"EUR","photos":[],"color":null}
+    use Dot\Colors\Models\Color;
+
+    function items($items)
+    {
+        // {"id":404,"title_en":"test","price":"0.00","currency":"USD","text_en":"","url_en":"","brand":"","likes":0
+        //,"categories_id":9,"color_id":0,"is_liked":false,"user_currency":"EUR","photos":[],"color":null}
+
+        $newItems = [];
+        foreach ($items as $item) {
+            $newItem = new \stdClass();
+            $newItem->id = $item->id;
+            $newItem->title_en = $item->title;
+            $newItem->price = $item->price;
+            $newItem->currency = $item->currency;
+            $newItem->text_en = $item->content;
+            $newItem->url_en = $item->url;
+            $newItem->brand = $item->brand ? $item->brand->title : "";
+            $newItem->likes = $item->likes()->count();
+            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->user_currency = $item->user->currency;
+            $newItem->color_id = $item->color_id;
+            $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
+            $newItem->photo = [];
+            if ($item->image) {
+                $photo = new \stdClass();
+                $photo->table_id = $item->image->id;
+                $photo->photo_name = uploads_url($item->image->path);
+                $newItem->photo[] = $photo;
+            }
+        }
+        return $newItems;
     }
 }
