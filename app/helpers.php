@@ -1,26 +1,14 @@
 <?php
 
-/**
- * Maps for User objects
- */
+use Illuminate\Support\Facades\Auth;
 
-namespace Maps\User {
 
+if(!function_exists('fauth')){
     /**
-     * Login Object Maps
-     * @param $user
-     * @return \stdClass
+     * @return mixed
      */
-    function login($user)
+    function fauth()
     {
-        $std = new \stdClass();
-        $std->userId = $user->id;
-        $std->email = $user->email;
-        $std->name = $user->first_name . ' ' . $user->last_name;
-        $std->avater = new \stdClass();
-        $std->user_type = "USER";
-        return $std;
+        return  Auth::guard('frontend');
     }
-
 }
-

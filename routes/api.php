@@ -19,7 +19,21 @@ Route::post('/signIn', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@register');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
-    $router->post('switchLike','Api\ItemsController@switchLike');
+
+    //Categories
+    $router->post('getItemsCategories', 'Api\CategoriesController@getItemsCategories');
+
+
+    // Items
+    $router->post('switchLike', 'Api\ItemsController@switchLike');
+
+
+    // Users
+    $router->post('followUser', 'Api\UserController@followUser');
+    $router->post('unfollowUser', 'Api\UserController@unfollowUser');
+    $router->post('getProfile', 'Api\UserController@getProfile');
+    $router->post('getFollowingUsers', 'Api\UserController@getFollowingUsers');
+    $router->post('getFollowersUsers', 'Api\UserController@getFollowersUsers');
 });
 
 
