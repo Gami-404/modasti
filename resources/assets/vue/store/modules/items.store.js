@@ -9,7 +9,7 @@ const state = {
     setsBestFromModasti: []
   },
   categories: [],
-  category: { items:[]},
+  category: { items: [] },
   catIdMap: {},
   searchResults: {
     items: [],
@@ -44,9 +44,10 @@ const getters = {
     });
     return options;
   },
-  categoryFiltered: state =>
+  categoryFiltered: (state, _, __, rootGetters) =>
     state.category.items
-      ? state.category.items
+      ? rootGetters
+          .getItems(state.category.items)
           .filter(item => {
             return (
               state.filters.sub == -1 || item.categories_id == state.filters.sub
@@ -62,6 +63,7 @@ const getters = {
               state.filters.byColor._counter == 0 ||
               state.filters.byColor[item.color]
           )
+          .map(item => item.id)
       : []
 };
 
@@ -85,7 +87,16 @@ const actions = {
   },
   get_home_items({ commit }) {
     return API.post("/homeTrends", {}).then(res => {
-      commit("HOME_ITEMS", res.data.data);
+      let { data } = res.data;
+      let items = {};
+      commit("ADD_ITEMS", data["items_most_popular"] , { root : true });
+      commit("ADD_ITEMS", data["items_latest_trends"] , { root : true });
+      commit("ADD_SETS", data["sets_best_from_modasti"] , { root : true });
+      commit("ADD_SETS", data["sets_best_from_community"] , { root : true });
+      Object.keys(data).forEach( key => {
+        items[key] = data[key].map(item => item.id);
+      });
+      commit('HOME_ITEMS',items);
     });
   },
   get_categories({ commit }) {
@@ -102,31 +113,24 @@ const actions = {
       return API.post("/getItemsFromCategory", {
         categoryId: catId
       }).then(res => {
-        commit("CATEGORY_ITEMS", { items: res.data.data, id: catId });
+        commit("ADD_ITEMS", res.data.data);        
+        commit("CATEGORY_ITEMS", { items: res.data.data.map(item => item.id) , id: catId });
         commit("CATEGORY", catId);
       });
     }
-
-  },
-  like_item({ commit }, objId) {
-    return API.post("/switchLike", {
-      objId,
-      targetObject: "item"
-    }).then(() => {
-      commit("LIKE_ITEM_PROPAGATE", objId);
-      commit("LIKE_ITEM_PROPAGATE_IN_SETS", objId, { root: true });
-    });
   },
   search_item({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
+      commit("ADD_ITEMS", res.data.data);
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS", res.data.data);
+      commit("SEARCH_RESULTS", res.data.data.map(item => item.id) );
     });
   },
   search_item_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
+      commit("ADD_ITEMS", res.data.data);      
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS_MORE", res.data.data);
+      commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id) );
     });
   },
   search_item_offset_reset({ commit }) {
@@ -158,24 +162,10 @@ const mutations = {
     state.categories[data.id]["items"] = data.items.slice(0, 500);
   },
   CATEGORY(state, id) {
-    state.category = { ...state.categories[id] ,  items: JSON.parse( JSON.stringify( state.categories[id].items ) ) };
-  },
-  LIKE_ITEM_PROPAGATE(state, id) {
-    let toggleLikes = item => {
-      item.id == id ? (item.is_liked = !item.is_liked) : 0;
-      return { ...item };
+    state.category = {
+      ...state.categories[id],
+      items: state.categories[id].items
     };
-    state.home.itemsMostPopular.forEach(toggleLikes);
-    state.home.itemsLatestTrends.forEach(toggleLikes);
-    state.searchResults.items.forEach(toggleLikes);
-    if (state.category.items) state.category.items.forEach(toggleLikes);
-    for (let key in state.categories) {
-      if (state.categories[key].items) {
-        state.categories[key].items = state.categories[key].items.forEach(
-          toggleLikes
-        );
-      }
-    }
   },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
     searchResults.offset += 5;

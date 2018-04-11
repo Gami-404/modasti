@@ -16,15 +16,17 @@
                         </div>
                     </div>
                 </div>
-                <router-link v-if="isCurrUser" to="/profile/me/edit" class="topHeadBtn">Edit Profile</router-link>
+                <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
             </div>
             <Loading v-if="loading" />
         </div>
         <ProfileNav/>
         <div v-if="!loading">
+        <transition name="subpage" enter-active-class="animated fadeIn">
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
+        </transition>
         </div>
     </div>
 </template>

@@ -4,12 +4,12 @@
         <div class="gridContainer">
             <WrapperCardList>
                 <div v-if="searchIn == 'item'">
-                    <div v-for="item in itemSearchResults" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-                        <ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+                    <div v-for="item in itemSearchResults" :key='item' class="mycol-lg-3 mycol-sm-6">
+                        <ItemCard :item-id="item" />
                     </div>
                 </div>
                 <div v-if="searchIn == 'user'">
-                    <UserCard v-for="user of userSearchResults" :key="user.id" :name="user.name" :img="user.img" :date="user.date" :follow="user.follow" />
+                    <UserCard v-for="user of userSearchResults" :key="user" :user-id="user"/>
                 </div>
             </WrapperCardList>
             <div v-if="!noResults" class="getMore">
