@@ -1,9 +1,9 @@
 <template>
 	<div class="gridContainer">
 		<WrapperCardList>
-			<div v-for="set in sets" :key='set.id' class="mycol-lg-3 mycol-sm-6">
+			<div v-for="set in sets" :key='set' class="mycol-lg-3 mycol-sm-6">
         <SetCard
-          :set="set"
+          :set-id="set"
 				/>
 			</div>
 		</WrapperCardList>

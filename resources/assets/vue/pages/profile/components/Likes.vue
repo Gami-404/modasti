@@ -1,14 +1,14 @@
 <template>
 		<div class="gridContainer">
 			<WrapperCardListTitled  title="Liked Items" url="#">
-				<div v-for="item in likedItems" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item="item" />					
+				<div v-for="item in likedItems" :key='item' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="item" />					
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Liked Sets" url="#">
-				<div v-for="set in likedSets" :key="set.id" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :set="set" />
+				<div v-for="set in likedSets" :key="set" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
 

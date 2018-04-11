@@ -12,26 +12,26 @@
 		<div class="gridContainer">
 
 			<WrapperCardListTitled title="Latest Trends" url="#">
-				<div v-for="item in itemsLatestTrends" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item="item" />					
+				<div v-for="itemId in itemsLatestTrends" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="itemId" />					
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Liked From Our Community" url="#">
-				<div v-for="item in itemsMostPopular" :key='item.id' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item="item" />
+				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Most Viewed Sets" url="#">
-				<div v-for="set in setsBestFromCommunity" :key="set.id" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :set="set" />
+				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
 
 			<WrapperCardListTitled title="Official Contests" url="#">
-				<div v-for="set in setsBestFromCommunity" :key="set.id" class="mycol-lg-3 mycol-sm-6">
-					<SetCard :set="set" />
+				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
 

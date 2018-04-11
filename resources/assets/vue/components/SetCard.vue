@@ -26,7 +26,7 @@
 import CardActions from "@/components/CardActions";
 export default {
   props: [
-    "set"
+    "setId"
   ],
   components: {
       CardActions
@@ -34,6 +34,11 @@ export default {
   data(){
       return {
           notFoundImg:"http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+      }
+  },
+  computed:{
+      set(){
+          return this.$store.getters.getSet(this.setId)
       }
   }
 };

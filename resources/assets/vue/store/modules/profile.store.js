@@ -16,15 +16,18 @@ const emptyState = {
     likedItems: 0,
     likedSets: 0,
     likedCollections: 0,
-    following:0,
-    followers:0,
+    following: 0,
+    followers: 0,
     sets: 0,
     collections: 0,
     search: 0
   }
 };
-const state = JSON.parse(JSON.stringify(emptyState)) ;
-const getFreshState = () => Promise.resolve({emptyState}).then(JSON.stringify).then(JSON.parse);
+const state = JSON.parse(JSON.stringify(emptyState));
+const getFreshState = () =>
+  Promise.resolve({ emptyState })
+    .then(JSON.stringify)
+    .then(JSON.parse);
 
 // getters
 const getters = {
@@ -50,15 +53,15 @@ const search = (searchString, offset) =>
 
 // actions
 const actions = {
-  async get_user_profile({ commit , state }, id) {
-    state= await getFreshState();
+  async get_user_profile({ commit, state }, id) {
+    state = await getFreshState();
     return API.post("/getProfile", {
       userId: id
     }).then(res => {
       commit("USER_PROFILE", res.data[0]);
     });
   },
-  get_user_sets({commit}, id){
+  get_user_sets({ commit }, id) {
     return API.post("/getSets", {
       userId: id,
       offset: state.offsets.sets,
@@ -73,7 +76,8 @@ const actions = {
       offset: state.offsets.likedItems,
       limit: 8
     }).then(res => {
-      commit("USER_LIKED_ITEMS", res.data.data);
+      commit("ADD_ITEMS", res.data.data, { root: true });
+      commit("USER_LIKED_ITEMS", res.data.data.map(item => item.id));
     });
   },
   get_user_liked_sets({ commit, state }, id) {
@@ -82,7 +86,8 @@ const actions = {
       offset: state.offsets.likedSets,
       limit: 8
     }).then(res => {
-      commit("USER_LIKED_SETS", res.data.data);
+      commit("ADD_SETS", res.data.data, { root: true });
+      commit("USER_LIKED_SETS", res.data.data.map(set => set.id));
     });
   },
   get_user_liked_collections({ commit, state }, id) {
@@ -91,33 +96,49 @@ const actions = {
       offset: state.offsets.likedCollections,
       limit: 8
     }).then(res => {
+      // TODO
       commit("USER_LIKED_COLLECTIONS", res.data.data);
     });
   },
-  get_user_followers( {commit ,state } , id ){
-    return API.post("/getFollowersUsers",{
-      userId:id
-    }).then( res =>{
-      commit("USER_FOLLOWERS", res.data.data.users );
+  get_user_followers({ commit, state }, id) {
+    return API.post("/getFollowersUsers", {
+      userId: id
+    }).then(res => {
+      commit("USER_FOLLOWERS", res.data.data.users);
     });
   },
-  get_user_following( {commit ,state } , id ){
-    return API.post("/getFollowingUsers",{
-      userId:id
-    }).then( res =>{
-      commit("USER_FOLLOWING", res.data.data.users );
+  get_user_following({ commit, state }, id) {
+    return API.post("/getFollowingUsers", {
+      userId: id
+    }).then(res => {
+      // TODO
+      commit("USER_FOLLOWING", res.data.data.users);
+    });
+  },
+  update_user({ commit }, formData) {
+    return API.post("/profileUpdate", formData).then(() => {
+      commit("UPDATE_USER_PROFILE", formData);
+    });
+  },
+  follow_user({ commit }, id) {
+    return API.post("/followUser", {
+      userId: id
+    }).then(res => {
+      // TODO
     });
   },
   search_user({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS", res.data.data);
+      commit("ADD_USERS", res.data.data);
+      commit("SEARCH_RESULTS", res.data.data.map(user => user.id));
     });
   },
   search_user_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS_MORE", res.data.data);
+      commit("ADD_USERS", res.data.data);
+      commit("SEARCH_RESULTS_MORE", res.data.data.map(user => user.id));
     });
   },
   search_user_offset_reset({ commit }) {
@@ -130,9 +151,9 @@ const mutations = {
   USER_PROFILE(state, data) {
     state.userProfile = data;
   },
-  USER_SETS(state, data){
+  USER_SETS(state, data) {
     state.userSets = data;
-    state.offsets.sets+=8;
+    state.offsets.sets += 8;
   },
   USER_LIKED_ITEMS(state, data) {
     state.liked.items = state.liked.items.concat(data);
@@ -146,13 +167,17 @@ const mutations = {
     state.liked.collections = state.liked.collections.concat(data);
     state.offsets.likedCollections += 8;
   },
-  USER_FOLLOWERS(state , data){
+  USER_FOLLOWERS(state, data) {
     state.followers = state.followers.concat(data);
-    state.offsets.followers+=8;
+    state.offsets.followers += 8;
   },
-  USER_FOLLOWING(state , data){
+  USER_FOLLOWING(state, data) {
     state.following = state.following.concat(data);
-    state.offsets.following+=8;
+    state.offsets.following += 8;
+  },
+  UPDATE_USER_PROFILE(state, data) {
+    state.userProfile.fname = data.firstName;
+    state.userProfile.email = data.email;
   },
   SEARCH_RESULTS_OFFSET({ offsets }) {
     offsets.search += 5;

@@ -23,14 +23,20 @@
 <script>
 import CardActions from "./CardActions";
 export default {
-  props: ["item"],
+  props: ["itemId"],
   components: {
     CardActions
   },
-   data(){
-      return {
-          notFoundImg:"http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
-      }
+  data() {
+    return {
+      notFoundImg:
+        "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+    };
+  },
+  computed:{
+    item() {
+     return this.$store.getters.getItem(this.itemId);
+    }
   }
 };
 </script>
