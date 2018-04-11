@@ -20,4 +20,22 @@ class CategoriesController extends Controller
         $data['data'] = \Maps\Category\categories($categories);
         return response()->json($data);
     }
+
+    /**
+     * POST api/getItemsFromCategory
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getItemsFromCategory(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+
+        $category = Category::with('categories', 'image')->where('id', $request->get('id'))->first();
+        if (!$category) {
+            $data['errors'][] = 'Category not found';
+            return response()->json($data);
+        }
+
+
+    }
 }
