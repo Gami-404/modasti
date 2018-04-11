@@ -49,10 +49,11 @@
 					</div>
 					<div class="sendNew">
 						<div class="theInput">
-							<input type="text">
+							<input v-model="messageToSend" type="text">
 						</div>
-						<a href="#" class="theIcon">
-							<i class="fa fa-paper-plane"></i>
+						<a href="#" @click.prevent="sendMessage" class="theIcon">
+							<i v-if="!sending" class="fa fa-paper-plane"></i>
+							<i v-if="sending" class="fa fa-spinner fa-spin"></i>
 						</a>
 					</div>
 				</div>
@@ -69,6 +70,7 @@
 
 			</div>
 		</div>
+		<Loading v-if="loading" />
 	</div>
 
 </template>
@@ -76,6 +78,7 @@
 <script>
 import WrapperCardList from "@/wrappers/WrapperCardList";
 import MessageCard from "@/components/MessageCard";
+import Loading from "@/components/Loading";
 import { mapGetters } from "vuex";
 export default {
   components: {
@@ -85,24 +88,42 @@ export default {
   data() {
     return {
       loading: true,
-      loadMoreLoading: false
+			loadMoreLoading: false,
+			messageToSend:"",
+			sending:false,
+			loading:true,
+			loadingMessages:false,
+			viewedUserId: -1
     };
   },
   computed: {
     // user messages related stuff  is in the store's auth module
-    ...mapGetters(["user", "MessagesFromUsers"])
-  },
-  created() {
-    this.loadMessages().then(() => (this.loading = false));
-  },
+		...mapGetters(["user", "MessagesFromUsers"]),
+		messages(){
+			return this.$store.getters.getMessages(this.viewedUserId);
+		}
+	},
+	created(){
+		this.$store.dispatch("get_users_messages").then( () => this.loading = false )
+	},
   methods: {
     loadMessages() {
-      return this.$store.dispatch("get_user_messages");
+			if(viewedUserId != -1 ){
+				this.loadingMessages = true;
+				return this.$store.dispatch("get_messages").then( () => this.loadingMessages = false );
+			}
     },
     loadMore() {
-      this.loadMoreLoading = true;
-      this.loadMessages().then(() => (this.loadMoreLoading = false));
-    }
+			//TODO
+      // this.loadMoreLoading = true;
+      // this.loadMessages().then(() => (this.loadMoreLoading = false));
+		},
+		sendMessage(){
+			this.sending = true;
+			this.dispatch("send_message", { message : this.messageToSend , userId : this.viewedUserId  }).then( () => {
+				this.sending = false;
+			});
+		}
   }
 };
 </script>
