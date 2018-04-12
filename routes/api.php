@@ -27,6 +27,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Items
     $router->post('switchLike', 'Api\ItemsController@switchLike');
+    $router->post('getLikedItems', 'Api\ItemsController@getLikedItems');
 
 
     // Users

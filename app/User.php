@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Dot\Posts\Models\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -42,5 +43,16 @@ class User extends \Dot\Users\Models\User
      */
     public function follower(){
         return $this->belongsToMany(User::class,"user_follow","follower_id","following_id");
+    }
+
+
+    /**
+     * Likes relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function liked_items()
+    {
+        return $this->belongsToMany(Post::class, "users_posts_like", "user_id",'object_id')
+            ->where('type','item');
     }
 }

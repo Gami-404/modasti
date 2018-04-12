@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Controller;
 
 class ItemsController extends Controller
 {
+
+
     /**
      * POST api/switchLike
      * @param Request $request
@@ -47,5 +50,27 @@ class ItemsController extends Controller
         $table->insert($data);
         $response = ['result' => "Like added"];
         return response()->json($response, 200);
+    }
+
+    /**
+     * POST api/getLikedItems
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getLikedItems(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 6);
+        $user = User::where(['id' => $request->get('userId', fauth()->user()->id), 'status' => 1])->first();
+
+        if (!$user) {
+            $data['errors'][] = 'User not found';
+            return response()->json($data);
+        }
+
+        $items = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        $data['data'] = \Maps\Item\items($items);
+        return response()->json($data);
     }
 }
