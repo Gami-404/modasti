@@ -107,7 +107,7 @@ namespace Maps\Item {
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
             $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
-            $newItem->user_currency = $item->user->currency;
+            $newItem->user_currency = $item->user->currency? $item->user->currency:"";
             $newItem->color_id = $item->color_id;
             $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
             $newItem->photo = [];
@@ -117,6 +117,7 @@ namespace Maps\Item {
                 $photo->photo_name = uploads_url($item->image->path);
                 $newItem->photo[] = $photo;
             }
+            $newItems[]=$newItem;
         }
         return $newItems;
     }

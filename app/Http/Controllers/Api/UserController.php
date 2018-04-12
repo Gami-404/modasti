@@ -20,9 +20,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        $response = [];
-        $response['data'] = [];
-        $response['errors'] = [];
+        $response = ['data' => [], 'errors' => []];
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -75,6 +73,7 @@ class UserController extends Controller
         $user->last_name = isset($names[1]) ? $names[1] : '';
         $user->api_token = str_random(60);
         $user->backend = 0;
+        $user->status = 1;
         $user->save();
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;

@@ -22,6 +22,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     //Categories
     $router->post('getItemsCategories', 'Api\CategoriesController@getItemsCategories');
+    $router->post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
 
 
     // Items

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
@@ -11,7 +10,7 @@ use App\Http\Controllers\Controller;
 class ItemsController extends Controller
 {
     /**
-     * GET api/switchLike
+     * POST api/switchLike
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -29,7 +28,7 @@ class ItemsController extends Controller
             return response()->json($response, 400);
         }
 
-        $user = Auth::user();
+        $user = fauth()->user();
         $id = $request->get('objId');
         $type = $request->get('targetObject');
         $table = DB::table('users_posts_like');
