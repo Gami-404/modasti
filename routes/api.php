@@ -36,6 +36,8 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getProfile', 'Api\UserController@getProfile');
     $router->post('getFollowingUsers', 'Api\UserController@getFollowingUsers');
     $router->post('getFollowersUsers', 'Api\UserController@getFollowersUsers');
+    $router->post('profileUpdate', 'Api\UserController@profileUpdate');
+
 });
 
 
