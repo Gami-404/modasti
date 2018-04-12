@@ -3,7 +3,7 @@
         <a href="#" class="one">
             <i class="icon-headicon"></i>
         </a>
-        <router-link to="messages" class="one">
+        <router-link to="/messages" class="one">
             <i class="fa fa-envelope"></i>
         </router-link>
         <div class="one notifications">

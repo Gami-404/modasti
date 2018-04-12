@@ -5,51 +5,27 @@
 
 				<div class="theChat">
 					<div class="content">
-
-						<div class="oneMessage clearfix">
+						<div class="no-user" v-if="currMessagingUserId==-1">
+							<span v-if="!loadingMessages">No Messages To View</span>
+						</div>
+						<div class="no-user">
+							<i v-if="loadingMessages" class=" no-user fa fa-spinner fa-spin"></i>
+						</div>
+						<div v-if="!loadingMessages">
+							<div v-for="(message,i) of messages" :key="i" class="oneMessage clearfix" :class="{'second': message.from_id == $store.getters.user.userId}">
 							<div class="avatar">
 								<img src="images/img3.jpg" alt="">
-								<div class="textCentered">2:00</div>
+								<div class="textCentered">{{message.created}}</div>
 							</div>
-							<div class="theMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
+							<div class="theMessage">{{message.text_en}}</div>
 						</div>
-
-						<div class="oneMessage clearfix">
-							<div class="avatar">
-								<img src="images/img3.jpg" alt="">
-								<div class="textCentered">2:00</div>
-							</div>
-							<div class="theMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
 						</div>
-
-						<div class="oneMessage second clearfix">
-							<div class="avatar">
-								<img src="images/img3.jpg" alt="">
-								<div class="textCentered">2:00</div>
-							</div>
-							<div class="theMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-						</div>
-
-						<div class="oneMessage clearfix">
-							<div class="avatar">
-								<img src="images/img3.jpg" alt="">
-								<div class="textCentered">2:00</div>
-							</div>
-							<div class="theMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-						</div>
-
-						<div class="oneMessage second clearfix">
-							<div class="avatar">
-								<img src="images/img3.jpg" alt="">
-								<div class="textCentered">2:00</div>
-							</div>
-							<div class="theMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-						</div>
+						
 
 					</div>
-					<div class="sendNew">
+					<div v-if="currMessagingUserId!==-1" class="sendNew">
 						<div class="theInput">
-							<input v-model="messageToSend" type="text">
+							<input @keyup.enter="sendMessage" v-model="messageToSend" type="text">
 						</div>
 						<a href="#" @click.prevent="sendMessage" class="theIcon">
 							<i v-if="!sending" class="fa fa-paper-plane"></i>
@@ -61,7 +37,7 @@
 				<div class="onlinePersons">
 					<div class="title">Online</div>
 					<div class="content">
-						<a v-for="user of MessagesFromUsers" :key="user.id" href="#" class="item">
+						<a v-for="user of messagesFromUsers" :key="user.id" href="#" @click.prevent="loadMessages(user.id)" class="item" :class="{'selected-user': user.id == currMessagingUserId}">
 							<span class="avatar"><img :src="user.photo && user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
 							<span> {{user.fname || user.username}}</span>
 						</a>
@@ -83,47 +59,67 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     WrapperCardList,
-    MessageCard
+    MessageCard,
+    Loading
   },
   data() {
     return {
       loading: true,
-			loadMoreLoading: false,
-			messageToSend:"",
-			sending:false,
-			loading:true,
-			loadingMessages:false,
-			viewedUserId: -1
+      loadMoreLoading: false,
+      messageToSend: "",
+      sending: false,
+      loading: true,
+      loadingMessages: false
     };
   },
   computed: {
     // user messages related stuff  is in the store's auth module
-		...mapGetters(["user", "MessagesFromUsers"]),
-		messages(){
-			return this.$store.getters.getMessages(this.viewedUserId);
-		}
-	},
-	created(){
-		this.$store.dispatch("get_users_messages").then( () => this.loading = false )
-	},
+    ...mapGetters(["user", "messagesFromUsers", "currMessagingUserId"]),
+    messages() {
+      return this.$store.getters.getMessages;
+    }
+  },
+  created() {
+    this.$store
+      .dispatch("get_users_messages")
+      .then(() => (this.loading = false));
+    console.log(this.$store.getters.userId);
+  },
   methods: {
-    loadMessages() {
-			if(viewedUserId != -1 ){
-				this.loadingMessages = true;
-				return this.$store.dispatch("get_messages").then( () => this.loadingMessages = false );
-			}
+    loadMessages(userId) {
+      this.loadingMessages = true;
+      return this.$store
+        .dispatch("get_messages", userId)
+        .then(() => (this.loadingMessages = false));
     },
     loadMore() {
-			//TODO
+      //TODO
       // this.loadMoreLoading = true;
       // this.loadMessages().then(() => (this.loadMoreLoading = false));
-		},
-		sendMessage(){
-			this.sending = true;
-			this.dispatch("send_message", { message : this.messageToSend , userId : this.viewedUserId  }).then( () => {
-				this.sending = false;
-			});
-		}
+    },
+    sendMessage() {
+      this.sending = true;
+      this.$store.dispatch("send_message", this.messageToSend).then(() => {
+        this.sending = false;
+      });
+      this.messageToSend = "";
+    }
   }
 };
 </script>
+
+<style scoped>
+.textCentered {
+  font-size: 9px;
+}
+.no-user {
+  font-size: 1.6em;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.selected-user{
+	background: #ffd6d2;
+}
+</style>

@@ -117,6 +117,11 @@ const actions = {
     });
   },
   update_user({ commit }, formData) {
+    Object.keys(formData).forEach( key => {
+      if(formData[key] == ""){
+        delete formData[key];
+      } 
+    });
     return API.post("/profileUpdate", formData).then(() => {
       commit("UPDATE_USER_PROFILE", formData);
     });

@@ -8,11 +8,11 @@ export default {
     { path: "/", redirect: "s/new" },    
     { path :"s" , redirect:"s/new"},
     {
-      path:"s/:contestTab",
+      path:"s/:contestTab(new|old)",
       component: ContestTab
     },
     {
-      path:":contId",
+      path:":contId(\\d+)",
       component: Details
     }
   ]

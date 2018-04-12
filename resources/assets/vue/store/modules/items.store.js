@@ -109,6 +109,7 @@ const actions = {
   },
   get_category_items({ commit, state }, name) {
     let catId = state.catIdMap[name];
+    if(!catId) return Promise.reject(new Error("category not found"));
     if (state.categories[catId]["items"]) {
       commit("CATEGORY", catId);
       return Promise.resolve();

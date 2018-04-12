@@ -15,7 +15,7 @@ export default [
     component: ProfileEdit
   },
   {
-    path: "/profile/:userId",
+    path: "/profile/:userId(\\d+|me)",
     component: Profile,
     meta:{ requiresAuth : true },
     children: [
@@ -39,10 +39,10 @@ export default [
         path: "following",
         component: ProfileFollowing
       },
-      {
-        path: "items",
-        component: ProfileItems
-      },
+      // {
+      //   path: "items",
+      //   component: ProfileItems
+      // },
       {
         path: "likes",
         component: ProfileLikes

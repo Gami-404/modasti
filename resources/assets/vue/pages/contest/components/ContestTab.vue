@@ -32,8 +32,6 @@ export default {
       this.contests = this.$store.getters.newContests;
     } else if (contestTab == "old") {
       this.contests = this.$store.getters.oldContests;
-    } else {
-      this.$router.push("/new");
     }
   },
   watch: {
@@ -43,8 +41,6 @@ export default {
         this.contests = this.$store.getters.newContests;
       } else if (contestTab == "old") {
         this.contests = this.$store.getters.oldContests;
-      } else {
-        this.$router.push("/new");
       }
     }
   }

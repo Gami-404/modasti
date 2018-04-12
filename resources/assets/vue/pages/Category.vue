@@ -49,6 +49,9 @@
           .then(() => {
             this.loading = false;
             this.viewed_items =  this.$store.getters.categoryFiltered;
+          }).catch( err => {
+            console.error(err);
+            this.$router.push("/404");
           });
       });
     },

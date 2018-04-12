@@ -38,9 +38,7 @@ export default {
   },
   computed: {
     isTab() {
-      return (
-        this.$route.path == "/contest/s/new" || this.$route.path == "/contest/s/old"
-      );
+      return (/\/contest\/s\/(new|old)/).test( this.$route.path);
     }
 	},
 	components: {

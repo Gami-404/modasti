@@ -66,7 +66,6 @@ export default {
         lastName: "",
         userName: "",
         email: this.$store.getters.user.email,
-        currencyId: 0,
         currentPassword: "",
         password: ""
       },

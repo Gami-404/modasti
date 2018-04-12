@@ -7,17 +7,19 @@ const state = {
   messagesFromUsers: [],
   messages: {
     "-1": {}
-  }
+  },
+  currMessagingUserId : -1
 };
 
 // getters
 const getters = {
   user: state => state.user,
-  userId: state => state.user.id,
+  userId: state => state.user.userId,
   api_token: state => state.api_token,
   isAuth: state => state.isAuth,
   messagesFromUsers: state => state.messagesFromUsers,
-  getMessages: state => id => state.messages[id]
+  getMessages: state => state.messages[state.currMessagingUserId],
+  currMessagingUserId: state => state.currMessagingUserId
 };
 
 // actions
@@ -56,16 +58,17 @@ const actions = {
       offset: 0,
       limit: 50
     }).then(res => {
-      commit("ADD_MESSAGES", { messages: res.data.data, userId });
+      commit("ADD_MESSAGES", { messages: res.data.data.reverse(), userId });
+      commit("CURR_MESSAGING_USER", userId);
     });
   },
-  send_message({ commit, state }, payload) {
+  send_message({ commit, state }, message) {
     return API.post("/writePrivateMessage", {
-      userTo: payload.userId,
-      message: payload.message,
+      userTo: state.currMessagingUserId,
+      message: message,
       parentMsgId: 0
     }).then(res => {
-      // commit("SEND_MESSAGE" , payload );
+      commit("SEND_MESSAGE" , message );
     });
   }
 };
@@ -103,8 +106,11 @@ const mutations = {
   MESSAGES_FROM_USERS(state, messagesFromUsers) {
     state.messagesFromUsers = messagesFromUsers;
   },
-  SEND_MESSAGE(state, payload) {
-    state.messages[payload.userId].push(payload.message);
+  SEND_MESSAGE(state, message) {
+    state.messages[state.currMessagingUserId].push({ from_id: state.user.userId , text_en:message , created:"Now" });
+  },
+  CURR_MESSAGING_USER(state, userId){
+    state.currMessagingUserId = userId;
   }
 };
 
