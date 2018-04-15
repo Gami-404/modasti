@@ -20,9 +20,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        $response = [];
-        $response['data'] = [];
-        $response['errors'] = [];
+        $response = ['data' => [], 'errors' => []];
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -75,6 +73,7 @@ class UserController extends Controller
         $user->last_name = isset($names[1]) ? $names[1] : '';
         $user->api_token = str_random(60);
         $user->backend = 0;
+        $user->status = 1;
         $user->save();
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;
@@ -176,4 +175,54 @@ class UserController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * POST api/profileUpdate
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function profileUpdate(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $user = fauth()->user();
+        $validator = Validator::make($request->all(), []);
+        $validator->sometimes('lastName', 'required', function () use ($request) {
+            return $request->filled('lastName');
+        });
+        $validator->sometimes('firstName', 'required', function () use ($request) {
+            return $request->filled('firstName');
+        });
+        $validator->sometimes('password', 'required|min:6', function () use ($request) {
+            return $request->filled('password') || $request->filled('currentPassword');
+        });
+        $validator->sometimes('currentPassword', 'required|min:6', function () use ($request) {
+            return $request->filled('password') || $request->filled('currentPassword');
+        });
+        $validator->sometimes('userName', 'required|unique:users,username,[id],id', function () use ($request, $user) {
+            return $request->filled('userName') && (trim($request->get('userName')) != trim($user->username));
+        });
+        $validator->sometimes('email', 'required|email|unique:users,email,[id],id', function () use ($request, $user) {
+            return $request->filled('email') && (trim($request->get('email')) != trim($user->email));
+        });
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data,400);
+        }
+        if ($request->filled('firstName')) {
+            $user->first_name = $request->get('firstName');
+        }
+        if ($request->filled('lastName')) {
+            $user->last_name = $request->get('lastName');
+        }
+        if ($request->filled('userName')) {
+            $user->username = $request->get('userName');
+        }
+        if ($request->filled('email')) {
+            $user->email = $request->get('email');
+        }
+        if ($request->filled('password')) {
+            $user->password = $request->get('password');
+        }
+        $user->save();
+        return response()->json($data);
+    }
 }

@@ -55,7 +55,7 @@ class ExportsController extends Controller
             $post = new Post();
             $post->title = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
             $post->brand_id = ($this->getBrandId($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
-            $post->excerpt = (($worksheet->getCellByColumnAndRow(3, $row)->getValue()));
+            $post->content = (($worksheet->getCellByColumnAndRow(3, $row)->getValue()));
             $post->url = (($worksheet->getCellByColumnAndRow(4, $row)->getValue()));
             $post->image_id = $image_id;
             $post->price = (($worksheet->getCellByColumnAndRow(6, $row)->getValue()));
