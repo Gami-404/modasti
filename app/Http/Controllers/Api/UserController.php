@@ -205,7 +205,7 @@ class UserController extends Controller
         });
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
-            return response()->json($data);
+            return response()->json($data,400);
         }
         if ($request->filled('firstName')) {
             $user->first_name = $request->get('firstName');
