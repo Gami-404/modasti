@@ -10,7 +10,7 @@ import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import About from "@/pages/About";
 import BrandRegister from "@/pages/brandRegister";
-import SetCreate from "@/pages/SetCreate";
+import SetAdd from "@/pages/SetAdd";
 import Messages from "@/pages/Messages";
 
 // Nested Routers
@@ -32,9 +32,9 @@ const router = new Router({
       component: Item
     },
     {
-      path: "/set/create",
-      name: "set_create",
-      component: SetCreate,
+      path: "/set/add",
+      name: "set_add",
+      component: SetAdd,
       meta: { requiresAuth: true }
     },
     {

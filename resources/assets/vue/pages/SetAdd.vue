@@ -1,14 +1,13 @@
 <template>
     <div class="gridContainer">
         <div class="createSetPage secPaddLg clearfix">
-
             <div class="leftArea">
                 <div class="areaToDrop">
                     <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
                     <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div>
                 </div>
                 <div class="actionBtns">
-                    <router-link to="?popup=create_set" class="publishBtn">Publish</router-link>
+                    <a href="#" @click.prevent="publish" class="publishBtn">Publish</a>
                     <div class="otherBtns">
                         <div class="oneBtn">
                             <a @click.prevent="forward" href="#">
@@ -47,12 +46,11 @@
                 </div>
                 <div class="theProducts">
                     <div class="myrow clearfix">
-
                         <div v-for="(item,i) of items" :key="i" class="mycol-sm-4">
-                            <div @dragstart="dragStart" draggable="true" :src="item.image" class="one">
+                            <div @dragstart="dragStart" draggable="true" :src="item.image" :data-id="item.id" class="one">
                                 <div class="avatar">
                                     <div class="verticalCentered">
-                                        <div class="theCell"><img :src="item.image" alt=""></div>
+                                        <div class="theCell"><img :src="item.image" :data-id="item.id" alt=""></div>
                                     </div>
                                 </div>
                                 <div class="name">{{item.title_en}}</div>
@@ -62,11 +60,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
             <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
-                <SetCreatePopup v-if="$route.query.popup=='create_set'"></SetCreatePopup>
+                <SetCreatePopup v-if="$route.query.popup=='create_set'" :base64-img="base64Img"></SetCreatePopup>
             </WrapperPopups>
         </transition>
     </div>
@@ -88,11 +85,13 @@ export default {
       selected: null,
       itemsCounter: 0,
       items: [
-        { image: "images/1.jpg", title_en: "HEEOEE" },
-        { image: "images/1.jpg", title_en: "HEEOEE" },
-        { image: "images/1.jpg", title_en: "HEEOEE" }
+        { image: "images/1.jpg", title_en: "HEEOEE", id: 1 },
+        { image: "images/1.jpg", title_en: "HEEOEE", id: 2 },
+        { image: "images/1.jpg", title_en: "HEEOEE", id: 3 }
       ],
-      flipBit: -1
+      flipBit: -1,
+      base64Img: "",
+      setItems:[]
     };
   },
   mounted() {
@@ -129,23 +128,33 @@ export default {
   methods: {
     nothing() {},
     dragStart(event) {
-      event.dataTransfer.setData("image", event.target.src);
+      event.dataTransfer.setData(
+        "item",
+        JSON.stringify({
+          src: event.target.src,
+          id: event.target.getAttribute("data-id")
+        })
+      );
     },
     drop(event) {
       event.preventDefault();
-      console.log(event);
       this.itemsCounter++;
+      let item = JSON.parse(event.dataTransfer.getData("item"));
+      this.setItems.indexOf(item.id) === -1
+        ? this.setItems.push(item.id)
+        : null;
       let img = new Image();
       img.onload = () => {
-        this.drawImage(img, event.offsetX, event.offsetY);
+        this.drawImage(img, item.id, event.offsetX, event.offsetY);
       };
-      img.src = event.dataTransfer.getData("image");
+      img.src = item.src;
     },
-    drawImage(imageObj, x, y) {
+    drawImage(imageObj, id, x, y) {
       // darth vader
       var darthVaderImg = new Konva.Image({
         image: imageObj,
         name: "img",
+        id,
         x: x - imageObj.width / 2,
         y: y - imageObj.height / 2,
         draggable: true
@@ -170,6 +179,8 @@ export default {
     },
     remove() {
       this.itemsCounter--;
+      let index = this.setItems.indexOf(this.selected.getId());
+      this.setItems.splice(index, 1);
       this.selected.destroy();
       this.stage.find("Transformer").destroy();
       this.layer.draw();
@@ -214,6 +225,10 @@ export default {
       tr.attachTo(cloned);
       this.layer.draw();
       this.itemsCounter++;
+    },
+    publish() {
+      this.$router.push({ query: { popup: "create_set" } });
+      this.base64Img = this.stage.toDataURL();
     }
   }
 };
