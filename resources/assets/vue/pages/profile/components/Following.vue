@@ -2,7 +2,7 @@
   <div class="gridContainer">
     <div class="followersPage secPaddLg">
       <div class="myrow clearfix">
-        <UserCard v-for="user of users" :key="user.id" :user="user" />
+        <UserCard v-for="user of users" :key="user" :user-id="user" />
       </div>
     </div>
     <Loading v-if="loading"/>

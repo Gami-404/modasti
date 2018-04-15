@@ -11,6 +11,7 @@ import Page500 from "@/pages/500";
 import About from "@/pages/About";
 import BrandRegister from "@/pages/brandRegister";
 import SetCreate from "@/pages/SetCreate";
+import Messages from "@/pages/Messages";
 
 // Nested Routers
 import ProfileRouter from "./profile.router";
@@ -26,7 +27,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/item/:itemId",
+      path: "/item/:itemId(\\d+)",
       name: "item",
       component: Item
     },
@@ -37,7 +38,7 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/set/:setId",
+      path: "/set/:setId(\\d+)",
       name: "set",
       component: Set
     },
@@ -69,6 +70,11 @@ const router = new Router({
       component: About
     },
     {
+      path: "/messages",
+      name:"messages",
+      component: Messages
+    },
+    {
       path: "/brand/register",
       name: "brandRegister",
       component: BrandRegister
@@ -89,10 +95,14 @@ const router = new Router({
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (to.fullPath == "/contest/s/new" || to.fullPath == "/contest/s/old") {
-      return { x: 0, y: 150 };
+    if (savedPosition) {
+      return savedPosition
     }
-    return { x: 0, y: 0 };
+    if ((/\/contest\/s\/*/).test(to.fullPath)||(/^\/profile\//i).test(to.fullPath)) {
+      return { x: 0, y: 150  };
+    }else{
+      return { x: 0, y: 0 };
+    }
   }
 });
 

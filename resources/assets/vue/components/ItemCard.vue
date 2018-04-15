@@ -37,6 +37,11 @@ export default {
     item() {
      return this.$store.getters.getItem(this.itemId);
     }
+  },
+  watch:{
+      "item.is_liked"(){
+        this.$forceUpdate();            
+      }
   }
 };
 </script>

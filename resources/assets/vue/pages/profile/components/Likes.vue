@@ -52,7 +52,11 @@ export default {
     ]).finally( () =>{
       this.loading = false;
     });
-     
+  },
+  methods:{
+    more(){
+      // TODO MORE buttons
+    }
   }
 };
 </script>

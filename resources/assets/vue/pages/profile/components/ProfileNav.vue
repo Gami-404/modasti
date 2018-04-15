@@ -3,7 +3,6 @@
 	<div class="categoriesTop whiteBg">
 		<div class="gridContainer clearfix">
 			<div class="uppercase">
-				<router-link active-class="active-header" to="items">Items</router-link>
 				<router-link active-class="active-header" to="sets">Sets</router-link>
 				<router-link active-class="active-header" to="collections">Collections</router-link>
 				<router-link active-class="active-header" to="likes">Likes</router-link>

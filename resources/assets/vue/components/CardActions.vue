@@ -5,8 +5,9 @@
       <span key="actions" v-if="!shareActions">
         <a @click.prevent="toggleLike" href="#">
           <transition enter-active-class="animated bounceIn" mode="out-in">
-            <i key="liked" class="fa fa-heart" v-if="liked"></i>
-            <i key="notLiked" class="fa fa-heart-o" v-if="!liked"></i>
+            <i key="liked" class="fa fa-heart" v-if="liked&&canChange"></i>
+            <i key="notLiked" class="fa fa-heart-o" v-if="!liked&&canChange"></i>
+            <i key="load" v-if="!canChange" class="fa fa-spinner fa-spin"></i>
           </transition>
           <span>{{numOfLikes}}</span>
         </a>
@@ -70,9 +71,9 @@ export default {
     toggleLike() {
       if (this.isAuth) {
         if (this.canChange) {
-          this.changeCounter++;
           this.liked = !this.liked;
           this.$store.dispatch("like_" + this.context, this.objId);
+          this.$store.dispatch("like_"+ this.context+"_toggle");
         }
         this.canChange = false;
       } else {

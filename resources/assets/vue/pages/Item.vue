@@ -23,8 +23,8 @@
             </div>
 
             <WrapperCardListTitled title="Similar" url="#" more="false">
-                <div v-for="item in data.similar" :key='item.id'  class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="item.id" :image="item.photos[0]['photo_name']" :price="item.price" :title="item.title_en" :url="item.url_en" :brand="item.brand" :likes="item.likes" :is-liked="item.is_liked" :comment="item.comment" />
+                <div v-for="item in data.similar" :key='item'  class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="item"   />
                 </div>
             </WrapperCardListTitled>
         </div>
@@ -66,11 +66,12 @@ export default {
       this.$store
         .dispatch("get_item", itemId)
         .then(() => (this.loading = false))
-        .catch(() => {
+        .catch( err => {
+            console.error(err);
           this.loading = false;
           this.$router.replace({ path: "/404" });
         });
-    }
+    },
   },
   computed: {
     data() {

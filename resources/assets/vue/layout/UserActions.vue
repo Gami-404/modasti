@@ -67,7 +67,7 @@
         </div>
         <div class="one theUser">
             <router-link to="/profile/me">
-                <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" alt="">
+                <img src="https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1" alt="">
                 <span>{{user.name}}</span>
                 <i class="fa fa-angle-down"></i>
             </router-link>
