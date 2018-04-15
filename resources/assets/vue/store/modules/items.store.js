@@ -117,6 +117,7 @@ const actions = {
       return API.post("/getItemsFromCategory", {
         categoryId: catId
       }).then(res => {
+        res.data.data = res.data.data.slice(0,100).filter(item => item.title_en != '' );
         commit("ADD_ITEMS", res.data.data);        
         commit("CATEGORY_ITEMS", { items: res.data.data.map(item => item.id) , id: catId });
         commit("CATEGORY", catId);

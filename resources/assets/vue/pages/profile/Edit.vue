@@ -79,9 +79,13 @@ export default {
   },
   methods:{
     saveEdits(){
+      
       this.btnText = "Saving.."
       this.$store.dispatch("update_user",this.form).then( () =>{
-        this.btnText = "Save Edits";
+        this.btnText = "Saved";
+        setTimeout(() => {
+          this.$store.dispatch("logout");
+        }, 2000);
       });
     }
   }

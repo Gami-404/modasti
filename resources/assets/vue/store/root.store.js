@@ -89,9 +89,11 @@ const mutations = {
     state.items = { ...state.items };
   },
   LIKE_SET_PROPAGATE(state, id) {
-    state.sets[id].is_liked = !state.sets[id].is_liked;
-    state.sets[id].is_liked ? state.sets[id].likes ++ : state.sets[id].likes --;    
-    state.sets = { ...state.sets };
+    if(state.sets[id]){
+      state.sets[id].is_liked = !state.sets[id].is_liked;
+      state.sets[id].is_liked ? state.sets[id].likes ++ : state.sets[id].likes --;    
+      state.sets = { ...state.sets };
+    }
   },
   FOLLOW_USER_PROPAGATE(state , id){
     state.users[id].is_followed = !state.users[id].is_followed;

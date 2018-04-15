@@ -12,7 +12,8 @@ import ProfileEdit from "@/pages/profile/Edit";
 export default [
   {
     path:"/profile/edit",
-    component: ProfileEdit
+    component: ProfileEdit,
+    meta:{ requiresAuth : true },    
   },
   {
     path: "/profile/:userId(\\d+|me)",
