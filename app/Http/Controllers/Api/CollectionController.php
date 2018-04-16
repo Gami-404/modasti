@@ -33,12 +33,13 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $media = $media->saveContent($request->get('image'));
+        $media = $media->saveContent(explode('base64,',$request->get('image'))[1]);
 
         $collection = Collection::create([
             'title' => $request->get('title'),
             'excerpt' => $request->get('description'),
-            'image_id' => isset($media->id) ? $media->id : 0
+            'image_id' => isset($media->id) ? $media->id : 0,
+            'lang'=>'en'
         ]);
         $data['data']['collection_id'] = $collection->id;
         return response()->json($data);
