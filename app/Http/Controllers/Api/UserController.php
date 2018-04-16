@@ -74,6 +74,7 @@ class UserController extends Controller
         $user->api_token = str_random(60);
         $user->backend = 0;
         $user->status = 1;
+        $user->role_id=3;
         $user->save();
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;

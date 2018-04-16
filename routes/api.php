@@ -20,6 +20,11 @@ Route::post('/register', 'Api\UserController@register');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
+    // Collection
+    $router->post('createCollection', 'Api\CollectionController@createCollection');
+
+
+
     // Sets
     $router->post('setDetails', 'Api\SetsController@setDetails');
     $router->post('addCommentToSet', 'Api\SetsController@addCommentToSet');
