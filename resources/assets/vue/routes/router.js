@@ -10,8 +10,10 @@ import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import About from "@/pages/About";
 import BrandRegister from "@/pages/brandRegister";
-import SetCreate from "@/pages/SetCreate";
+import SetAdd from "@/pages/SetAdd";
 import Messages from "@/pages/Messages";
+import Trending from "@/pages/Trending";
+import Feed from "@/pages/Feed";
 
 // Nested Routers
 import ProfileRouter from "./profile.router";
@@ -27,14 +29,26 @@ const router = new Router({
       component: Home
     },
     {
+      path: "/trending",
+      name: "trending",
+      component: Trending,
+      meta:{ requiresAuth:true }
+    },
+    {
+      path: "/feed",
+      name: "feed",
+      component: Feed,
+      meta:{ requiresAuth:true }      
+    },
+    {
       path: "/item/:itemId(\\d+)",
       name: "item",
       component: Item
     },
     {
-      path: "/set/create",
-      name: "set_create",
-      component: SetCreate,
+      path: "/set/add",
+      name: "set_add",
+      component: SetAdd,
       meta: { requiresAuth: true }
     },
     {

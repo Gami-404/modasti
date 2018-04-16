@@ -10,9 +10,9 @@
         </router-link>
       </div>
       <div class="content">
-        <form @submit="login" class="theForm">
-          <input type="test" class="formEle" placeholder="Set name" v-model="name" required>
-          <input type="text" class="formEle" placeholder="Details" v-model="details" required>
+        <form @submit.prevent="addSet" class="theForm">
+          <input type="test" class="formEle" placeholder="Set title" v-model="set.title" required>
+          <input type="text" class="formEle" placeholder="Description" v-model="set.description" required>
           <div v-for="(error,i) in errors" :key="i">
             <h4 class="errors">
               {{error}}
@@ -28,25 +28,27 @@
 
 <script>
 export default {
+  props:["base64Img","items"],
   data() {
     return {
-      name: "",
-      details: "",
+      set:{
+        title:"",
+        description:"",
+        data:"",
+        items:this.items,
+        image:this.base64Img
+      },
       loading: false,
       errors: []
     };
   },
   methods: {
-    login(e) {
-      e.preventDefault();
+    addSet() {
       this.loading = true;
       this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password
-        })
+        .dispatch("add_set", this.set)
         .then(errors => {
-          if (errors.length == 0) this.$router.push({ path: this.$route.query.redirect , query: {} });
+          if (errors.length == 0) this.$router.push({ path: "/profile/me/sets" , query: {} });
           else this.errors = errors;
         })
         .finally(() => {

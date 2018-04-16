@@ -47,7 +47,7 @@
                             <i class="fa fa-bars"></i>
                         </div>
                         <ul class="clearfix">
-                            <li v-for="route of routes" :key="route.uri">
+                            <li v-for="route of routes" v-if="!route.auth || isAuth " :key="route.uri">
                                 <router-link active-class="active-header" :to="route.uri" exact>
                                     <i :class="route.icon"></i>
                                     <span>{{route.name}}</span>

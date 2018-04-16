@@ -33,6 +33,9 @@ const actions = {
       commit("SET", res.data.data.set);
     });
   },
+  add_set({commit} , payload ){
+    return API.post("/addSet",payload).then()
+  },
   remove_set({ commit }, setId) {
     return API.post("/deleteSet", {
       setId
