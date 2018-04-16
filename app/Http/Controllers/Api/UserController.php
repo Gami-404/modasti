@@ -94,6 +94,10 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,[id],id',
             'password' => 'required',
             'name' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'website' => 'required|url',
+            'brand' => 'required'
         ]);
         if ($validator->fails()) {
             $response['errors'] = ($validator->errors()->all());
