@@ -11,7 +11,7 @@
 
 		<div class="gridContainer">
 
-			<WrapperCardListTitled title="Latest Trends" url="#">
+			<WrapperCardListTitled title="Latest Trends" url="/trending">
 				<div v-for="itemId in itemsLatestTrends" :key='itemId' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="itemId" />					
 				</div>

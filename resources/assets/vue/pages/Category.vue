@@ -48,10 +48,9 @@
           .dispatch("get_category_items", this.$route.params.name)
           .then(() => {
             this.loading = false;
-            this.viewed_items =  this.$store.getters.categoryFiltered;
           }).catch( err => {
-            console.error(err);
             this.$router.push("/404");
+            console.error(err);
           });
       });
     },
@@ -63,6 +62,9 @@
           .dispatch("get_category_items", this.$route.params.name)
           .then(() => {
             this.loading = false;
+          }).catch( err => {
+            this.$router.push("/404");
+            console.error(err);
           });
       }
     },

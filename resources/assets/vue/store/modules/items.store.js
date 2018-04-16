@@ -8,6 +8,8 @@ const state = {
     itemsLatestTrends: [],
     setsBestFromModasti: []
   },
+  trending: [],
+  feed: [],
   categories: [],
   category: { items: [] },
   catIdMap: {},
@@ -21,6 +23,10 @@ const state = {
     byPrice: { _counter: 0 },
     bySize: { _counter: 0 },
     sub: -1
+  },
+  offsets: {
+    feed: 0,
+    trending: 0
   }
 };
 
@@ -31,6 +37,7 @@ const getters = {
   itemsLatestTrends: state => state.home.itemsLatestTrends,
   setsBestFromCommunity: state => state.home.setsBestFromCommunity,
   setsBestFromModasti: state => state.home.setsBestFromModasti,
+  trending: state => state.trending,
   category: state => state.category,
   categoryItems: state => state.category.items,
   itemSearchResults: state => state.searchResults.items,
@@ -82,9 +89,9 @@ const actions = {
     return API.post("/itemDetails", {
       itemId: id
     }).then(res => {
-      commit("ADD_ITEM", res.data.data , {root:true});
-      commit("ADD_ITEMS", res.data.data.similar, {root:true});
-      res.data.data.similar = res.data.data.similar.map( item => item.id );
+      commit("ADD_ITEM", res.data.data, { root: true });
+      commit("ADD_ITEMS", res.data.data.similar, { root: true });
+      res.data.data.similar = res.data.data.similar.map(item => item.id);
       commit("ITEM", res.data.data);
     });
   },
@@ -92,14 +99,32 @@ const actions = {
     return API.post("/homeTrends", {}).then(res => {
       let { data } = res.data;
       let items = {};
-      commit("ADD_ITEMS", data["items_most_popular"] , { root : true });
-      commit("ADD_ITEMS", data["items_latest_trends"] , { root : true });
-      commit("ADD_SETS", data["sets_best_from_modasti"] , { root : true });
-      commit("ADD_SETS", data["sets_best_from_community"] , { root : true });
-      Object.keys(data).forEach( key => {
+      commit("ADD_ITEMS", data["items_most_popular"], { root: true });
+      commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
+      commit("ADD_SETS", data["sets_best_from_modasti"], { root: true });
+      commit("ADD_SETS", data["sets_best_from_community"], { root: true });
+      Object.keys(data).forEach(key => {
         items[key] = data[key].map(item => item.id);
       });
-      commit('HOME_ITEMS',items);
+      commit("HOME_ITEMS", items);
+    });
+  },
+  get_feed({ commit, state }) {
+    return API.post("/homeFeeds", {
+      offset: state.offsets.feed,
+      limit: 8
+    }).then( res =>{
+      // commet feed
+      commit("FEED",res.data.data)
+    });
+  },
+  get_trending({ commit, state }) {
+    return API.post("/browsePopular", {
+      offset: state.offsets.trending,
+      limit: 8
+    }).then( res=>{
+      commit("ADD_ITEMS",res.data.data.items, {root:true});
+      commit("TRENDING",res.data.data.items.map(item=> item.id))
     });
   },
   get_categories({ commit }) {
@@ -109,7 +134,7 @@ const actions = {
   },
   get_category_items({ commit, state }, name) {
     let catId = state.catIdMap[name];
-    if(!catId) return Promise.reject(new Error("category not found"));
+    if (!catId) return Promise.reject(new Error("category not found"));
     if (state.categories[catId]["items"]) {
       commit("CATEGORY", catId);
       return Promise.resolve();
@@ -117,9 +142,14 @@ const actions = {
       return API.post("/getItemsFromCategory", {
         categoryId: catId
       }).then(res => {
-        res.data.data = res.data.data.slice(0,100).filter(item => item.title_en != '' );
-        commit("ADD_ITEMS", res.data.data);        
-        commit("CATEGORY_ITEMS", { items: res.data.data.map(item => item.id) , id: catId });
+        res.data.data = res.data.data
+          .slice(0, 100)
+          .filter(item => item.title_en != "");
+        commit("ADD_ITEMS", res.data.data);
+        commit("CATEGORY_ITEMS", {
+          items: res.data.data.map(item => item.id),
+          id: catId
+        });
         commit("CATEGORY", catId);
       });
     }
@@ -128,20 +158,20 @@ const actions = {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("ADD_ITEMS", res.data.data);
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS", res.data.data.map(item => item.id) );
+      commit("SEARCH_RESULTS", res.data.data.map(item => item.id));
     });
   },
   search_item_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
-      commit("ADD_ITEMS", res.data.data);      
+      commit("ADD_ITEMS", res.data.data);
       commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id) );
+      commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id));
     });
   },
   search_item_offset_reset({ commit }) {
     commit("SEARCH_RESULTS_OFFSET_RESET");
   },
-  like_item_toggle({commit}){
+  like_item_toggle({ commit }) {
     commit("LIKE_ITEM_TOGGLE");
   }
 };
@@ -156,6 +186,14 @@ const mutations = {
     home.itemsLatestTrends = data.items_latest_trends;
     home.setsBestFromModasti = data.sets_best_from_modasti;
     home.setsBestFromCommunity = data.sets_best_from_community;
+  },
+  TRENDING(state,data){
+    state.trending = state.trending.concat(data);
+    state.offsets.trending+=8;
+  },
+  FEED(state,data){
+    state.feed = state.feed.concat(data);
+    state.offsets.feed+=8;
   },
   CATEGORIES(state, data) {
     let temp = {};
@@ -200,12 +238,12 @@ const mutations = {
   CHANGE_FILTER_SUB(state, id) {
     state.filters.sub = id;
   },
-  LIKE_ITEM_TOGGLE(state){
+  LIKE_ITEM_TOGGLE(state) {
     console.log(state.item);
-    if(state.item.title_en){
+    if (state.item.title_en) {
       state.item.is_liked = !state.item.is_liked;
-      state.item.is_liked ? state.item.likes ++ : state.item.likes --;  
-      state.item = {...state.item };
+      state.item.is_liked ? state.item.likes++ : state.item.likes--;
+      state.item = { ...state.item };
     }
   }
 };
