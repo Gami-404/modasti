@@ -149,6 +149,36 @@ namespace Maps\Item {
         }
         return $newItems;
     }
+
+    /**
+     * @param $item
+     * @return mixed
+     */
+    function itemDetails($item, $similarItems)
+    {
+        $newItem = new \stdClass();
+        $newItem->id = $item->id;
+        $newItem->title_en = $item->title;
+        $newItem->price = $item->price;
+        $newItem->currency = $item->currency;
+        $newItem->text_en = $item->content;
+        $newItem->url_en = $item->url;
+        $newItem->brand = $item->brand ? $item->brand->title : "";
+        $newItem->likes = $item->likes()->count();
+        $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
+        $newItem->color_id = $item->color_id;
+        $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
+        $newItem->photo = [];
+        $newItem->similar = \Maps\Item\items($similarItems);
+        if ($item->image) {
+            $photo = new \stdClass();
+            $photo->table_id = $item->image->id;
+            $photo->photo_name = uploads_url($item->image->path);
+            $newItem->photo[] = $photo;
+        }
+        return $newItem;
+    }
 }
 
 namespace Maps\Set {

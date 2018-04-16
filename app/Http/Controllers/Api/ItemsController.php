@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Post;
 use App\User;
+use Dot\Posts\Posts;
 use Illuminate\Support\Facades\DB;
+use function Maps\Collection\collection;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -72,5 +75,33 @@ class ItemsController extends Controller
         $items = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
+    }
+
+
+    /**
+     * POST api/itemDetails
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function itemDetails(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'itemId' => 'required|exists:posts,id',
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+
+        $item = Post::find($request->get('itemId'));
+        $category = $item->categories()->where('parent', '<>', 0)->first();
+        $similarItems = collect();
+        if ($category) {
+            $similarItems = $category->posts()->take(3)->get();
+        }
+        $data['data'] = \Maps\Item\itemDetails($item, $similarItems);
+        return response()->json($data);
+
     }
 }
