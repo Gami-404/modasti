@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Post;
 use App\User;
-use Dot\Posts\Posts;
 use Illuminate\Support\Facades\DB;
-use function Maps\Collection\collection;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
