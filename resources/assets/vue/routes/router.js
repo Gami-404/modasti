@@ -14,6 +14,7 @@ import SetAdd from "@/pages/SetAdd";
 import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
 import Feed from "@/pages/Feed";
+import ServerRendered from "@/pages/ServerRendered";
 
 // Nested Routers
 import ProfileRouter from "./profile.router";
@@ -38,6 +39,12 @@ const router = new Router({
       path: "/feed",
       name: "feed",
       component: Feed,
+      meta:{ requiresAuth:true }      
+    },
+    {
+      path: "/sr/:path",
+      name: "sr",
+      component: ServerRendered,
       meta:{ requiresAuth:true }      
     },
     {

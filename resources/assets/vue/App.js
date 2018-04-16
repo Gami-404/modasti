@@ -16,6 +16,7 @@ import store from "../vue/store";
  */
 
 Vue.component("App", require("./App.vue"));
+Vue.component("Navbar", require("./layout/Navbar.vue"));
 
 window._store = store;
 
