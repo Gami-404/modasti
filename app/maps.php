@@ -18,7 +18,7 @@ namespace Maps\User {
         $std->email = $user->email;
         $std->name = $user->first_name . ' ' . $user->last_name;
         $std->avater = new \stdClass();
-        $std->user_type = "USER";
+        $std->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         return $std;
     }
 

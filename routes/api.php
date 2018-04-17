@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 //test router
 Route::post('/signIn', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@register');
+Route::post('/registerDesigner', 'Api\UserController@registerDesigner');
 // Sizes
 Route::post('/getSizes', 'Api\HomeController@getSizes');
 // Colors
