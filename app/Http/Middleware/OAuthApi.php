@@ -53,7 +53,7 @@ class OAuthApi
             return true;
         }
 
-        if (($name = array_search(Auth::user()->role_id, OAuthApi::ROLES)) && (in_array($name, $roles))) {
+        if (($name = array_search(fauth()->user()->role_id, OAuthApi::ROLES)) && (in_array($name, $roles))) {
             return true;
         }
         return false;
