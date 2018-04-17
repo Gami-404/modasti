@@ -21,7 +21,6 @@ Route::post('/register', 'Api\UserController@register');
 Route::post('/getSizes', 'Api\HomeController@getSizes');
 // Colors
 Route::post('/getColors', 'Api\ColorController@getColors');
-
 // Countries
 Route::post('/getCountries', 'Api\HomeController@getCountries');
 
