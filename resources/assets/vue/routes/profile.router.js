@@ -1,13 +1,13 @@
 import Profile from "@/pages/profile/Profile";
 //Profile sub pages
-import ProfileSets from "@/pages/profile/components/Sets";
-import ProfileCollections from "@/pages/profile/components/Collections";
-import ProfileItems from "@/pages/profile/components/Items";
-import ProfileLikes from "@/pages/profile/components/Likes";
-import ProfileWins from "@/pages/profile/components/Wins";
-import ProfileFollowing from "@/pages/profile/components/Following";
-import ProfileFollowers from "@/pages/profile/components/Followers";
-import ProfileBlocked from "@/pages/profile/components/Blocked";
+import ProfileSets from "@/pages/profile/sub/Sets";
+import ProfileCollections from "@/pages/profile/sub/Collections";
+import ProfileItems from "@/pages/profile/sub/Items";
+import ProfileLikes from "@/pages/profile/sub/Likes";
+import ProfileWins from "@/pages/profile/sub/Wins";
+import ProfileFollowing from "@/pages/profile/sub/Following";
+import ProfileFollowers from "@/pages/profile/sub/Followers";
+import ProfileBlocked from "@/pages/profile/sub/Blocked";
 import ProfileEdit from "@/pages/profile/Edit";
 export default [
   {

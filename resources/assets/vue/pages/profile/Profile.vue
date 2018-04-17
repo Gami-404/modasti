@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import ProfileNav from './components/ProfileNav';
+import ProfileNav from './ProfileNav';
 import Loading from "@/components/Loading";
 export default {
   components: {
