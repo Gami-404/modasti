@@ -19,6 +19,11 @@ Route::post('/signIn', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@register');
 // Sizes
 Route::post('/getSizes', 'Api\HomeController@getSizes');
+// Colors
+Route::post('/getColors', 'Api\ColorController@getColors');
+
+// Countries
+Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
@@ -45,13 +50,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getLikedItems', 'Api\ItemsController@getLikedItems');
     $router->post('/itemDetails', 'Api\ItemsController@itemDetails');
 
-    // Colors
-    $router->post('/getColors', 'Api\ColorController@getColors');
 
-
-
-    // Countries
-    $router->post('/getCountries', 'Api\HomeController@getCountries');
 
     // Users
     $router->post('followUser', 'Api\UserController@followUser');
