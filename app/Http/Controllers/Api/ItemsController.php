@@ -102,4 +102,33 @@ class ItemsController extends Controller
         return response()->json($data);
 
     }
+
+    /**
+     * POST api/listItems
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function listItems(Request $request)
+    {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $items = Post::with('image')
+            ->where('user_id', fauth()->id())
+            ->offset($offset)
+            ->take($limit)
+            ->get();
+        return response()->json(['errors' => [], 'data' => $items]);
+    }
+
+    /**
+     * POST api/addItem
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+
+    public function addItem(Request $request)
+    {
+
+    }
+
 }
