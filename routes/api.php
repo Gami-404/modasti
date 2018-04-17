@@ -62,4 +62,13 @@ Route::group(["middleware" => ['api-auth:designer']], function ($router) {
 });
 
 
+
+Route::get('/designer-register', function () {
+    return view('designer-register');
+});
+
+Route::group(["middleware" => ['api-auth:designer']], function ($router) {
+    
+
+});
 Route::fallback('Api\NotFoundController@notFound')->name('fallback');

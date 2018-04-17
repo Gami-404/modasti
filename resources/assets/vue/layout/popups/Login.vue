@@ -13,7 +13,7 @@
         <form @submit="login" class="theForm">
           <input type="email" class="formEle" placeholder="Email" v-model="email" required>
           <input type="password" class="formEle" placeholder="Password" v-model="password" required>
-          <div v-for="(error,i) in errors" :key="i">
+          <div v-for="error in errors" :key="error">
             <h4 class="errors">
               {{error}}
             </h4>

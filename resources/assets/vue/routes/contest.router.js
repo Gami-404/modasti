@@ -1,6 +1,6 @@
 import Contest from '@/pages/contest/Cotest';
-import ContestTab from "@/pages/contest/components/ContestTab";
-import Details from "@/pages/contest/components/Details";
+import ContestTab from "@/pages/contest/sub/ContestTab";
+import Details from "@/pages/contest/sub/Details";
 export default {
   path: "/contest",
   component: Contest,
