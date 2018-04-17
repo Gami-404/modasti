@@ -1,5 +1,5 @@
 import axios from "axios";
-window.baseURL = "http://stage-api.modasti.net/api";
+window.baseURL = "http://modasti.uniative.com/api";
 const axiosI = axios.create({
   baseURL: window.baseURL
 });
