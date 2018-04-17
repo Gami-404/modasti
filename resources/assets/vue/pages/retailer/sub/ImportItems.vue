@@ -10,7 +10,6 @@
 							<input @click.prevent="sendFile" type="submit" :value="sending?'uploading...':'upload'">
 					</div>
 				</div>
-
 		</div>
 	</div>
 </template>

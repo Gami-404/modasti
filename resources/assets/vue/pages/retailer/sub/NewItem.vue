@@ -8,25 +8,25 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Item title :</div>
-									<input v-model="form.title" type="text" class="inputEle">
+									<input required v-model="form.title" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Category :</div>
-									<input v-model="form.category" type="text" class="inputEle" placeholder="set category">
+									<input required v-model="form.category" type="text" class="inputEle" placeholder="set category">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Short description :</div>
-									<input v-model="form.description" type="text" class="inputEle">
+									<input required v-model="form.description" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Coverage :</div>
-									<select v-model="form.coverage" class="inputEle">
+									<select required v-model="form.coverage" class="inputEle">
 										<option hidden value="">...</option>
 										<option value="1">low</option>
 										<option value="2">medium</option>
@@ -38,37 +38,37 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Item Brand :</div>
-									<input v-model="form.brand" type="text" class="inputEle">
+									<input required v-model="form.brand" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Color :</div>
-									<input v-model="form.color" type="text" class="inputEle" placeholder="set Color">
+									<input required v-model="form.color" type="text" class="inputEle" placeholder="set Color">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Web shop url :</div>
-									<input v-model="form.shop_url" type="text" class="inputEle">
+									<input required v-model="form.shop_url" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size :</div>
-									<input v-model="form.size" type="text" class="inputEle" placeholder="set Size">
+									<input required v-model="form.size" type="text" class="inputEle" placeholder="set Size">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Price :</div>
-									<input v-model="form.price" type="text" class="inputEle">
+									<input required v-model="form.price" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size System :</div>
-									<select v-model="form.sizeSystem" class="inputEle">
+									<select required v-model="form.sizeSystem" class="inputEle">
 										<option hidden value="">...</option>
 										<option value="eu">EU</option>
 										<option value="uk">UK</option>
@@ -79,13 +79,13 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Sale price :</div>
-									<input v-model="form.sale_price" type="text" class="inputEle" placeholder="Ex: 15.00">
+									<input required v-model="form.sale_price" type="text" class="inputEle" placeholder="Ex: 15.00">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Currency :</div>
-									<select v-model="form.currency" class="inputEle">
+									<select required v-model="form.currency" class="inputEle">
 										<option hidden value="">...</option>
 										<option v-for="curr of currency" :key="curr" :value="curr">{{curr}}</option>
 									</select>
@@ -96,7 +96,7 @@
 					<div class="mycol-md-3 mycol-sm-6">
 						<div class="mrgBtmMd fontLarger">Images</div>
 						<label for="uploadImg" class="inputEle brandBg vCenter textCentered mrgBtmLg"> Upload Image </label>
-						<input type="file" id="uploadImg" class="disNone" @change="processFile($event)">
+						<input required type="file" id="uploadImg" class="disNone" @change="processFile($event)">
 						<div class="uploadedPhotoDisplay mrgBtmLg">
 							<span v-if="form.image === ''" class="fontLarger grayColor hideAfterUpload">No photo</span>
 							<img :src="form.image" alt="">

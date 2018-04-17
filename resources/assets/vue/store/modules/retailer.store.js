@@ -13,7 +13,7 @@ const getters = {
 // actions
 const actions = {
   add_new_item({ commit }, formData) {
-    return API.post("/", formData);
+    return API.post("/addItem", formData);
   },
   register({ commit }, formData) {
     return API.post("/", formData);
