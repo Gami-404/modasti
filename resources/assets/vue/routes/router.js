@@ -9,16 +9,16 @@ import Single from "@/pages/Single";
 import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import About from "@/pages/About";
-import BrandRegister from "@/pages/brandRegister";
+import RetailerRegistration from "@/pages/RetailerRegistration";
 import SetAdd from "@/pages/SetAdd";
 import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
 import Feed from "@/pages/Feed";
 import ServerRendered from "@/pages/ServerRendered";
-
 // Nested Routers
 import ProfileRouter from "./profile.router";
 import ContestsRouter from "./contest.router";
+import RetailerRouter from "./retailer.router";
 
 Vue.use(Router);
 
@@ -96,9 +96,9 @@ const router = new Router({
       component: Messages
     },
     {
-      path: "/brand/register",
-      name: "brandRegister",
-      component: BrandRegister
+      path: "/be-a-partner",
+      name: "RetailerRegistration",
+      component: RetailerRegistration
     },
     { path: "/category", redirect: "/category/clothing" },
     {
@@ -113,6 +113,7 @@ const router = new Router({
     },
     ...ProfileRouter,
     ContestsRouter,
+    RetailerRouter,
     { path: "**", redirect: "/404" }
   ],
   scrollBehavior(to, from, savedPosition) {

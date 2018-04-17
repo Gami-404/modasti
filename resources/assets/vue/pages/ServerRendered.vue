@@ -1,6 +1,5 @@
 <template>
   <div>
-    <iframe src="http://127.0.0.1:8000/api/designer-register" frameborder="0"></iframe>
     <div v-html="htmlPage" class="from-server" />
     <Loading v-if="loading" />
   </div>

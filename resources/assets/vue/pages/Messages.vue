@@ -35,7 +35,7 @@
 				</div>
 
 				<div class="onlinePersons">
-					<div class="title">Online</div>
+					<div class="title">Chats</div>
 					<div class="content">
 						<a v-for="user of messagesFromUsers" :key="user.id" href="#" @click.prevent="loadMessages(user.id)" class="item" :class="{'selected-user': user.id == currMessagingUserId}">
 							<span class="avatar"><img :src="user.photo && user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
