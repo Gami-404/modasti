@@ -8,37 +8,37 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">First name : *</div>
-									<input type="text" v-model="form.first_name" class="inputEle">
+									<input type="text" required="required" v-model="form.first_name" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">last name : *</div>
-									<input type="text" v-model="form.last_name" class="inputEle" required="">
+									<div class="mrgBtmMd fontLarger">Last name : *</div>
+									<input type="text" required="required" v-model="form.last_name" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">brand name/ company : *</div>
-									<input type="text" v-model="form.brand" class="inputEle" required="">
+									<input type="text" required="required" v-model="form.brand_name" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">website : *</div>
-									<input type="text" v-model="form.website" class="inputEle" required="">
+									<input type="text" required="required" v-model="form.website" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Phone number : *</div>
-									<input type="text" v-model="form.phone" class="inputEle" required="">
+									<input type="text" required="required" v-model="form.phone" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Email address : *</div>
-									<input type="text"  v-model="form.email" class="inputEle" required="">
+									<input type="email" required="required"  v-model="form.email" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
@@ -51,23 +51,21 @@
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">city : *</div>
-									<select name="city_id" required="required" v-model="form.city_id" class="inputEle">
-										<option v-for=""></option>
-									</select>
+									<div class="mrgBtmMd fontLarger">City : *</div>
+									<input type="text" required="required" v-model="form.city_name" class="inputEle">
 								</div>
 							</div>
 
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">password : *</div>
-									<input type="password" class="inputEle" required="">
+									<input type="password"  v-model="form.password" required="required" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">repeat password : *</div>
-									<input type="password" class="inputEle" required="">
+									<input type="password" required="required" class="inputEle">
 								</div>
 							</div>
 						</div>
@@ -98,14 +96,14 @@
 	            form: {
                     first_name: "",
                     last_name: "",
-					brand: "",
-					website:"",
-					phone:"",
-					email:"",
-					country:"",
-					city:"",
-					password: ""
-				},
+                    brand_name: "",
+                    website:"",
+                    phone:"",
+                    email:"",
+                    country_id:"",
+                    city_name:"",
+                    password: ""
+                },
                 btnText:"Register"
 			}
 		},
@@ -117,14 +115,11 @@
 		methods: {
 
             register(){
-
                 self.$store.dispatch("register", self.form).then(function () {
-					alert("done");
-                }).then(function (response) {
-                    //self.submitted = false;
+					alert("Saved");
                 });
-
 			}
+
 
 		}
 	}
