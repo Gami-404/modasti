@@ -13,7 +13,7 @@ class UserController extends Controller
 
 
     /**
-     * POST api/login
+     * POST api/signIn
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -31,18 +31,19 @@ class UserController extends Controller
             return response()->json($response, '400');
         }
 
-        $isAuthed = Auth::once([
-            'email' => $request->get('email'),
+        $isAuthed = fauth()->once([
+            'username' => $request->get('email'),
             'password' => $request->get('password'),
             'backend' => 0,
             'status' => 1
         ]);
+
         if (!$isAuthed) {
             $response['errors'] = ["User not found."];
             return response()->json($response, '400');
         }
-        $response['data'] = \Maps\User\login(Auth::user());
-        $response['token'] = Auth::user()->api_token;
+        $response['data'] = \Maps\User\login(fauth()->user());
+        $response['token'] = fauth()->user()->api_token;
         return response()->json($response);
     }
 
@@ -67,7 +68,7 @@ class UserController extends Controller
         $user = new User();
         $user->username = $request->get('email');
         $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
+        $user->password = ($request->get('password'));
         $names = explode(' ', $request->get('name'));
         $user->first_name = isset($names[0]) ? $names[0] : '';
         $user->last_name = isset($names[1]) ? $names[1] : '';
@@ -83,7 +84,7 @@ class UserController extends Controller
 
 
     /**
-     * POST /api/register
+     * POST /api/registerDesigner
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -108,7 +109,7 @@ class UserController extends Controller
         $user = new User();
         $user->username = $request->get('email');
         $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
+        $user->password = ($request->get('password'));
         $user->first_name = $request->get('first_name');
         $user->last_name = $request->get('last_name');
         $user->website = $request->get('website');
