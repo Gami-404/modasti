@@ -36,7 +36,7 @@ if (!function_exists('getBrandId')) {
         $brand->title = $name;
         $brand->excerpt = $name;
         $brand->lang = "en";
-        $brand->user_id = Auth::user()->id;;
+        $brand->user_id = fauth()->id();
         $brand->save();
         return $brand->id;
     }

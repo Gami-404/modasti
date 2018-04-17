@@ -17,6 +17,13 @@ use Illuminate\Http\Request;
 //test router
 Route::post('/signIn', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@register');
+Route::post('/registerDesigner', 'Api\UserController@registerDesigner');
+// Sizes
+Route::post('/getSizes', 'Api\HomeController@getSizes');
+// Colors
+Route::post('/getColors', 'Api\ColorController@getColors');
+// Countries
+Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
@@ -43,8 +50,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getLikedItems', 'Api\ItemsController@getLikedItems');
     $router->post('/itemDetails', 'Api\ItemsController@itemDetails');
 
-    // Colors
-    $router->post('/getColors', 'Api\ColorController@getColors');
+
 
     // Users
     $router->post('followUser', 'Api\UserController@followUser');
@@ -59,6 +65,9 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {
     $router->post('/listItems', 'Api\ItemsController@listItems');
     $router->post('/deleteItems', 'Api\ItemsController@deleteItems');
+    $router->post('/addItem', 'Api\ItemsController@addItem');
+    $router->post('/getEditingItemDetails', 'Api\ItemsController@getEditingItemDetails');
+    $router->post('/editItem', 'Api\ItemsController@editItem');
 });
 
 

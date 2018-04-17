@@ -84,16 +84,7 @@ class Color extends Model
             public function apply(Builder $builder, OModel $model)
             {
 
-                if (GUARD == "api") {
-                    $lang = Auth::guard("api")->user()->lang;
-                } else {
-                    $lang = app()->getLocale();
-                }
-
-                if ($lang) {
-                    return $builder->where('colors.lang', $lang);
-                }
-
+                return $builder->where('colors.lang', app()->getLocale());
             }
         });
     }

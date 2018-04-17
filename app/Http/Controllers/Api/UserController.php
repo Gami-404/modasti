@@ -91,13 +91,15 @@ class UserController extends Controller
     {
         $response = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'website' => 'required|url',
             'email' => 'required|email|unique:users,email,[id],id',
             'password' => 'required',
-            'name' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'website' => 'required|url',
-            'brand' => 'required'
+            'city_name' => 'required',
+            'country_id' => 'required',
+            'brand_name' => 'required',
+            'phone' => 'required'
         ]);
         if ($validator->fails()) {
             $response['errors'] = ($validator->errors()->all());
@@ -107,9 +109,12 @@ class UserController extends Controller
         $user->username = $request->get('email');
         $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
-        $names = explode(' ', $request->get('name'));
-        $user->first_name = isset($names[0]) ? $names[0] : '';
-        $user->last_name = isset($names[1]) ? $names[1] : '';
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
+        $user->website = $request->get('website');
+        $user->brand_name = $request->get('brand_name');
+        $user->city_name = $request->get('city_name');
+        $user->country_id = $request->get('country_id');
         $user->api_token = str_random(60);
         $user->backend = 0;
         $user->status = 1;
