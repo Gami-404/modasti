@@ -33,13 +33,19 @@ class ExportsController extends Controller
 
 
     /**
+     * POST api/importFile
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function export()
+    public function importFile()
     {
-        $media = Media::findOrFail(Request::get('media_id'));
-        $url = public_path('uploads/' . $media->path);
+        $data = ['data' => [], 'errors' => []];
+        if (!Request::hasFile('importItems')) {
+            $data['errors'][] = 'File not exist.';
+            return response()->json($data);
+        }
+        $media = (new Media())->saveFile(Request::file('importItems'));
+        $url = uploads_url($media->path);
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($url);
