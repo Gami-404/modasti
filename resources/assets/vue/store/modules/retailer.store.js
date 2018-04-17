@@ -1,6 +1,7 @@
 import API from "../API_local";
 
 const state = {
+    retailer: {},
     items: [],
     offset: 0,
 };
@@ -21,8 +22,8 @@ const actions = {
     add_new_item({commit}, formData) {
         return API.post("/", formData);
     },
-    register({commit}, formData) {
-        return API.post("/", formData);
+    add_retailer({commit}, retailer) {
+        return API.post("/", retailer);
     },
     get_all_items({commit, state}, formData) {
         return API.post("/", {
