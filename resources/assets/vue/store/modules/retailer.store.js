@@ -1,14 +1,15 @@
 import API from "../API_local";
 
 const state = {
-  items:[],
-  offset: 0,
+    items: [],
+    offset: 0,
 };
 
 // getters
 const getters = {
   retailerItems: state =>  state.items
 };
+
 
 // actions
 const actions = {
@@ -31,7 +32,7 @@ const actions = {
     }).then( ()=>{
       commit("DELETE_ITEM",id);
     });
-  }
+  },
 };
 
 // mutations
@@ -45,9 +46,11 @@ const mutations = {
   }
 };
 
+
+
 export default {
-  state,
-  getters,
-  actions,
-  mutations
+    state,
+    getters,
+    actions,
+    mutations
 };
