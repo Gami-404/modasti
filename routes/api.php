@@ -46,9 +46,11 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Colors
     $router->post('/getColors', 'Api\ColorController@getColors');
 
-    // Size
+    // Sizes
     $router->post('/getSizes', 'Api\HomeController@getSizes');
 
+    // Countries
+    $router->post('/getCountries', 'Api\HomeController@getCountries');
 
     // Users
     $router->post('followUser', 'Api\UserController@followUser');
@@ -65,6 +67,7 @@ Route::group(["middleware" => ['api-auth:designer']], function ($router) {
     $router->post('/deleteItems', 'Api\ItemsController@deleteItems');
     $router->post('/addItem', 'Api\ItemsController@addItem');
     $router->post('/getEditingItemDetails', 'Api\ItemsController@getEditingItemDetails');
+    $router->post('/editItem', 'Api\ItemsController@editItem');
 });
 
 

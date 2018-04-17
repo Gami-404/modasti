@@ -234,4 +234,61 @@ class ItemsController extends Controller
         ];
         return response()->json($data);
     }
+
+    /**
+     * POST api/editItem
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editItem(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'itemId' => 'required|exists:posts,id',
+            'title' => 'required',
+            'description' => 'required',
+            'color' => 'required|exists:colors,id',
+            'category' => 'required|exists:categories,id',
+            'brand' => 'required',
+            'shop_url' => 'required|url',
+            'price' => 'required|numeric',
+            'sale_price' => 'required|numeric',
+            'size' => 'required',
+            'coverage' => 'required|in:1,2,3,4',
+            'sizeSystem' => 'required|in:eu,uk,us',
+            'image' => 'required',
+
+        ]);
+        $media = new Media();
+        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+
+        $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        $post = Post::find($request->get('itemId'));
+        $post->title = $request->get('title');
+        $post->content = $request->get('description');
+        $post->excerpt = $request->get('description');
+        $post->color_id = $request->get('color');
+        $post->brand_id = getBrandId($request->get('brand'));
+        $post->url = ($request->get('shop_url'));
+        $post->price = ($request->get('price'));
+        $post->sale_price = ($request->get('sale_price'));
+        $post->coverage = ($request->get('coverage'));
+        $post->size_system = ($request->get('sizeSystem'));
+        $post->image_id = $media->id;
+        $post->save();
+        $post->categories()->attach($request->get('category'));
+
+        $sizes_fields = explode(',', $request->get("size", ''));
+        foreach ($sizes_fields as $value) {
+            $meta = new PostSize();
+            $meta->size = $value;
+            $post->sizes()->save($meta);
+        }
+        return response()->json($data, 200);
+    }
+
+
 }
