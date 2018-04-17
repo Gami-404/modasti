@@ -17,4 +17,8 @@ class ColorController extends Controller
     {
         return response()->json(['errors' => [], 'data' => Color::all()]);
     }
+
+    /**
+     *
+     */
 }
