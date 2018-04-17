@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Model\Media;
 use App\Model\Post;
 use App\User;
+use Dot\Colors\Models\Color;
+use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
@@ -113,7 +115,7 @@ class ItemsController extends Controller
     {
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
-        $items = Post::with('image')
+        $items = Post::with('image', 'brand', 'categories')
             ->where('user_id', fauth()->id())
             ->offset($offset)
             ->take($limit)
@@ -157,14 +159,21 @@ class ItemsController extends Controller
         $post->excerpt = $request->get('description');
         $post->color_id = $request->get('color');
         $post->brand_id = getBrandId($request->get('brand'));
-        $post->url = ($request->get('url'));
+        $post->url = ($request->get('shop_url'));
         $post->price = ($request->get('price'));
         $post->sale_price = ($request->get('sale_price'));
         $post->coverage = ($request->get('coverage'));
-        $post->sizeSystem = ($request->get('sizeSystem'));
+        $post->size_system = ($request->get('sizeSystem'));
         $post->image_id = $media->id;
         $post->save();
         $post->categories()->attach($request->get('category'));
+
+        $sizes_fields = explode(',', $request->get("size", ''));
+        foreach ($sizes_fields as $value) {
+            $meta = new PostSize();
+            $meta->size = $value;
+            $post->sizes()->save($meta);
+        }
         return response()->json($data, 200);
     }
 
@@ -190,5 +199,39 @@ class ItemsController extends Controller
         DB::table('collections_posts')->where(['post_id' => $itemId])->delete();
         $item->delete();
         return response()->json($data, 400);
+    }
+
+
+    /**
+     * POST api/getEditingItemDetails
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getEditingItemDetails(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'itemId' => 'required|exists:posts,id',
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $post = Post::find($request->get('itemId'));
+        $category = $post->categories()->where('parent', '<>', 0)->first();
+        $data['data'] = [
+            'title' => $post->title,
+            'description' => $post->title,
+            'color' => ($color = Color::find($post->color_id)) ? $color->value : null,
+            'brand' => $post->brand_id,
+            'price' => $post->price,
+            'sale_price' => $post->sale_price,
+            'coverage' => $post->coverage,
+            'sizeSystem' => $post->size_system,
+            'category' => $category ? $category->id : 0,
+            'image' => $post->image ? uploads_url($post->image->path) : '',
+            'sizes' => implode(",", $post->sizes->pluck("size")->toArray())
+        ];
+        return response()->json($data);
     }
 }
