@@ -23,7 +23,6 @@ import RetailerRouter from "./retailer.router";
 Vue.use(Router);
 
 const router = new Router({
-    mode: 'history',
     routes: [
         {
             path: "/",

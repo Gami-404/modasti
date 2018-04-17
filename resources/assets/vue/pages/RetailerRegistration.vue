@@ -44,13 +44,17 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">country : *</div>
-									<input type="text" class="inputEle" required="">
+									<select name="country_id" required="required" v-model="form.country_id" class="inputEle">
+										<option v-for=""></option>
+									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">city : *</div>
-									<input type="text"  class="inputEle" required="">
+									<select name="city_id" required="required" v-model="form.city_id" class="inputEle">
+										<option v-for=""></option>
+									</select>
 								</div>
 							</div>
 
@@ -73,7 +77,7 @@
 						</div>
 						<div class="row clearfix">
 							<div class="mycol-md-6">
-								<input type="submit" value="Register" class="inputEle brandBg">
+								<button :disabled="btnText==='Saving..'" class="inputEle brandBg">{{btnText}}</button>
 							</div>
 						</div>
 					</div>
@@ -101,7 +105,8 @@
 					country:"",
 					city:"",
 					password: ""
-				}
+				},
+                btnText:"Register"
 			}
 		},
 
@@ -114,14 +119,9 @@
             register(){
 
                 self.$store.dispatch("register", self.form).then(function () {
-
-
-                }, function (response) {
-
-
-
+					alert("done");
                 }).then(function (response) {
-                    self.submitted = false;
+                    //self.submitted = false;
                 });
 
 			}
