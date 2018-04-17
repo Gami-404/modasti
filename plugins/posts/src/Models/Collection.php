@@ -3,7 +3,7 @@
 namespace Dot\Posts\Models;
 
 use Cache;
-use Dot\Auth\Auth;
+use Auth;
 use Dot\Blocks\Models\Block;
 use Dot\Categories\Models\Category;
 use Dot\Colors\Models\Color;

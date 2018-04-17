@@ -74,12 +74,51 @@ class UserController extends Controller
         $user->api_token = str_random(60);
         $user->backend = 0;
         $user->status = 1;
+        $user->role_id = 3;
         $user->save();
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;
         return response()->json($response);
     }
 
+
+    /**
+     * POST /api/register
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerDesigner(Request $request)
+    {
+        $response = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email,[id],id',
+            'password' => 'required',
+            'name' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'website' => 'required|url',
+            'brand' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $response['errors'] = ($validator->errors()->all());
+            return response()->json($response, '400');
+        }
+        $user = new User();
+        $user->username = $request->get('email');
+        $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
+        $names = explode(' ', $request->get('name'));
+        $user->first_name = isset($names[0]) ? $names[0] : '';
+        $user->last_name = isset($names[1]) ? $names[1] : '';
+        $user->api_token = str_random(60);
+        $user->backend = 0;
+        $user->status = 1;
+        $user->role_id = 2;
+        $user->save();
+        $response['data'] = \Maps\User\login($user);
+        $response['token'] = $user->api_token;
+        return response()->json($response);
+    }
 
     /**
      * POST api/followUser
@@ -205,7 +244,7 @@ class UserController extends Controller
         });
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
-            return response()->json($data,400);
+            return response()->json($data, 400);
         }
         if ($request->filled('firstName')) {
             $user->first_name = $request->get('firstName');
