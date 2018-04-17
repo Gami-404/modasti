@@ -21,7 +21,7 @@ export default {
     "app-footer": Footer
   },
   mounted() {
-    console.log("Vue App Mounted !");
+    console.log("Vue App Mounted 3!");
   }
 };
 </script>
