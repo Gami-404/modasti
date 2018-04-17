@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 //test router
 Route::post('/signIn', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@register');
+// Sizes
+Route::post('/getSizes', 'Api\HomeController@getSizes');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
@@ -46,8 +48,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Colors
     $router->post('/getColors', 'Api\ColorController@getColors');
 
-    // Sizes
-    $router->post('/getSizes', 'Api\HomeController@getSizes');
+
 
     // Countries
     $router->post('/getCountries', 'Api\HomeController@getCountries');
