@@ -6,7 +6,7 @@
         <div class="clearfix">
           <label for="importItems">Choose File </label>
           <input @change="setFile($event)" type="file" id="importItems" name="importItems" required class="disNone">
-          <span class="uploadedFileDisplay grayColor">no file chosen </span>
+          <span class="uploadedFileDisplay grayColor">{{file ?'File Selected': 'no file chosen'}} </span>
           <input @click.prevent="sendFile" type="submit" :value="sending?'uploading...':'upload'">
         </div>
       </div>
