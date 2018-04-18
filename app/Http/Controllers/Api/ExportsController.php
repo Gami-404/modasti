@@ -8,13 +8,14 @@ use Dot\Colors\Models\Color;
 use Dot\Media\Models\Media;
 use Dot\Posts\Models\Brand;
 use Dot\Posts\Models\PostSize;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
 use Dot\Posts\Models\Post;
 use Dot\Posts\Models\PostMeta;
 use Illuminate\Support\Facades\DB;
 use Redirect;
-use Request;
+//use Request;
 use View;
 
 
@@ -37,15 +38,15 @@ class ExportsController extends Controller
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function importFile()
+    public function importFile(Request $request)
     {
         $data = ['data' => [], 'errors' => []];
-        if (!Request::hasFile('importItems')) {
+        if (!$request->hasFile('importItems')) {
             $data['errors'][] = 'File not exist.';
             return response()->json($data);
         }
-        $media = (new Media())->saveFile(Request::file('importItems'));
-        $url = uploads_url($media->path);
+        $media = (new Media())->saveFile($request->file('importItems'));
+        $url = public_path('uploads/'.Media::find($media)->path);
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($url);
@@ -70,7 +71,7 @@ class ExportsController extends Controller
             $post->size_system = (($worksheet->getCellByColumnAndRow(10, $row)->getValue()));
             $post->color_id = $this->getColorId(($worksheet->getCellByColumnAndRow(11, $row)->getValue()));
             $post->coverage = $this->getCoverage(($worksheet->getCellByColumnAndRow(13, $row)->getValue()));
-            $post->user_id = Auth::user()->id;;
+            $post->user_id = fauth()->id();
             $post->lang = "en";
 
             $post->save();
@@ -114,7 +115,7 @@ class ExportsController extends Controller
 
             $category->name = $name;
             $category->lang = "en";
-            $category->user_id = Auth::user()->id;
+            $category->user_id = fauth()->id();
             $category->status = 1;
             $category->parent = empty($prev) ? 0 : $prev->id;
             $category->save();
@@ -152,7 +153,7 @@ class ExportsController extends Controller
         $color->value = strtolower($name);
         $color->lang = "en";
         $color->add_to_filter = 1;
-        $color->user_id = Auth::user()->id;;
+        $color->user_id = fauth()->id();
         $color->save();
         return $color->id;
     }
@@ -176,7 +177,7 @@ class ExportsController extends Controller
         $brand->title = $name;
         $brand->excerpt = $name;
         $brand->lang = "en";
-        $brand->user_id = Auth::user()->id;;
+        $brand->user_id = fauth()->id();
 
         $brand->save();
         return $brand->id;

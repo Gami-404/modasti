@@ -68,10 +68,8 @@ Route::group(["middleware" => ['api-auth:designer']], function ($router) {
     $router->post('/addItem', 'Api\ItemsController@addItem');
     $router->post('/getEditingItemDetails', 'Api\ItemsController@getEditingItemDetails');
     $router->post('/editItem', 'Api\ItemsController@editItem');
-
     // Exports
     $router->post('/importFile', 'Api\ExportsController@importFile');
-
 });
 
 
