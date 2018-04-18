@@ -14,7 +14,12 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Category :</div>
-									<input required v-model="form.category" type="text" class="inputEle" placeholder="set category">
+									<select required v-model="form.category" type="text" class="inputEle" placeholder="set category">
+										<option hidden value="">...</option>										
+										<optgroup v-for="cat in categories" :key="cat.id" :label="cat.title">
+											<option v-for="subcat in cat.subcategories" :key="subcat.id" :value="subcat.id">{{subcat.title}}</option>
+										</optgroup>
+									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
@@ -44,9 +49,9 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Color :</div>
-									<select required v-model="form.color" type="text" class="inputEle" placeholder="set Color"> 
+									<select required v-model="form.color" type="text" class="inputEle" placeholder="set Color">
 										<option hidden value="">...</option>
-										<option v-for="color of getColors" :key="color.id" :value="color.id">{{color.name}}</option>										
+										<option v-for="color of getColors" :key="color.id" :value="color.id">{{color.name}}</option>
 									</select>
 								</div>
 							</div>
@@ -60,7 +65,7 @@
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size :</div>
 									<select required v-model="form.size" type="text" class="inputEle" placeholder="set Size">
-										<option hidden value="">...</option>										
+										<option hidden value="">...</option>
 										<option v-for="size of getSizes" :key="size" :value="size">{{size}}</option>
 									</select>
 								</div>
@@ -100,9 +105,9 @@
 						</div>
 					</div>
 					<div class="mycol-md-3 mycol-sm-6">
-						<div class="mrgBtmMd fontLarger">Images</div>
+						<div class="mrgBtmMd fontLarger">Image</div>
 						<label for="uploadImg" class="inputEle brandBg vCenter textCentered mrgBtmLg"> Upload Image </label>
-						<input required type="file" id="uploadImg" class="disNone" @change="processFile($event)">
+						<input type="file" id="uploadImg" class="disNone" @change="processFile($event)">
 						<div class="uploadedPhotoDisplay mrgBtmLg">
 							<span v-if="form.image === ''" class="fontLarger grayColor hideAfterUpload">No photo</span>
 							<img :src="form.image" alt="">
@@ -171,12 +176,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getColors", "getSizes"])
+    ...mapGetters(["getColors", "getSizes", "categories"])
   },
   created() {
     Promise.all([
       this.$store.dispatch("get_colors"),
-      this.$store.dispatch("get_sizes")
+      this.$store.dispatch("get_sizes"),
+      this.$store.dispatch("get_categories")
     ]).then(() => (this.loadig = false));
   },
   methods: {

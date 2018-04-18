@@ -38,6 +38,7 @@ const getters = {
   setsBestFromCommunity: state => state.home.setsBestFromCommunity,
   setsBestFromModasti: state => state.home.setsBestFromModasti,
   trending: state => state.trending,
+  categories: stable => state.categories,
   category: state => state.category,
   categoryItems: state => state.category.items,
   itemSearchResults: state => state.searchResults.items,
@@ -133,6 +134,7 @@ const actions = {
     });
   },
   get_category_items({ commit, state }, name) {
+    console.log(state.catIdMap);
     let catId = state.catIdMap[name];
     if (!catId) return Promise.reject(new Error("category not found"));
     if (state.categories[catId]["items"]) {
