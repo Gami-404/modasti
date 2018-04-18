@@ -12,19 +12,21 @@ const state = {
 
 const actions = {
 
-    get_sizes({commit}) {
-        return API.post("/getSizes").then(() => {
-            commit("GET_SIZES");
+    get_sizes({commit,state}) {
+        if(state.colors.length > 0) return Promise.resolve();
+        return API.post("/getSizes").then( res => {
+            commit("SIZES", res.data.data);
         });
     },
     get_colors({commit}) {
-        return API.post("/getColors").then(() => {
-            commit("GET_COLORS");
+        if(state.sizes.length > 0) return Promise.resolve();        
+        return API.post("/getColors").then( res => {
+            commit("COLORS", res.data.data);
         });
     },
     get_countries({commit}) {
         return API.post("/getCountries").then(() => {
-            commit("GET_COUNTRIES");
+            commit("COUNTRIES");
         });
     },
     like_item({commit}, objId) {

@@ -127,13 +127,19 @@
 				</div>
 			</form>
 		</div>
+		<Loading v-if="loadig" />
 	</div>
 </template>
 
 <script>
 import { currency } from "./currency";
+import Loading from "@/components/Loading";
+
 export default {
-  name: "new-item",
+	name: "new-item",
+	components:{
+		Loading
+	},
   data() {
     return {
       form: {
@@ -151,12 +157,15 @@ export default {
         currency: "",
         image: ""
       },
-      loadig: false,
+      loadig: true,
       sending: false,
       errors: [],
       currency
     };
-  },
+	},
+	created(){
+		Promise.all([this.$store.dispatch("get_colors"),this.$store.dispatch("get_sizes")]).then( () => this.loadig = false )
+	},
   methods: {
     processFile(e) {
       let input = e.target;
@@ -171,7 +180,7 @@ export default {
     submit() {
       this.sending = true;
       this.$store
-        .dispatch("add_new_item")
+        .dispatch("add_new_item", this.form)
         .then(() => {
           this.sending = false;
           this.$router.push("allitems");
@@ -179,7 +188,9 @@ export default {
         .catch(err => {
           if (err.response && err.response.data.errors) {
             this.errors = err.response.data.errors;
+            this.sending = false;
           } else {
+            this.sending = false;
             this.$router.push("/500");
           }
         });
