@@ -119,6 +119,7 @@ class ItemsController extends Controller
             ->where('user_id', fauth()->id())
             ->offset($offset)
             ->take($limit)
+            ->orderBy("created_at","DESC")
             ->get();
         return response()->json(['errors' => [], 'data' => $items]);
     }

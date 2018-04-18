@@ -35,7 +35,7 @@ const actions = {
     return API.post("/deleteItems", {
       itemId
     }).then(() => {
-      commit("DELETE_ITEM", id);
+      commit("DELETE_ITEM", itemId);
     });
   },
   import_items({ commit, state, getters }, file) {
