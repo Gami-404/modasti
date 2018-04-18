@@ -224,7 +224,7 @@ class ItemsController extends Controller
         $data['data'] = [
             'title' => $post->title,
             'description' => $post->title,
-            'color' => ($color = Color::find($post->color_id)) ? $color->value : null,
+            'color' => ($color = Color::find($post->color_id)) ? $color->id : null,
             'brand' => $post->brand_id,
             'price' => $post->price,
             'sale_price' => $post->sale_price,
@@ -232,7 +232,7 @@ class ItemsController extends Controller
             'sizeSystem' => $post->size_system,
             'category' => $category ? $category->id : 0,
             'image' => $post->image ? uploads_url($post->image->path) : '',
-            'sizes' => implode(",", $post->sizes->pluck("size")->toArray())
+            'size' => implode(",", $post->sizes->pluck("size")->toArray())
         ];
         return response()->json($data);
     }
