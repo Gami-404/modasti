@@ -215,7 +215,7 @@ export default {
         .dispatch("edit_item", this.form)
         .then(() => {
           this.sending = false;
-          this.$router.push("allitems");
+          this.$router.push("/retailer/allitems");
         })
         .catch(err => {
           if (err.response && err.response.data.errors) {
