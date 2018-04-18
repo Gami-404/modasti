@@ -1,8 +1,9 @@
 import axios from "axios";
-window.baseURL = "http://127.0.0.1:8000/api";
+window.baseURL = "http://modasti.uniative.com/api";
 const axiosI = axios.create({
   baseURL: window.baseURL
 });
+
 
 axiosI.interceptors.request.use(
   function(request) {

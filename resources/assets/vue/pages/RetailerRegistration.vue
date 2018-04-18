@@ -1,6 +1,11 @@
 <template>
-  <div class="gridContainer">
+	<div class="gridContainer">
 		<div class="secPaddLg">
+
+			<div class="errors">
+				<p v-for="error in errors">{{ error }}</p>
+			</div>
+
 			<form @submit.prevent="register">
 				<div class="myrow clearfix">
 					<div class="mycol-md-9">
@@ -45,7 +50,7 @@
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">country : *</div>
 									<select name="country_id" required="required" v-model="form.country_id" class="inputEle">
-										<option v-for=""></option>
+										<option v-for="country in countries" :value="country.id">{{ country.title_en }}</option>
 									</select>
 								</div>
 							</div>
@@ -70,7 +75,7 @@
 							</div>
 						</div>
 						<div class="mrgBtmLg">
-							<input type="checkbox" id="termsCheckbox">
+							<input type="checkbox" id="termsCheckbox" v-model="termsAgreed">
 							<label for="termsCheckbox"> I agree with <a href="#" class="brandColor">Terms and Conditions</a></label>
 						</div>
 						<div class="row clearfix">
@@ -79,9 +84,9 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
-				
+
 			</form>
 		</div>
 	</div>
@@ -89,39 +94,56 @@
 
 <script>
 
-	export default {
+    export default {
 
-	    data(){
-	        return {
-	            form: {
-                    first_name: "",
-                    last_name: "",
-                    brand_name: "",
-                    website:"",
-                    phone:"",
-                    email:"",
-                    country_id:"",
-                    city_name:"",
-                    password: ""
+        computed: {
+            countries(){
+                return this.$store.getters.getCountries
+            },
+            sizes(){
+                return this.$store.getters.getSizes
+            }
+        },
+
+        data(){
+            return {
+                form: {
+                    first_name: "ahmed",
+                    last_name: "ahmedff",
+                    brand_name: "beso",
+                    website:"http://sdf.com",
+                    phone:"01412451524",
+                    email:"ads@gamil.com",
+                    country_id:16,
+                    city_name:"dsaf",
+                    password: "3234324"
                 },
-                btnText:"Register"
-			}
-		},
+                btnText:"Register",
+                termsAgreed: false,
+                errors: []
+            }
+        },
 
-	    mounted(){
+        mounted(){
+            alert("fs");
+            this.$store.dispatch("get_countries");
+        },
 
-		},
-
-		methods: {
+        methods: {
 
             register(){
-                self.$store.dispatch("register", self.form).then(function () {
-					alert("Saved");
+
+                if(!this.termsAgreed){
+                    alert("Terms and Conditions must be agreed");
+                    return false;
+                }
+
+                this.$store.dispatch("add_retailer", this.form).then(function (response) {
+                    this.errors = response.data.errors;
                 });
-			}
+            }
 
-
-		}
-	}
+        }
+    }
 
 </script>
