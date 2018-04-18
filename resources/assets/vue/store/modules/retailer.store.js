@@ -17,7 +17,7 @@ const actions = {
     return API.post("/addItem", formData);
   },
   add_retailer({ commit }, retailer) {
-    return API.post("/designer-register", retailer);
+    return API.post("/registerDesigner", retailer);
   },
   get_all_items({ commit, state }, formData) {
     return API.post("/listItems", {

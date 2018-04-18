@@ -2,7 +2,7 @@
     <div class="gridContainer">
         <div class="secPaddLg">
 
-            <div class="errors">
+            <div class="errors" v-if="!successSubmission">
                 <p v-for="error in errors">{{ error }}</p>
             </div>
 
@@ -53,9 +53,7 @@
                                     <div class="mrgBtmMd fontLarger">country : *</div>
                                     <select name="country_id" required="required" v-model="form.country_id"
                                             class="inputEle">
-                                        <option v-for="country in countries" :value="country.id">{{ country.title_en
-                                            }}
-                                        </option>
+                                        <option v-for="country in countries" :value="country.id">{{ country.title_en }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -100,6 +98,17 @@
     </div>
 </template>
 
+
+<style scoped>
+
+    .errors p {
+        color: red;
+        height: 30px;
+        margin: 10px 0
+    }
+
+</style>
+
 <script>
 
     export default {
@@ -116,17 +125,17 @@
         data() {
             return {
                 form: {
-                    first_name: "ahmed",
-                    last_name: "ahmedff",
-                    brand_name: "beso",
-                    website: "http://sdf.com",
-                    phone: "01412451524",
-                    email: "ads@gamil.com",
-                    country_id: 16,
-                    city_name: "dsaf",
-                    password: "3234324"
+                    first_name: "",
+                    last_name: "",
+                    brand_name: "",
+                    website: "http://",
+                    phone: "",
+                    email: "",
+                    country_id: 0,
+                    city_name: "",
+                    password: ""
                 },
-                passwordConfirmation: "3234324",
+                passwordConfirmation: "",
                 btnText: "Register",
                 termsAgreed: true,
                 successSubmission: false,
@@ -157,9 +166,13 @@
                 self.btnText = "Registering...";
 
                 self.$store.dispatch("add_retailer", self.form).then(function (response) {
-                    self.successSubmission = true;
-                },function (response) {
-                    console.log(response);
+
+                    if(response.data.errors.length){
+                        self.errors = response.data.errors;
+                    }else{
+                        self.successSubmission = true;
+                    }
+
                 }).then(function () {
                     self.btnText = 'Register';
                 })
