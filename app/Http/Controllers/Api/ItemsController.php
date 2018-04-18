@@ -200,7 +200,7 @@ class ItemsController extends Controller
         DB::table('users_posts_like')->where(['object_id' => $itemId])->delete();
         DB::table('collections_posts')->where(['post_id' => $itemId])->delete();
         $item->delete();
-        return response()->json($data, 400);
+        return response()->json($data, 200);
     }
 
 

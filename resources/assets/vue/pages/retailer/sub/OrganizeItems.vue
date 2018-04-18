@@ -25,9 +25,9 @@
 								</td>
 								<td>{{item.status?'Confirmed':'Pending'}}</td>
 								<td>{{item.title}}</td>
-								<td>{{item.brand.name}}</td>
+								<td>{{item.brand.title}}</td>
 								<td>{{item.content}}</td>
-								<td>{{item.category}}</td>
+								<td>{{item.categories[0].name}}</td>
 								<td>
 									<a :href="item.url">URL</a>
 								</td>
@@ -42,33 +42,27 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
+import Loading from "@/components/Loading";
 export default {
-	components:{
-		Loading
-	},
-	data(){
-		return { loading: true }
-	},
+  components: {
+    Loading
+  },
+  data() {
+    return { loading: true };
+  },
   computed: {
     items() {
       return this.$store.getters.retailerItems;
     }
   },
   created() {
-    this.getItems();
-    Promise.all([
-      this.$store.dispatch("get_categories"),
-      this.$store.dispatch("get_all_items")
-    ]).then( () => this.loading = false );
+    this.$store.dispatch("get_all_items").then(() => (this.loading = false));
   },
   methods: {
-    getItems() {
-      this.$store.dispatch("get_all_items");
-    },
     deleteItem(id) {
       this.$refs[id].innerHTML = "...";
-      this.dispatch("delete_item", id)
+      this.$store
+        .dispatch("delete_item", id)
         .then(() => {
           if (this.$refs[id]) this.$refs[id].innerHTML = "Deleted";
         })

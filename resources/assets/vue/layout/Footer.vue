@@ -21,7 +21,7 @@
 					<li><a href="#">CONTACT US</a></li>
 					<li><a href="#">About Modasti</a></li>
 					<li><a href="#">Terms of service</a></li>
-					<li><router-link to="/be-a-partner">Business with us</router-link></li>
+					<li><router-link to="/business-with-us">Business with us</router-link></li>
 				</ul>
 			</div>
 		

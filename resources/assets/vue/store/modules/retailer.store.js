@@ -8,7 +8,9 @@ const state = {
 };
 
 // getters
-const getters = {};
+const getters = {
+  retailerItems : state => state.items
+};
 
 // actions
 const actions = {
