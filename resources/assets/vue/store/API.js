@@ -4,6 +4,7 @@ const axiosI = axios.create({
   baseURL: window.baseURL
 });
 
+
 axiosI.interceptors.request.use(
   function(request) {
     if (typeof window === "undefined") {
