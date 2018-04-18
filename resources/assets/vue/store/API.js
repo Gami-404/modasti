@@ -1,5 +1,5 @@
 import axios from "axios";
-window.baseURL = "http://modasti.uniative.com/api";
+window.baseURL = "http://127.0.0.1:8000/api";
 const axiosI = axios.create({
   baseURL: window.baseURL
 });

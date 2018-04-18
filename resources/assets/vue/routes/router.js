@@ -15,6 +15,8 @@ import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
 import Feed from "@/pages/Feed";
 import ServerRendered from "@/pages/ServerRendered";
+// static pages routs
+import BWithUs from "@/pages/static/BWithUs";
 // Nested Routers
 import ProfileRouter from "./profile.router";
 import ContestsRouter from "./contest.router";
@@ -96,7 +98,12 @@ const router = new Router({
             component: Messages
         },
         {
-            path: "/be-a-partner",
+            path: "/business-with-us",
+            name: "BWithUs",
+            component: BWithUs
+        },
+        {
+            path: "/partner-register",
             name: "RetailerRegistration",
             component: RetailerRegistration
         },
