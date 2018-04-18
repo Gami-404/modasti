@@ -160,7 +160,7 @@ export default {
         color: "",
         category: "",
         brand: "",
-        shop_url: "",
+        shop_url: "http://",
         price: "",
         sale_price: "",
         size: "",
@@ -199,6 +199,7 @@ export default {
     submit() {
       this.sending = true;
       if (!this.form.image) {
+				this.sending = false;
         this.errors.push("Item image is required");
         return;
       }
