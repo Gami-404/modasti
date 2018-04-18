@@ -1,4 +1,4 @@
-import API from "../API_local";
+import API from "../API";
 
 const state = {
     retailer: {},
