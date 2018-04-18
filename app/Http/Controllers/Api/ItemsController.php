@@ -232,6 +232,8 @@ class ItemsController extends Controller
             'sizeSystem' => $post->size_system,
             'category' => $category ? $category->id : 0,
             'image' => $post->image ? uploads_url($post->image->path) : '',
+            'currency' => $post->currency,
+            'shop_url' => $post->url,            
             'size' => implode(",", $post->sizes->pluck("size")->toArray())
         ];
         return response()->json($data);
