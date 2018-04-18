@@ -12,11 +12,12 @@ const getters = {};
 
 // actions
 const actions = {
+
   add_new_item({ commit }, formData) {
     return API.post("/addItem", formData);
   },
   add_retailer({ commit }, retailer) {
-    return API.post("/designer-register", retailer);
+    return API.post("/registerDesigner", retailer);
   },
   get_all_items({ commit, state }, formData) {
     return API.post("/listItems", {
@@ -57,6 +58,7 @@ const mutations = {
   DELETE_ITEM(state, itemId) {
     state.items = state.items.filter(item => item.id != itemId);
   }
+
 };
 
 export default {

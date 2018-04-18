@@ -104,7 +104,7 @@ class UserController extends Controller
         ]);
         if ($validator->fails()) {
             $response['errors'] = ($validator->errors()->all());
-            return response()->json($response, '400');
+            return response()->json($response);
         }
         $user = new User();
         $user->username = $request->get('email');

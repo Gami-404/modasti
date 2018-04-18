@@ -25,8 +25,8 @@ const actions = {
         });
     },
     get_countries({commit}) {
-        return API.post("/getCountries").then(() => {
-            commit("COUNTRIES");
+        return API.post("/getCountries").then((response) => {
+            commit("COUNTRIES", response.data.data);
         });
     },
     like_item({commit}, objId) {
