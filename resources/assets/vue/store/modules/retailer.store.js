@@ -1,14 +1,14 @@
-import API from "../API";
-import axios from "axios";
+import API from "../API_local";
+
 const state = {
-  items: [],
-  offset: 0
+    retailer: {},
+    items: [],
+    offset: 0,
 };
 
 // getters
-const getters = {
-  retailerItems: state => state.items
-};
+const getters = {};
+
 
 // actions
 const actions = {
@@ -51,20 +51,21 @@ const actions = {
   }
 };
 
+
 // mutations
 const mutations = {
-  ALL_ITEMS(state, data) {
+  ALL_ITEMS(state , data){
     state.items = state.items.concat(data);
-    state.offset += 8;
+    state.offset+=8;
   },
-  DELETE_ITEM(state, itemId) {
-    state.items = state.items.filter(item => item.id != itemId);
+  DELETE_ITEM(state,itemId){
+    state.items= state.items.filter( item => item.id != itemId );
   }
 };
 
 export default {
-  state,
-  getters,
-  actions,
-  mutations
+    state,
+    getters,
+    actions,
+    mutations
 };
