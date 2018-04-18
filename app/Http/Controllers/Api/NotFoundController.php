@@ -16,12 +16,14 @@ class NotFoundController extends Controller
     public function notFound(Request $request)
     {
 
+        $headers = $this->getHeaders($request);
+        $headers['Authorization'] = "Bearer 357d06a036754ee8e3e679111c1b06870ea8ee5f";
         $client = new \GuzzleHttp\Client();
         $path = $request->path();
         $res = null;
         try {
             $res = $client->request($request->getMethod(), 'http://stage-api.modasti.net/' . $path, [
-                'headers' => $this->getHeaders($request),
+                'headers' => $headers,
                 'json' => ($request->all()),
             ]);
         } catch (ClientException $e) {
