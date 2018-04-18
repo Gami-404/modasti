@@ -166,6 +166,7 @@ class ItemsController extends Controller
         $post->coverage = ($request->get('coverage'));
         $post->size_system = ($request->get('sizeSystem'));
         $post->image_id = $media->id;
+        $post->lang = "en";
         $post->save();
         $post->categories()->attach($request->get('category'));
 
