@@ -264,13 +264,13 @@ class ItemsController extends Controller
             'image' => 'required',
 
         ]);
-        $media = new Media();
-        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
-            $data['errors'] = ($validator->errors()->all());
-            return response()->json($data, 400);
-        }
+        // $media = new Media();
+        // if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
+        //     $data['errors'] = ($validator->errors()->all());
+        //     return response()->json($data, 400);
+        // }
 
-        $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        // $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
         $post = Post::find($request->get('itemId'));
         $post->title = $request->get('title');
         $post->content = $request->get('description');
@@ -282,7 +282,7 @@ class ItemsController extends Controller
         $post->sale_price = ($request->get('sale_price'));
         $post->coverage = ($request->get('coverage'));
         $post->size_system = ($request->get('sizeSystem'));
-        $post->image_id = $media->id;
+        // $post->image_id = $media->id;
         $post->save();
         $post->categories()->attach($request->get('category'));
 

@@ -107,10 +107,10 @@
           <div class="mycol-md-3 mycol-sm-6">
             <div class="mrgBtmMd fontLarger">Image</div>
             <label for="uploadImg" class="inputEle brandBg vCenter textCentered mrgBtmLg"> Upload Image </label>
-            <input type="file" id="uploadImg" class="disNone" @change="processFile($event)">
+            <input disabled type="file" id="uploadImg" class="disNone" @change="processFile($event)">
             <div class="uploadedPhotoDisplay mrgBtmLg">
               <span v-if="form.image === ''" class="fontLarger grayColor hideAfterUpload">No photo</span>
-              <img :src="form.image" alt="">
+              <img ref="the_image" :src="form.image" alt="">
             </div>
           </div>
         </div>
@@ -183,7 +183,9 @@ export default {
       .dispatch("get_Item_edit", this.$route.params.myItemId)
       .then(res => {
         this.form = res.data.data;
-        
+        this.form.size = this.form.size.split(",")[0];
+        this.form.sizeSystem = this.form.sizeSystem.toLowerCase();
+        this.form.itemId = this.$route.params.myItemId;
         Promise.all([
           this.$store.dispatch("get_colors"),
           this.$store.dispatch("get_sizes"),
@@ -224,7 +226,7 @@ export default {
             this.$router.push("/500");
           }
         });
-    }
+    },
   }
 };
 </script>

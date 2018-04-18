@@ -27,7 +27,12 @@ export default {
       this.sending = true;
       this.$store
         .dispatch("import_items", this.file)
-        .then(() => setTimeout(() => this.$router.push("allitems"), 2000))
+        .then(() =>
+          setTimeout(() => {
+            this.$router.push("allitems");
+            window.location.reload();
+          }, 2000)
+        )
         .catch(err => {
           console.error(err);
           this.$router.push("/500");

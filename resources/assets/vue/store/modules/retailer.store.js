@@ -18,6 +18,9 @@ const actions = {
   add_new_item({ commit }, formData) {
     return API.post("/addItem", formData);
   },
+  edit_item({ commit }, formData) {
+    return API.post("/editItem", formData);
+  },
   get_Item_edit({ commit }, itemId) {
     return API.post("/getEditingItemDetails", {itemId});
   },
