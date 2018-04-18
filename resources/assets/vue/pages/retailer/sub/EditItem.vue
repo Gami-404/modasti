@@ -183,6 +183,7 @@ export default {
       .dispatch("get_Item_edit", this.$route.params.myItemId)
       .then(res => {
         this.form = res.data.data;
+        
         Promise.all([
           this.$store.dispatch("get_colors"),
           this.$store.dispatch("get_sizes"),
