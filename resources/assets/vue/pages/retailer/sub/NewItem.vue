@@ -44,7 +44,10 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Color :</div>
-									<input required v-model="form.color" type="text" class="inputEle" placeholder="set Color">
+									<select required v-model="form.color" type="text" class="inputEle" placeholder="set Color"> 
+										<option hidden value="">...</option>
+										<option v-for="color of getColors" :key="color.id" :value="color.id">{{color.name}}</option>										
+									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
@@ -56,7 +59,10 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size :</div>
-									<input required v-model="form.size" type="text" class="inputEle" placeholder="set Size">
+									<select required v-model="form.size" type="text" class="inputEle" placeholder="set Size">
+										<option hidden value="">...</option>										
+										<option v-for="size of getSizes" :key="size" :value="size">{{size}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
@@ -134,12 +140,13 @@
 <script>
 import { currency } from "./currency";
 import Loading from "@/components/Loading";
+import { mapGetters } from "vuex";
 
 export default {
-	name: "new-item",
-	components:{
-		Loading
-	},
+  name: "new-item",
+  components: {
+    Loading
+  },
   data() {
     return {
       form: {
@@ -162,10 +169,16 @@ export default {
       errors: [],
       currency
     };
-	},
-	created(){
-		Promise.all([this.$store.dispatch("get_colors"),this.$store.dispatch("get_sizes")]).then( () => this.loadig = false )
-	},
+  },
+  computed: {
+    ...mapGetters(["getColors", "getSizes"])
+  },
+  created() {
+    Promise.all([
+      this.$store.dispatch("get_colors"),
+      this.$store.dispatch("get_sizes")
+    ]).then(() => (this.loadig = false));
+  },
   methods: {
     processFile(e) {
       let input = e.target;
@@ -179,6 +192,10 @@ export default {
     },
     submit() {
       this.sending = true;
+      if (!this.form.image) {
+        this.errors.push("Item image is required");
+        return;
+      }
       this.$store
         .dispatch("add_new_item", this.form)
         .then(() => {

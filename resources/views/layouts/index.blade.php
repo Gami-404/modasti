@@ -18,7 +18,7 @@
             <App></App>
         </div>
         
-        <script src="{{ mix('js/App.js') }}"></script>
+        <script src="{{ asset('js/App.js') }}"></script>
         <script src="{{ asset('js/jquery-1.11.min.js') }}"></script>
         <script src="{{ asset('js/myscript.js') }}"></script>
     </body>

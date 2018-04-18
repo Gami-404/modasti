@@ -161,6 +161,7 @@ class ItemsController extends Controller
         $post->brand_id = getBrandId($request->get('brand'));
         $post->url = ($request->get('shop_url'));
         $post->price = ($request->get('price'));
+        $post->user_id = (fauth()->id());
         $post->sale_price = ($request->get('sale_price'));
         $post->coverage = ($request->get('coverage'));
         $post->size_system = ($request->get('sizeSystem'));
