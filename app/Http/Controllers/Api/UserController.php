@@ -185,7 +185,7 @@ class UserController extends Controller
      */
     public function getFollowingUsers(Request $request)
     {
-        $data = ['data' => [], 'errors' => []];
+        $data = ['data' => ['users'=>''], 'errors' => []];
         $limit = $request->get('limit', 8);
         $offset = $request->get('offset', 0);
         $user = User::find($request->get('userId', 0));
@@ -206,7 +206,7 @@ class UserController extends Controller
      */
     public function getFollowersUsers(Request $request)
     {
-        $data = ['data' => [], 'errors' => []];
+        $data = ['data' => ['users'=>''], 'errors' => []];
         $limit = $request->get('limit', 8);
         $offset = $request->get('offset', 0);
         $user = User::find($request->get('userId', 0));
