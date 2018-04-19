@@ -6,7 +6,7 @@
         <div class="clearfix">
           <label for="importItems">Choose File </label>
           <input @change="setFile($event)" type="file" id="importItems" name="importItems" required class="disNone">
-          <span class="uploadedFileDisplay grayColor">no file chosen </span>
+          <span class="uploadedFileDisplay grayColor">{{file ?'File Selected': 'no file chosen'}} </span>
           <input @click.prevent="sendFile" type="submit" :value="sending?'uploading...':'upload'">
         </div>
       </div>
@@ -27,7 +27,12 @@ export default {
       this.sending = true;
       this.$store
         .dispatch("import_items", this.file)
-        .then(() => setTimeout(() => this.$router.push("allitems"), 2000))
+        .then(() =>
+          setTimeout(() => {
+            this.$router.push("allitems");
+            window.location.reload();
+          }, 2000)
+        )
         .catch(err => {
           console.error(err);
           this.$router.push("/500");

@@ -60,15 +60,14 @@ export default {
   },
   methods: {
     deleteItem(id) {
-      this.$refs[id].innerHTML = "...";
       this.$store
         .dispatch("delete_item", id)
         .then(() => {
-          if (this.$refs[id]) this.$refs[id].innerHTML = "Deleted";
+          // if (this.$refs[id]) this.$refs[id].innerHTML = "Deleted";
         })
         .catch(err => {
           console.error(err);
-          this.$router.puch("/500");
+          this.$router.push("/500");
         });
     }
   }
