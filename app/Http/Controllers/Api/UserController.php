@@ -270,4 +270,68 @@ class UserController extends Controller
         $user->save();
         return response()->json($data);
     }
+
+    /**
+     * POST api/blockUser
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function blockUser(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'userId' => 'required|exists:users,id'
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $isBlocked = fauth()->user()->blocked_users()->where(['blocked_id' => $request->get('userId')])->count() ? true : false;
+        if ($isBlocked) {
+            $data['errors'][] = "User already blocked";
+            return response()->json($data, 400);
+        }
+        fauth()->user()->blocked_users()->attach($request->get('userId'));
+        return response()->json($data);
+    }
+
+
+    /**
+     * POST api/unblockUser
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unblockUser(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'userId' => 'required|exists:users,id'
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $isBlocked = fauth()->user()->blocked_users()->where(['blocked_id' => $request->get('userId')])->count() ? true : false;
+        if (!$isBlocked) {
+            $data['errors'][] = "User already unblocked";
+            return response()->json($data, 400);
+        }
+        fauth()->user()->blocked_users()->detach($request->get('userId'));
+        return response()->json($data);
+    }
+
+
+    /**
+     * POST api/listBlocked
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listBlocked(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $data['data'] = \Maps\User\users(fauth()->user()->blocked_users()->offset($offset)->take($limit)->get());
+        return response()->json($data);
+    }
 }
