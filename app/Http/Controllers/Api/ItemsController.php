@@ -298,6 +298,7 @@ class ItemsController extends Controller
         $post->categories()->attach($request->get('category'));
 
         $sizes_fields = explode(',', $request->get("size", ''));
+        $post->sizes()->delete();
         foreach ($sizes_fields as $value) {
             $meta = new PostSize();
             $meta->size = $value;
