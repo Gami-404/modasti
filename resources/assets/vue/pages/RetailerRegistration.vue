@@ -3,7 +3,7 @@
         <div class="secPaddLg">
 
             <div class="errors" v-if="!successSubmission">
-                <p v-for="error in errors">{{ error }}</p>
+                <p v-for="error in errors" :key="error">{{ error }}</p>
             </div>
 
             <div v-if="successSubmission">Thank you for applying business with us</div>
@@ -51,9 +51,8 @@
                             <div class="mycol-md-6">
                                 <div class="mrgBtmLg">
                                     <div class="mrgBtmMd fontLarger">country : *</div>
-                                    <select name="country_id" required="required" v-model="form.country_id"
-                                            class="inputEle">
-                                        <option v-for="country in countries" :value="country.id">{{ country.title_en }}</option>
+                                    <select name="country_id" required="required" v-model="form.country_id" class="inputEle">
+                                        <option v-for="country in countries" :key="country.id" :value="country.id">{{ country.title_en }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -73,15 +72,16 @@
                             <div class="mycol-md-6">
                                 <div class="mrgBtmLg">
                                     <div class="mrgBtmMd fontLarger">repeat password : *</div>
-                                    <input type="password" required="required" v-model="passwordConfirmation"
-                                           class="inputEle">
+                                    <input type="password" required="required" v-model="passwordConfirmation" class="inputEle">
                                 </div>
                             </div>
                         </div>
                         <div class="mrgBtmLg">
                             <input type="checkbox" id="termsCheckbox" v-model="termsAgreed">
-                            <label for="termsCheckbox"> I agree with <a href="#" class="brandColor">Terms and
-                                Conditions</a></label>
+                            <label for="termsCheckbox"> I agree with
+                                <a href="#" class="brandColor">Terms and Conditions
+                                </a>
+                            </label>
                         </div>
                         <div class="row clearfix">
                             <div class="mycol-md-6">
@@ -98,87 +98,80 @@
     </div>
 </template>
 
+<script>
+export default {
+  computed: {
+    countries() {
+      return this.$store.getters.getCountries;
+    },
+    sizes() {
+      return this.$store.getters.getSizes;
+    }
+  },
+
+  data() {
+    return {
+      form: {
+        first_name: "",
+        last_name: "",
+        brand_name: "",
+        website: "http://",
+        phone: "",
+        email: "",
+        country_id: 0,
+        city_name: "",
+        password: ""
+      },
+      passwordConfirmation: "",
+      btnText: "Register",
+      termsAgreed: true,
+      successSubmission: false,
+      errors: []
+    };
+  },
+
+  mounted() {
+    this.$store.dispatch("get_countries");
+  },
+
+  methods: {
+    register() {
+      let self = this;
+
+      if (self.form.password != self.passwordConfirmation) {
+        alert("Password and password confirmation fields don't match");
+        return false;
+      }
+
+      if (!self.termsAgreed) {
+        alert("Terms and Conditions must be agreed");
+        return false;
+      }
+
+      self.btnText = "Registering...";
+
+      self.$store
+        .dispatch("add_retailer", self.form)
+        .then(function(response) {
+          if (response.data.errors.length) {
+            self.errors = response.data.errors;
+          } else {
+            self.successSubmission = true;
+          }
+        })
+        .then(function() {
+          self.btnText = "Register";
+        });
+    }
+  }
+};
+</script>
+
 
 <style scoped>
-
-    .errors p {
-        color: red;
-        height: 30px;
-        margin: 10px 0
-    }
-
+.errors p {
+  color: red;
+  height: 30px;
+  margin: 10px 0;
+}
 </style>
-
-<script>
-
-    export default {
-
-        computed: {
-            countries() {
-                return this.$store.getters.getCountries
-            },
-            sizes() {
-                return this.$store.getters.getSizes
-            }
-        },
-
-        data() {
-            return {
-                form: {
-                    first_name: "",
-                    last_name: "",
-                    brand_name: "",
-                    website: "http://",
-                    phone: "",
-                    email: "",
-                    country_id: 0,
-                    city_name: "",
-                    password: ""
-                },
-                passwordConfirmation: "",
-                btnText: "Register",
-                termsAgreed: true,
-                successSubmission: false,
-                errors: []
-            }
-        },
-
-        mounted() {
-            this.$store.dispatch("get_countries");
-        },
-
-        methods: {
-
-            register() {
-
-                let self = this;
-
-                if (self.form.password != self.passwordConfirmation) {
-                    alert("Password and password confirmation fields don't match");
-                    return false;
-                }
-
-                if (!self.termsAgreed) {
-                    alert("Terms and Conditions must be agreed");
-                    return false;
-                }
-
-                self.btnText = "Registering...";
-
-                self.$store.dispatch("add_retailer", self.form).then(function (response) {
-
-                    if(response.data.errors.length){
-                        self.errors = response.data.errors;
-                    }else{
-                        self.successSubmission = true;
-                    }
-
-                }).then(function () {
-                    self.btnText = 'Register';
-                })
-            }
-
-        }
-    }
-
-</script>

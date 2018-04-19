@@ -64,10 +64,12 @@
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
                   <div class="mrgBtmMd fontLarger">Size :</div>
-                  <select required v-model="form.size" type="text" class="inputEle" placeholder="set Size">
-                    <option hidden value="">...</option>
-                    <option v-for="size of getSizes" :key="size" :value="size">{{size}}</option>
-                  </select>
+                  <vue-tags-input v-model="size" :tags="selectedSizes" :autocompleteItems="getSizesFilterd" :addOnlyFromAutocomplete="true" placeholder="Add Size" @tags-changed="newTags => selectedSizes = newTags">
+                    <div slot="tagActions" slot-scope="props">
+                      &nbsp;
+                      <i @click="props.performDelete(props.item)" class="fa fa-close"></i>
+                    </div>
+                  </vue-tags-input>
                 </div>
               </div>
               <div class="mycol-md-6">
@@ -107,10 +109,10 @@
           <div class="mycol-md-3 mycol-sm-6">
             <div class="mrgBtmMd fontLarger">Image</div>
             <label for="uploadImg" class="inputEle brandBg vCenter textCentered mrgBtmLg"> Upload Image </label>
-            <input disabled type="file" id="uploadImg" class="disNone" @change="processFile($event)">
+            <input type="file" id="uploadImg" class="disNone" @change="processFile($event)">
             <div class="uploadedPhotoDisplay mrgBtmLg">
               <span v-if="form.image === ''" class="fontLarger grayColor hideAfterUpload">No photo</span>
-              <img ref="the_image" :src="form.image" alt="">
+              <img ref="the_image" :src="form.image||form.imageOriginal" alt="">
             </div>
           </div>
         </div>
@@ -128,7 +130,7 @@
               <div class="mycol-md-6">
                 <div class="mrgBtmMd fontLarger">&nbsp;</div>
                 <div class="clearfix">
-                  <router-link to="allitems" class="BF_btn">Cancel</router-link>
+                  <router-link to="/retailer/allitems" class="BF_btn">Cancel</router-link>
                   <button type="submit" class="BF_btn sbmt"> {{ sending ? 'Loading...' : 'Submit' }} </button>
                 </div>
               </div>
@@ -146,11 +148,13 @@
 import { currency } from "./currency";
 import Loading from "@/components/Loading";
 import { mapGetters } from "vuex";
+import VueTagsInput from "@johmun/vue-tags-input";
 
 export default {
   name: "new-item",
   components: {
-    Loading
+    Loading,
+    VueTagsInput
   },
   data() {
     return {
@@ -171,21 +175,28 @@ export default {
       },
       loadig: true,
       sending: false,
+      selectedSizes: [],
+      size: "",
       errors: [],
       currency
     };
   },
   computed: {
-    ...mapGetters(["getColors", "getSizes", "categories"])
+    ...mapGetters(["getColors", "getSizes", "categories"]),
+    getSizesFilterd(){
+			return this.getSizes.map( size => ({ text: size || "none" }) ).filter(i => new RegExp(this.size, 'i').test(i.text)) || []
+		}
   },
   created() {
     this.$store
       .dispatch("get_Item_edit", this.$route.params.myItemId)
       .then(res => {
         this.form = res.data.data;
-        this.form.size = this.form.size.split(",")[0];
+        this.selectedSizes = this.form.size.split(",").map( i => ({ text: i }) );
         this.form.sizeSystem = this.form.sizeSystem.toLowerCase();
         this.form.itemId = this.$route.params.myItemId;
+        this.form.imageOriginal = this.form.image;
+        this.form.image = false;
         Promise.all([
           this.$store.dispatch("get_colors"),
           this.$store.dispatch("get_sizes"),
@@ -206,11 +217,7 @@ export default {
     },
     submit() {
       this.sending = true;
-      if (!this.form.image) {
-        this.sending = false;
-        this.errors.push("Item image is required");
-        return;
-      }
+      this.form.size = this.selectedSizes.map( i => i.text ).join(",");
       this.$store
         .dispatch("edit_item", this.form)
         .then(() => {
@@ -226,7 +233,7 @@ export default {
             this.$router.push("/500");
           }
         });
-    },
+    }
   }
 };
 </script>
@@ -237,5 +244,19 @@ export default {
 }
 .errors {
   color: red;
+}
+.vue-tags-input {
+  max-width: 100% !important;
+}
+.vue-tags-input .input {
+  height: 40px !important;
+  border: #fff !important;
+}
+.tag.valid{
+	background: #2b2a2a !important;
+	font-size: 1em;
+}
+.item.valid.selected-item{
+	background-color: #000;
 }
 </style>

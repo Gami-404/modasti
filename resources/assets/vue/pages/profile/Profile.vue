@@ -17,27 +17,43 @@
                     </div>
                 </div>
                 <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
+                <router-link v-if="!isCurrUser" to="/profile/edit" class="topHeadBtn brandBg blackColor">Follow</router-link>
+                <div v-if="!isCurrUser" class="TUP_otherBtns">
+                    <a href="#" class="mainBtn">Block</a>
+                    <router-link :to="'?popup=new_message&userId='+user.id" class="mainBtn">send Message</router-link>
+                </div>
             </div>
+
             <Loading v-if="loading" />
         </div>
         <ProfileNav/>
         <div v-if="!loading">
-        <transition name="subpage" enter-active-class="animated fadeIn">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
-        </transition>
+            <transition name="subpage" enter-active-class="animated fadeIn">
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
         </div>
+        <transition name="popup_new_message" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <WrapperPopups v-if="$route.query.popup">
+                <NewMessage v-if="$route.query.popup=='new_message'" />
+            </WrapperPopups>
+        </transition>
     </div>
 </template>
 
 <script>
-import ProfileNav from './ProfileNav';
+import ProfileNav from "./ProfileNav";
 import Loading from "@/components/Loading";
+import WrapperPopups from "@/wrappers/WrapperPopups";
+import NewMessage from "@/layout/popups/NewMessage";
+
 export default {
   components: {
     ProfileNav,
-    Loading
+    Loading,
+    NewMessage,
+    WrapperPopups
   },
   data() {
     return { loading: true };
@@ -47,7 +63,10 @@ export default {
       return this.$store.getters.userProfile;
     },
     isCurrUser() {
-      return (this.$store.getters.user.userId == this.$route.params.userId )|| this.$route.params.userId == "me";
+      return (
+        this.$store.getters.user.userId == this.$route.params.userId ||
+        this.$route.params.userId == "me"
+      );
     }
   },
   created() {
@@ -58,6 +77,17 @@ export default {
     this.$store.dispatch("get_user_profile", id).then(() => {
       this.loading = false;
     });
+  },
+  watch: {
+    "$route.params.userId"(userId) {
+      let id =
+        typeof userId == "number"
+          ? userId
+          : this.$store.getters.user.userId;
+      this.$store.dispatch("get_user_profile", id).then(() => {
+        this.loading = false;
+      });
+    }
   }
 };
 </script>

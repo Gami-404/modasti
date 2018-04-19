@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@johmun/vue-tags-input@^1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@johmun/vue-tags-input/-/vue-tags-input-1.3.6.tgz#7d76e152df44c0ac185ae366a39667e60929e1d0"
+  dependencies:
+    vue "^2.5.15"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -7289,6 +7295,10 @@ vue-template-compiler@^2.0.0:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue@^2.5.15:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vue@^2.5.7:
   version "2.5.13"
