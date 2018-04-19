@@ -59,6 +59,9 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getFollowingUsers', 'Api\UserController@getFollowingUsers');
     $router->post('getFollowersUsers', 'Api\UserController@getFollowersUsers');
     $router->post('profileUpdate', 'Api\UserController@profileUpdate');
+    $router->post('blockUser', 'Api\UserController@blockUser');
+    $router->post('unblockUser', 'Api\UserController@unblockUser');
+    $router->post('listBlocked', 'Api\UserController@listBlocked');
 
 });
 

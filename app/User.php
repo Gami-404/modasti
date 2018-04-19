@@ -67,4 +67,14 @@ class User extends \Dot\Users\Models\User
         return $this->belongsToMany(Set::class, "users_posts_like", "user_id", 'object_id')
             ->where('type', 'set');
     }
+
+
+    /**
+     * Blocked Users
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blocked_users()
+    {
+        return $this->belongsToMany(User::class, "users_blocked", "user_id", "blocked_id");
+    }
 }
