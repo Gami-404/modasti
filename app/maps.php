@@ -35,7 +35,7 @@ namespace Maps\User {
         $newArray = [];
         foreach ($users as $user) {
             $newUser = new \stdClass();
-            $newUser->id = $user->id;
+            $newUser->id = $user->userId;
             $newUser->fname = $user->first_name;
             $newUser->lname = $user->last_name;
             $newUser->username = $user->username;
