@@ -270,7 +270,7 @@ class ItemsController extends Controller
             return response()->json($data, 400);
         }
         $media = null;
-        if ($request->filled('image') && !$request->get('image')) {
+        if ($request->filled('image') && $request->get('image')) {
             $media = new Media();
             if ($media->isBase64($request->get('image'))) {
                 $data['errors'][] = "Image not base64";
