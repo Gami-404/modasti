@@ -119,7 +119,7 @@ class ItemsController extends Controller
             ->where('user_id', fauth()->id())
             ->offset($offset)
             ->take($limit)
-            ->orderBy("created_at","DESC")
+            ->orderBy("created_at", "DESC")
             ->get();
         return response()->json(['errors' => [], 'data' => $items]);
     }
@@ -142,6 +142,7 @@ class ItemsController extends Controller
             'price' => 'required|numeric',
             'sale_price' => 'required|numeric',
             'size' => 'required',
+            'currency' => 'required',
             'coverage' => 'required|in:1,2,3,4',
             'sizeSystem' => 'required|in:eu,uk,us',
             'image' => 'required',
@@ -164,6 +165,7 @@ class ItemsController extends Controller
         $post->price = ($request->get('price'));
         $post->user_id = (fauth()->id());
         $post->sale_price = ($request->get('sale_price'));
+        $post->currency = ($request->get('currency'));
         $post->coverage = ($request->get('coverage'));
         $post->size_system = ($request->get('sizeSystem'));
         $post->image_id = $media->id;
@@ -234,7 +236,7 @@ class ItemsController extends Controller
             'category' => $category ? $category->id : 0,
             'image' => $post->image ? uploads_url($post->image->path) : '',
             'currency' => $post->currency,
-            'shop_url' => $post->url,            
+            'shop_url' => $post->url,
             'size' => implode(",", $post->sizes->pluck("size")->toArray())
         ];
         return response()->json($data);
@@ -262,15 +264,23 @@ class ItemsController extends Controller
             'coverage' => 'required|in:1,2,3,4',
             'sizeSystem' => 'required|in:eu,uk,us',
             'image' => 'required',
+            'currency' => 'required',
 
         ]);
-        // $media = new Media();
-        // if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
-        //     $data['errors'] = ($validator->errors()->all());
-        //     return response()->json($data, 400);
-        // }
 
-        // $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $media = null;
+        if ($request->filled('image') && $request->get('image')) {
+            $media = new Media();
+            if ($media->isBase64($request->get('image'))) {
+                $data['errors'][] = "Image not base64";
+                return response()->json($data, 400);
+            }
+            $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        }
         $post = Post::find($request->get('itemId'));
         $post->title = $request->get('title');
         $post->content = $request->get('description');
@@ -281,12 +291,14 @@ class ItemsController extends Controller
         $post->price = ($request->get('price'));
         $post->sale_price = ($request->get('sale_price'));
         $post->coverage = ($request->get('coverage'));
+        $post->currency = ($request->get('currency'));
         $post->size_system = ($request->get('sizeSystem'));
-        // $post->image_id = $media->id;
+        $post->image_id = $media ? $media->id : $post->image_id;
         $post->save();
         $post->categories()->attach($request->get('category'));
 
         $sizes_fields = explode(',', $request->get("size", ''));
+        $post->sizes()->delete();
         foreach ($sizes_fields as $value) {
             $meta = new PostSize();
             $meta->size = $value;
