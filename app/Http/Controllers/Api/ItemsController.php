@@ -142,6 +142,7 @@ class ItemsController extends Controller
             'price' => 'required|numeric',
             'sale_price' => 'required|numeric',
             'size' => 'required',
+            'currency' => 'required',
             'coverage' => 'required|in:1,2,3,4',
             'sizeSystem' => 'required|in:eu,uk,us',
             'image' => 'required',
@@ -164,6 +165,7 @@ class ItemsController extends Controller
         $post->price = ($request->get('price'));
         $post->user_id = (fauth()->id());
         $post->sale_price = ($request->get('sale_price'));
+        $post->currency = ($request->get('currency'));
         $post->coverage = ($request->get('coverage'));
         $post->size_system = ($request->get('sizeSystem'));
         $post->image_id = $media->id;
@@ -262,6 +264,7 @@ class ItemsController extends Controller
             'coverage' => 'required|in:1,2,3,4',
             'sizeSystem' => 'required|in:eu,uk,us',
             'image' => 'required',
+            'currency' => 'required',
 
         ]);
 
@@ -288,6 +291,7 @@ class ItemsController extends Controller
         $post->price = ($request->get('price'));
         $post->sale_price = ($request->get('sale_price'));
         $post->coverage = ($request->get('coverage'));
+        $post->currency = ($request->get('currency'));
         $post->size_system = ($request->get('sizeSystem'));
         $post->image_id = $media ? $media->id : $post->image_id;
         $post->save();
