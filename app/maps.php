@@ -28,7 +28,7 @@ namespace Maps\User {
      */
     function users($users)
     {
-        if (!is_array($users)&&($users instanceof Illuminate\Database\Eloquent\Collection)) {
+        if (!is_array($users)||($users instanceof Illuminate\Database\Eloquent\Collection)) {
             $users = [$users];
         }
 
