@@ -194,7 +194,7 @@ class UserController extends Controller
             return response()->json($data);
         }
 
-        $followingUsers = $user->following()->take($limit)->offet($offset)->get();
+        $followingUsers = $user->following()->take($limit)->offset($offset)->get();
         $data['data']['users'] = \Maps\User\users($followingUsers);
         return response()->json($data);
     }
@@ -215,7 +215,7 @@ class UserController extends Controller
             return response()->json($data);
         }
 
-        $followerUsers = $user->follower()->take($limit)->offet($offset)->get();
+        $followerUsers = $user->follower()->take($limit)->offset($offset)->get();
         $data['data']['users'] = \Maps\User\users($followerUsers);
         return response()->json($data);
     }
