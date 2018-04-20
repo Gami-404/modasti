@@ -191,7 +191,7 @@ class UserController extends Controller
         $user = User::find($request->get('userId', 0));
         if (!$user) {
             $data['errors'][] = "User not found";
-            return response()->json($data);
+            return response()->json($data, 400);
         }
 
         $followingUsers = $user->following()->take($limit)->offset($offset)->get();
@@ -212,7 +212,7 @@ class UserController extends Controller
         $user = User::find($request->get('userId', 0));
         if (!$user) {
             $data['errors'][] = "User not found";
-            return response()->json($data);
+            return response()->json($data, 400);
         }
 
         $followerUsers = $user->follower()->take($limit)->offset($offset)->get();

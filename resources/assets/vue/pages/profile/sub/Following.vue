@@ -28,7 +28,11 @@ export default {
     }
   },
   created(){
-    this.$store.dispatch("get_user_following").then( () => {
+    let id =
+      isNaN(this.$route.params.userId)
+        ? this.$store.getters.user.userId
+        :  this.$route.params.userId;
+    this.$store.dispatch("get_user_following",id).then( () => {
       this.loading = false;
     }).catch( () => {
       this.$router.push('/500');

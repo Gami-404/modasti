@@ -71,22 +71,23 @@ export default {
   },
   created() {
     let id =
-      typeof this.$route.params.userId == "number"
-        ? this.$route.params.userId
-        : this.$store.getters.user.userId;
+      isNaN(this.$route.params.userId)
+        ? this.$store.getters.user.userId
+        :  this.$route.params.userId;
     this.$store.dispatch("get_user_profile", id).then(() => {
       this.loading = false;
-    });
+    }).catch( err => this.$router.push("/404") );
+    
   },
   watch: {
     "$route.params.userId"(userId) {
       let id =
-        typeof userId == "number"
-          ? userId
-          : this.$store.getters.user.userId;
+        isNaN( userId )
+          ? this.$store.getters.user.userId
+          : userId;
       this.$store.dispatch("get_user_profile", id).then(() => {
         this.loading = false;
-      });
+      }).catch( err => this.$router.push("/404") );
     }
   }
 };

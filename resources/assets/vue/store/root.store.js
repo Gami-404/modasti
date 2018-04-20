@@ -79,6 +79,7 @@ const mutations = {
         state.users[user.id] = user;
     },
     ADD_USERS(state, users) {
+        users = users || []; 
         users.forEach(user => {
             state.users[user.id] = user;
         });
@@ -87,6 +88,7 @@ const mutations = {
         state.items[item.id] = item;
     },
     ADD_ITEMS(state, items) {
+        items = items || [];
         items.forEach(item => {
             state.items[item.id] = item;
         });
@@ -95,6 +97,7 @@ const mutations = {
         state.sets[set.id] = set;
     },
     ADD_SETS(state, sets) {
+        sets = sets || [];
         sets.forEach(set => {
             state.sets[set.id] = set;
         });
@@ -103,6 +106,7 @@ const mutations = {
         state.collections[collection.id] = collection;
     },
     ADD_COLLECTIONS(state, collections) {
+        collections = collections || [];
         collections.forEach(collection => {
             state.collections[collection.id] = collection;
         });
