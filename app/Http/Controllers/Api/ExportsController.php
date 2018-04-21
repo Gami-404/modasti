@@ -45,8 +45,10 @@ class ExportsController extends Controller
             $data['errors'][] = 'File not exist.';
             return response()->json($data);
         }
+        $count = 0;
+        $foundCount = 0;
         $media = (new Media())->saveFile($request->file('importItems'));
-        $url = public_path('uploads/'.Media::find($media)->path);
+        $url = public_path('uploads/' . Media::find($media)->path);
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($url);
@@ -57,8 +59,10 @@ class ExportsController extends Controller
             $url = (($worksheet->getCellByColumnAndRow(4, $row)->getValue()));
             $image_id = ($this->getImageId($worksheet->getCellByColumnAndRow(5, $row)->getValue()));
             if (Post::where(['title' => $title, 'url' => $url, 'image_id' => $image_id])->first()) {
+                $foundCount++;
                 continue;
             }
+            $count++;
             $post = new Post();
             $post->title = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
             $post->brand_id = ($this->getBrandId($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
@@ -89,8 +93,7 @@ class ExportsController extends Controller
             }
 
         }
-        return response()->json(['status' => true]);
-
+        return response()->json(['status' => true, 'newItems' => $count, 'foundItems' => $foundCount]);
     }
 
     /**
