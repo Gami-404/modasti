@@ -4,7 +4,8 @@ import axios from "axios";
 const state = {
   retailer: {},
   items: [],
-  offset: 0
+  offset: 0,
+  lastPage:false
 };
 
 // getters
@@ -28,9 +29,13 @@ const actions = {
     return API.post("/registerDesigner", retailer);
   },
   get_all_items({ commit, state }, formData) {
+    if(state.lastPage) return Promise.resolve();
     return API.post("/listItems", {
       offset: state.offset
     }).then(res => {
+      if(res.data.data.length === 0){
+        commit("IS_LAST_PAGE");
+      }
       commit("ALL_ITEMS", res.data.data);
     });
   },
@@ -65,6 +70,8 @@ const mutations = {
   },
   DELETE_ITEM(state, itemId) {
     state.items = state.items.filter(item => item.id != itemId);
+  },IS_LAST_PAGE(state){
+    state.lastPage = true;
   }
 
 };

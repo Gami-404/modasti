@@ -1,8 +1,12 @@
 <template>
 	<div class="organizeItemsPage">
+
 		<div class="gridContainer">
 			<div class="myTable">
+
 				<div class="tableContainer">
+					<button :disabled="page === lastPage" class="topHeadBtn nextprev" @click.prevent="next">></button>
+					<button :disabled="page === 0" class="topHeadBtn nextprev" @click.prevent="prev"><</button>
 					<table>
 						<tbody>
 							<tr>
@@ -48,32 +52,59 @@ export default {
     Loading
   },
   data() {
-    return { loading: true };
+    return { loading: true, page: 0, nextLoading: false, lastPage: null };
   },
   computed: {
     items() {
-      return this.$store.getters.retailerItems;
+      let start = this.page * 8;
+      return this.$store.getters.retailerItems.slice(start, start + 8);
     }
   },
   created() {
-    this.$store.dispatch("get_all_items").then(() => (this.loading = false));
+    this.loadItems();
   },
   methods: {
+    next() {
+      if (this.page !== this.lastPage) {
+        this.page++;
+        this.loadItems().then(() => {
+          if (this.items.length < 8) {
+            this.lastPage = this.page;
+            if (this.items.length === 0) this.page--;
+          }
+        });
+      }
+    },
+    prev() {
+      if (this.page > 0) this.page--;
+    },
     deleteItem(id) {
       this.$store
         .dispatch("delete_item", id)
-        .then(() => {
-          // if (this.$refs[id]) this.$refs[id].innerHTML = "Deleted";
-        })
+        .then(() => {})
         .catch(err => {
           console.error(err);
           this.$router.push("/500");
         });
+    },
+    loadItems() {
+      this.loading = true;
+      return this.$store
+        .dispatch("get_all_items")
+        .then(() => (this.loading = false));
     }
   }
 };
 </script>
 
 <style>
-
+.nextprev{
+	width: 50px;
+	height: 60px;
+	font-weight: 900;
+	font-family: Geneva, Verdana, sans-serif;
+}
+.nextprev:disabled {
+  background-color: #3b3b3b;
+}
 </style>

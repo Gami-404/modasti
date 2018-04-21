@@ -8,9 +8,10 @@ export default {
   path: "/retailer",
   component: Retailer,
   children: [
-    { path: "/", redirect: "allitems" },    
+    { path: "/", redirect: "allitems/1" },    
+    { path: "allitems", redirect: "allitems/1" },    
     {
-      path:"allitems",
+      path:"allitems/:allItemsOffset(\\d+)",
       component: OrganizeItems
     },
     {
