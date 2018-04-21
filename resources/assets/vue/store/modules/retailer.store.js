@@ -49,7 +49,7 @@ const actions = {
   import_items({ commit, state, getters }, file) {
     let formBody = new FormData();
     formBody.append("importItems", file);
-    axios.post(window.baseURL + "/importFile", formBody, {
+   return axios.post(window.baseURL + "/importFile", formBody, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization:
