@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Media;
 use App\Model\Set;
 use App\Model\SetComment;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PhpParser\Comment;
 use Validator;
 
 class SetsController extends Controller
@@ -124,6 +126,73 @@ class SetsController extends Controller
         $set->items()->detach();
         $set->delete();
         SetComment::where('set_id', $set->id)->delete();
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/addSet
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function addSet(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'items.*' => 'required|exists:posts,id'
+        ]);
+
+        $validator->sometimes('image', 'required', function () use ($request) {
+            return $request->filled('image');
+        });
+
+        $media = new Media();
+
+        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+
+        $set = Set::create(
+            [
+                'title' => $request->get('title'),
+                'excerpt' => $request->get('description'),
+                'lang' => 'en',
+                'image_id' => $media->id,
+                'user_id' => fauth()->id(),
+                'front_page' => '1'
+            ]
+        );
+        $set->items()->attach($request->get('items'));
+        $data['data']['set_id'] = $set->id;
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/deleteComment
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteComment(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'commentId' => 'required|exists:set_comments,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $comment = SetComment::where(['id' => $request->get('commentId'), 'user_id' => fauth()->id()])->first();
+        if (!$comment) {
+            $data['errors'] = "It is not your comment";
+            return response()->json($data, 400);
+        }
+        $comment->delete();
         return response()->json($data);
     }
 }
