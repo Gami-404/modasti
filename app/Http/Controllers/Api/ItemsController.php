@@ -102,6 +102,8 @@ class ItemsController extends Controller
         if ($category) {
             $similarItems = $category->posts()->take(3)->get();
         }
+        $item->views++;
+        $item->save();
         $data['data'] = \Maps\Item\itemDetails($item, $similarItems);
         return response()->json($data);
 
