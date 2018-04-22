@@ -30,7 +30,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Search
     $router->post('/search', 'Api\HomeController@search');
     // Brands
-    $router->post('/getBrands', 'Api\HomeController@getBrands');
+    $router->post('/getBrands', 'Api\ItemsController@getBrands');
     //filters
     $router->post('/filter', 'Api\HomeController@filter');
 
