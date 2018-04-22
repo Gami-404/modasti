@@ -27,6 +27,14 @@ Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
+    // Search
+    $router->post('/search', 'Api\HomeController@search');
+    // Brands
+    $router->post('/getBrands', 'Api\HomeController@getBrands');
+    //filters
+    $router->post('/filter', 'Api\HomeController@filter');
+
+
     // Collection
     $router->post('createCollection', 'Api\CollectionController@createCollection');
     $router->post('getCollections', 'Api\CollectionController@getCollections');
