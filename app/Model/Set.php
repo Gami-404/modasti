@@ -16,6 +16,20 @@ class Set extends Model
     protected $dates = ['created_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'excerpt',
+        'lang',
+        'image_id',
+        'user_id',
+        'front_page',
+    ];
+
+    /**
      * Likes relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -31,7 +45,7 @@ class Set extends Model
      */
     public function comments()
     {
-        return $this->hasMany(SetComment::class, "set_id", "id")->where('parent',0);
+        return $this->hasMany(SetComment::class, "set_id", "id")->where('parent', 0);
     }
 
 

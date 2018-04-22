@@ -30,7 +30,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Search
     $router->post('/search', 'Api\HomeController@search');
     // Brands
-    $router->post('/getBrands', 'Api\HomeController@getBrands');
+    $router->post('/getBrands', 'Api\ItemsController@getBrands');
     //filters
     $router->post('/filter', 'Api\HomeController@filter');
 
@@ -47,6 +47,8 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('addCommentToSet', 'Api\SetsController@addCommentToSet');
     $router->post('getSetComments', 'Api\SetsController@getSetComments');
     $router->post('getLikedSets', 'Api\SetsController@getLikedSets');
+    $router->post('addSet', 'Api\SetsController@addSet');
+    $router->post('deleteComment', 'Api\SetsController@deleteComment');
     $router->post('deleteSet', 'Api\SetsController@deleteSet');
 
     //Categories
