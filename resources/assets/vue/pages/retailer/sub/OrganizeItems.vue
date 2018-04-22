@@ -21,7 +21,7 @@
 							<tr v-for="item in items" :key="item.id">
 								<td>
 									<div class="mrgBtmSm">
-										<router-link :to="'edit/'+item.id" class="brandColor">Edit</router-link>
+										<router-link :to="'/retailer/edit/'+item.id" class="brandColor">Edit</router-link>
 									</div>
 									<div>
 										<a href="#" :ref="item.id" @click.prevent="deleteItem(item.id)" class="brandColor">delete</a>

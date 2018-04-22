@@ -81,7 +81,6 @@ const search = (searchString, offset) =>
     searchString: searchString,
     searchArea: "items",
     offset: offset,
-    limit: 6
   });
 
 // actions
@@ -158,14 +157,14 @@ const actions = {
   },
   search_item({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
-      commit("ADD_ITEMS", res.data.data);
+      commit("ADD_ITEMS", res.data.data,{root:true});
       commit("SEARCH_RESULTS_OFFSET");
       commit("SEARCH_RESULTS", res.data.data.map(item => item.id));
     });
   },
   search_item_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
-      commit("ADD_ITEMS", res.data.data);
+      commit("ADD_ITEMS", res.data.data,{root:true});
       commit("SEARCH_RESULTS_OFFSET");
       commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id));
     });
@@ -221,11 +220,11 @@ const mutations = {
   SEARCH_RESULTS_OFFSET_RESET({ searchResults }) {
     searchResults.offset = 0;
   },
-  SEARCH_RESULTS({ searchResults }, data) {
-    searchResults.items = data;
+  SEARCH_RESULTS( state , data) {
+    state.searchResults.items = data;
   },
-  SEARCH_RESULTS_MORE({ searchResults }, data) {
-    searchResults.items.concat(data);
+  SEARCH_RESULTS_MORE( state , data) {
+    state.searchResults.items = state.searchResults.items.concat(data);
   },
   ADD_FILTER(state, payload) {
     if (state.filters[payload.filter][payload.val]) return;

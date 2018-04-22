@@ -22,13 +22,13 @@
                             <span class="icon">
                                 <i class="fa fa-search"></i>
                             </span>
-                            <form action="#">
-                                <select>
-                                    <option value="0">Items</option>
-                                    <option value="1">Users</option>
-                                    <option value="2">Group</option>
+                            <form @submit.prevent="search" action="#">
+                                <select v-model="area">
+                                    <option value="item">Items</option>
+                                    <option value="user">Users</option>
+                                    <!-- <option value="2">Group</option> -->
                                 </select>
-                                <input type="text">
+                                <input v-model="searchString" type="text">
                                 <button type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -43,7 +43,7 @@
             <div class="bottom">
                 <div class="gridContainer clearfix relative">
                     <nav id="nav">
-                        <div class="icon">
+                        <div @click="navOpend=!navOpend" class="icon">
                             <i class="fa fa-bars"></i>
                         </div>
                         <ul class="clearfix">
@@ -63,7 +63,7 @@
             </div>
 
         </header>
-        <div class="mobileMenu" style="display: block;">
+        <div class="mobileMenu" @click="navOpend=false" :style="'display: '+( navOpend?'block':'none')">
             <div class="in">
                 <div class="nav">
                     <ul>
@@ -114,13 +114,19 @@ export default {
   },
   data() {
     return {
-      routes
+    navOpend:false,
+      routes,
+      area : "item",
+      searchString:""
     };
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    search(){
+        this.$router.push(`/search/${this.area}/${this.searchString}`);
     }
   },
   computed: {

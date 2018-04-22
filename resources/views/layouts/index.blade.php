@@ -23,7 +23,7 @@
 @else
     <script src="{{ mix('js/App.js') }}"></script>
 @endif
-<script src="{{ asset('js/jquery-1.11.min.js') }}"></script>
-<script src="{{ asset('js/myscript.js') }}"></script>
+<!-- <script src="{{ asset('js/jquery-1.11.min.js') }}"></script> -->
+<!-- <script src="{{ asset('js/myscript.js') }}"></script> -->
 </body>
 </html>
