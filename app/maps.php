@@ -253,7 +253,7 @@ namespace Maps\Set {
             $newItem->currency = $item->currency;
             $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
-            $newItem->photo = [];
+            $newItem->photos = [];
 
             if ($item->image) {
                 $photo = new \stdClass();
