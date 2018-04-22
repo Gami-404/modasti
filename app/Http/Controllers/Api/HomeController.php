@@ -136,4 +136,5 @@ class HomeController extends Controller
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
     }
+
 }

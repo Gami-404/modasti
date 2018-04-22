@@ -6,6 +6,7 @@ use App\Model\Media;
 use App\Model\Post;
 use App\User;
 use Dot\Colors\Models\Color;
+use Dot\Posts\Models\Brand;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -305,6 +306,23 @@ class ItemsController extends Controller
             $post->sizes()->save($meta);
         }
         return response()->json($data, 200);
+    }
+
+
+    /**
+     * POST api/getBrands
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getBrands(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $query = Brand::with('image');
+        if ($request->filled('q')) {
+            $query->search($request->get('q'));
+        }
+        $data['data'] = $query->take(30)->get();
+        return response()->json($data);
     }
 
 
