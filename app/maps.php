@@ -121,8 +121,6 @@ namespace Maps\Item {
      */
     function items($items)
     {
-        // {"id":404,"title_en":"test","price":"0.00","currency":"USD","text_en":"","url_en":"","brand":"","likes":0
-        //,"categories_id":9,"color_id":0,"is_liked":false,"user_currency":"EUR","photos":[],"color":null}
 
         $newItems = [];
         foreach ($items as $item) {

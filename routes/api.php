@@ -29,6 +29,8 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Search
     $router->post('/search', 'Api\HomeController@search');
+    //filters
+    $router->post('/filter', 'Api\HomeController@filter');
 
 
     // Collection
