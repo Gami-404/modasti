@@ -139,7 +139,7 @@ namespace Maps\Item {
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->color_id = $item->color_id;
             $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
-            $newItem->photo = [];
+            $newItem->photos = [];
             if ($item->image) {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
