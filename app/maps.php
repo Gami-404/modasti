@@ -144,7 +144,7 @@ namespace Maps\Item {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
                 $photo->photo_name = uploads_url($item->image->path);
-                $newItem->photo[] = $photo;
+                $newItem->photos[] = $photo;
             }
             $newItems[] = $newItem;
         }
