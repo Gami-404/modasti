@@ -7,6 +7,7 @@ const state = {
     collections: {},
     colors: [],
     sizes: [],
+    brands:[],
     countries:[]
 };
 
@@ -22,6 +23,12 @@ const actions = {
         if(state.sizes.length > 0) return Promise.resolve();        
         return API.post("/getColors").then( res => {
             commit("COLORS", res.data.data);
+        });
+    },
+    get_brands({commit}) {
+        if(state.sizes.length > 0) return Promise.resolve();        
+        return API.post("/getBrands").then( res => {
+            commit("BRANDS", res.data.data);
         });
     },
     get_countries({commit}) {
@@ -71,6 +78,7 @@ const getters = {
     getSizes: state => state.sizes,
     getColors: state => state.colors,
     getCountries: state => state.countries,
+    getBrands: state => state.brands
 };
 
 // mutations
@@ -136,6 +144,9 @@ const mutations = {
     SIZES(state, sizes) {
         state.sizes = sizes;
     },
+    BRANDS(state, brands){
+        state.brands = brands;
+    }
 };
 
 export default {

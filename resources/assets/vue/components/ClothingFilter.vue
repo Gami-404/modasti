@@ -1,57 +1,55 @@
 <template>
-    <div>
-        <div class="sectionTitle clearfix">
-            <h2 class="theName">Clothing</h2>
-            <div class="filters">
-                <span @click="mfilter=true" class="icon">
-                    <i class="fa fa-sliders"></i>
-                </span>
-                <div class="in">
-                    <div class="one">
-                        <div @click="showOptions('byColor')" class="title dropdownTitle">colors
-                            <i class="fa fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="one">
-                        <div class="title dropdownTitle">coverage
-                            <i class="fa fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="one">
-                        <div class="title dropdownTitle">Price
-                            <i class="fa fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="one">
-                        <div class="title dropdownTitle">size
-                            <i class="fa fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="one">
-                        <div class="title dropdownTitle">brand
-                            <i class="fa fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <a href="#" class="theBtn">Apply</a>
-                </div>
+  <div>
+    <div class="sectionTitle clearfix">
+      <h2 class="theName">Clothing</h2>
+      <div class="filters">
+        <span @click="mfilter=true" class="icon">
+          <i class="fa fa-sliders"></i>
+        </span>
+        <div class="in">
+          <div class="one">
+            <div @click="showOptions('byColor')" class="title dropdownTitle">colors
+              <i class="fa fa-angle-down"></i>
             </div>
+          </div>
+          <div class="one">
+            <div class="title dropdownTitle">coverage
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </div>
+          <div class="one">
+            <div class="title dropdownTitle">Price
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </div>
+          <div class="one">
+            <div class="title dropdownTitle">size
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </div>
+          <div class="one">
+            <div class="title dropdownTitle">brand
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </div>
+          <a href="#" class="theBtn">Apply</a>
         </div>
-        <transition name="filter-ops">
-            <div v-if="filter" class="topCategories whiteBg filterops">
-                <div class="gridContainer">
-                    <a v-if="filter!=='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :class="{ 'selected' : filters[filter][val] }" href="#">{{val}}</a>
-                    <div v-if="filter ==='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :style="colorBlockStyle(val)"></div>
-                </div>
-            </div>
-        </transition>
-        <div v-if="mfilter" class="filtersMobileMenu">
-            <ClothingFilterMobile>
-                <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">                
-            </ClothingFilterMobile>
-            </div>
-        </div>
-
+      </div>
     </div>
+    <transition name="filter-ops">
+      <div v-if="filter" class="topCategories whiteBg filterops">
+        <div class="gridContainer">
+          <a v-if="filter!=='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :class="{ 'selected' : filters[filter][val] }" href="#">{{val}}</a>
+          <div v-if="filter ==='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :style="colorBlockStyle(val)"></div>
+        </div>
+      </div>
+    </transition>
+    <div v-if="mfilter" class="filtersMobileMenu">
+      <ClothingFilterMobile>
+        <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
+      </ClothingFilterMobile>
+    </div>
+  </div>
 </template>
 
 <script>
