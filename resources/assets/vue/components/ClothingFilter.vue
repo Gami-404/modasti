@@ -3,7 +3,7 @@
         <div class="sectionTitle clearfix">
             <h2 class="theName">Clothing</h2>
             <div class="filters">
-                <span class="icon">
+                <span @click="mfilter=true" class="icon">
                     <i class="fa fa-sliders"></i>
                 </span>
                 <div class="in">
@@ -39,18 +39,32 @@
         <transition name="filter-ops">
             <div v-if="filter" class="topCategories whiteBg filterops">
                 <div class="gridContainer">
-                    <a v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :class="{ 'selected' : filters[filter][val] }" href="#">{{val}}</a>
+                    <a v-if="filter!=='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :class="{ 'selected' : filters[filter][val] }" href="#">{{val}}</a>
+                    <div v-if="filter ==='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :style="colorBlockStyle(val)"></div>
                 </div>
             </div>
         </transition>
+        <div v-if="mfilter" class="filtersMobileMenu">
+            <ClothingFilterMobile>
+                <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">                
+            </ClothingFilterMobile>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
+import ClothingFilterMobile from "@/components/ClothingFilterMobile";
+
 export default {
+  components: {
+    ClothingFilterMobile
+  },
   data() {
     return {
-      filter: ""
+      filter: "",
+      mfilter: false
     };
   },
   computed: {
@@ -87,13 +101,22 @@ export default {
         filter: this.filter,
         val
       });
+    },
+    colorBlockStyle(color) {
+      return (
+        "height:20px; width:30px; background:" +
+        color +
+        "; display:inline-block; margin:3px; margin-top:10px;" +
+        (this.filters[this.filter][color]
+          ? "border:1px solid #000;"
+          : "border:1px solid #b3b3b3;")
+      );
     }
   }
 };
 </script>
 
 <style scoped>
-
 .filter-ops-enter,
 .filter-ops-leave-to {
   max-height: 0px;
@@ -104,15 +127,15 @@ export default {
   max-height: 800px;
 }
 
-.filter-ops-enter-active{
+.filter-ops-enter-active {
   transition: 800ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
 }
-.filter-ops-leave-active{
-  transition: 300ms cubic-bezier(0.17, 0.14, 0.73, 0.94);    
+.filter-ops-leave-active {
+  transition: 300ms cubic-bezier(0.17, 0.14, 0.73, 0.94);
 }
 
-.selected{
-    color: #f3887f;
-    opacity: 1;
+.selected {
+  color: #f3887f;
+  opacity: 1;
 }
 </style>

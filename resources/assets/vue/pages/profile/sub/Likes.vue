@@ -5,7 +5,7 @@
         <ItemCard :item-id="item" />
       </div>
     </WrapperCardListTitled>
-    <div v-if="likedItems.length % 8 === 0" class="getMore">
+    <div v-if="likedItems.length % 8 === 0 && likedItems.length !== 0" class="getMore">
       <a @click.prevent="loadmoreItems" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
     </div>
     <WrapperCardListTitled title="Liked Sets" url="#" :more="'false'">
@@ -13,7 +13,7 @@
         <SetCard :set-id="set" />
       </div>
     </WrapperCardListTitled>
-    <div v-if="likedSets.length % 8 === 0" class="getMore">
+    <div v-if="likedSets.length % 8 === 0 && likedSets.length!==0" class="getMore">
       <a @click.prevent="loadmoreSets" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
     </div>
     <br>

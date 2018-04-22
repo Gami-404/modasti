@@ -49,10 +49,14 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Color :</div>
-									<select required v-model="form.color" type="text" class="inputEle" placeholder="set Color">
-										<option hidden value="">...</option>
-										<option v-for="color of getColors" :key="color.id" :value="color.id" style="height:50px;" > <div :style="'height:20px; width:20px; background:'+color.value" ></div> </option>
-									</select>
+										<div class="retailer-dropdown">
+											<div required type="text" class="inputEle">
+											<div v-for="color of selectedColors" :key="color.id" :style="colorBlockStyle(color.value)"></div>
+											</div>
+											<div class="retailer-dropdown-content">
+											<div v-for="color of getColors" :key="color.id" :style="colorBlockStyle(color.value)" @click="toggleSelectColor(color.id)"></div>
+											</div>
+										</div>
 								</div>
 							</div>
 							<div class="mycol-md-6">
@@ -64,9 +68,10 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size :</div>
-									<vue-tags-input v-model="size" :tags="selectedSizes" :autocompleteItems="getSizesFilterd" :addOnlyFromAutocomplete="true" placeholder="Add Size" @tags-changed="newTags => selectedSizes = newTags" >
-										<div slot="tagActions" slot-scope="props" > 
-											&nbsp;	<i @click="props.performDelete(props.item)" class="fa fa-close"></i>
+									<vue-tags-input v-model="size" :tags="selectedSizes" :autocompleteItems="getSizesFilterd" :addOnlyFromAutocomplete="true" placeholder="Add Size" @tags-changed="newTags => selectedSizes = newTags">
+										<div slot="tagActions" slot-scope="props">
+											&nbsp;
+											<i @click="props.performDelete(props.item)" class="fa fa-close"></i>
 										</div>
 									</vue-tags-input>
 								</div>
@@ -129,7 +134,7 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmMd fontLarger">&nbsp;</div>
 								<div class="clearfix">
-                  <router-link to="/retailer/allitems" class="BF_btn">Cancel</router-link>									
+									<router-link to="/retailer/allitems" class="BF_btn">Cancel</router-link>
 									<button type="submit" class="BF_btn sbmt"> {{ sending ? 'Loading...' : 'Submit' }} </button>
 								</div>
 							</div>
@@ -175,15 +180,20 @@ export default {
       loadig: true,
       sending: false,
       errors: [],
-      selectedSizes: [],
+			selectedSizes: [],
+			selectedColors:[],
       size: "",
       currency
     };
   },
   computed: {
-		...mapGetters(["getColors", "getSizes", "categories"]),
-		getSizesFilterd(){
-			return this.getSizes.map( size => ({ text: size || "none" }) ).filter(i => new RegExp(this.size, 'i').test(i.text)) || []
+    ...mapGetters(["getColors", "getSizes", "categories"]),
+    getSizesFilterd() {
+      return (
+        this.getSizes
+          .map(size => ({ text: size || "none" }))
+          .filter(i => new RegExp(this.size, "i").test(i.text)) || []
+      );
 		}
   },
   created() {
@@ -191,10 +201,12 @@ export default {
       this.$store.dispatch("get_colors"),
       this.$store.dispatch("get_sizes"),
       this.$store.dispatch("get_categories")
-		]).then(() => { this.loadig = false; });
-    
+    ]).then(() => {
+      this.loadig = false;
+    });
   },
   methods: {
+		// process image and conver it to base64
     processFile(e) {
       let input = e.target;
       if (input.files && input.files[0]) {
@@ -206,13 +218,18 @@ export default {
       }
     },
     submit() {
-      this.sending = true;
+			this.sending = true;
+			// check on image
       if (!this.form.image) {
         this.sending = false;
         this.errors.push("Item image is required");
         return;
 			}
-      this.form.size = this.selectedSizes.map( i => i.text ).join(",");
+			// arrays (selectedSizes and selectedColors) to comma separated 
+			this.form.size = this.selectedSizes.map(i => i.text).join(",");
+			this.form.color = this.selectedColors.map(c => c.id).join(",");
+
+			// Send Form Data
       this.$store
         .dispatch("add_new_item", this.form)
         .then(() => {
@@ -229,7 +246,23 @@ export default {
             this.$router.push("/500");
           }
         });
-    }
+		},
+		colorBlockStyle(color){
+			return 'height:20px; width:30px; background:'+color+'; display:inline-block; margin:3px; border:1px solid #000; margin-top:10px';
+		},
+		toggleSelectColor(colorId){
+			
+			//for multi color select
+			// if(this.selectedColors.find(c => c.id == colorId)){
+			// 	this.selectedColors = this.selectedColors.filter(c => c.id != colorId);
+			// }else{
+			// 	this.selectedColors.push(this.getColors.find( c => c.id == colorId));
+			// }
+
+			// ## to force selecting 1 color
+			this.selectedColors = [];				
+			this.selectedColors.push(this.getColors.find( c => c.id == colorId));
+		}
   }
 };
 </script>
@@ -248,11 +281,31 @@ export default {
   height: 40px !important;
   border: #fff !important;
 }
-.tag.valid{
-	background: #2b2a2a !important;
-	font-size: 1em;
+.tag.valid {
+  background: #2b2a2a !important;
+  font-size: 1em;
 }
-.item.valid.selected-item{
-	background-color: #000;
+.item.valid.selected-item {
+  background-color: #000;
+}
+
+.retailer-dropdown {
+  position: relative;
+	width: 100%;
+  display: inline-block;
+}
+
+.retailer-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.retailer-dropdown:hover .retailer-dropdown-content {
+  display: block;
 }
 </style>

@@ -32,4 +32,7 @@ export default {
     min-width: 99vw;
     min-height: 100vh;
 }
+.productCard .avatar{
+    height: 380px;
+}
 </style>

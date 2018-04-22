@@ -48,12 +48,16 @@
               </div>
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
-                  <div class="mrgBtmMd fontLarger">Color :</div>
-                  <select required v-model="form.color" type="text" class="inputEle" placeholder="set Color">
-                    <option hidden value="">...</option>
-                    <option v-for="color of getColors" :key="color.id" :value="color.id">{{color.name}}</option>
-                  </select>
-                </div>
+									<div class="mrgBtmMd fontLarger">Color :</div>
+										<div class="retailer-dropdown">
+											<div required type="text" class="inputEle">
+											<div v-for="color of selectedColors" :key="color.id" :style="colorBlockStyle(color.value)"></div>
+											</div>
+											<div class="retailer-dropdown-content">
+											<div v-for="color of getColors" :key="color.id" :style="colorBlockStyle(color.value)" @click="toggleSelectColor(color.id)"></div>
+											</div>
+										</div>
+								</div>
               </div>
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
@@ -176,6 +180,7 @@ export default {
       loadig: true,
       sending: false,
       selectedSizes: [],
+			selectedColors:[],      
       size: "",
       errors: [],
       currency
@@ -193,6 +198,7 @@ export default {
       .then(res => {
         this.form = res.data.data;
         this.selectedSizes = this.form.size.split(",").map( i => ({ text: i }) );
+        this.selectedColors = this.form.color;  
         this.form.sizeSystem = this.form.sizeSystem.toLowerCase();
         this.form.itemId = this.$route.params.myItemId;
         this.form.imageOriginal = this.form.image;
@@ -233,7 +239,22 @@ export default {
             this.$router.push("/500");
           }
         });
-    }
+    },
+    colorBlockStyle(color){
+			return 'height:20px; width:30px; background:'+color+'; display:inline-block; margin:3px; border:1px solid #000; margin-top:10px';
+		},
+		toggleSelectColor(colorId){
+			//for multi color select
+			// if(this.selectedColors.find(c => c.id == colorId)){
+			// 	this.selectedColors = this.selectedColors.filter(c => c.id != colorId);
+			// }else{
+			// 	this.selectedColors.push(this.getColors.find( c => c.id == colorId));
+			// }
+
+			// ## to force selecting 1 color
+			this.selectedColors = [];				
+			this.selectedColors.push(this.getColors.find( c => c.id == colorId));
+		}
   }
 };
 </script>
@@ -258,5 +279,24 @@ export default {
 }
 .item.valid.selected-item{
 	background-color: #000;
+}
+.retailer-dropdown {
+  position: relative;
+	width: 100%;
+  display: inline-block;
+}
+
+.retailer-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.retailer-dropdown:hover .retailer-dropdown-content {
+  display: block;
 }
 </style>

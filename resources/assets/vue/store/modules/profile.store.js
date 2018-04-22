@@ -1,7 +1,10 @@
 import API from "../API";
 
 const emptyState = {
-  searchResults: [],
+  searchResults: {
+    users: [],
+    offset: 0
+  },
   userProfile: {},
   userSets: [],
   followers: [],
@@ -31,7 +34,7 @@ const getFreshState = () =>
 
 // getters
 const getters = {
-  userSearchResults: state => state.searchResults,
+  userSearchResults: state => state.searchResults.users,
   userProfile: state => state.userProfile,
   userSets: state => state.userSets,
   userCollections: state => state.userCollections,
@@ -129,14 +132,14 @@ const actions = {
   search_user({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("ADD_USERS", res.data.data);
+      commit("ADD_USERS", res.data.data,{root:true});
       commit("SEARCH_RESULTS", res.data.data.map(user => user.id));
     });
   },
   search_user_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("ADD_USERS", res.data.data);
+      commit("ADD_USERS", res.data.data,{root:true});
       commit("SEARCH_RESULTS_MORE", res.data.data.map(user => user.id));
     });
   },
@@ -179,16 +182,16 @@ const mutations = {
     state.userProfile.email = data.email;
   },
   SEARCH_RESULTS_OFFSET({ offsets }) {
-    offsets.search += 5;
+    offsets.search += 8;
   },
   SEARCH_RESULTS_OFFSET_RESET({ offsets }) {
     offsets.search = 0;
   },
-  SEARCH_RESULTS({ searchResults }, data) {
-    searchResults = data;
+  SEARCH_RESULTS( state, data) {
+    state.searchResults.users = data;
   },
-  SEARCH_RESULTS_MORE({ searchResults }, data) {
-    searchResults.concat(data);
+  SEARCH_RESULTS_MORE(state, data) {
+    state.searchResults.users = state.searchResults.users.concat(data);
   }
 };
 
