@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use Dot\Categories\Models\Category as Model;
-use Dot\Posts\Models\Post;
 
 class Category extends Model
 {
