@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Category;
+use App\Model\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +37,17 @@ class CategoriesController extends Controller
             $data['errors'][] = 'Category not found';
             return response()->json($data);
         }
-        $items = $category->items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        $items = collect();
+        if ($category->parent != 0) {
+            $items = $category->items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        } else {
+            $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
+            $categoriesIds[] = $category->id;
+            $items = Post::with('image', 'brand', 'user')->
+            whereHas('categories', function ($query) use ($categoriesIds) {
+                $query->whereIn('category_id', $categoriesIds);
+            })->take($limit)->offset($offset)->get();
+        }
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
     }
