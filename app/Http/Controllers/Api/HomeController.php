@@ -127,7 +127,11 @@ class HomeController extends Controller
                 $query->whereIn('size', $request->get('sizes'));
             });
         }
-
+        if ($request->filled('categoryId')) {
+            $query->whereHas('categories', function ($query) use ($request) {
+                $query->whereIn('category_id', $request->get('categoryId'));
+            });
+        }
         $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'ASC'))
             ->take($limit)
             ->offset($offset)
