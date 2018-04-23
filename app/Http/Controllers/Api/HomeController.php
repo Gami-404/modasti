@@ -141,4 +141,18 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * POST api/home
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function home(Request $request){
+        $data = ['data' => [], 'errors' => []];
+        $items_most_popular=Post::with('image')->orderBy('views','desc')->take(8)->get();
+        $data['items_most_popular']=\Maps\Item\items($items_most_popular);
+
+//        $data['sets_best_from_community']=
+
+    }
+
 }
