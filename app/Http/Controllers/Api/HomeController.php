@@ -115,20 +115,20 @@ class HomeController extends Controller
 
         $query = Post::with('image');
 
-        if ($request->filled('brands')) {
+        if ($request->filled('brands') && count($request->get('brands'))) {
             $query->whereHas('brand', function ($query) use ($request) {
                 $query->whereIn('id', $request->get('brands', []));
             });
         }
-        if ($request->filled('colors')) {
+        if ($request->filled('colors')&& count($request->get('colors'))) {
             $query->whereIn('color_id', $request->get('colors', []));
         }
 
-        if ($request->filled('coverage')) {
+        if ($request->filled('coverage')&&count($request->get('coverage'))) {
             $query->whereIn('coverage', $request->get('coverage', []));
         }
 
-        if ($request->filled('sizes')) {
+        if ($request->filled('sizes')&&count($request->get('sizes'))) {
             $query->whereHas('sizes', function ($query) use ($request) {
                 $query->whereIn('size', $request->get('sizes'));
             });
