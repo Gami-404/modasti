@@ -97,7 +97,7 @@ class ExportsController extends Controller
         $prev = null;
         foreach ($names as $name) {
             $category = DB::table('categories')
-                ->whereRaw('`name` COLLATE UTF8_GENERAL_CI LIKE \'%' . $name . '%\'')
+                ->whereRaw('`name` COLLATE UTF8_GENERAL_CI LIKE \'%' . trim($name) . '%\'')
                 ->first();
             if ($category) {
                 $ids[] = $category->id;
@@ -106,7 +106,7 @@ class ExportsController extends Controller
             }
             $category = new Category();
 
-            $category->name = $name;
+            $category->name = trim($name) ;
             $category->lang = "en";
             $category->user_id = Auth::user()->id;
             $category->status = 1;
