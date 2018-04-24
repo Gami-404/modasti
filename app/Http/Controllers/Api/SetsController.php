@@ -25,6 +25,8 @@ class SetsController extends Controller
         if (!$set) {
             return response()->json($data, 400);
         }
+        $set->views++;
+        $set->save();
         $data['set'] = \Maps\Set\setDetails($set, true);
         return response()->json($data, 200);
     }

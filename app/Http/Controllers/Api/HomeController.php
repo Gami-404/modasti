@@ -104,7 +104,7 @@ class HomeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'orderby' => 'in:id,price,title,created_at,updated_at',
-            'order' => 'in:desc,asc',
+            'order' => 'in:DESC,ASC',
         ]);
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
@@ -127,7 +127,11 @@ class HomeController extends Controller
                 $query->whereIn('size', $request->get('sizes'));
             });
         }
-
+        if ($request->filled('categoryId')) {
+            $query->whereHas('categories', function ($query) use ($request) {
+                $query->whereIn('category_id', $request->get('categoryId'));
+            });
+        }
         $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'DESC'))
             ->take($limit)
             ->offset($offset)
@@ -135,6 +139,20 @@ class HomeController extends Controller
 
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
+    }
+
+    /**
+     * POST api/home
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function home(Request $request){
+        $data = ['data' => [], 'errors' => []];
+        $items_most_popular=Post::with('image')->orderBy('views','desc')->take(8)->get();
+        $data['items_most_popular']=\Maps\Item\items($items_most_popular);
+
+//        $data['sets_best_from_community']=
+
     }
 
 }
