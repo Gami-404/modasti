@@ -6,7 +6,7 @@ use App\Model\Collection;
 use App\Model\Post;
 use App\Model\Set;
 use App\User;
-use Dot\Categories\Models\Category;
+use App\Model\Category;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
@@ -139,7 +139,6 @@ class HomeController extends Controller
             if ($category->parent == 0) {
                 $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
                 $categoriesIds[] = $category->id;
-                dd($categoriesIds);
             }
             $query->whereHas('categories', function ($query) use ($request, $categoriesIds) {
                 $query->whereIn('category_id', $categoriesIds);
