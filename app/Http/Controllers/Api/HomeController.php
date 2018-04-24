@@ -125,7 +125,7 @@ class HomeController extends Controller
         }
 
         if ($request->filled('coverage')) {
-            $query->where('coverage', $request->get('coverage', 0));
+            $query->whereIn('coverage', $request->get('coverage', []));
         }
 
         if ($request->filled('sizes')) {
