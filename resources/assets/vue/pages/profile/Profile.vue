@@ -19,7 +19,7 @@
                 <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
                 <router-link v-if="!isCurrUser" to="/profile/edit" class="topHeadBtn brandBg blackColor">Follow</router-link>
                 <div v-if="!isCurrUser" class="TUP_otherBtns">
-                    <a href="#" class="mainBtn">Block</a>
+                    <a href="#" :disabled="blockBtnLoading" @click.prevent="toggleBlock" class="mainBtn">{{ blockBtnLoading ? "Loading..":user.is_blocked ? "Unblock":"Block"}}</a>
                     <router-link :to="'?popup=new_message&userId='+user.id" class="mainBtn">send Message</router-link>
                 </div>
             </div>
@@ -56,7 +56,7 @@ export default {
     WrapperPopups
   },
   data() {
-    return { loading: true };
+    return { loading: true, blockBtnLoading: false };
   },
   computed: {
     user() {
@@ -70,24 +70,27 @@ export default {
     }
   },
   created() {
-    let id =
-      isNaN(this.$route.params.userId)
-        ? this.$store.getters.user.userId
-        :  this.$route.params.userId;
-    this.$store.dispatch("get_user_profile", id).then(() => {
-      this.loading = false;
-    }).catch( err => this.$router.push("/404") );
-    
+    this.load(this.$route.params.userId);
   },
   watch: {
     "$route.params.userId"(userId) {
-      let id =
-        isNaN( userId )
-          ? this.$store.getters.user.userId
-          : userId;
-      this.$store.dispatch("get_user_profile", id).then(() => {
-        this.loading = false;
-      }).catch( err => this.$router.push("/404") );
+      this.load(userId);
+    }
+  },
+  methods: {
+    load(userId) {
+      this.loading = true;
+      let id = isNaN(userId) ? this.$store.getters.user.userId : userId;
+      this.$store
+        .dispatch("get_user_profile", id)
+        .then(() => {
+          this.loading = false;
+        })
+        .catch(err => this.$router.push("/404"));
+    },
+    toggleBlock() {
+      this.blockBtnLoading = true;
+      this.$store.dispatch("toggle_block").then(() => {});
     }
   }
 };

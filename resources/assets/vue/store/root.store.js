@@ -146,7 +146,10 @@ const mutations = {
     },
     BRANDS(state, brands){
         state.brands = brands;
-    }
+    },
+    FREASH_PROFILE_STATE(state,newState){
+        state._profile = newState;
+    },
 };
 
 export default {

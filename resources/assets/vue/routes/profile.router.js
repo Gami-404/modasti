@@ -21,7 +21,7 @@ export default [
     meta:{ requiresAuth : true },
     children: [
       {
-        path: "blockedusers",
+        path: "blocked",
         component: ProfileBlocked
       },
       {
@@ -40,10 +40,6 @@ export default [
         path: "following",
         component: ProfileFollowing
       },
-      // {
-      //   path: "items",
-      //   component: ProfileItems
-      // },
       {
         path: "likes",
         component: ProfileLikes

@@ -18,11 +18,10 @@ const state = {
     offset: 0
   },
   filters: {
-    byBrand: { _counter: 0 },
-    byColor: { _counter: 0, "#000": false, "#fff": false },
-    byPrice: { _counter: 0 },
-    bySize: { _counter: 0 },
-    sub: -1
+    brands: {},
+    colors: {},
+    sizes: {},
+    priceOrder: {}
   },
   offsets: {
     feed: 0,
@@ -43,36 +42,11 @@ const getters = {
   categoryItems: state => state.category.items,
   itemSearchResults: state => state.searchResults.items,
   filters: state => state.filters,
-  filterOptions: state => {
-    let options = {};
-    Object.keys(state.filters).forEach(key => {
-      let keys = Object.keys(state.filters[key]);
-      keys.splice(keys.indexOf("_counter"), 1);
-      keys.length > 0 ? (options[key] = keys) : null;
-    });
-    return options;
-  },
-  categoryFiltered: (state, _, __, rootGetters) =>
-    state.category.items
-      ? rootGetters
-          .getItems(state.category.items)
-          .filter(item => {
-            return (
-              state.filters.sub == -1 || item.categories_id == state.filters.sub
-            );
-          })
-          .filter(
-            item =>
-              state.filters.byBrand._counter == 0 ||
-              state.filters.byBrand[item.brand]
-          )
-          .filter(
-            item =>
-              state.filters.byColor._counter == 0 ||
-              state.filters.byColor[item.color]
-          )
-          .map(item => item.id)
-      : []
+  colors: state => state.filters.colors,
+  sizes: state => state.filters.sizes,
+  brands: state => state.filters.brands,
+  coverage: state => state.filters.coverage,
+  priceOrder: state => state.filters.priceOrder
 };
 
 // helper function !
@@ -80,7 +54,7 @@ const search = (searchString, offset) =>
   API.post("/search", {
     searchString: searchString,
     searchArea: "items",
-    offset: offset,
+    offset: offset
   });
 
 // actions
@@ -113,18 +87,18 @@ const actions = {
     return API.post("/homeFeeds", {
       offset: state.offsets.feed,
       limit: 8
-    }).then( res =>{
+    }).then(res => {
       // commet feed
-      commit("FEED",res.data.data)
+      commit("FEED", res.data.data);
     });
   },
   get_trending({ commit, state }) {
     return API.post("/browsePopular", {
       offset: state.offsets.trending,
       limit: 8
-    }).then( res=>{
-      commit("ADD_ITEMS",res.data.data.items, {root:true});
-      commit("TRENDING",res.data.data.items.map(item=> item.id))
+    }).then(res => {
+      commit("ADD_ITEMS", res.data.data.items, { root: true });
+      commit("TRENDING", res.data.data.items.map(item => item.id));
     });
   },
   get_categories({ commit }) {
@@ -132,38 +106,42 @@ const actions = {
       commit("CATEGORIES", res.data.data);
     });
   },
-  get_category_items({ commit, state }, name) {
+  get_category_items({ commit, state }, catId) {
+    return API.post("/filter", {
+      categoryId: catId
+    }).then(res => {
+      res.data.data = res.data.data
+        .slice(0, 100)
+        .filter(item => item.title_en != "");
+      commit("ADD_ITEMS", res.data.data);
+      commit("CATEGORY_ITEMS", {
+        items: res.data.data.map(item => item.id),
+        id: catId
+      });
+      commit("CATEGORY", catId);
+    });
+  },
+  get_category_items_by_name({ commit, state, dispatch }, name) {
     let catId = state.catIdMap[name];
     if (!catId) return Promise.reject(new Error("category not found"));
-    if (state.categories[catId]["items"]) {
-      commit("CATEGORY", catId);
-      return Promise.resolve();
-    } else {
-      return API.post("/getItemsFromCategory", {
-        categoryId: catId
-      }).then(res => {
-        res.data.data = res.data.data
-          .slice(0, 100)
-          .filter(item => item.title_en != "");
-        commit("ADD_ITEMS", res.data.data);
-        commit("CATEGORY_ITEMS", {
-          items: res.data.data.map(item => item.id),
-          id: catId
-        });
-        commit("CATEGORY", catId);
-      });
-    }
+    return dispatch("get_category_items", catId);
+  },
+  get_category_items_filterd({dispatch}){
+    let colors = Object.key(state.filters.colors).map(key => {
+     return state.filters.colors[key].isSelected ? state.filters.colors[key] : null;
+    });
+    console.log(colors);
   },
   search_item({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
-      commit("ADD_ITEMS", res.data.data,{root:true});
+      commit("ADD_ITEMS", res.data.data, { root: true });
       commit("SEARCH_RESULTS_OFFSET");
       commit("SEARCH_RESULTS", res.data.data.map(item => item.id));
     });
   },
   search_item_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
-      commit("ADD_ITEMS", res.data.data,{root:true});
+      commit("ADD_ITEMS", res.data.data, { root: true });
       commit("SEARCH_RESULTS_OFFSET");
       commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id));
     });
@@ -173,7 +151,19 @@ const actions = {
   },
   like_item_toggle({ commit }) {
     commit("LIKE_ITEM_TOGGLE");
+  },
+  map_filters({ commit, rootGetters }) {
+    let sizes = {};
+    rootGetters.getSizes.forEach(size => size && (sizes[size] = { id: size }));
+    let colors = {};
+    rootGetters.getColors.forEach(color => (colors[color.id] = color));
+    let brands = {};
+    rootGetters.getBrands.forEach(brand => (brands[brand.id] = brand));
+
+    commit("MAP_FILTERS", { sizes, colors, brands });
+    console.log(rootGetters.getColors);
   }
+  // get_filterd({ commit }) {}
 };
 
 // mutations
@@ -187,19 +177,20 @@ const mutations = {
     home.setsBestFromModasti = data.sets_best_from_modasti;
     home.setsBestFromCommunity = data.sets_best_from_community;
   },
-  TRENDING(state,data){
+  TRENDING(state, data) {
     state.trending = state.trending.concat(data);
-    state.offsets.trending+=8;
+    state.offsets.trending += 8;
   },
-  FEED(state,data){
+  FEED(state, data) {
     state.feed = state.feed.concat(data);
-    state.offsets.feed+=8;
+    state.offsets.feed += 8;
   },
   CATEGORIES(state, data) {
     let temp = {};
     for (let key in data) {
       temp[data[key].id] = data[key];
       state.catIdMap[key.toLocaleLowerCase()] = data[key].id;
+      data[key].subcategories.forEach(sub => (temp[sub.id] = sub));
       delete data[key];
     }
     state.categories = temp;
@@ -219,21 +210,39 @@ const mutations = {
   SEARCH_RESULTS_OFFSET_RESET({ searchResults }) {
     searchResults.offset = 0;
   },
-  SEARCH_RESULTS( state , data) {
+  SEARCH_RESULTS(state, data) {
     state.searchResults.items = data;
   },
-  SEARCH_RESULTS_MORE( state , data) {
+  SEARCH_RESULTS_MORE(state, data) {
     state.searchResults.items = state.searchResults.items.concat(data);
   },
+  MAP_FILTERS(state, filters) {
+    filters.cat = -1;
+    filters.priceOrder = {
+      1: { id: 1, title: "From High To Low" },
+      2: { id: 2, title: "From Low To High" }
+    };
+    filters.coverage = {
+      1: { id: 1, title: "low" },
+      2: { id: 2, title: "medium" },
+      3: { id: 3, title: "high" },
+      4: { id: 4, title: "full" }
+    };
+    state.filters = filters;
+  },
   ADD_FILTER(state, payload) {
-    if (state.filters[payload.filter][payload.val]) return;
-    state.filters[payload.filter][payload.val] = true;
-    state.filters[payload.filter]._counter++;
+    if (!state.filters[payload.filter][payload.id]) return;
+    state.filters[payload.filter][payload.id].isSelected = true;
+    state.filters[payload.filter][payload.id] = {
+      ...state.filters[payload.filter][payload.id]
+    };
   },
   REMOVE_FILTER(state, payload) {
-    if (!state.filters[payload.filter][payload.val]) return;
-    state.filters[payload.filter][payload.val] = false;
-    state.filters[payload.filter]._counter--;
+    if (!state.filters[payload.filter][payload.id]) return;
+    state.filters[payload.filter][payload.id].isSelected = false;
+    state.filters[payload.filter][payload.id] = {
+      ...state.filters[payload.filter][payload.id]
+    };
   },
   CHANGE_FILTER_SUB(state, id) {
     state.filters.sub = id;

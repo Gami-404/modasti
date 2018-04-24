@@ -25,11 +25,16 @@
 
           <div class="mycol-md-4">
             <div class="mrgBtmLg">
-              <div class="mrgBtmMd">Edit name</div>
+              <div class="mrgBtmMd">First name</div>
               <input v-model="form.firstName" type="text" class="inputEle" required>
             </div>
           </div>
-
+          <div class="mycol-md-4">
+            <div class="mrgBtmLg">
+              <div class="mrgBtmMd">Last name</div>
+              <input v-model="form.lastName" type="text" class="inputEle" required>
+            </div>
+          </div>
           <div class="mycol-md-4">
             <div class="mrgBtmLg">
               <div class="mrgBtmMd">Edit Email</div>
@@ -62,8 +67,8 @@ export default {
   data() {
     return {
       form: {
-        firstName: this.$store.getters.user.name,
-        lastName: "",
+        firstName: this.$store.getters.user.name.split(' ')[0],
+        lastName: this.$store.getters.user.name.split(' ')[1],
         userName: "",
         email: this.$store.getters.user.email,
         currentPassword: "",
@@ -85,7 +90,8 @@ export default {
         this.btnText = "Saved";
         setTimeout(() => {
           this.$store.dispatch("logout");
-        }, 2000);
+          this.$router.push({query:{popup:'login'}})
+        }, 500);
       });
     }
   }

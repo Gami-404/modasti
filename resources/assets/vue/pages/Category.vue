@@ -2,13 +2,13 @@
   <div id="category">
     <div class="topCategories whiteBg">
       <div v-if="category" class="gridContainer">
-        <a v-for="sub of category.subcategories" :key="sub.id" @click.prevent="selectSub(sub.id)" href="#" :class="{  'curr' : sub.id == subId }">{{sub.title}}</a>
+        <router-link v-for="sub of category.subcategories" :key="sub.id" :to="category.title.toLowerCase()+'/'+sub.id" active-class="curr">{{sub.title}}</router-link>
       </div>
     </div>
     <div class="gridContainer">
       <ClothingFilter/>
       <WrapperCardList v-if="category">
-        <div v-for="item in categoryFiltered" :key='item' class="mycol-lg-3 mycol-sm-6">
+        <div v-for="item in categoryItems" :key='item' class="mycol-lg-3 mycol-sm-6">
           <ItemCard :item-id="item" />
         </div>
       </WrapperCardList>
@@ -44,27 +44,30 @@ export default {
   },
   created() {
     this.$store.dispatch("get_categories").then(() => {
-      this.$store
-        .dispatch("get_category_items", this.$route.params.name)
-        .then(() => {
+      this.loadItems(this.$route.params.name,this.$route.params.subCat).then(() => {
           Promise.all([
             this.$store.dispatch("get_colors"),
             this.$store.dispatch("get_brands"),
             this.$store.dispatch("get_sizes")
-          ]).then(() => (this.loading = false));
-        })
-        .catch(err => {
-          this.$router.push("/404");
-          console.error(err);
+          ]).then(() => {
+            this.loading = false;
+            this.$store.dispatch("map_filters");
+          });
         });
     });
   },
   watch: {
-    "$route.params.name"(name) {
+    "$route.params"({name,subCat}) {
       if (!name) return;
+      this.loadItems(name,subCat);
+    }
+  },
+  methods: {
+    loadItems(name,subCat) {
       this.loading = true;
-      this.$store
-        .dispatch("get_category_items", this.$route.params.name)
+      if(subCat){
+        return this.$store
+        .dispatch("get_category_items", subCat)
         .then(() => {
           this.loading = false;
         })
@@ -72,12 +75,20 @@ export default {
           this.$router.push("/404");
           console.error(err);
         });
-    }
-  },
-  methods: {
-    selectSub(id) {
-      this.$store.commit("CHANGE_FILTER_SUB", id);
-    }
+      }
+      else{
+        return this.$store
+        .dispatch("get_category_items_by_name", name)
+        .then(() => {
+          this.loading = false;
+        })
+        .catch(err => {
+          this.$router.push("/404");
+          console.error(err);
+        });
+      }
+    },
+    
   }
 };
 </script>

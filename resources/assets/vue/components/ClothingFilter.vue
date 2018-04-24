@@ -8,27 +8,27 @@
         </span>
         <div class="in">
           <div class="one">
-            <div @click="showOptions('byColor')" class="title dropdownTitle">colors
+            <div @click="showOptions('colors')" class="title dropdownTitle">colors
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div class="title dropdownTitle">coverage
+            <div @click="showOptions('coverage')" class="title dropdownTitle">coverage
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div class="title dropdownTitle">Price
+            <div @click="showOptions('priceOrder')" class="title dropdownTitle">Price
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div class="title dropdownTitle">size
+            <div @click="showOptions('sizes')" class="title dropdownTitle">size
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div class="title dropdownTitle">brand
+            <div @click="showOptions('brands')" class="title dropdownTitle">brand
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
@@ -39,8 +39,12 @@
     <transition name="filter-ops">
       <div v-if="filter" class="topCategories whiteBg filterops">
         <div class="gridContainer">
-          <a v-if="filter!=='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :class="{ 'selected' : filters[filter][val] }" href="#">{{val}}</a>
-          <div v-if="filter ==='byColor'" v-for="val of vals" :key="val" @click.prevent="toggleFilter(val)" :style="colorBlockStyle(val)"></div>
+          <div v-if="filter==='colors'">
+            <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
+          </div>
+          <div v-else>
+            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
+          </div>
         </div>
       </div>
     </transition>
@@ -54,7 +58,7 @@
 
 <script>
 import ClothingFilterMobile from "@/components/ClothingFilterMobile";
-
+import { mapGetters } from "vuex";
 export default {
   components: {
     ClothingFilterMobile
@@ -66,17 +70,9 @@ export default {
     };
   },
   computed: {
-    byColor() {
-      return this.$store.getters.filterOptions.byColor;
-    },
-    byBrand() {
-      return this.$store.getters.filterOptions.byBrand;
-    },
+    ...mapGetters(["filters", "colors", "sizes", "brands", "coverage","priceOrder"]),
     vals() {
       return this[this.filter];
-    },
-    filters() {
-      return this.$store.getters.filters;
     }
   },
   methods: {
@@ -84,31 +80,47 @@ export default {
       if (this.filter == filter) this.filter = "";
       else this.filter = filter;
     },
-    toggleFilter(val) {
-      if (this.filters[this.filter][val]) this.remove(val);
-      else this.add(val);
+    toggleFilter(id) {
+      if (this.filter === "priceOrder") {
+        if (this.filters[this.filter][id].isSelected) {
+          this.remove(id);
+        } else {
+          this.add(id);
+          this.remove(id == 1 ? 2 : 1);
+        }
+      } else if (
+        this.filters[this.filter][id] &&
+        this.filters[this.filter][id].isSelected
+      )
+        this.remove(id);
+      else this.add(id);
     },
-    add(val) {
+    add(id) {
       this.$store.commit("ADD_FILTER", {
         filter: this.filter,
-        val
+        id
       });
     },
-    remove(val) {
+    remove(id) {
       this.$store.commit("REMOVE_FILTER", {
         filter: this.filter,
-        val
+        id
       });
     },
-    colorBlockStyle(color) {
+    colorBlockStyle(id) {
+      console.log(id);
+
       return (
         "height:20px; width:30px; background:" +
-        color +
+        this.filters[this.filter][id].value +
         "; display:inline-block; margin:3px; margin-top:10px;" +
-        (this.filters[this.filter][color]
-          ? "border:1px solid #000;"
+        (this.filters[this.filter][id].isSelected
+          ? "border:2px solid #000;"
           : "border:1px solid #b3b3b3;")
       );
+    },
+    filtering(){
+      this.$store.dispatch("get_category_items_filterd");
     }
   }
 };
@@ -133,7 +145,14 @@ export default {
 }
 
 .selected {
-  color: #f3887f;
+  color: #181717;
   opacity: 1;
+}
+.filteri {
+  width: auto;
+  border: 1px solid #000;
+  padding: 4px;
+  min-width: 60px;
+  text-align: center;
 }
 </style>

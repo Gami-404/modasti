@@ -103,8 +103,8 @@ class HomeController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'orderby' => 'required|in:id,price,title,created_at,updated_at',
-            'order' => 'required|in:desc,asc',
+            'orderby' => 'in:id,price,title,created_at,updated_at',
+            'order' => 'in:DESC,ASC',
         ]);
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
@@ -132,7 +132,7 @@ class HomeController extends Controller
                 $query->where('category_id', $request->get('categoryId'));
             });
         }
-        $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'ASC'))
+        $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'DESC'))
             ->take($limit)
             ->offset($offset)
             ->get();
