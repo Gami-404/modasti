@@ -129,7 +129,7 @@ class HomeController extends Controller
         }
         if ($request->filled('categoryId')) {
             $query->whereHas('categories', function ($query) use ($request) {
-                $query->whereIn('category_id', $request->get('categoryId'));
+                $query->where('category_id', $request->get('categoryId'));
             });
         }
         $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'ASC'))
@@ -146,12 +146,15 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function home(Request $request){
+    public function home(Request $request)
+    {
         $data = ['data' => [], 'errors' => []];
-        $items_most_popular=Post::with('image')->orderBy('views','desc')->take(8)->get();
-        $data['items_most_popular']=\Maps\Item\items($items_most_popular);
+        $items_most_popular = Post::with('image')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
 
-//        $data['sets_best_from_community']=
+        $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')->take(8)->get();
+        $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
+
 
     }
 

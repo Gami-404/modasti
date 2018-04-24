@@ -101,6 +101,15 @@ class Post extends Model
     }
 
     /**
+     * Status scope
+     * @param $query
+     */
+    public function scopeConfirmed($query)
+    {
+        $query->where("status", 1);
+    }
+
+    /**
      * Format scope
      * @param $query
      * @param $format
@@ -190,7 +199,7 @@ class Post extends Model
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class,"brand_id","id");
+        return $this->belongsTo(Brand::class, "brand_id", "id");
     }
 
     /**
@@ -210,7 +219,7 @@ class Post extends Model
     public function likes()
     {
         return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
-            ->where('type','item');
+            ->where('type', 'item');
     }
 
     /**

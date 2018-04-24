@@ -49,10 +49,12 @@ class ItemsController extends Controller
 
         if (count($object)) {
             $table->where($data)->delete();
+            $this->counterLikes($data['object_id'], $data['type'], false);
             $response = ['result' => "Like removed"];
             return response()->json($response, 200);
         }
         $table->insert($data);
+        $this->counterLikes($data['object_id'], $data['type'], true);
         $response = ['result' => "Like added"];
         return response()->json($response, 200);
     }
@@ -328,4 +330,22 @@ class ItemsController extends Controller
     }
 
 
+    /**
+     * Incrementing Functionality for likes
+     * @param $id
+     * @param $target
+     * @param bool $up
+     */
+    private function counterLikes($id, $target, $up = true)
+    {
+        if ($target == "item") {
+            $object = Post::where('id', $id)->first();
+            if ($up) {
+                $object->likes++;
+            } else {
+                $object->likes--;
+            }
+            $object->save();
+        }
+    }
 }
