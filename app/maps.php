@@ -7,6 +7,8 @@
 namespace Maps\User {
 
     use App\Model\Set;
+    use App\User;
+    use Illuminate\Support\Facades\DB;
 
     /**
      * Login Object Maps
@@ -45,7 +47,7 @@ namespace Maps\User {
             $newUser->following_counter = $user->following()->count();
             $newUser->follower_counter = $user->follower()->count();
             $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-            $newUser->is_blocked = $user->blocked_users()->where('user_id', fauth()->user()->id)->count() ? true : false;
+            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id'=> fauth()->user()->id,'blocked_id'=>$user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
             $newUser->photo = null;
             if ($newUser->photo) {
