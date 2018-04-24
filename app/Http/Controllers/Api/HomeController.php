@@ -6,6 +6,7 @@ use App\Model\Collection;
 use App\Model\Post;
 use App\Model\Set;
 use App\User;
+use Dot\Categories\Models\Category;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
@@ -103,6 +104,7 @@ class HomeController extends Controller
 
 
         $validator = Validator::make($request->all(), [
+            'categoryId' => 'required|exists:categories,id',
             'orderby' => 'in:id,price,title,created_at,updated_at',
             'order' => 'in:DESC,ASC',
         ]);
@@ -128,8 +130,14 @@ class HomeController extends Controller
             });
         }
         if ($request->filled('categoryId')) {
-            $query->whereHas('categories', function ($query) use ($request) {
-                $query->where('category_id', $request->get('categoryId'));
+            $category = Category::find($request->get('categoryId'));
+            $categoriesIds = [$category->id];
+            if ($category->parent == 0) {
+                $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
+                $categoriesIds[] = $category->id;
+            }
+            $query->whereHas('categories', function ($query) use ($request, $categoriesIds) {
+                $query->whereIn('category_id', $categoriesIds);
             });
         }
         $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'DESC'))
