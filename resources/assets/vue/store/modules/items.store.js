@@ -23,10 +23,13 @@ const state = {
     sizes: {},
     priceOrder: {}
   },
+  appliedFilters:{},
   offsets: {
+    category: 0,
     feed: 0,
     trending: 0
-  }
+  },
+  currentCategoryId: -1
 };
 
 // getters
@@ -107,18 +110,19 @@ const actions = {
     });
   },
   get_category_items({ commit, state }, catId) {
+    catId = catId || state.currentCategoryId; 
+    commit("CURRENT_CAT",catId);
+
     return API.post("/filter", {
-      categoryId: catId
+      categoryId: catId,
+      offset: state.offsets.category,
+      ...state.appliedFilters
     }).then(res => {
-      res.data.data = res.data.data
-        .slice(0, 100)
-        .filter(item => item.title_en != "");
       commit("ADD_ITEMS", res.data.data);
-      commit("CATEGORY_ITEMS", {
+      commit("CATEGORY", {
         items: res.data.data.map(item => item.id),
         id: catId
       });
-      commit("CATEGORY", catId);
     });
   },
   get_category_items_by_name({ commit, state, dispatch }, name) {
@@ -126,11 +130,31 @@ const actions = {
     if (!catId) return Promise.reject(new Error("category not found"));
     return dispatch("get_category_items", catId);
   },
-  get_category_items_filterd({dispatch}){
-    let colors = Object.key(state.filters.colors).map(key => {
-     return state.filters.colors[key].isSelected ? state.filters.colors[key] : null;
+  get_more_category_items({ commit, state }) {
+    return API.post("/filter", {
+      categoryId: state.currentCategoryId,
+      offset: state.offsets.category+8,
+      ...state.appliedFilters
+    }).then(res => {
+      commit("ADD_ITEMS", res.data.data);
+      commit("MORE_CATEGORY_ITEMS", res.data.data.map(item => item.id) );
     });
-    console.log(colors);
+  },
+  applyFilters({commit}){
+    let getFilterd = (obj) => Object.keys(obj).map( key => {
+      return obj[key].isSelected ? obj[key] : null;      
+    }).filter(c=>c).map(i=>i.id); 
+    let filter = {
+      brands:getFilterd(state.filters.coverage),
+      colors:getFilterd(state.filters.colors),
+      sizes:getFilterd(state.filters.sizes),
+      coverage:getFilterd(state.filters.brands),
+    };
+    if(state.filters.priceOrder[1].isSelected||state.filters.priceOrder[2].isSelected){
+      filter.orderby = "price"
+      filter.order= state.filters.priceOrder[1].isSelected ? "DESC":"ASC";
+    }
+    commit("APPLY_FILTERS",filter);
   },
   search_item({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
@@ -159,11 +183,8 @@ const actions = {
     rootGetters.getColors.forEach(color => (colors[color.id] = color));
     let brands = {};
     rootGetters.getBrands.forEach(brand => (brands[brand.id] = brand));
-
     commit("MAP_FILTERS", { sizes, colors, brands });
-    console.log(rootGetters.getColors);
   }
-  // get_filterd({ commit }) {}
 };
 
 // mutations
@@ -195,17 +216,21 @@ const mutations = {
     }
     state.categories = temp;
   },
-  CATEGORY_ITEMS(state, data) {
-    state.categories[data.id]["items"] = data.items.slice(0, 500);
-  },
-  CATEGORY(state, id) {
+  CATEGORY(state, data) {
     state.category = {
-      ...state.categories[id],
-      items: state.categories[id].items
+      ...state.categories[data.id],
+      items: data.items
     };
   },
+  MORE_CATEGORY_ITEMS(state, items) {
+    state.offsets.category += 8;
+    state.category.items = state.category.items.concat(items);
+  },
+  APPLY_FILTERS(state,filter){
+    state.appliedFilters = filter;
+  },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
-    searchResults.offset += 5;
+    searchResults.offset += 8;
   },
   SEARCH_RESULTS_OFFSET_RESET({ searchResults }) {
     searchResults.offset = 0;
@@ -248,12 +273,14 @@ const mutations = {
     state.filters.sub = id;
   },
   LIKE_ITEM_TOGGLE(state) {
-    console.log(state.item);
     if (state.item.title_en) {
       state.item.is_liked = !state.item.is_liked;
       state.item.is_liked ? state.item.likes++ : state.item.likes--;
       state.item = { ...state.item };
     }
+  },
+  CURRENT_CAT(state,id){
+    state.currentCategoryId = id;
   }
 };
 

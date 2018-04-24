@@ -32,7 +32,7 @@
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
-          <a href="#" class="theBtn">Apply</a>
+          <a href="#" @click.prevent="apply" class="theBtn">Apply</a>
         </div>
       </div>
     </div>
@@ -53,20 +53,24 @@
         <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
       </ClothingFilterMobile>
     </div>
+    <Loading v-if="loading" />
   </div>
 </template>
 
 <script>
 import ClothingFilterMobile from "@/components/ClothingFilterMobile";
+import Loading from "@/components/Loading";
 import { mapGetters } from "vuex";
 export default {
   components: {
-    ClothingFilterMobile
+    ClothingFilterMobile,
+    Loading
   },
   data() {
     return {
       filter: "",
-      mfilter: false
+      mfilter: false,
+      loading:false
     };
   },
   computed: {
@@ -119,8 +123,12 @@ export default {
           : "border:1px solid #b3b3b3;")
       );
     },
-    filtering(){
-      this.$store.dispatch("get_category_items_filterd");
+    apply(){
+      this.loading = true;
+      this.$store.dispatch("applyFilters");
+      this.$store.dispatch("get_category_items").then( ()=>{
+        this.loading=false;
+      });
     }
   }
 };

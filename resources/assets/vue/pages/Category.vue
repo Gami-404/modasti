@@ -12,6 +12,11 @@
           <ItemCard :item-id="item" />
         </div>
       </WrapperCardList>
+      <div v-if="categoryItems.length % 8 === 0 && categoryItems.length !== 0" class="getMore">
+        <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
+      </div>
+      <br>
+      <br>
     </div>
     <Loading v-if="loading" />
   </div>
@@ -33,7 +38,8 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      loadMoreLoading:false
     };
   },
   computed: {
@@ -63,6 +69,12 @@ export default {
     }
   },
   methods: {
+    loadmore() {
+      this.loadMoreLoading = true;
+      this.$store
+        .dispatch("get_more_category_items")
+        .then(() => (this.loadMoreLoading = false));
+    },
     loadItems(name,subCat) {
       this.loading = true;
       if(subCat){
