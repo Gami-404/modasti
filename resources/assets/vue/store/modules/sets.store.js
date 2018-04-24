@@ -2,7 +2,9 @@ import API from "../API";
 
 const state = {
   set: {},
-  setComments: []
+  setComments: [],
+  itemsToAdd: [],
+  offset: 0
 };
 
 // getters
@@ -18,7 +20,8 @@ const getters = {
             0
           )
           .toFixed(2)
-      : "000"
+      : "000",
+  itemsToAdd: state => id => state.itemsToAdd[id]
 };
 
 // actions
@@ -33,8 +36,8 @@ const actions = {
       commit("SET", res.data.data.set);
     });
   },
-  add_set({commit} , payload ){
-    return API.post("/addSet",payload).then()
+  add_set({ commit }, payload) {
+    return API.post("/addSet", payload);
   },
   remove_set({ commit }, setId) {
     return API.post("/deleteSet", {
@@ -53,12 +56,45 @@ const actions = {
       commit("SET_COMMENTS", res.data.data.comments);
     });
   },
-  add_comment_to_set({ commit , dispatch }, payload) {
+  add_comment_to_set({ commit, dispatch }, payload) {
     return API.post("/addCommentToSet", {
       setId: payload.setId,
       text: payload.comment,
       parentId: "0"
-    }).then(dispatch('get_set_comments',payload.setId));
+    }).then(dispatch("get_set_comments", payload.setId));
+  },
+  get_items_for_add_set_or_collection({ commit, state, rootGetters }) {
+    return Promise.all([
+      API.post("/getLikedItems", {
+        userId: rootGetters.userId,
+        offset: state.offset,
+        limit: 6
+      }),
+      API.post("/getItemsFromCategory", {
+        offset: state.offset,        
+        categoryId: 1
+      }),
+      API.post("/getItemsFromCategory", {
+        offset: state.offset,        
+        categoryId: 4
+      }),
+      API.post("/getItemsFromCategory", {
+        offset: state.offset,        
+        categoryId: 6
+      }),
+      API.post("/getItemsFromCategory", {
+        offset: state.offset,        
+        categoryId: 24
+      })
+    ]).then(resArray => {
+      resArray.forEach(res => {
+        commit("ADD_ITEMS", res.data.data, { root: true });
+      });
+      commit(
+        "ITEMS_FOR_ADD_SEST_AND_COLLECTION",
+        resArray.map(res => res.data.data)
+      );
+    });
   }
 };
 
@@ -80,6 +116,10 @@ const mutations = {
   SET_COMMENTS(state, data) {
     state.setComments = data;
   },
+  ITEMS_FOR_ADD_SEST_AND_COLLECTION(state, arrayOfData) {
+    state.offset += 6;
+    state.itemsToAdd = arrayOfData;
+  }
 };
 
 export default {

@@ -39,18 +39,18 @@
             </div>
             <div class="rightArea">
                 <div class="theTabs">
-                    <a href="#">clothing</a>
-                    <a href="#" class="active">shoes</a>
-                    <a href="#">beauty</a>
-                    <a href="#">my items</a>
+                    <a href="#" @click.prevent="view=0" :class="{'active':view==0}">Liked Items</a>
+                    <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
+                    <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
+                    <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
                 </div>
                 <div class="theProducts">
                     <div class="myrow clearfix">
                         <div v-for="(item,i) of items" :key="i" class="mycol-sm-4">
-                            <div @dragstart="dragStart" draggable="true" :src="item.image" :data-id="item.id" class="one">
+                            <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                                 <div class="avatar">
                                     <div class="verticalCentered">
-                                        <div class="theCell"><img :src="item.image" :data-id="item.id" alt=""></div>
+                                        <div class="theCell"><img :src="item['photos'][0]['photo_name']" :data-id="item.id" alt=""></div>
                                     </div>
                                 </div>
                                 <div class="name">{{item.title_en}}</div>
@@ -63,7 +63,7 @@
         </div>
         <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
             <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
-                <SetCreatePopup v-if="$route.query.popup=='create_set'" :base64-img="base64Img"></SetCreatePopup>
+                <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :base64-img="base64Img" :items="setItems"></SetCollectionAddPopup>
             </WrapperPopups>
         </transition>
     </div>
@@ -71,28 +71,37 @@
 <script>
 import Knova from "konva";
 import WrapperPopups from "@/wrappers/WrapperPopups";
-import SetCreatePopup from "@/layout/popups/SetCreatePopup";
+import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    SetCreatePopup,
+    SetCollectionAddPopup,
     WrapperPopups
   },
+  
   data() {
     return {
+      view:0,
       stage: {},
       layer: {},
       selected: null,
       itemsCounter: 0,
-      items: [
-        { image: "images/1.jpg", title_en: "HEEOEE", id: 1 },
-        { image: "images/1.jpg", title_en: "HEEOEE", id: 2 },
-        { image: "images/1.jpg", title_en: "HEEOEE", id: 3 }
-      ],
       flipBit: -1,
       base64Img: "",
-      setItems:[]
+      setItems:[],
+      loading:true
     };
+  },
+  computed:{
+      items(){
+        return this.$store.getters.itemsToAdd(this.view)
+      }
+  },
+  created(){
+    this.$store.dispatch("get_items_for_add_set_or_collection").then(() => {
+      this.loading = false;
+    });
   },
   mounted() {
     var width = this.$refs.droparea.offsetWidth - 20;
@@ -178,6 +187,7 @@ export default {
       this.layer.draw();
     },
     remove() {
+      if(!this.selected) return;
       this.itemsCounter--;
       let index = this.setItems.indexOf(this.selected.getId());
       this.setItems.splice(index, 1);
@@ -227,6 +237,8 @@ export default {
       this.itemsCounter++;
     },
     publish() {
+      console.log(this.stage.toDataURL());
+      
       this.$router.push({ query: { popup: "create_set" } });
       this.base64Img = this.stage.toDataURL();
     }

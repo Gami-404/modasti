@@ -2,7 +2,7 @@
   <div class="mycol-lg-3 mycol-md-4 mycol-sm-6">
     <div class="userCard textCentered">
       <div class="avatar"><img :src="user.photo && user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1' " alt=""></div>
-      <div class="name">{{user.fname|| user.username}}</div>
+      <router-link :to="'/profile/'+user.id" class="name">{{user.fname|| user.username}}</router-link>
       <!-- <div class="joined">{{date}}</div> -->
       <a href="#" @click.prevent="toggleFollow" class="followBtn" :class="{ 'follow': !following }">
         <i v-if="!canChange" class="fa fa-spinner fa-spin"></i>

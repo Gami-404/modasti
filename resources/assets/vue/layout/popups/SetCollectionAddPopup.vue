@@ -10,9 +10,9 @@
         </router-link>
       </div>
       <div class="content">
-        <form @submit.prevent="addSet" class="theForm">
-          <input type="test" class="formEle" placeholder="Set title" v-model="set.title" required>
-          <input type="text" class="formEle" placeholder="Description" v-model="set.description" required>
+        <form @submit.prevent="add" class="theForm">
+          <input type="test" class="formEle" placeholder="Set title" v-model="formData.title" required>
+          <input type="text" class="formEle" placeholder="Description" v-model="formData.description" required>
           <div v-for="(error,i) in errors" :key="i">
             <h4 class="errors">
               {{error}}
@@ -28,27 +28,31 @@
 
 <script>
 export default {
-  props:["base64Img","items"],
+  props:["submitType","base64Img","items","sets"],
   data() {
     return {
-      set:{
+      formData:{
         title:"",
         description:"",
         data:"",
         items:this.items,
-        image:this.base64Img
+        image:this.base64Img,
+        sets: this.sets
       },
       loading: false,
       errors: []
     };
   },
   methods: {
-    addSet() {
+    add() {
       this.loading = true;
       this.$store
-        .dispatch("add_set", this.set)
+        .dispatch("add_"+this.submitType, this.formData)
         .then(errors => {
-          if (errors.length == 0) this.$router.push({ path: "/profile/me/sets" , query: {} });
+          if (errors.length == 0) {
+            this.$router.push({ path: "/profile/me/"+this.submitType , query: {} });
+            window.location.reload();
+          }
           else this.errors = errors;
         })
         .finally(() => {

@@ -83,7 +83,7 @@ const router = new Router({
       component: Single
     },
     {
-      path: "/category/:name",
+      path: "/category/:name/:subCat(\\d)?",
       name: "category",
       component: Category
     },

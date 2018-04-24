@@ -1,6 +1,6 @@
 <template>
   <div class="gridContainer">
-    <WrapperCardListTitled title="Liked Items" url="#" :more="'false'">
+    <WrapperCardListTitled v-if="likedItems.length > 0" title="Liked Items" url="#" :more="'false'">
       <div v-for="item in likedItems" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />
       </div>
@@ -8,7 +8,7 @@
     <div v-if="likedItems.length % 8 === 0 && likedItems.length !== 0" class="getMore">
       <a @click.prevent="loadmoreItems" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
     </div>
-    <WrapperCardListTitled title="Liked Sets" url="#" :more="'false'">
+    <WrapperCardListTitled v-if="likedSets.length > 0" title="Liked Sets" url="#" :more="'false'">
       <div v-for="set in likedSets" :key="set" class="mycol-lg-3 mycol-sm-6">
         <SetCard :set-id="set" />
       </div>

@@ -1,6 +1,6 @@
 import API from "../API";
 
-const emptyState = {
+const emptyState = () => ({
   searchResults: {
     users: [],
     offset: 0
@@ -9,6 +9,7 @@ const emptyState = {
   userSets: [],
   followers: [],
   following: [],
+  blocked: [],
   liked: {
     items: [],
     sets: [],
@@ -23,14 +24,11 @@ const emptyState = {
     followers: 0,
     sets: 0,
     collections: 0,
-    search: 0
+    search: 0,
+    blocked: 0
   }
-};
-const state = JSON.parse(JSON.stringify(emptyState));
-const getFreshState = () =>
-  Promise.resolve({ emptyState })
-    .then(JSON.stringify)
-    .then(JSON.parse);
+});
+let state = emptyState();
 
 // getters
 const getters = {
@@ -40,6 +38,7 @@ const getters = {
   userCollections: state => state.userCollections,
   followers: state => state.followers,
   following: state => state.following,
+  blocked: state => state.blocked,
   likedItems: state => state.liked.items,
   likedSets: state => state.liked.sets,
   likedCollections: state => state.liked.collections
@@ -56,8 +55,8 @@ const search = (searchString, offset) =>
 
 // actions
 const actions = {
-  async get_user_profile({ commit, state }, id) {
-    state = await getFreshState();
+  get_user_profile({ commit }, id) {
+    commit("FREASH_PROFILE_STATE", emptyState(), { root: true });
     return API.post("/getProfile", {
       userId: id
     }).then(res => {
@@ -107,7 +106,7 @@ const actions = {
     return API.post("/getFollowersUsers", {
       userId: id
     }).then(res => {
-      commit("ADD_USERS" , res.data.data.users , {root:true});
+      commit("ADD_USERS", res.data.data.users, { root: true });
       commit("USER_FOLLOWERS", res.data.data.users.map(user => user.id));
     });
   },
@@ -115,15 +114,15 @@ const actions = {
     return API.post("/getFollowingUsers", {
       userId: id
     }).then(res => {
-      commit("ADD_USERS" , res.data.data.users , {root:true});      
+      commit("ADD_USERS", res.data.data.users, { root: true });
       commit("USER_FOLLOWING", res.data.data.users.map(user => user.id));
     });
   },
   update_user({ commit }, formData) {
-    Object.keys(formData).forEach( key => {
-      if(formData[key] == ""){
+    Object.keys(formData).forEach(key => {
+      if (formData[key] == "") {
         delete formData[key];
-      } 
+      }
     });
     return API.post("/profileUpdate", formData).then(() => {
       commit("UPDATE_USER_PROFILE", formData);
@@ -132,19 +131,33 @@ const actions = {
   search_user({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("ADD_USERS", res.data.data,{root:true});
+      commit("ADD_USERS", res.data.data, { root: true });
       commit("SEARCH_RESULTS", res.data.data.map(user => user.id));
     });
   },
   search_user_more({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
       commit("SEARCH_RESULTS_OFFSET");
-      commit("ADD_USERS", res.data.data,{root:true});
+      commit("ADD_USERS", res.data.data, { root: true });
       commit("SEARCH_RESULTS_MORE", res.data.data.map(user => user.id));
     });
   },
   search_user_offset_reset({ commit }) {
     commit("SEARCH_RESULTS_OFFSET_RESET");
+  },
+  toggle_block({ commit , state }) {
+    let userId = state.userProfile.id;
+    if(state.userProfile.is_blocked){
+      return API.post("unblockUser", { userId });
+    }else{
+      return API.post("blockUser", { userId });
+    }
+  },
+  get_blocked_users({ commit }) {
+    return API.post("listBlocked", {}).then(res => {
+      commit("ADD_USERS", res.data.data, { root: true });
+      commit("BLOCKED", res.data.data.map(user => user.id));
+    });
   }
 };
 
@@ -187,11 +200,15 @@ const mutations = {
   SEARCH_RESULTS_OFFSET_RESET({ offsets }) {
     offsets.search = 0;
   },
-  SEARCH_RESULTS( state, data) {
+  SEARCH_RESULTS(state, data) {
     state.searchResults.users = data;
   },
   SEARCH_RESULTS_MORE(state, data) {
     state.searchResults.users = state.searchResults.users.concat(data);
+  },
+  BLOCKED(state, data){
+    state.blocked=state.blocked.concat(data);
+    state.offsets.blocked+=8;
   }
 };
 
