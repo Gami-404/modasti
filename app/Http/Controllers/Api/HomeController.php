@@ -6,6 +6,7 @@ use App\Model\Collection;
 use App\Model\Post;
 use App\Model\Set;
 use App\User;
+use App\Model\Category;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
@@ -103,6 +104,7 @@ class HomeController extends Controller
 
 
         $validator = Validator::make($request->all(), [
+            'categoryId' => 'required|exists:categories,id',
             'orderby' => 'in:id,price,title,created_at,updated_at',
             'order' => 'in:DESC,ASC',
         ]);
@@ -113,23 +115,33 @@ class HomeController extends Controller
 
         $query = Post::with('image');
 
-        if ($request->filled('brands')) {
+        if ($request->filled('brands') && count($request->get('brands'))) {
             $query->whereHas('brand', function ($query) use ($request) {
                 $query->whereIn('id', $request->get('brands', []));
             });
         }
-        if ($request->filled('colors')) {
+        if ($request->filled('colors')&& count($request->get('colors'))) {
             $query->whereIn('color_id', $request->get('colors', []));
         }
 
-        if ($request->filled('sizes')) {
+        if ($request->filled('coverage')&&count($request->get('coverage'))) {
+            $query->whereIn('coverage', $request->get('coverage', []));
+        }
+
+        if ($request->filled('sizes')&&count($request->get('sizes'))) {
             $query->whereHas('sizes', function ($query) use ($request) {
                 $query->whereIn('size', $request->get('sizes'));
             });
         }
         if ($request->filled('categoryId')) {
-            $query->whereHas('categories', function ($query) use ($request) {
-                $query->whereIn('category_id', $request->get('categoryId'));
+            $category = Category::find($request->get('categoryId'));
+            $categoriesIds = [$category->id];
+            if ($category->parent == 0) {
+                $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
+                $categoriesIds[] = $category->id;
+            }
+            $query->whereHas('categories', function ($query) use ($request, $categoriesIds) {
+                $query->whereIn('category_id', $categoriesIds);
             });
         }
         $items = $query->orderBy($request->get('orderby', 'created_at'), $request->get('order', 'DESC'))
@@ -146,13 +158,33 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function home(Request $request){
-        $data = ['data' => [], 'errors' => []];
-        $items_most_popular=Post::with('image')->orderBy('views','desc')->take(8)->get();
-        $data['items_most_popular']=\Maps\Item\items($items_most_popular);
-
-//        $data['sets_best_from_community']=
-
+    public function home(Request $request)
+    {
+        $data = [];
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
+        $items_latest_trends = Post::with('image', 'brand')->whereHas('blocks', function ($query) {
+            $query->where('id', 1);
+        })->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['items_latest_trends'] = \Maps\Item\items($items_latest_trends);
+        $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')->take(8)->get();
+        $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
+        $data['sets_best_from_modasti'] = [];
+        return response()->json($data);
     }
+
+    /**
+     * POST api/trending
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function trending(Request $request)
+    {
+        $data = ['data' => []];
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['data']['items'] = \Maps\Item\items($items_most_popular);
+        return response()->json($data);
+    }
+
 
 }

@@ -27,6 +27,10 @@ Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
+    // Home
+    $router->post('/home', 'Api\HomeController@home');
+    $router->post('/trending', 'Api\HomeController@trending');
+
     // Search
     $router->post('/search', 'Api\HomeController@search');
     // Brands
