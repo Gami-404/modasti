@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -138,6 +139,14 @@ class UserController extends Controller
             $data['errors'][] = "User not found";
             return response()->json($data, 400);
         }
+        $isblocked = DB::table('users_blocked')
+            ->where(['user_id' => fauth()->user()->id, 'blocked_id' => $request->get('userId')])
+            ->OrWhere(['blocked_id' => fauth()->user()->id, 'user_id' => $request->get('userId')])->count() ? true : false;
+
+        if ($isblocked) {
+            $data['errors'][] = "User blocked";
+            return response()->json($data, 400);
+        }
         (fauth()->user()->following()->detach($id));
         (fauth()->user()->following()->attach($id));
         return response()->json($data);
@@ -184,7 +193,7 @@ class UserController extends Controller
      */
     public function getFollowingUsers(Request $request)
     {
-        $data = ['data' => ['users'=>''], 'errors' => []];
+        $data = ['data' => ['users' => ''], 'errors' => []];
         $limit = $request->get('limit', 8);
         $offset = $request->get('offset', 0);
         $user = User::find($request->get('userId', 0));
@@ -205,7 +214,7 @@ class UserController extends Controller
      */
     public function getFollowersUsers(Request $request)
     {
-        $data = ['data' => ['users'=>''], 'errors' => []];
+        $data = ['data' => ['users' => ''], 'errors' => []];
         $limit = $request->get('limit', 8);
         $offset = $request->get('offset', 0);
         $user = User::find($request->get('userId', 0));

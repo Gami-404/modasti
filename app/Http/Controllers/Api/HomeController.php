@@ -124,6 +124,10 @@ class HomeController extends Controller
             $query->whereIn('color_id', $request->get('colors', []));
         }
 
+        if ($request->filled('coverage')) {
+            $query->where('coverage', $request->get('coverage', 0));
+        }
+
         if ($request->filled('sizes')) {
             $query->whereHas('sizes', function ($query) use ($request) {
                 $query->whereIn('size', $request->get('sizes'));
@@ -156,14 +160,31 @@ class HomeController extends Controller
      */
     public function home(Request $request)
     {
-        $data = ['data' => [], 'errors' => []];
-        $items_most_popular = Post::with('image')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data = [];
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
         $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
-
+        $items_latest_trends = Post::with('image', 'brand')->whereHas('blocks', function ($query) {
+            $query->where('id', 1);
+        })->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['items_latest_trends'] = \Maps\Item\items($items_latest_trends);
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')->take(8)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
-
-
+        $data['sets_best_from_modasti'] = [];
+        return response()->json($data);
     }
+
+    /**
+     * POST api/trending
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function trending(Request $request)
+    {
+        $data = ['data' => []];
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $data['data']['items'] = \Maps\Item\items($items_most_popular);
+        return response()->json($data);
+    }
+
 
 }
