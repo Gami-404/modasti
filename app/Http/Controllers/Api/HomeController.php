@@ -139,6 +139,7 @@ class HomeController extends Controller
             if ($category->parent == 0) {
                 $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
                 $categoriesIds[] = $category->id;
+                dd($categoriesIds);
             }
             $query->whereHas('categories', function ($query) use ($request, $categoriesIds) {
                 $query->whereIn('category_id', $categoriesIds);
