@@ -48,12 +48,12 @@ export default {
       this.loading = true;
       this.$store
         .dispatch("add_"+this.submitType, this.formData)
-        .then(errors => {
-          if (errors.length == 0) {
+        .then(res => {
             this.$router.push({ path: "/profile/me/"+this.submitType , query: {} });
             window.location.reload();
-          }
-          else this.errors = errors;
+        })
+        .catch( err =>{
+          this.errors = err.response.errors;
         })
         .finally(() => {
           this.loading = false;
