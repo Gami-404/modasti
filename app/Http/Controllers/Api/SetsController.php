@@ -222,7 +222,7 @@ class SetsController extends Controller
         $sets=Set::where(['user_id' => $request->get('userId')])
             ->take($limit)
             ->offset($offset)->get();
-        $data['data']=\Maps\Set\sets($sets);
+        $data['data']['sets']=\Maps\Set\sets($sets);
         return response()->json($data);
 
     }
