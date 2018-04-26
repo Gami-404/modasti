@@ -39,6 +39,9 @@ const actions = {
   add_set({ commit }, payload) {
     return API.post("/addSet", payload);
   },
+  edit_set({ commit }, payload) {
+    return API.post("/editSet", payload);
+  },
   remove_set({ commit }, setId) {
     return API.post("/deleteSet", {
       setId

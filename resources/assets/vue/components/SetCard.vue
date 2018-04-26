@@ -13,15 +13,15 @@
                 <router-link :to="(set.id && '/set/'+set.id)||''">{{set.title_en}}</router-link>
             </h3>
             <hr>
-            <div v-if="set['user']&& set['user']['id'] == $store.getters.userId">
+            <div v-if="set['user']&& set['user_id'] == $store.getters.userId">
                 <div class="setEdit">
-                    <a href="#">Edit</a>
+                    <router-link :to="'?popup=edit_set&setId='+set.id">Edit</router-link>
                     <a href="#" class="remove">Remove</a>
                 </div>
             </div>
             <div v-else>
                 <div class="createdBy">Created by</div>
-                <router-link :to="set['user']&& set['user']['id']?'/profile/'+set['user']['id']:''">{{(set['user']&&set['user']['username'])||'Modasti'}}</router-link>
+                <router-link :to="set['user']&& set['user_id']?'/profile/'+set['user_id']:''">{{(set['user']&&set['user']['username'])||'Modasti'}}</router-link>
             </div>
         </div>
 

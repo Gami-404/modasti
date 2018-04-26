@@ -91,6 +91,10 @@
                 <SignUp v-if="$route.query.popup=='signup'"></SignUp>
                 <Forget v-if="$route.query.popup=='forget'"></Forget>
             </WrapperPopups>
+            <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_set'">
+                <SetCollectionEditPopup v-if="$route.query.popup=='edit_set'" submitType="set" ></SetCollectionEditPopup>
+            </WrapperPopups>
+                
         </transition>
 
     </div>
@@ -100,6 +104,7 @@
 import Login from "./popups/Login";
 import SignUp from "./popups/Signup";
 import Forget from "./popups/Forget";
+import SetCollectionEditPopup from "./popups/SetCollectionEditPopup";
 import UserActions from "./UserActions";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import routes from "./NavbarRoutes";
@@ -110,7 +115,8 @@ export default {
     SignUp,
     Forget,
     WrapperPopups,
-    UserActions
+    UserActions,
+    SetCollectionEditPopup
   },
   data() {
     return {
