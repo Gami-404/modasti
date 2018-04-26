@@ -7,6 +7,7 @@ use App\Model\Post;
 use App\Model\Set;
 use App\User;
 use App\Model\Category;
+use Dot\Blocks\Models\Block;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
@@ -120,15 +121,15 @@ class HomeController extends Controller
                 $query->whereIn('id', $request->get('brands', []));
             });
         }
-        if ($request->filled('colors')&& count($request->get('colors'))) {
+        if ($request->filled('colors') && count($request->get('colors'))) {
             $query->whereIn('color_id', $request->get('colors', []));
         }
 
-        if ($request->filled('coverage')&&count($request->get('coverage'))) {
+        if ($request->filled('coverage') && count($request->get('coverage'))) {
             $query->whereIn('coverage', $request->get('coverage', []));
         }
 
-        if ($request->filled('sizes')&&count($request->get('sizes'))) {
+        if ($request->filled('sizes') && count($request->get('sizes'))) {
             $query->whereHas('sizes', function ($query) use ($request) {
                 $query->whereIn('size', $request->get('sizes'));
             });
@@ -163,11 +164,13 @@ class HomeController extends Controller
         $data = [];
         $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
         $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
-        $items_latest_trends = Post::with('image', 'brand')->whereHas('blocks', function ($query) {
-            $query->where('id', 1);
-        })->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $block = Block::find(1);
+
+        $items_latest_trends = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(8)->get() : collect();
         $data['items_latest_trends'] = \Maps\Item\items($items_latest_trends);
-        $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')->take(8)->get();
+        $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
+            ->orderBy('likes', 'desc')
+            ->take(8)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
         $data['sets_best_from_modasti'] = [];
         return response()->json($data);
