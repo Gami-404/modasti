@@ -237,6 +237,9 @@ export default {
       this.itemsCounter++;
     },
     publish() {
+      this.stage.find("Transformer").destroy();
+      this.layer.draw();
+      this.selected = null;
       this.$router.push({ query: { popup: "create_set" } });
       this.base64Img = this.stage.toDataURL();
     }
