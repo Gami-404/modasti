@@ -99,7 +99,7 @@ export default {
       }
   },
   created(){
-    this.$store.dispatch("get_items_for_add_set_or_collection").then(() => {
+    this.$store.dispatch("get_items_for_add_set").then(() => {
       this.loading = false;
     });
   },

@@ -63,7 +63,10 @@ const actions = {
       parentId: "0"
     }).then(dispatch("get_set_comments", payload.setId));
   },
-  get_items_for_add_set_or_collection({ commit, state, rootGetters }) {
+  delete_comment_on_set({ commit, dispatch }, setId ){
+    return API.post("/deleteComment",{setId}).then(dispatch("get_set_comments", setId));
+  },
+  get_items_for_add_set({ commit, state, rootGetters }) {
     return Promise.all([
       API.post("/getLikedItems", {
         userId: rootGetters.userId,

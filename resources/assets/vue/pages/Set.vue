@@ -87,21 +87,20 @@ export default {
       sending: false,
       commentToAdd: "",
       loadingComments: true,
-      showNumOfComments:3
+      showNumOfComments: 3
     };
   },
   created() {
-    this.$store
-      .dispatch("get_set_details", this.$route.params.setId)
-      .then(() => (this.loading = false))
-      .catch(err => this.$router.push("/404"));
-    this.$store
-      .dispatch("get_set_comments", this.$route.params.setId)
-      .then(() => (this.loadingComments = false));
+    this.load();
   },
   watch: {
     "$route.params.setId"(setId) {
       if (!setId) return;
+      this.load();
+    }
+  },
+  methods: {
+    load() {
       this.loading = true;
       this.loadingComments = true;
       this.$store
@@ -111,9 +110,7 @@ export default {
       this.$store
         .dispatch("get_set_comments", this.$route.params.setId)
         .then(() => (this.loadingComments = false));
-    }
-  },
-  methods: {
+    },
     remove() {
       this.loading = true;
       this.$store.dispatch("remove_set", this.set.setId).then(() => {
@@ -134,11 +131,12 @@ export default {
           this.loadingComments = false;
         });
     },
-    deleteComment() {
-      // TODO  , wating to endpoint 
+    deleteComment(id) {
+      this.loadingComments = true;
+      this.$store.dispatch("delete_comment").then( () => this.loadingComments = false );
     },
-    showMoreComments(){
-      this.showNumOfComments+=3;
+    showMoreComments() {
+      this.showNumOfComments += 3;
     }
   }
 };
