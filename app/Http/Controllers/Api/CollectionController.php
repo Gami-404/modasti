@@ -222,4 +222,34 @@ class CollectionController extends Controller
         return response()->json($data);
     }
 
+
+    /**
+     * POST api/editCollection
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editCollection(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'collectionId' => 'required|exists:collections,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $updated = Collection::where([
+            'user_id' => fauth()->user()->id,
+            'id' => $request->get('collectionId'),
+        ])->update([
+            'title' => $request->get('title'),
+            'excerpt' => $request->get('description')
+        ]);
+        $data['data']['updated'] = $updated ? true : false;
+        return response()->json($data);
+    }
+
 }

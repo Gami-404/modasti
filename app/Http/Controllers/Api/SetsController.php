@@ -226,4 +226,34 @@ class SetsController extends Controller
         return response()->json($data);
 
     }
+
+
+    /**
+     * POST api/editSet
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editSet(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'setId' => 'required|exists:sets,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $updated = Set::where([
+            'user_id' => fauth()->user()->id,
+            'id' => $request->get('setId'),
+        ])->update([
+            'title' => $request->get('title'),
+            'excerpt' => $request->get('description')
+        ]);
+        $data['data']['updated'] = $updated ? true : false;
+        return response()->json($data);
+    }
 }

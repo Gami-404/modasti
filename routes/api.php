@@ -46,6 +46,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('deleteCollection', 'Api\CollectionController@deleteCollection');
     $router->post('addItemToCollection', 'Api\CollectionController@addItemToCollection');
     $router->post('addSetToCollection', 'Api\CollectionController@addSetToCollection');
+    $router->post('editCollection', 'Api\CollectionController@editCollection');
     // Collection >> comments
     $router->post('addCommentToCollection', 'Api\CollectionController@addCommentToCollection');
     $router->post('getCollectionComments', 'Api\CollectionController@getCollectionComments');
@@ -60,6 +61,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('deleteComment', 'Api\SetsController@deleteComment');
     $router->post('deleteSet', 'Api\SetsController@deleteSet');
     $router->post('getSets', 'Api\SetsController@getSets');
+    $router->post('editSet', 'Api\SetsController@editSet');
 
     //Categories
     $router->post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
