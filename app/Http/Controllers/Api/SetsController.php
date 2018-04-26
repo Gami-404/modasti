@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Media;
+use App\Model\Post;
 use App\Model\Set;
 use App\Model\SetComment;
 use App\User;
@@ -196,5 +197,33 @@ class SetsController extends Controller
         }
         $comment->delete();
         return response()->json($data);
+    }
+
+    /**
+     * POST api/getSets
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSets(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 6);
+
+
+        $validator = Validator::make($request->all(), [
+            'userId' => 'required|exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $sets=Set::where(['user_id' => $request->get('userId')])
+            ->take($limit)
+            ->offset($offset)->get();
+        $data['data']=\Maps\Set\sets($sets);
+        return response()->json($data);
+
     }
 }

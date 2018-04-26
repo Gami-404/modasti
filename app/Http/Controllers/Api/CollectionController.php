@@ -21,6 +21,8 @@ class CollectionController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required',
+            'items.*' => 'exists:posts,id',
+            'sets.*' => 'exists:sets,id',
         ]);
 
         $validator->sometimes('image', 'required', function () use ($request) {
@@ -28,7 +30,6 @@ class CollectionController extends Controller
         });
 
         $media = new Media();
-
         if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
@@ -42,6 +43,10 @@ class CollectionController extends Controller
             'lang' => 'en',
         ]);
         $data['data']['collection_id'] = $collection->id;
+
+        $collection->items()->attach($request->get('items', []));
+        $collection->sets()->attach($request->get('sets', []));
+
         return response()->json($data);
     }
 
@@ -103,7 +108,7 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $collection = Collection::with('user',  'sets')
+        $collection = Collection::with('user', 'sets')
             ->where('id', $request->get('collectionId'))->first();
 
         if ($collection->items()->where('post_id', $request->get('itemId'))->count() > 0) {
@@ -132,7 +137,7 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $collection = Collection::with('user',  'items')
+        $collection = Collection::with('user', 'items')
             ->where('id', $request->get('collectionId'))->first();
 
         if ($collection->sets()->where('set_id', $request->get('setId'))->count() > 0) {

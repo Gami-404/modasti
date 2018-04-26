@@ -27,6 +27,7 @@ Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::group(["middleware" => ['api-auth']], function ($router) {
 
+
     // Home
     $router->post('/home', 'Api\HomeController@home');
     $router->post('/trending', 'Api\HomeController@trending');
@@ -54,6 +55,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('addSet', 'Api\SetsController@addSet');
     $router->post('deleteComment', 'Api\SetsController@deleteComment');
     $router->post('deleteSet', 'Api\SetsController@deleteSet');
+    $router->post('getSets', 'Api\SetsController@getSets');
 
     //Categories
     $router->post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
