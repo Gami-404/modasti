@@ -69,7 +69,8 @@ const actions = {
       offset: state.offsets.sets,
       limit: 8
     }).then(res => {
-      commit("USER_SETS", res.data.data);
+      commit("ADD_SETS",res.data.data,{root:true});
+      commit("USER_SETS", res.data.data.map(i=>i.id));
     });
   },
   get_user_liked_items({ commit, state }, id) {

@@ -9,7 +9,7 @@
 				<router-link active-class="active-header" to="following">Following</router-link>
 				<router-link active-class="active-header" to="followers">Followers</router-link>
 				<router-link active-class="active-header" to="wins">Wins</router-link>
-				<router-link active-class="active-header" to="blocked"> Blocked users </router-link>
+				<router-link v-if="$route.params.userId=='me'||$route.params==$store.getters.userId" active-class="active-header" to="blocked"> Blocked users </router-link>
 			</div>
 		</div>
 	</div>

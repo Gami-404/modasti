@@ -237,8 +237,6 @@ export default {
       this.itemsCounter++;
     },
     publish() {
-      console.log(this.stage.toDataURL());
-      
       this.$router.push({ query: { popup: "create_set" } });
       this.base64Img = this.stage.toDataURL();
     }

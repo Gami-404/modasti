@@ -25,7 +25,7 @@ export default {
     }
   },
   created(){
-   let id = typeof this.$route.params.userId == "number" ? this.$route.params.userId : undefined;		      
+    let id = isNaN(this.$route.params.userId) ? this.$store.getters.user.userId : userId;
     this.$store.dispatch("get_user_sets",id);
   }
 };
