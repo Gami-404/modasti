@@ -53,7 +53,7 @@ export default {
             window.location.reload();
         })
         .catch( err =>{
-          this.errors = err.response.errors;
+          this.errors = err.response.data.errors;
         })
         .finally(() => {
           this.loading = false;
