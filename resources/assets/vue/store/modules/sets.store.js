@@ -10,7 +10,7 @@ const state = {
 // getters
 const getters = {
   set: state => state.set,
-  setComments: state => state.setComments,
+  setComments: state => state.setComments.reverse(),
   setTotalPrice: (state, _, __, rootGetters) =>
     state.set.items
       ? state.set.items
@@ -61,10 +61,10 @@ const actions = {
       setId: payload.setId,
       text: payload.comment,
       parentId: "0"
-    }).then(dispatch("get_set_comments", payload.setId));
+    }).then(()=>dispatch("get_set_comments", payload.setId));
   },
   delete_comment_on_set({ commit, dispatch }, setId ){
-    return API.post("/deleteComment",{setId}).then(dispatch("get_set_comments", setId));
+    return API.post("/deleteComment",{setId}).then(()=>dispatch("get_set_comments", setId));
   },
   get_items_for_add_set({ commit, state, rootGetters }) {
     return Promise.all([

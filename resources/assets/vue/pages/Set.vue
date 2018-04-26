@@ -127,6 +127,7 @@ export default {
           comment: this.commentToAdd
         })
         .then(() => {
+          this.commentToAdd = "";
           this.sending = false;
           this.loadingComments = false;
         });
