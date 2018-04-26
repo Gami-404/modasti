@@ -169,7 +169,6 @@ class HomeController extends Controller
         $items_latest_trends = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(8)->get() : collect();
         $data['items_latest_trends'] = \Maps\Item\items($items_latest_trends);
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
-            ->orderBy('likes', 'desc')
             ->take(8)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
         $data['sets_best_from_modasti'] = [];
