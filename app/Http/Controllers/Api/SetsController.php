@@ -62,7 +62,7 @@ class SetsController extends Controller
             'comment' => $request->get('text'),
             'user_id' => fauth()->user()->id
         ]);
-        return response()->json($data, 400);
+        return response()->json($data);
     }
 
     /**

@@ -174,7 +174,7 @@ class CollectionController extends Controller
             'user_id' => fauth()->user()->id
         ]);
 
-        return response()->json($data, 400);
+        return response()->json($data);
     }
 
     /**
