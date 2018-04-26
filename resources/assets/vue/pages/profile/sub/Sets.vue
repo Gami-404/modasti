@@ -1,32 +1,54 @@
 <template>
-	<div class="gridContainer">
-		<WrapperCardList>
-			<div v-for="set in sets" :key='set' class="mycol-lg-3 mycol-sm-6">
-        <SetCard
-          :set-id="set"
-				/>
-			</div>
-		</WrapperCardList>
-	</div>
+  <div class="gridContainer">
+    <WrapperCardList>
+      <div v-for="set in sets" :key='set' class="mycol-lg-3 mycol-sm-6">
+        <SetCard :set-id="set" />
+      </div>
+    </WrapperCardList>
+    <div v-if="sets.length % 8 === 0 && sets.length!==0" class="getMore">
+      <a @click.prevent="load" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
+    </div>
+    <Loading v-if="loading" />
+  </div>
 </template>
 
 <script>
 import SetCard from "@/components/SetCard";
+import Loading from "@/components/Loading";
 import WrapperCardList from "@/wrappers/WrapperCardList";
 
 export default {
   components: {
     SetCard,
-    WrapperCardList
+    WrapperCardList,
+    Loading
+  },
+  data() {
+    return {
+      loading: true,
+      loadMoreLoading:false
+    };
   },
   computed: {
     sets() {
-      return this.$store.getters.userSets
+      return this.$store.getters.userSets;
     }
   },
-  created(){
-    let id = isNaN(this.$route.params.userId) ? this.$store.getters.user.userId : userId;
-    this.$store.dispatch("get_user_sets",id);
+  created() {
+    this.load().then(()=>{
+      this.loading = false;
+    });
+  },
+  methods: {
+    load() {
+      this.loadMoreLoading = true;
+      let id = isNaN(this.$route.params.userId)
+        ? this.$store.getters.user.userId
+        : userId;
+      return this.$store.dispatch("get_user_sets", id).then(() => {
+        this.loadMoreLoading = false;
+      });
+    }
   }
 };
 </script>
