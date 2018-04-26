@@ -22,6 +22,16 @@
         </div>
       </div>
 
+      <div class="one" :class="{'opened':filter==='sizes'}">
+        <a href="#" class="theTab" @click.prevent="showOptions('sizes')">
+          <span>sizes</span>
+          <i class="fa fa-angle-down"></i>
+        </a>
+        <div class="thesubTab">
+          <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" class="filteri" :class="{'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
+        </div>
+      </div>
+
       <div class="one" :class="{'opened':filter==='priceOrder'}">
         <a href="#" class="theTab" @click.prevent="showOptions('priceOrder')">
           <span>price</span>
