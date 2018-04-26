@@ -50,7 +50,10 @@
     </transition>
     <div v-if="mfilter" class="filtersMobileMenu">
       <ClothingFilterMobile>
+      <div class="submitDiv">
+        <input @click.prevent="apply" type="submit" value="apply">        
         <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
+      </div>
       </ClothingFilterMobile>
     </div>
     <Loading v-if="loading" />
@@ -112,8 +115,6 @@ export default {
       });
     },
     colorBlockStyle(id) {
-      console.log(id);
-
       return (
         "height:20px; width:30px; background:" +
         this.filters[this.filter][id].value +
@@ -125,6 +126,7 @@ export default {
     },
     apply(){
       this.loading = true;
+      this.mfilter = false;
       this.$store.dispatch("applyFilters");
       this.$store.dispatch("get_category_items").then( ()=>{
         this.loading=false;

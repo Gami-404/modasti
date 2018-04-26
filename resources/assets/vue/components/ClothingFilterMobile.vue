@@ -42,10 +42,8 @@
         </div>
       </div>
 
-      <div class="submitDiv">
-        <input type="submit" value="apply">
         <slot/>
-      </div>
+      
 
     </form>
   </div>
@@ -112,8 +110,6 @@ export default {
       });
     },
     colorBlockStyle(id) {
-      console.log(id);
-
       return (
         "height:20px; width:30px; background:" +
         this.filters[this.filter][id].value +
