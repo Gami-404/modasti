@@ -206,14 +206,14 @@ class CollectionController extends Controller
     {
         $data = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
-            'commentId' => 'required|exists:set_comments,id',
+            'commentId' => 'required|exists:collection_comments,id',
         ]);
 
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $comment = SetComment::where(['id' => $request->get('commentId'), 'user_id' => fauth()->id()])->first();
+        $comment = CollectionComment::where(['id' => $request->get('commentId'), 'user_id' => fauth()->id()])->first();
         if (!$comment) {
             $data['errors'] = "It is not your comment";
             return response()->json($data, 400);

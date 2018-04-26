@@ -28,7 +28,7 @@ class SetsController extends Controller
         }
         $set->views++;
         $set->save();
-        $data['set'] = \Maps\Set\setDetails($set, true);
+        $data['data']['set'] = \Maps\Set\setDetails($set, true);
         return response()->json($data, 200);
     }
 
@@ -222,7 +222,7 @@ class SetsController extends Controller
         $sets=Set::where(['user_id' => $request->get('userId')])
             ->take($limit)
             ->offset($offset)->get();
-        $data['data']['sets']=\Maps\Set\sets($sets);
+        $data['data']=\Maps\Set\sets($sets);
         return response()->json($data);
 
     }
