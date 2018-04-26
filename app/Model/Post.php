@@ -16,4 +16,13 @@ class Post extends Model
         return $this->hasOne(User::class, "id", "user_id");
     }
 
+    /**
+     * posts  which in  block relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function blocks()
+    {
+        return $this->belongsToMany(Post::class, "posts_blocks_orders", "post_id","block_id")->withPivot('order')->orderBy("order", "ASC");
+    }
+
 }
