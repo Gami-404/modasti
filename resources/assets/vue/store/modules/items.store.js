@@ -73,8 +73,8 @@ const actions = {
     });
   },
   get_home_items({ commit }) {
-    return API.post("/homeTrends", {}).then(res => {
-      let { data } = res.data;
+    return API.post("/home", {}).then(res => {
+      let  data = res.data;
       let items = {};
       commit("ADD_ITEMS", data["items_most_popular"], { root: true });
       commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
@@ -96,7 +96,7 @@ const actions = {
     });
   },
   get_trending({ commit, state }) {
-    return API.post("/browsePopular", {
+    return API.post("/trending", {
       offset: state.offsets.trending,
       limit: 8
     }).then(res => {

@@ -17,7 +17,7 @@
 				</div>
 			</WrapperCardListTitled>
 
-			<WrapperCardListTitled title="Most Liked From Our Community" url="#">
+			<WrapperCardListTitled title="Most Liked From Our Community" url="/trending">
 				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="itemId" />
 				</div>
@@ -62,13 +62,11 @@ export default {
   },
   computed: {
     ...mapGetters([
+			"itemsLatestTrends",
       "itemsMostPopular",
       "setsBestFromCommunity",
       "setsBestFromModasti"
     ]),
-    itemsLatestTrends() {
-      return this.$store.getters.itemsLatestTrends.slice(0, 8);
-    }
   },
   created() {
     this.$store.dispatch("get_home_items").then( () => {

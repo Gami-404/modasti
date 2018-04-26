@@ -12,7 +12,7 @@
                         <div class="top_message">
                             <div>Create 15 sets to become a STYLIST!</div>
                             <hr>
-                            <div>0 / 15 Sets</div>
+                            <div>{{user.sets_count||0}} / 15 Sets</div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,10 @@ export default {
     },
     toggleBlock() {
       this.blockBtnLoading = true;
-      this.$store.dispatch("toggle_block").then(() => {});
+      this.$store.dispatch("toggle_block").then(() => {
+        this.blockBtnLoading = false;
+        this.$router.push("/profile/me/blocked");
+      });
     }
   }
 };
