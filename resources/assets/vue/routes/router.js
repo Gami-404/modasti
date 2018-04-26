@@ -4,12 +4,14 @@ import Home from "@/pages/Home";
 import Category from "@/pages/Category";
 import Item from "@/pages/Item";
 import Set from "@/pages/Set";
+import Collection from "@/pages/Collection";
 import Search from "@/pages/Search";
 import Single from "@/pages/Single";
 import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import RetailerRegistration from "@/pages/RetailerRegistration";
 import SetAdd from "@/pages/SetAdd";
+import CollectionAdd from "@/pages/CollectionAdd";
 import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
 import Feed from "@/pages/Feed";
@@ -61,9 +63,20 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      path: "/collection/add",
+      name: "collection_add",
+      component: CollectionAdd,
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/set/:setId(\\d+)",
       name: "set",
       component: Set
+    },
+    {
+      path: "/collection/:collectionId(\\d+)",
+      name: "collection",
+      component: Collection
     },
     {
       path: "/search/user/:searchString",
