@@ -334,7 +334,7 @@
             }).autocomplete({
 
                 source: function (request, response) {
-                    $.getJSON("{{route('admin.posts.show')}}", {
+                    $.getJSON("{{route('admin.posts.show')}}?status=1", {
                         q: request.term
                     }, function (data) {
                         var ids = [];
