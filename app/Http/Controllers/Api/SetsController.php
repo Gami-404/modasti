@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Media;
+use App\Model\Post;
 use App\Model\Set;
 use App\Model\SetComment;
 use App\User;
@@ -27,7 +28,7 @@ class SetsController extends Controller
         }
         $set->views++;
         $set->save();
-        $data['set'] = \Maps\Set\setDetails($set, true);
+        $data['data']['set'] = \Maps\Set\setDetails($set, true);
         return response()->json($data, 200);
     }
 
@@ -61,7 +62,7 @@ class SetsController extends Controller
             'comment' => $request->get('text'),
             'user_id' => fauth()->user()->id
         ]);
-        return response()->json($data, 400);
+        return response()->json($data);
     }
 
     /**
@@ -195,6 +196,64 @@ class SetsController extends Controller
             return response()->json($data, 400);
         }
         $comment->delete();
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/getSets
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSets(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 6);
+
+
+        $validator = Validator::make($request->all(), [
+            'userId' => 'required|exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $sets=Set::where(['user_id' => $request->get('userId')])
+            ->take($limit)
+            ->offset($offset)->get();
+        $data['data']=\Maps\Set\sets($sets);
+        return response()->json($data);
+
+    }
+
+
+    /**
+     * POST api/editSet
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editSet(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'setId' => 'required|exists:sets,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $updated = Set::where([
+            'user_id' => fauth()->user()->id,
+            'id' => $request->get('setId'),
+        ])->update([
+            'title' => $request->get('title'),
+            'excerpt' => $request->get('description')
+        ]);
+        $data['data']['updated'] = $updated ? true : false;
         return response()->json($data);
     }
 }

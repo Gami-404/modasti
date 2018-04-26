@@ -176,13 +176,13 @@ namespace Maps\Item {
         $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
         $newItem->color_id = $item->color_id;
         $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
-        $newItem->photo = [];
+        $newItem->photos = [];
         $newItem->similar = \Maps\Item\items($similarItems);
         if ($item->image) {
             $photo = new \stdClass();
             $photo->table_id = $item->image->id;
             $photo->photo_name = uploads_url($item->image->path);
-            $newItem->photo[] = $photo;
+            $newItem->photos[] = $photo;
         }
         return $newItem;
     }
@@ -265,7 +265,7 @@ namespace Maps\Set {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
                 $photo->photo_name = uploads_url($item->image->path);
-                $newItem->photo[] = $photo;
+                $newItem->photos[] = $photo;
             }
             $newItem->pivot = new \stdClass();
             $newItem->pivot->set_id = $set_id;
