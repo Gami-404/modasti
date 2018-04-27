@@ -35,7 +35,7 @@
             </transition>
         </div>
         <transition name="popup_new_message" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <WrapperPopups v-if="$route.query.popup">
+            <WrapperPopups v-if="$route.query.popup && $route.query.popup=='new_message'">
                 <NewMessage v-if="$route.query.popup=='new_message'" />
             </WrapperPopups>
         </transition>

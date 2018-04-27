@@ -16,13 +16,14 @@
             <div v-html="set.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{setTotalPrice}} $</div>
-              <a v-if="set['user']" :href="'/profile/'+set['user']['id']" class="link">{{set['user']['name']}}</a>
+              <a v-if="set['user']" :href="'/profile/'+set['user_id']" class="link">{{set['user']['fname']}}</a>
             </div>
             <CardActions :likeable="true" :is-liked="set.is_liked" :commentable="true" :sharable="true" :obj-id="set.id" :num-of-likes="set.likes" :num-of-comments="set.comments_counter" context="set" />
-
-            <div v-if="set.user && userId == set.user.id">
-              <a @click.prevent="remove" href="#" class="getMore">Edit</a>
-              <a @click.prevent="remove" href="#" class="mainBtn">Remove</a>
+            <br>
+            <br>
+            <div  v-if="set.user && userId == set.user_id">
+              <router-link :to="'?popup=edit_set&setId='+set.id" class="mainBtn brandBg">Edit</router-link>
+              <a href="#" class="mainBtn">Remove</a>
             </div>
 
           </div>
@@ -127,13 +128,16 @@ export default {
           comment: this.commentToAdd
         })
         .then(() => {
+          this.commentToAdd = "";
           this.sending = false;
           this.loadingComments = false;
         });
     },
     deleteComment(id) {
       this.loadingComments = true;
-      this.$store.dispatch("delete_comment").then( () => this.loadingComments = false );
+      this.$store
+        .dispatch("delete_comment")
+        .then(() => (this.loadingComments = false));
     },
     showMoreComments() {
       this.showNumOfComments += 3;

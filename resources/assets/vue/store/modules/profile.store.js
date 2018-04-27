@@ -168,7 +168,7 @@ const mutations = {
     state.userProfile = data;
   },
   USER_SETS(state, data) {
-    state.userSets = data;
+    state.userSets = state.userSets.concat(data);
     state.offsets.sets += 8;
   },
   USER_LIKED_ITEMS(state, data) {
