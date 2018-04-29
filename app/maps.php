@@ -47,7 +47,7 @@ namespace Maps\User {
             $newUser->following_counter = $user->following()->count();
             $newUser->follower_counter = $user->follower()->count();
             $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id'=> fauth()->user()->id,'blocked_id'=>$user->id])->count() ? true : false;
+            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
             $newUser->photo = null;
             if ($newUser->photo) {
@@ -75,7 +75,7 @@ namespace Maps\User {
         $newUser->following_counter = $user->following()->count();
         $newUser->follower_counter = $user->follower()->count();
         $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id'=> fauth()->user()->id,'blocked_id'=>$user->id])->count() ? true : false;
+        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
         $newUser->sets_count = Set::where('user_id', $user->id)->count();
         $newUser->photo = null;
         if ($newUser->photo) {
@@ -357,4 +357,104 @@ namespace Maps\Collection {
         return $newArray;
     }
 
+}
+
+namespace Maps\Contest {
+
+
+    /**
+     * @param $contest
+     * @return \stdClass
+     */
+    function contest($contest)
+    {
+        $newContest = new \stdClass();
+        $newContest->id = $contest->id;
+        $newContest->title_en = $contest->title;
+        $newContest->created = $contest->published_at->diffForHumans();
+        $newContest->expires = $contest->expired_at->toDateTimeString();
+        $newContest->text_en = $contest->title;
+        $newContest->text2_en = $contest->content;
+        $newContest->time_diff = $contest->expired_at->diffForHumans();
+        $newContest->is_photo_submitted = $contest->items()->where('user_id', fauth()->id())->count() ? true : false;
+        $newContest->photo = null;
+        if ($contest->image) {
+            $photo = new \stdClass();
+            $photo->table_id = $contest->image->id;
+            $photo->photo_name = uploads_url($contest->image->path);
+            $newContest->photo = $photo;
+        }
+        $newContest->winners = $contest->winner ? [\Maps\Contest\winner($contest->winner, $contest)] : [];
+        return $newContest;
+    }
+
+    /**
+     * @param $contests
+     * @return mixed
+     */
+    function contests($contests)
+    {
+        $newCollections = [];
+
+        foreach ($contests as $contest) {
+            $newCollections[] = \Maps\Contest\contest($contest);
+        }
+        return $newCollections;
+    }
+
+    /**
+     * @param $winner
+     * @param $contest
+     * @return \stdClass
+     */
+    function winner($winner, $contest)
+    {
+        $newItem = new \stdClass();
+        $newItem->id = $winner->id;
+        $newItem->user_id = $winner->user_id;
+        $newItem->contest_id = $winner->contest_id;
+        $newItem->contest_title = $contest->title;
+        $newItem->win_place = 1;
+        $newItem->photo_id = $winner->image_id;
+        $newItem->photo = null;
+        if ($winner->image) {
+            $photo = new \stdClass();
+            $photo->table_id = $winner->image->id;
+            $photo->photo_name = uploads_url($winner->image->path);
+            $newItem->photo = $photo;
+        }
+        $newItem->user = \Maps\User\user($winner->user);
+        return $newItem;
+    }
+
+    /**
+     * Contest items
+     * @param $contestItems
+     * @return array
+     */
+    function items($contestItems)
+    {
+        $newCollections = [];
+        foreach ($contestItems as $item) {
+            $newItem = new \stdClass();
+            $newItem->id = $item->id;
+            $newItem->contest_id = $item->contest_id;
+            $newItem->photo_id = $item->image_id;
+            $newItem->user_id = $item->user_id;
+            $newItem->likes = $item->likes()->count();
+            $newItem->date_created = $item->created_at->toDateTimeString();
+            $newItem->date_likes = $item->created_at->toDateTimeString();
+            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->photo = null;
+            if ($item->image) {
+                $photo = new \stdClass();
+                $photo->table_id = $item->image->id;
+                $photo->photo_name = uploads_url($item->image->path);
+                $newItem->photo = $photo;
+            }
+            $newItem->user = \Maps\User\user($item->user);
+            $newCollections[] = $newItem;
+        }
+        return $newCollections;
+    }
 }
