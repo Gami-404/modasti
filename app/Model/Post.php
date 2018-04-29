@@ -7,6 +7,12 @@ use Dot\Posts\Models\Post as Model;
 
 class Post extends Model
 {
+
+    /**
+     * @var array
+     */
+    protected $searchable = ['title'];
+
     /**
      * User relation
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -22,7 +28,7 @@ class Post extends Model
      */
     function blocks()
     {
-        return $this->belongsToMany(Post::class, "posts_blocks_orders", "post_id","block_id")->withPivot('order')->orderBy("order", "ASC");
+        return $this->belongsToMany(Post::class, "posts_blocks_orders", "post_id", "block_id")->withPivot('order')->orderBy("order", "ASC");
     }
 
 }
