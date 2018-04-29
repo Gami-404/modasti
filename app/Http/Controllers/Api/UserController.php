@@ -39,7 +39,7 @@ class UserController extends Controller
         ]);
 
         if (!$isAuthed) {
-            $response['errors'] = ["User not found."];
+            $response['errors'] = ["Email or password incorrect."];
             return response()->json($response, '400');
         }
         $response['data'] = \Maps\User\login(fauth()->user());
