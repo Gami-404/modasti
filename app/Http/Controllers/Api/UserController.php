@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\UserFollowing;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -149,6 +150,7 @@ class UserController extends Controller
         }
         (fauth()->user()->following()->detach($id));
         (fauth()->user()->following()->attach($id));
+        event(new UserFollowing($id));
         return response()->json($data);
     }
 
