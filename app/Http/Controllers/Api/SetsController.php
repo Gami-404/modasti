@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\CommentEvent;
 use App\Model\Media;
 use App\Model\Post;
 use App\Model\Set;
@@ -56,12 +57,13 @@ class SetsController extends Controller
             return response()->json($data, 400);
         }
 
-        SetComment::create([
+        $comment = SetComment::create([
             'set_id' => $request->get('setId'),
             'parent' => $request->get('parentId'),
             'comment' => $request->get('text'),
             'user_id' => fauth()->user()->id
         ]);
+        event(new CommentEvent($comment, 'set'));
         return response()->json($data);
     }
 
@@ -219,10 +221,10 @@ class SetsController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $sets=Set::where(['user_id' => $request->get('userId')])
+        $sets = Set::where(['user_id' => $request->get('userId')])
             ->take($limit)
             ->offset($offset)->get();
-        $data['data']=\Maps\Set\sets($sets);
+        $data['data'] = \Maps\Set\sets($sets);
         return response()->json($data);
 
     }
