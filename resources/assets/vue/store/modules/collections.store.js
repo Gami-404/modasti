@@ -1,3 +1,5 @@
+import API from "../API";
+
 const state = {};
 
 // getters
