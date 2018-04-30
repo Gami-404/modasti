@@ -20,13 +20,16 @@ class User extends \Dot\Users\Models\User
         'name', 'email', 'password',
     ];
 
+    protected $appends=['avatar'];
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token','photo'
     ];
 
 
@@ -76,5 +79,13 @@ class User extends \Dot\Users\Models\User
     public function blocked_users()
     {
         return $this->belongsToMany(User::class, "users_blocked", "user_id", "blocked_id");
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        return thumbnail($this->photo->path);
     }
 }
