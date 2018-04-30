@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\LikesEvent;
 use App\Model\Media;
 use App\Model\Post;
 use App\User;
@@ -55,6 +56,7 @@ class ItemsController extends Controller
         }
         $table->insert($data);
         $this->counterLikes($data['object_id'], $data['type'], true);
+        event(new LikesEvent($data));
         $response = ['result' => "Like added"];
         return response()->json($response, 200);
     }
