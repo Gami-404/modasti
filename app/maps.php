@@ -100,7 +100,7 @@ namespace Maps\Category {
         $newCategories = new \stdClass();
 
         foreach ($categories as $category) {
-            $object = $newCategories->{$category->name} = new \stdClass();
+            $object = $newCategories->{trim($category->name)} = new \stdClass();
 
             $object->id = $category->id;
             $object->title = $category->name;
