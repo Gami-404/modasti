@@ -56,13 +56,15 @@ class LikesNotification
         if ($set->user_id == $event->data['user_id']) {
             return false;
         }
+
+        $message = fauth()->user()->first_name . ' ' .fauth()->user()->first_name.' likes on your Set';
         $notificationData = [
             'seen' => 0,
             'action' => 'sets.like',
             'object_id' => $event->data['object_id'],
             'sender_id' => $event->data['user_id'],
             'receiver_id' => $set->user_id,
-            'message' => ''
+            'message' => $message
         ];
         Notification::create($notificationData);
     }

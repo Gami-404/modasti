@@ -52,6 +52,7 @@ class CommentNotification
             return false;
         }
 
+        $message = fauth()->user()->first_name . ' ' .fauth()->user()->first_name. ' commented on your Set';
         // Add Notification row
         $notificationData = [
             'seen' => 0,
@@ -59,7 +60,7 @@ class CommentNotification
             'object_id' => $event->comment->set_id,
             'sender_id' => fauth()->id(),
             'receiver_id' => $set->user_id,
-            'message' => ''
+            'message' => $message
         ];
         Notification::create($notificationData);
     }
