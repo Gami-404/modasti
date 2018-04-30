@@ -90,6 +90,10 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('unblockUser', 'Api\UserController@unblockUser');
     $router->post('listBlocked', 'Api\UserController@listBlocked');
 
+    //Notifications
+    $router->post('getNotifications', 'Api\NotificationsController@getNotifications');
+    $router->post('setNotificationSeen', 'Api\NotificationsController@setNotificationSeen');
+
 });
 
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {
