@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
@@ -26,4 +27,14 @@ class Notification extends Model
         'receiver_id',
         'message'
     ];
+
+    /**
+     * User relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function sender()
+    {
+        return $this->hasOne(User::class, "id", "sender_id");
+    }
+
 }

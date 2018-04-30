@@ -19,7 +19,7 @@ class NotificationsController extends Controller
         $data = ['data' => [], 'errors' => []];
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
-        $data['data']['notification'] = Notification::where(['receiver_id' => fauth()->id()])->orderBy('created_at','DESC')->take($limit)->offset($offset)->get();
+        $data['data']['notification'] = Notification::with('sender','sender.photo')->where(['receiver_id' => fauth()->id()])->orderBy('created_at','DESC')->take($limit)->offset($offset)->get();
         $data['data']['unseen_count'] = Notification::where(['receiver_id' => fauth()->id(), 'seen' => 0])->count();
         return response()->json($data);
     }
