@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sectionTitle clearfix">
-      <h2 class="theName">Clothing</h2>
+      <h2 class="theName">{{$route.params.name}}</h2>
       <div class="filters">
         <span @click="mfilter=true" class="icon">
           <i class="fa fa-sliders"></i>
@@ -50,10 +50,10 @@
     </transition>
     <div v-if="mfilter" class="filtersMobileMenu">
       <ClothingFilterMobile>
-      <div class="submitDiv">
-        <input @click.prevent="apply" type="submit" value="apply">        
-        <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
-      </div>
+        <div class="submitDiv">
+          <input @click.prevent="apply" type="submit" value="apply">
+          <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
+        </div>
       </ClothingFilterMobile>
     </div>
     <Loading v-if="loading" />
@@ -73,11 +73,18 @@ export default {
     return {
       filter: "",
       mfilter: false,
-      loading:false
+      loading: false
     };
   },
   computed: {
-    ...mapGetters(["filters", "colors", "sizes", "brands", "coverage","priceOrder"]),
+    ...mapGetters([
+      "filters",
+      "colors",
+      "sizes",
+      "brands",
+      "coverage",
+      "priceOrder"
+    ]),
     vals() {
       return this[this.filter];
     }
@@ -124,12 +131,12 @@ export default {
           : "border:1px solid #b3b3b3;")
       );
     },
-    apply(){
+    apply() {
       this.loading = true;
       this.mfilter = false;
       this.$store.dispatch("applyFilters");
-      this.$store.dispatch("get_category_items").then( ()=>{
-        this.loading=false;
+      this.$store.dispatch("get_category_items").then(() => {
+        this.loading = false;
       });
     }
   }
