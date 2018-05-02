@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <app-navbar/>
-        <div id="pageContent" >
-        <transition name="paget" enter-active-class="animated fadeIn">
-            <keep-alive>
-                <router-view/>
-            </keep-alive>
-        </transition>
-        </div>
-        <app-footer/>
+  <div>
+    <app-navbar/>
+    <div id="pageContent">
+      <transition name="paget" enter-active-class="animated fadeIn">
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
+      </transition>
     </div>
+    <app-footer/>
+  </div>
 </template>
 
 <script>
@@ -28,11 +28,14 @@ export default {
 
 <style>
 @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css";
-#pageContent{
-    min-width: 99vw;
-    min-height: 100vh;
+#pageContent {
+  min-width: 99vw;
+  min-height: 100vh;
 }
-.productCard .avatar{
-    height: 380px;
+.productCard .avatar {
+  height: 380px;
+}
+.topCategories a {
+  opacity: 0.5;
 }
 </style>

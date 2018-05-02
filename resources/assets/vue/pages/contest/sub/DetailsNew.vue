@@ -105,10 +105,10 @@ export default {
 	},
   computed: {
     photos() {
-      return this.contest.photos;
+      return this.contest().photos;
     },
-    info() {
-      return this.contest.contest;
+    contest() {
+      return this.contest().contest;
     }
   },
   created() {

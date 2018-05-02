@@ -23,7 +23,7 @@ const state = {
     sizes: {},
     priceOrder: {}
   },
-  appliedFilters:{},
+  appliedFilters: {},
   offsets: {
     category: 0,
     feed: 0,
@@ -74,7 +74,7 @@ const actions = {
   },
   get_home_items({ commit }) {
     return API.post("/home", {}).then(res => {
-      let  data = res.data;
+      let data = res.data;
       let items = {};
       commit("ADD_ITEMS", data["items_most_popular"], { root: true });
       commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
@@ -110,8 +110,8 @@ const actions = {
     });
   },
   get_category_items({ commit, state }, catId) {
-    catId = catId || state.currentCategoryId; 
-    commit("CURRENT_CAT",catId);
+    catId = catId || state.currentCategoryId;
+    commit("CURRENT_CAT", catId);
 
     return API.post("/filter", {
       categoryId: catId,
@@ -133,28 +133,35 @@ const actions = {
   get_more_category_items({ commit, state }) {
     return API.post("/filter", {
       categoryId: state.currentCategoryId,
-      offset: state.offsets.category+8,
+      offset: state.offsets.category + 8,
       ...state.appliedFilters
     }).then(res => {
       commit("ADD_ITEMS", res.data.data);
-      commit("MORE_CATEGORY_ITEMS", res.data.data.map(item => item.id) );
+      commit("MORE_CATEGORY_ITEMS", res.data.data.map(item => item.id));
     });
   },
-  applyFilters({commit}){
-    let getFilterd = (obj) => Object.keys(obj).map( key => {
-      return obj[key].isSelected ? obj[key] : null;      
-    }).filter(c=>c).map(i=>i.id); 
+  applyFilters({ commit }) {
+    let getFilterd = obj =>
+      Object.keys(obj)
+        .map(key => {
+          return obj[key].isSelected ? obj[key] : null;
+        })
+        .filter(c => c)
+        .map(i => i.id);
     let filter = {
-      brands:getFilterd(state.filters.coverage),
-      colors:getFilterd(state.filters.colors),
-      sizes:getFilterd(state.filters.sizes),
-      coverage:getFilterd(state.filters.brands),
+      brands: getFilterd(state.filters.brands),
+      colors: getFilterd(state.filters.colors),
+      sizes: getFilterd(state.filters.sizes),
+      coverage: getFilterd(state.filters.coverage)
     };
-    if(state.filters.priceOrder[1].isSelected||state.filters.priceOrder[2].isSelected){
-      filter.orderby = "price"
-      filter.order= state.filters.priceOrder[1].isSelected ? "DESC":"ASC";
+    if (
+      state.filters.priceOrder[1].isSelected ||
+      state.filters.priceOrder[2].isSelected
+    ) {
+      filter.orderby = "price";
+      filter.order = state.filters.priceOrder[1].isSelected ? "DESC" : "ASC";
     }
-    commit("APPLY_FILTERS",filter);
+    commit("APPLY_FILTERS", filter);
   },
   search_item({ commit, state }, searchString) {
     return search(searchString, state.searchResults.offset).then(res => {
@@ -226,7 +233,7 @@ const mutations = {
     state.offsets.category += 8;
     state.category.items = state.category.items.concat(items);
   },
-  APPLY_FILTERS(state,filter){
+  APPLY_FILTERS(state, filter) {
     state.appliedFilters = filter;
   },
   SEARCH_RESULTS_OFFSET({ searchResults }) {
@@ -279,7 +286,7 @@ const mutations = {
       state.item = { ...state.item };
     }
   },
-  CURRENT_CAT(state,id){
+  CURRENT_CAT(state, id) {
     state.currentCategoryId = id;
   }
 };

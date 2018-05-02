@@ -23,24 +23,28 @@ export default {
   },
   computed: {
     contest() {
-      return this.$store.getters.contest;
-    },
+      return this.$store.getters.contest(this.$route.params.contId);
+    }
   },
   created() {
     this.$store
       .dispatch("get_contest_details", this.$route.params.contId)
       .then(() => {
-        if (this.$store.getters.contest.contest._type == "new") {
+        if (
+          this.$store.getters.contest(this.$route.params.contId)._type == "new"
+        ) {
           this.theComponent = DetailsNew;
-        } else if (this.$store.getters.contest.contest._type == "old") {
-          this.theComponent = DetailsOld;          
+        } else if (
+          this.$store.getters.contest(this.$route.params.contId)._type == "old"
+        ) {
+          this.theComponent = DetailsOld;
         }
         this.loading = false;
       });
   },
   watch: {
     "$route.params.contId"(contId) {
-      if(!contId) return;
+      if (!contId) return;
       this.loading = true;
       this.$store.dispatch("get_contest_details", contId).then(() => {
         this.loading = false;

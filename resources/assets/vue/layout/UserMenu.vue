@@ -1,35 +1,26 @@
 <template>
-  <span>
+  <div class="one theUser">
     <div class="dropdown">
-      <a href="#" class="one">
-        <i class="icon-headicon"></i>
-      </a>
-      <div class="dropdown-content">
+      <router-link @mouseover="hover=true" @mouseout="hover=false" to="/profile/me">
+        <img src="https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1" alt="">
+        <span>{{username}}</span>
+        <i class="fa fa-angle-down"></i>
+      </router-link>
+      <div v-if="hover" class="dropdown-content">
         <router-link to="/set/add" class="addlinks">new set</router-link>
         <router-link to="/collection/add" class="addlinks">new collection</router-link>
       </div>
     </div>
-    <router-link to="/messages" class="one">
-      <i class="fa fa-envelope"></i>
-    </router-link>
-    <NotificationsDropDown/>
-    <UserMenu :username="user.name" />
-  </span>
+  </div>
 </template>
 
 <script>
-import NotificationsDropDown from "./NotificationsDropDown";
-import UserMenu from "./UserMenu";
-
 export default {
-  components: {
-    NotificationsDropDown,
-    UserMenu
-  },
-  computed: {
-    user() {
-      return this.$store.getters.user;
-    }
+  props: ["username"],
+  data() {
+    return {
+      hover: false
+    };
   }
 };
 </script>
@@ -45,6 +36,9 @@ export default {
 .dropdown {
   position: relative;
   display: inline-block;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .dropdown-content {
@@ -52,15 +46,13 @@ export default {
   transition: opacity 0.4s ease-out;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 10px 14px;
-  margin-left: 39px;
   z-index: 1;
 }
 
 .dropdown:hover .dropdown-content {
   opacity: 1;
-  display: block;
 }
 </style>

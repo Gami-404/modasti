@@ -5,14 +5,15 @@ const state = {
     new: [],
     old: []
   },
-  contest: {}
+  contestPhotos: [],
+  contestsMap: {}
 };
 
 // getters
 const getters = {
   newContests: state => state.contests.new,
   oldContests: state => state.contests.old,
-  contest: state => state.contest
+  contest: state => id => state.contestsMap[id]
 };
 
 // actions
@@ -29,37 +30,36 @@ const actions = {
       res.data.forEach(item => {
         if (+new Date() <= +new Date(item.expires)) {
           item._type = "new";
-          _new.push(item);
+          _new.push(item.id);
         } else {
           item._type = "old";
-          _old.push((item));
+          _old.push(item.id);
         }
+        commit("CONTESTSMAP", item);
       });
       commit("NEW_CONTESTS", _new);
       commit("OLD_CONTESTS", _old);
     });
   },
-  get_contest_details({ commit , dispatch , state }, contestId) {
-
-    let getContest = () => {
-      return API.post("/getContestPhotos", {
-        contestId: contestId
-      }).then(res => {
-        commit("CONTEST", { photos: res.data, contestId });
-      });
-    };
-
-    if( state.contests.new.length + state.contests.old.length  == 0 ){
-      return dispatch("get_all_contests").then( ()=>{
-        return getContest();
-      })
-    }else{
-      return getContest();
-    }
+  get_contest_details({ commit, dispatch, state }, contestId) {
+    return API.post("/getContestPhotos", {
+      contestId: contestId
+    }).then(res => {
+      commit("CONTESTPHOTOS", { photos: res.data, contestId });
+    });
   },
-  join_contest({commit},payload){
+  join_contest({ commit }, payload) {
     return API.post("/publishContestPhoto", payload);
-  }
+  },
+  like_contest({ commit, dispatch }, objId) {
+    return API.post("/switchLike", {
+      objId,
+      targetObject: "contest"
+    }).then(() => {
+      commit("LIKE_CONTEST_PROPAGATE", objId);
+    });
+  },
+  like_contest_toggle() {}
 };
 
 // mutations
@@ -70,19 +70,15 @@ const mutations = {
   OLD_CONTESTS(state, data) {
     state.contests.old = data;
   },
-  CONTEST(state, data) {
-    state.contests.old.forEach(item => {
-      if (item.id == data.contestId) {
-        data.contest = item;
-        state.contest = data;
-      }
-    });
-    state.contests.new.forEach(item => {
-      if (item.id == data.contestId) {
-        data.contest = item;
-        state.contest = data;
-      }
-    });
+  CONTESTPHOTOS(state, data) {
+    state.contestsMap[data.contestId].photos = data.photos;
+  },
+  CONTESTSMAP(state, item) {
+    state.contestsMap[item.id] = item;
+  },
+  LIKE_CONTEST_PROPAGATE(state, id) {
+    state.contestsMap[id].is_liked = !state.contestsMap[id].is_liked;
+    state.contestsMap[id] = { ...state.contestsMap[id] };
   }
 };
 
