@@ -201,6 +201,7 @@ namespace Maps\Set {
         $newSet->id = $set->id;
         $newSet->user_id = $set->user_id;
         $newSet->title_en = $set->title;
+        $newSet->text_en = $set->excerpt;
         $newSet->likes = $newSet->likes_counter = $set->likes()->count();
         $newSet->created = $set->created_at->diffForHumans();
         $newSet->contest_id = null;
