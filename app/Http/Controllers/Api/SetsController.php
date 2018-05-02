@@ -83,7 +83,8 @@ class SetsController extends Controller
             return response()->json($data, 400);
         }
 
-        $comments = SetComment::with('user')->where(['set_id' => $set_id, 'parent' => 0])->offset($offset)->limit($limit)->get();
+        $comments = SetComment::with('user')
+            ->orderBy('created_at','desc')->where(['set_id' => $set_id, 'parent' => 0])->offset($offset)->limit($limit)->get();
         $data['data']['comments'] = \Maps\Set\comments($comments);
         return response()->json($data);
     }
