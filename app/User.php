@@ -86,6 +86,6 @@ class User extends \Dot\Users\Models\User
      */
     public function getAvatarAttribute()
     {
-        return thumbnail($this->photo->path);
+        return $this->photo?thumbnail($this->photo->path):null;
     }
 }
