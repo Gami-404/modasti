@@ -56,7 +56,9 @@ const actions = {
     }else{
       return getContest();
     }
-    
+  },
+  join_contest({commit},payload){
+    return API.post("/publishContestPhoto", payload);
   }
 };
 
