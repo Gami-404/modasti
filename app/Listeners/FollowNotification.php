@@ -31,7 +31,7 @@ class FollowNotification
         $message = fauth()->user()->first_name . ' ' . fauth()->user()->first_name . '  follows your profile';
         $notificationData = [
             'seen' => 0,
-            'action' => 'users.follow',
+            'action' => 'user.follow',
             'object_id' => 0,
             'sender_id' => fauth()->id(),
             'receiver_id' => $event->id,

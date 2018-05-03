@@ -60,7 +60,7 @@ class LikesNotification
         $message = fauth()->user()->first_name . ' ' .fauth()->user()->first_name.' likes on your Set';
         $notificationData = [
             'seen' => 0,
-            'action' => 'sets.like',
+            'action' => 'set.like',
             'object_id' => $event->data['object_id'],
             'sender_id' => $event->data['user_id'],
             'receiver_id' => $set->user_id,
