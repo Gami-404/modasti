@@ -99,6 +99,11 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getNotifications', 'Api\NotificationsController@getNotifications');
     $router->post('setNotificationSeen', 'Api\NotificationsController@setNotificationSeen');
 
+    //Messages
+    $router->post('getChannels', 'Api\MessagesController@getChannels');
+    $router->post('pushMessage', 'Api\MessagesController@pushMessage');
+    $router->post('getChannelMessages', 'Api\MessagesController@getChannelMessages');
+
 });
 
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {
