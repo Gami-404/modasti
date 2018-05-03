@@ -101,7 +101,7 @@ export default {
       return this.$store.getters.itemsToAdd(this.view);
     },
     canloadmore() {
-      return this.items && this.items.length % 8 !== 0;
+      return this.items && this.items.length % 8 === 0;
     }
   },
   created() {

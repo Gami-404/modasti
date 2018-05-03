@@ -50,60 +50,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="PD_comments">
-				<div class="addComment">
-					<input type="text" class="inputEle" placeholder="Add comment">
-					<a href="#" class="theIcon">
-						<i class="fa fa-paper-plane"></i>
-					</a>
-				</div>
-				<div class="theComments">
-					<div class="one clearfix">
-						<img src="images/img3.jpg" class="avatar" alt="">
-						<a href="#" class="deleteComment">Delete</a>
-						<div class="itsContent">
-							<div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-							<div class="time">02:00</div>
-						</div>
-					</div>
-					<div class="one clearfix">
-						<img src="images/img3.jpg" class="avatar" alt="">
-						<a href="#" class="deleteComment">Delete</a>
-						<div class="itsContent">
-							<div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-							<div class="time">02:00</div>
-						</div>
-					</div>
-					<div class="one clearfix">
-						<img src="images/img3.jpg" class="avatar" alt="">
-						<a href="#" class="deleteComment">Delete</a>
-						<div class="itsContent">
-							<div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-							<div class="time">02:00</div>
-						</div>
-					</div>
-					<div class="one clearfix">
-						<img src="images/img3.jpg" class="avatar" alt="">
-						<a href="#" class="deleteComment">Delete</a>
-						<div class="itsContent">
-							<div class="message">Lorem Ipsum is simply dummy text of the printing and typesetting </div>
-							<div class="time">02:00</div>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="moreLinks">More Comments</a>
-			</div>
+			<ContestComments :contest-id="contest.id" />
 		</div>
 	</div>
 </template>
 
 <script>
 import CardActions from "@/components/CardActions";
-
+import ContestComments from "./ContestComments";
 export default {
   props: ["contest"],
   components: {
-    CardActions
+    CardActions,
+    ContestComments
   }
 };
 </script>

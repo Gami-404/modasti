@@ -10,7 +10,7 @@
         <router-link :to="'/contest/'+contest.id">{{contest.title_en}}</router-link>
       </h3>
       <hr>
-      <router-link v-if="!contest.is_photo_submitted && !contest._type=='old'" :to="'?popup=join&contestId=' + contestId" class="mainBtn">Join Contest</router-link>
+      <router-link v-if="!contest.is_photo_submitted && contest._type=='new'" :to="'?popup=join_contest&contestId='+contestId" class="mainBtn">Join Contest</router-link>
       <router-link v-else-if="contest._type=='old'" class="mainBtn" :to="'/contest/'+contest.id"> Check Winner </router-link>
       <router-link v-else class="mainBtn" :to="'/contest/'+contest.id"> View </router-link>
     </div>

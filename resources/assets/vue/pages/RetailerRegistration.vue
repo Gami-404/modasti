@@ -36,13 +36,13 @@
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
                   <div class="mrgBtmMd fontLarger">Phone number : *</div>
-                  <input type="number" required="required" v-model="form.phone" maxlength="15" class="inputEle">
+                  <input type="number" required="required" v-model="form.phone" max="999999999999999" class="inputEle">
                 </div>
               </div>
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
                   <div class="mrgBtmMd fontLarger">Email address : *</div>
-                  <input type="email" required="required" v-model="form.email" class="inputEle">
+                  <input type="email" required="required" v-model="form.email" maxlength="150" class="inputEle">
                 </div>
               </div>
               <div class="mycol-md-6">
@@ -62,13 +62,13 @@
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
                   <div class="mrgBtmMd fontLarger">password : *</div>
-                  <input type="password" v-model="form.password" required="required" class="inputEle">
+                  <input type="password" v-model="form.password" required="required" maxlength="100" class="inputEle">
                 </div>
               </div>
               <div class="mycol-md-6">
                 <div class="mrgBtmLg">
                   <div class="mrgBtmMd fontLarger">repeat password : *</div>
-                  <input type="password" required="required" v-model="passwordConfirmation" class="inputEle">
+                  <input type="password" required="required" v-model="passwordConfirmation" maxlength="100" class="inputEle">
                 </div>
               </div>
             </div>

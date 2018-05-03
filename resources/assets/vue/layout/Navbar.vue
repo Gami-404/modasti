@@ -87,6 +87,9 @@
       <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_set'">
         <SetCollectionEditPopup v-if="$route.query.popup=='edit_set'" submitType="set"></SetCollectionEditPopup>
       </WrapperPopups>
+      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='join_contest'">
+        <ContestUpload v-if="$route.query.popup=='join_contest'"></ContestUpload>
+      </WrapperPopups>
     </transition>
   </div>
 </template>
@@ -95,6 +98,7 @@
 import Login from "./popups/Login";
 import SignUp from "./popups/Signup";
 import Forget from "./popups/Forget";
+import ContestUpload from "./popups/ContestUpload";
 import SetCollectionEditPopup from "./popups/SetCollectionEditPopup";
 import UserActions from "./UserActions";
 import WrapperPopups from "@/wrappers/WrapperPopups";
@@ -107,7 +111,8 @@ export default {
     Forget,
     WrapperPopups,
     UserActions,
-    SetCollectionEditPopup
+    SetCollectionEditPopup,
+    ContestUpload
   },
   data() {
     return {

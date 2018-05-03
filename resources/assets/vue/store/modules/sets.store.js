@@ -67,10 +67,10 @@ const actions = {
       parentId: "0"
     }).then(() => dispatch("get_set_comments", payload.setId));
   },
-  delete_comment_on_set({ commit, dispatch }, setId) {
-    return API.post("/deleteComment", { setId }).then(() =>
-      dispatch("get_set_comments", setId)
-    );
+  delete_comment_from_set({ commit, dispatch }, { setId, commentId }) {
+    return API.post("/deleteComment", {
+      commentId
+    }).then(() => dispatch("get_set_comments", setId));
   },
   get_items_for_add_set({ commit, state, rootGetters }) {
     return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {

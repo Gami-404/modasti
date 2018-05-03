@@ -134,7 +134,10 @@ export default {
     deleteComment(id) {
       this.loadingComments = true;
       this.$store
-        .dispatch("delete_comment")
+        .dispatch("delete_comment_from_set", {
+          commentId: id,
+          setId: this.set.id
+        })
         .then(() => (this.loadingComments = false));
     },
     showMoreComments() {
