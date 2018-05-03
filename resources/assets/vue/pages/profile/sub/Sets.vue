@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       loading: true,
-      loadMoreLoading:false
+      loadMoreLoading: false
     };
   },
   computed: {
@@ -35,7 +35,7 @@ export default {
     }
   },
   created() {
-    this.load().then(()=>{
+    this.load().then(() => {
       this.loading = false;
     });
   },
@@ -44,7 +44,7 @@ export default {
       this.loadMoreLoading = true;
       let id = isNaN(this.$route.params.userId)
         ? this.$store.getters.user.userId
-        : userId;
+        : this.$route.params.userId;
       return this.$store.dispatch("get_user_sets", id).then(() => {
         this.loadMoreLoading = false;
       });

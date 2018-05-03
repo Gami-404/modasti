@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,17 +11,17 @@ let mix = require('laravel-mix');
  |
  */
 
+mix
+  .js("resources/assets/vue/App.js", "public/js")
+  .sass("resources/assets/sass/app.scss", "public/css");
 
-mix.js('resources/assets/vue/App.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
-
-   mix.webpackConfig({
-    resolve: {
-        modules: [
-            'node_modules',
-        ],
-        alias: {
-            '@': path.resolve('resources/assets/vue'),
-        }
+mix.webpackConfig({
+  resolve: {
+    modules: ["node_modules"],
+    alias: {
+      "@": path.resolve("resources/assets/vue")
     }
+  }
 });
+
+mix.disableSuccessNotifications();

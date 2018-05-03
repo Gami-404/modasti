@@ -10,7 +10,7 @@
           </transition>
           <span>{{numOfLikes}}</span>
         </a>
-        <router-link v-if="commentable" :to="commentUrl||'#'">
+        <router-link v-if="commentable" :to="this.isAuth ? commentUrl||'#':'?popup=login'">
           <i class="icon-comment"></i>
           <span>{{numOfComments}}</span>
         </router-link>

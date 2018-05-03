@@ -48,7 +48,7 @@ export default {
 }
 
 .dropdown-content {
-  opacity: 0;
+  display: none;
   transition: opacity 0.4s ease-out;
   position: absolute;
   background-color: #f9f9f9;
@@ -60,7 +60,6 @@ export default {
 }
 
 .dropdown:hover .dropdown-content {
-  opacity: 1;
   display: block;
 }
 </style>

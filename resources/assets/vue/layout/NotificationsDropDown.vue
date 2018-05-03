@@ -39,7 +39,8 @@ export default {
   created() {
     this.$store.dispatch("update_notifications");
     setInterval(() => {
-      this.$store.dispatch("update_notifications");
+      if (this.$store.getters.isAuth)
+        this.$store.dispatch("update_notifications");
     }, 45000);
   },
   computed: {
@@ -53,6 +54,7 @@ export default {
   methods: {
     see(id, action) {
       this.$store.dispatch("see", id);
+      console.log(action);
     }
   }
 };

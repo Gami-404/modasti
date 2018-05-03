@@ -1,14 +1,20 @@
 <template>
   <div class="one theUser">
     <div class="dropdown">
-      <router-link @mouseover="hover=true" @mouseout="hover=false" to="/profile/me">
+      <router-link to="/profile/me">
         <img src="https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1" alt="">
         <span>{{username}}</span>
         <i class="fa fa-angle-down"></i>
       </router-link>
-      <div v-if="hover" class="dropdown-content">
-        <router-link to="/set/add" class="addlinks">new set</router-link>
-        <router-link to="/collection/add" class="addlinks">new collection</router-link>
+      <div class="dropdown-content">
+        <router-link to="/profile/me/sets" class="addlinks">Sets</router-link>
+        <router-link to="/profile/me/collections" class="addlinks">collections</router-link>
+        <router-link to="/profile/me/likes" class="addlinks">LIKES</router-link>
+        <router-link to="/profile/me/Following" class="addlinks">Following</router-link>
+        <router-link to="/profile/me/Followers" class="addlinks">Followers</router-link>
+        <router-link to="/messages" class="addlinks">Messages</router-link>
+        <hr>
+        <a href="#" class="addlinks" @click.prevent="logout">LOGOUT</a>
       </div>
     </div>
   </div>
@@ -21,6 +27,12 @@ export default {
     return {
       hover: false
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    }
   }
 };
 </script>
@@ -42,7 +54,7 @@ export default {
 }
 
 .dropdown-content {
-  opacity: 0;
+  display: none;
   transition: opacity 0.4s ease-out;
   position: absolute;
   background-color: #f9f9f9;
@@ -53,6 +65,7 @@ export default {
 }
 
 .dropdown:hover .dropdown-content {
-  opacity: 1;
+  transition: opacity 1s ease-in;
+  display: block;
 }
 </style>

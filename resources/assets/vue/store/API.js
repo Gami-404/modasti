@@ -1,9 +1,8 @@
 import axios from "axios";
-window.baseURL = "http://modasti.uniative.com/api";
+window.baseURL = "http://modasti.uniative.com";
 const axiosI = axios.create({
-  baseURL: window.baseURL
+  baseURL: window.baseURL + "/api"
 });
-
 
 axiosI.interceptors.request.use(
   function(request) {
@@ -35,10 +34,10 @@ axiosI.interceptors.response.use(
     if (error.response.status == 401) {
       localStorage.removeItem("api_token");
       localStorage.removeItem("user");
-      if(window.location != "/#/?popup=login");
+      if (window.location != "/#/?popup=login");
       window.location = "/#/?popup=login";
-    }else if(error.response.status == 500){
-      window.location = "/#/500"
+    } else if (error.response.status == 500) {
+      window.location = "/#/500";
     }
     return Promise.reject(error);
   }

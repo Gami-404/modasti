@@ -44,22 +44,28 @@ export default {
     signUp(e) {
       e.preventDefault();
       this.loading = true;
-      if (this.password == this.password2) {
+      if (this.password == this.password2 && this.password.length >= 6) {
         this.$store
           .dispatch("register", {
             email: this.email,
             password: this.password,
             name: this.name
           })
-          .then( errors => {
-            if ( errors.length == 0) this.$router.push("/");
+          .then(errors => {
+            if (errors.length == 0) this.$router.push("/");
             else this.errors = errors;
           })
           .finally(() => {
             this.loading = false;
           });
       } else {
-        this.$store.commit("errors", ["Passwords not matching"]);
+        this.errors = [];
+        if (this.password != this.password2)
+          this.errors.push("Passwords not matching");
+        if (this.password.length < 6)
+          this.errors.push(
+            "Minimum Password length is 6 characters or numbers"
+          );
         this.loading = false;
       }
     }
