@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\UserFollowing;
+use App\Events\UserSendMessage;
 use App\Model\Notification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FollowNotification
+class UserSendMessageNotification
 {
     /**
      * Create the event listener.
@@ -22,19 +22,19 @@ class FollowNotification
     /**
      * Handle the event.
      *
-     * @param  UserFollowing $event
+     * @param  UserSendMessage $event
      * @return void
      */
-    public function handle(UserFollowing $event)
+    public function handle(UserSendMessage $event)
     {
-
-        $message = fauth()->user()->first_name . ' ' . fauth()->user()->first_name . '  follows your profile';
+        $message = fauth()->user()->first_name . ' ' . fauth()->user()->first_name . '  send message for you';
+        $receiver_id = $event->channel->sender_id == fauth()->id() ? $event->channel->receiver_id : $event->channel->sender_id;
         $notificationData = [
             'seen' => 0,
-            'action' => 'user.follow',
-            'object_id' => fauth()->id(),
+            'action' => 'messages.send',
+            'object_id' => $event->channel->id,
             'sender_id' => fauth()->id(),
-            'receiver_id' => $event->id,
+            'receiver_id' => $receiver_id,
             'message' => $message
         ];
         Notification::create($notificationData);

@@ -56,7 +56,7 @@ class CommentNotification
         // Add Notification row
         $notificationData = [
             'seen' => 0,
-            'action' => 'sets.comment',
+            'action' => 'set.comment',
             'object_id' => $event->comment->set_id,
             'sender_id' => fauth()->id(),
             'receiver_id' => $set->user_id,

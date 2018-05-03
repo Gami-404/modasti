@@ -26,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserFollowing' => [
             'App\Listeners\FollowNotification',
         ],
+        'App\Events\UserSendMessage' => [
+            'App\Listeners\UserSendMessageNotification',
+        ],
 
     ];
 
