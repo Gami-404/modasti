@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Contest;
+use App\Model\ContestComment;
 use App\Model\ContestItem;
 use App\Model\Media;
 use Illuminate\Http\Request;
@@ -84,6 +85,79 @@ class ContestController extends Controller
             'contest_id' => $request->get('contestId')
         ]);
         $data['data'] = $item;
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/addCommentToContest
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addCommentToContest(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'text' => 'required',
+            'contestId' => 'required|exists:contests,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+
+        ContestComment::create([
+            'contest_id' => $request->get('contestId'),
+            'comment' => $request->get('text'),
+            'user_id' => fauth()->user()->id
+        ]);
+
+        return response()->json($data);
+    }
+
+    /**
+     * POST /api/getContestComments
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getContestComments(Request $request)
+    {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 4);
+        $data = ['data' => [], 'errors' => []];
+        $contest_id = $request->get('contestId');
+        if (!Contest::find($contest_id)) {
+            $data['errors'] = "Contest not found";
+            return response()->json($data, 400);
+        }
+        $comments = ContestComment::with('user')->where(['contest_id' => $contest_id])->
+        orderBy('created_at', 'desc')->offset($offset)->limit($limit)->get();
+        $data['data']['comments'] = \Maps\Set\comments($comments);
+        return response()->json($data);
+    }
+
+    /**
+     * POST api/deleteContestComment
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteContestComment(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'commentId' => 'required|exists:contests_comments,id',
+        ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $comment = ContestComment::where(['id' => $request->get('commentId'), 'user_id' => fauth()->id()])->first();
+        if (!$comment) {
+            $data['errors'] = "It is not your comment";
+            return response()->json($data, 400);
+        }
+        $comment->delete();
         return response()->json($data);
     }
 }

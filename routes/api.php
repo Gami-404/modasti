@@ -73,10 +73,15 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('/itemDetails', 'Api\ItemsController@itemDetails');
 
 
-    //getContests
+    //Contests
     $router->post('getContests', 'Api\ContestController@getContests');
     $router->post('getContestPhotos', 'Api\ContestController@getContestPhotos');
     $router->post('publishContestPhoto', 'Api\ContestController@publishContestPhoto');
+
+    // Contests >> comments
+    $router->post('addCommentToContest', 'Api\ContestController@addCommentToContest');
+    $router->post('getContestComments', 'Api\ContestController@getContestComments');
+    $router->post('deleteContestComment', 'Api\ContestController@deleteContestComment');
 
 
     // Users
@@ -107,13 +112,12 @@ Route::group(["middleware" => ['api-auth:designer']], function ($router) {
 });
 
 
-
 Route::get('/designer-register', function () {
     return view('designer-register');
 });
 
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {
-    
+
 
 });
 Route::fallback('Api\NotFoundController@notFound')->name('fallback');

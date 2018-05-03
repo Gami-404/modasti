@@ -192,7 +192,8 @@ class CollectionController extends Controller
             $data['errors'] = "Collection not found";
             return response()->json($data, 400);
         }
-        $comments = CollectionComment::with('user')->where(['collection_id' => $collection_id])->offset($offset)->limit($limit)->get();
+        $comments = CollectionComment::with('user')->where(['collection_id' => $collection_id])->
+        orderBy('created_at', 'desc')->offset($offset)->limit($limit)->get();
         $data['data']['comments'] = \Maps\Set\comments($comments);
         return response()->json($data);
     }

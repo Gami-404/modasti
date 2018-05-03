@@ -377,6 +377,8 @@ namespace Maps\Contest {
         $newContest->text_en = $contest->title;
         $newContest->text2_en = $contest->content;
         $newContest->time_diff = $contest->expired_at->diffForHumans();
+        $newContest->is_liked = $contest->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newContest->likes = $contest->likes()->count();
         $newContest->is_photo_submitted = $contest->items()->where('user_id', fauth()->id())->count() ? true : false;
         $newContest->photo = null;
         if ($contest->image) {
