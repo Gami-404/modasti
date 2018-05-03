@@ -1,5 +1,4 @@
 <template>
-
   <div class="likesAndComments">
     <transition name="actions" enter-active-class="animated bounceInLeft" mode="out-in">
       <span key="actions" v-if="!shareActions">
@@ -11,10 +10,10 @@
           </transition>
           <span>{{numOfLikes}}</span>
         </a>
-        <a v-if="commentable" href="#">
+        <router-link v-if="commentable" :to="this.isAuth ? commentUrl||'#':'?popup=login'">
           <i class="icon-comment"></i>
           <span>{{numOfComments}}</span>
-        </a>
+        </router-link>
       </span>
       <span key="shares" v-if="shareActions">
         <a target="_blank" :href="facebook">
@@ -44,7 +43,8 @@ export default {
     "numOfComments",
     "objId",
     "context",
-    "isLiked"
+    "isLiked",
+    "commentUrl"
   ],
   data() {
     return {
@@ -73,7 +73,7 @@ export default {
         if (this.canChange) {
           this.liked = !this.liked;
           this.$store.dispatch("like_" + this.context, this.objId);
-          this.$store.dispatch("like_"+ this.context+"_toggle");
+          this.$store.dispatch("like_" + this.context + "_toggle");
         }
         this.canChange = false;
       } else {
@@ -88,29 +88,33 @@ export default {
       }
     },
     shareLink(url) {
-      return (
+      let link =
         url +
-        encodeURI(window.baseURL + "/#/" + this.context + "/" + this.objId)
-      );
+        encodeURIComponent(
+          window.baseURL + "/#/" + this.context + "/" + this.objId
+        );
+      console.log(link);
+
+      return link;
     },
     openLogin() {
       this.$router.push({ query: { popup: "login" } });
     }
   },
   watch: {
-    "isLiked"(isLiked) {
+    isLiked(isLiked) {
       console.log("CHANGED");
-        this.liked = isLiked;
-        this.canChange = true;      
+      this.liked = isLiked;
+      this.canChange = true;
     }
   }
 };
 </script>
 
 <style>
-  .fa{
-    margin-left: 3px; 
-    margin-right: 3px;
-    font-size: 20px; 
-  }
+.fa {
+  margin-left: 3px;
+  margin-right: 3px;
+  font-size: 20px;
+}
 </style>

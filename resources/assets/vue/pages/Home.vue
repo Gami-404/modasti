@@ -8,35 +8,28 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="gridContainer">
-
 			<WrapperCardListTitled title="Latest Trends" url="/trending">
 				<div v-for="itemId in itemsLatestTrends" :key='itemId' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="itemId" />					
+					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
-
-			<WrapperCardListTitled title="Most Liked From Our Community" url="/trending">
+			<WrapperCardListTitled title="Most Liked From Our Community" more="false" url="/trending">
 				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
-
-			<WrapperCardListTitled title="Most Viewed Sets" url="#">
+			<WrapperCardListTitled title="Most Viewed Sets" url="#" more="false">
 				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
 					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
-
-			<WrapperCardListTitled title="Official Contests" url="#">
+			<WrapperCardListTitled title="Official Contests" url="/contest">
 				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
 					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
-
 		</div>
-
 		<Loading v-if="loading" />
 	</div>
 </template>
@@ -62,18 +55,21 @@ export default {
   },
   computed: {
     ...mapGetters([
-			"itemsLatestTrends",
+      "itemsLatestTrends",
       "itemsMostPopular",
       "setsBestFromCommunity",
       "setsBestFromModasti"
-    ]),
+    ])
   },
   created() {
-    this.$store.dispatch("get_home_items").then( () => {
-			this.loading = false;
-		}).catch( err =>{
-			this.loading = false;
-		});
+    this.$store
+      .dispatch("get_home_items")
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(err => {
+        this.loading = false;
+      });
   }
 };
 </script>

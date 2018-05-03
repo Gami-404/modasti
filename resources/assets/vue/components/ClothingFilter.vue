@@ -1,34 +1,36 @@
 <template>
   <div>
     <div class="sectionTitle clearfix">
-      <h2 class="theName">Clothing</h2>
+      <router-link :to="$route.params.subCat ? '/category/'+$route.params.name : ''">
+        <h2 class="theName">{{$route.params.subCat ? 'Back to ':''}}{{$route.params.name}}</h2>
+      </router-link>
       <div class="filters">
         <span @click="mfilter=true" class="icon">
           <i class="fa fa-sliders"></i>
         </span>
         <div class="in">
           <div class="one">
-            <div @click="showOptions('colors')" class="title dropdownTitle">colors
+            <div @click="showOptions('colors ')" class="title dropdownTitle">colors
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('coverage')" class="title dropdownTitle">coverage
+            <div @click="showOptions('coverage ')" class="title dropdownTitle">coverage
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('priceOrder')" class="title dropdownTitle">Price
+            <div @click="showOptions('priceOrder ')" class="title dropdownTitle">Price
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('sizes')" class="title dropdownTitle">size
+            <div @click="showOptions('sizes ')" class="title dropdownTitle">size
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('brands')" class="title dropdownTitle">brand
+            <div @click="showOptions('brands ')" class="title dropdownTitle">brand
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
@@ -39,21 +41,21 @@
     <transition name="filter-ops">
       <div v-if="filter" class="topCategories whiteBg filterops">
         <div class="gridContainer">
-          <div v-if="filter==='colors'">
+          <div v-if="filter==='colors '">
             <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
           </div>
           <div v-else>
-            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
+            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri ':true ,'selected ' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes '?val.id:val.title}}</a>
           </div>
         </div>
       </div>
     </transition>
     <div v-if="mfilter" class="filtersMobileMenu">
       <ClothingFilterMobile>
-      <div class="submitDiv">
-        <input @click.prevent="apply" type="submit" value="apply">        
-        <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
-      </div>
+        <div class="submitDiv">
+          <input @click.prevent="apply" type="submit" value="apply">
+          <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
+        </div>
       </ClothingFilterMobile>
     </div>
     <Loading v-if="loading" />
@@ -73,11 +75,18 @@ export default {
     return {
       filter: "",
       mfilter: false,
-      loading:false
+      loading: false
     };
   },
   computed: {
-    ...mapGetters(["filters", "colors", "sizes", "brands", "coverage","priceOrder"]),
+    ...mapGetters([
+      "filters",
+      "colors",
+      "sizes",
+      "brands",
+      "coverage",
+      "priceOrder"
+    ]),
     vals() {
       return this[this.filter];
     }
@@ -124,12 +133,12 @@ export default {
           : "border:1px solid #b3b3b3;")
       );
     },
-    apply(){
+    apply() {
       this.loading = true;
       this.mfilter = false;
       this.$store.dispatch("applyFilters");
-      this.$store.dispatch("get_category_items").then( ()=>{
-        this.loading=false;
+      this.$store.dispatch("get_category_items").then(() => {
+        this.loading = false;
       });
     }
   }

@@ -1,52 +1,53 @@
 import API from "../API";
 
 const state = {
-  nav:[],
-  unseenCount:2,
-  notifications:[],
-  offset:0
+  nav: [],
+  unseenCount: 2,
+  notifications: [],
+  offset: 0
 };
 
 // getters
 const getters = {
-  nav: state => state.nav ,
-  notifications: state => state.notifications ,
+  nav: state => state.nav,
+  notifications: state => state.notifications,
   unseenCount: state => state.unseenCount
 };
 
 // actions
 const actions = {
-  get_notifications({commit,state}){
-    return API.post("/getNotifications",{offset:state.offset}).then(res=> {
-      commit("NOTIVICATIONS",res.data.data);
+  get_notifications({ commit, state }) {
+    return API.post("/getNotifications", { offset: state.offset }).then(res => {
+      commit("NOTIVICATIONS", res.data.data);
     });
   },
   update_notifications({ commit, state }) {
     return API.post("/getNotifications", {}).then(res => {
-      commit("NAV",res.data.data);
+      commit("NAV", res.data.data);
     });
   },
-  seen({commit},id){
-    commit("SEEN",id);    
-    return API.post("/setNotificationSeen", { notificationId:id});
+  see({ commit }, id) {
+    commit("SEE", id);
+    return API.post("/setNotificationSeen", { notificationId: id });
   }
 };
 
 // mutations
 const mutations = {
-  NOTIVICATIONS(state, data){
+  NOTIVICATIONS(state, data) {
     state.notifications = state.notifications.concat(data.notifications);
   },
-  NAV(state,data){
+  NAV(state, data) {
     state.nav = data.notifications;
-    state.unseenCount = data.unseen_count;    
+    state.unseenCount = data.unseen_count;
   },
-  SEEN(state,id){
+  SEE(state, id) {
     state.count--;
     state.nav.forEach(element => {
-      if(element.id==id){
+      if (element.id == id) {
         element.seen = 1;
-        state.nav = {...state.nav};
+        element = { ...element };
+        state.nav = { ...state.nav };
       }
     });
   }

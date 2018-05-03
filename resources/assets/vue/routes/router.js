@@ -16,6 +16,7 @@ import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
 import Feed from "@/pages/Feed";
 import RecommendedMembers from "@/pages/RecommendedMembers";
+import Notifications from "@/pages/Notifications";
 // import ServerRendered from "@/pages/ServerRendered";
 
 // Nested Routers
@@ -32,6 +33,11 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/notifications",
+      name: "user-notifications",
+      component: Notifications
     },
     {
       path: "/trending",

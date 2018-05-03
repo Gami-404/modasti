@@ -47,7 +47,6 @@ export default {
     return {
       from:{
         image:"",
-        
       },
       success:false,
       loading: false,

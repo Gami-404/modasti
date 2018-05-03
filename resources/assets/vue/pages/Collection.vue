@@ -1,17 +1,14 @@
 <template>
   <div class="gridContainer">
-
     <div class="proudctDetails secondStyle">
       <div class="clearfix">
         <div class="avatar"><img :src="set['photo'] && set['photo']['photo_name']" alt=""></div>
         <div class="content">
           <div class="in">
-
             <div class="paging">
               <a href="/">Home</a>
               <a href="/set">Set</a>
             </div>
-
             <h2 class="title">{{set.title_en}}</h2>
             <div v-html="set.text_en" class="description"></div>
             <div class="info clearfix">
@@ -19,12 +16,10 @@
               <a v-if="set['user']" :href="'/profile/'+set['user']['id']" class="link">{{set['user']['name']}}</a>
             </div>
             <CardActions :likeable="true" :is-liked="set.is_liked" :commentable="true" :sharable="true" :obj-id="set.id" :num-of-likes="set.likes" :num-of-comments="set.comments_counter" context="set" />
-
             <div v-if="set.user && userId == set.user.id">
               <a @click.prevent="remove" href="#" class="getMore">Edit</a>
               <a @click.prevent="remove" href="#" class="mainBtn">Remove</a>
             </div>
-
           </div>
         </div>
       </div>
@@ -54,7 +49,6 @@
         <a v-if="showNumOfComments < setComments.length" href="#" @click.prevent="showMoreComments" class="moreLinks">More Comments</a>
       </div>
     </div>
-
     <WrapperCardListTitled title="Items">
       <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />
@@ -106,7 +100,10 @@ export default {
       this.$store
         .dispatch("get_collection_details", this.$route.params.setId)
         .then(() => (this.loading = false))
-        .catch(err => this.$router.push("/404"));
+        .catch(err => {
+          if (this.$store.getters.isAuth)
+            this.$router.replace({ path: "/404" });
+        });
       this.$store
         .dispatch("get_collection_comments", this.$route.params.setId)
         .then(() => (this.loadingComments = false));
