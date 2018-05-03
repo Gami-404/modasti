@@ -32,7 +32,7 @@ class FollowNotification
         $notificationData = [
             'seen' => 0,
             'action' => 'user.follow',
-            'object_id' => 0,
+            'object_id' => fauth()->id(),
             'sender_id' => fauth()->id(),
             'receiver_id' => $event->id,
             'message' => $message
