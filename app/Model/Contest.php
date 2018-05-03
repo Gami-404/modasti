@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Dot\Posts\Models\Contest as Model;
 
 class Contest extends Model
@@ -30,5 +31,15 @@ class Contest extends Model
      */
     public function items(){
         return $this->hasMany(ContestItem::class,'contest_id','id');
+    }
+
+    /**
+     * Likes relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
+            ->where('type', 'contest');
     }
 }
