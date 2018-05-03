@@ -11,7 +11,7 @@
         </span>
       </div>
       <div class="allNotifications">
-        <a v-for="notification of notifications" :key="notification.id" href="#" class="oneItem clearfix" @click.prevent="see(notification.id,notification.action)" :style="notification.seen?'background:rgb(247, 247, 247);':''">
+        <a v-for="notification of notifications" :key="notification.id" href="#" class="oneItem clearfix" @click.prevent="see(notification.id,notification.object_id,notification.action)" :style="notification.seen?'background:rgb(247, 247, 247);':''">
           <img :src="notification.sender.avatar||'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" class="avatar" alt="">
           <!-- <img src="images/3.jpg" alt="" class="theImage"> -->
           <span class="content">
@@ -44,6 +44,12 @@ export default {
     this.$store.dispatch("get_notifications").then(() => {
       this.loading = false;
     });
+  },
+  methods: {
+    see(id, objid, action) {
+      this.$store.dispatch("see", id);
+      this.$router.push("/" + action.split(".")[0] + "/" + objid);
+    }
   }
 };
 </script>

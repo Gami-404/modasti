@@ -51,7 +51,7 @@
         <a v-if="showNumOfComments < setComments.length" href="#" @click.prevent="showMoreComments" class="moreLinks">More Comments</a>
       </div>
     </div>
-    <WrapperCardListTitled title="Items">
+    <WrapperCardListTitled title="Items" url="#">
       <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />
       </div>

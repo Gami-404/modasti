@@ -93,8 +93,6 @@ export default {
         encodeURIComponent(
           window.baseURL + "/#/" + this.context + "/" + this.objId
         );
-      console.log(link);
-
       return link;
     },
     openLogin() {
