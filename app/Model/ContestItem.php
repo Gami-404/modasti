@@ -68,6 +68,6 @@ class ContestItem extends Model
     public function likes()
     {
         return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
-            ->where('type', 'contest-item');
+            ->where('type', 'contest_item');
     }
 }
