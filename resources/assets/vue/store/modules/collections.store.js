@@ -18,23 +18,21 @@ const actions = {
     });
   },
   add_collection({ commit }, payload) {
-    return API.post("/addSet", payload);
+    return API.post("/addCollection", payload);
   },
-  remove_collection({ commit }, setId) {
-    return API.post("/deleteSet", {
-      setId
-    }).then(res => {
-      commit("REMOVE_SET", res.data.data.set);
+  remove_collection({ commit }, collectionId) {
+    return API.post("/deleteCollection", { collectionId }).then(res => {
+      commit("REMOVE_COLLECTION", res.data.data.set);
     });
   },
   like_collection_toggle({ commit }) {
-    commit("LIKE_SET_TOGGLE");
+    commit("LIKE_COLLECTION_TOGGLE");
   },
   get_collection_comments({ commit }, setId) {
     return API.post("/getSetComments", {
       setId
     }).then(res => {
-      commit("SET_COMMENTS", res.data.data.comments);
+      commit("COLLECTION_COMMENTS", res.data.data.comments);
     });
   },
   add_comment_to_collection({ commit, dispatch }, payload) {
