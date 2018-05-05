@@ -21,6 +21,7 @@
         </a>
       </div>
     </div>
+    <Loading v-if="loading" />
   </div>
 </template>
 
