@@ -68,16 +68,19 @@
         <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :base64-img="base64Img" :items="setItems"></SetCollectionAddPopup>
       </WrapperPopups>
     </transition>
+    <Loading v-if="loading" />
   </div>
 </template>
 <script>
 import Knova from "konva";
+import Loading from "@/components/Loading";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
+    Loading,
     SetCollectionAddPopup,
     WrapperPopups
   },

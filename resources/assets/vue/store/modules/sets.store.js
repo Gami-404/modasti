@@ -21,7 +21,7 @@ const getters = {
           )
           .toFixed(2)
       : "000",
-  itemsToAddCollections: state => id => state.itemsToAdd[id]
+  itemsToAdd: state => id => state.itemsToAdd[id]
 };
 
 // actions
