@@ -39,7 +39,7 @@ const actions = {
     });
   },
   add_collection({ commit }, payload) {
-    return API.post("/addCollection", payload);
+    return API.post("/createCollection", payload);
   },
   edit_collection({ commit }, payload) {
     return API.post("/editCollection", payload);
