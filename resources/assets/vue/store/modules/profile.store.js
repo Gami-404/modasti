@@ -69,8 +69,18 @@ const actions = {
       offset: state.offsets.sets,
       limit: 8
     }).then(res => {
-      commit("ADD_SETS",res.data.data,{root:true});
-      commit("USER_SETS", res.data.data.map(i=>i.id));
+      commit("ADD_SETS", res.data.data, { root: true });
+      commit("USER_SETS", res.data.data.map(i => i.id));
+    });
+  },
+  get_user_collections({ commit }, id) {
+    return API.post("/getCollections", {
+      userId: id,
+      offset: state.offsets.collections,
+      limit: 8
+    }).then(res => {
+      commit("ADD_COLLECTIONS", res.data.data, { root: true });
+      commit("USER_COLLECTIONS", res.data.data.map(i => i.id));
     });
   },
   get_user_liked_items({ commit, state }, id) {
@@ -146,11 +156,11 @@ const actions = {
   search_user_offset_reset({ commit }) {
     commit("SEARCH_RESULTS_OFFSET_RESET");
   },
-  toggle_block({ commit , state }) {
+  toggle_block({ commit, state }) {
     let userId = state.userProfile.id;
-    if(state.userProfile.is_blocked){
+    if (state.userProfile.is_blocked) {
       return API.post("unblockUser", { userId });
-    }else{
+    } else {
       return API.post("blockUser", { userId });
     }
   },
@@ -170,6 +180,10 @@ const mutations = {
   USER_SETS(state, data) {
     state.userSets = state.userSets.concat(data);
     state.offsets.sets += 8;
+  },
+  USER_COLLECTIONS(state, data) {
+    state.userCollections = state.userCollections.concat(data);
+    state.offsets.collections += 8;
   },
   USER_LIKED_ITEMS(state, data) {
     state.liked.items = state.liked.items.concat(data);
@@ -207,9 +221,9 @@ const mutations = {
   SEARCH_RESULTS_MORE(state, data) {
     state.searchResults.users = state.searchResults.users.concat(data);
   },
-  BLOCKED(state, data){
-    state.blocked=state.blocked.concat(data);
-    state.offsets.blocked+=8;
+  BLOCKED(state, data) {
+    state.blocked = state.blocked.concat(data);
+    state.offsets.blocked += 8;
   }
 };
 

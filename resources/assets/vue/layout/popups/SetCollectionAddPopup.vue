@@ -28,15 +28,15 @@
 
 <script>
 export default {
-  props:["submitType","base64Img","items","sets"],
+  props: ["submitType", "base64Img", "items", "sets"],
   data() {
     return {
-      formData:{
-        title:"",
-        description:"",
-        data:"",
-        items:this.items,
-        image:this.base64Img,
+      formData: {
+        title: "",
+        description: "",
+        data: "",
+        items: this.items,
+        image: this.base64Img,
         sets: this.sets
       },
       loading: false,
@@ -47,12 +47,15 @@ export default {
     add() {
       this.loading = true;
       this.$store
-        .dispatch("add_"+this.submitType, this.formData)
+        .dispatch("add_" + this.submitType, this.formData)
         .then(res => {
-            this.$router.push({ path: "/profile/me/"+this.submitType , query: {} });
-            window.location.reload();
+          this.$router.push({
+            path: "/profile/me/" + this.submitType + "s",
+            query: {}
+          });
+          // window.location.reload();
         })
-        .catch( err =>{
+        .catch(err => {
           this.errors = err.response.data.errors;
         })
         .finally(() => {

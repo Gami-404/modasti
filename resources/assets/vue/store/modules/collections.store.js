@@ -4,7 +4,7 @@ const state = {
   collection: {},
   collectionComments: [],
   itemsToAdd: [],
-  offsets: [0, 0, 0, 0]
+  offsets: [0, 0, 0, 0, 0]
 };
 
 // getters
@@ -45,9 +45,7 @@ const actions = {
     return API.post("/editCollection", payload);
   },
   remove_collection({ commit }, collectionId) {
-    return API.post("/deleteCollection", {
-      collectionId
-    }).then(res => {
+    return API.post("/deleteCollection", { collectionId }).then(res => {
       commit("REMOVE_COLLECTION", res.data.data.collection);
     });
   },
@@ -70,15 +68,12 @@ const actions = {
     }).then(() => dispatch("get_collection_comments", payload.collectionId));
   },
   delete_comment_on_collection({ commit, dispatch }, collectionId) {
-    return API.post("/deleteComment", { collectionId }).then(() =>
-      dispatch("get_collection_comments", collectionId)
-    );
+    return API.post("/deleteCollectionComment", {
+      collectionId
+    }).then(() => dispatch("get_collection_comments", collectionId));
   },
   get_items_for_add_collection({ commit, state, rootGetters }) {
     return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
-      resArray.forEach(res => {
-        commit("ADD_ITEMS", res.data.data, { root: true });
-      });
       commit("ITEMS_FOR_ADD_COLLECTION", resArray.map(res => res.data.data));
     });
   },
@@ -116,11 +111,11 @@ const mutations = {
     state.collectionComments = data;
   },
   ITEMS_FOR_ADD_COLLECTION(state, arrayOfData) {
-    state.offcollections = state.offcollections.map(i => i + 6);
+    state.offcollections = state.offsets.map(i => i + 6);
     state.itemsToAdd = arrayOfData;
   },
   LOAD_MORE_ITEMS_FOR_ADD_COLLECTION(state, payload) {
-    state.offcollections[payload.view] += 6;
+    state.offsets[payload.view] += 6;
     state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(
       payload.data
     );
@@ -138,6 +133,11 @@ export default {
 function itemsToAdd(userId, offset) {
   offset = offset || 0;
   return [
+    API.post("/getLikedSets", {
+      userId: userId,
+      offset: offset,
+      limit: 6
+    }),
     API.post("/getLikedItems", {
       userId: userId,
       offset: offset,
@@ -145,18 +145,22 @@ function itemsToAdd(userId, offset) {
     }),
     API.post("/getItemsFromCategory", {
       offset: offset,
+      limit: 6,
       categoryId: 1
     }),
     API.post("/getItemsFromCategory", {
       offset: offset,
+      limit: 6,
       categoryId: 4
     }),
     API.post("/getItemsFromCategory", {
       offset: offset,
+      limit: 6,
       categoryId: 6
     }),
     API.post("/getItemsFromCategory", {
       offset: offset,
+      limit: 6,
       categoryId: 24
     })
   ];
