@@ -15,7 +15,7 @@
       <div v-if="set['user']&& set['user_id'] == $store.getters.userId">
         <div class="setEdit">
           <router-link :to="'?popup=edit_set&setId='+set.id">Edit</router-link>
-          <a href="#" class="remove">Remove</a>
+          <a href="#" @click.prevent="remove" class="remove">{{loading?'loading..':'Remove'}}</a>
         </div>
       </div>
       <div v-else>
@@ -36,6 +36,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       notFoundImg:
         "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
     };
@@ -43,6 +44,16 @@ export default {
   computed: {
     set() {
       return this.$store.getters.getSet(this.setId);
+    }
+  },
+  methods: {
+    remove() {
+      this.loading = true;
+      this.$store.dispatch("remove_set", this.setId).then(() => {
+        this.$router.push("/profile/me/sets");
+        window.location.reload();
+        this.loading = false;
+      });
     }
   }
 };

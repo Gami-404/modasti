@@ -42,7 +42,7 @@ const mutations = {
     state.unseenCount = data.unseen_count;
   },
   SEE(state, id) {
-    state.count--;
+    state.unseenCount--;
     state.nav.forEach(element => {
       if (element.id == id) {
         element.seen = 1;

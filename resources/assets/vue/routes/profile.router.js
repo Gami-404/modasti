@@ -11,14 +11,15 @@ import ProfileBlocked from "@/pages/profile/sub/Blocked";
 import ProfileEdit from "@/pages/profile/Edit";
 export default [
   {
-    path:"/profile/edit",
+    path: "/profile/edit",
     component: ProfileEdit,
-    meta:{ requiresAuth : true },    
+    meta: { requiresAuth: true }
   },
   {
     path: "/profile/:userId(\\d+|me)",
+    alias: "/user/:userId(\\d+|me)",
     component: Profile,
-    meta:{ requiresAuth : true },
+    meta: { requiresAuth: true },
     children: [
       {
         path: "blocked",

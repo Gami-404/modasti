@@ -4,7 +4,7 @@ const state = {
   set: {},
   setComments: [],
   itemsToAdd: [],
-  offset: 0
+  offsets: [0, 0, 0, 0]
 };
 
 // getters
@@ -67,43 +67,26 @@ const actions = {
       parentId: "0"
     }).then(() => dispatch("get_set_comments", payload.setId));
   },
-  delete_comment_on_set({ commit, dispatch }, setId) {
-    return API.post("/deleteComment", { setId }).then(() =>
-      dispatch("get_set_comments", setId)
-    );
+  delete_comment_from_set({ commit, dispatch }, { setId, commentId }) {
+    return API.post("/deleteComment", {
+      commentId
+    }).then(() => dispatch("get_set_comments", setId));
   },
   get_items_for_add_set({ commit, state, rootGetters }) {
-    return Promise.all([
-      API.post("/getLikedItems", {
-        userId: rootGetters.userId,
-        offset: state.offset,
-        limit: 6
-      }),
-      API.post("/getItemsFromCategory", {
-        offset: state.offset,
-        categoryId: 1
-      }),
-      API.post("/getItemsFromCategory", {
-        offset: state.offset,
-        categoryId: 4
-      }),
-      API.post("/getItemsFromCategory", {
-        offset: state.offset,
-        categoryId: 6
-      }),
-      API.post("/getItemsFromCategory", {
-        offset: state.offset,
-        categoryId: 24
-      })
-    ]).then(resArray => {
+    return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
       resArray.forEach(res => {
         commit("ADD_ITEMS", res.data.data, { root: true });
       });
-      commit(
-        "ITEMS_FOR_ADD_SEST_AND_COLLECTION",
-        resArray.map(res => res.data.data)
-      );
+      commit("ITEMS_FOR_ADD_SEST", resArray.map(res => res.data.data));
     });
+  },
+  set_load_more_to_add({ commit, state, rootGetters }, view) {
+    return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(
+      res => {
+        commit("ADD_ITEMS", res.data.data, { root: true });
+        commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view });
+      }
+    );
   }
 };
 
@@ -125,9 +108,16 @@ const mutations = {
   SET_COMMENTS(state, data) {
     state.setComments = data;
   },
-  ITEMS_FOR_ADD_SEST_AND_COLLECTION(state, arrayOfData) {
-    state.offset += 6;
+  ITEMS_FOR_ADD_SEST(state, arrayOfData) {
+    state.offsets = state.offsets.map(i => i + 6);
     state.itemsToAdd = arrayOfData;
+  },
+  LOAD_MORE_ITEMS_FOR_ADD_SEST(state, payload) {
+    state.offsets[payload.view] += 6;
+    state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(
+      payload.data
+    );
+    state.itemsToAdd = [...state.itemsToAdd];
   }
 };
 
@@ -137,3 +127,30 @@ export default {
   actions,
   mutations
 };
+
+function itemsToAdd(userId, offset) {
+  offset = offset || 0;
+  return [
+    API.post("/getLikedItems", {
+      userId: userId,
+      offset: offset,
+      limit: 6
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      categoryId: 1
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      categoryId: 4
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      categoryId: 6
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      categoryId: 24
+    })
+  ];
+}

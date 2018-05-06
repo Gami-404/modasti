@@ -1,58 +1,127 @@
 import API from "../API";
 
-const state = {};
+const state = {
+  collection: {},
+  collectionComments: [],
+  itemsToAdd: [],
+  offsets: [0, 0, 0, 0, 0]
+};
 
 // getters
-const getters = {};
+const getters = {
+  collection: state => state.collection,
+  collectionComments: state => state.collectionComments,
+  collectionTotalPrice: (state, _, __, rootGetters) =>
+    state.collection.items
+      ? state.collection.items
+          .reduce(
+            (sum, itemId) =>
+              sum + parseFloat(rootGetters.getItem(itemId).price),
+            0
+          )
+          .toFixed(2)
+      : "000",
+  itemsToAddCollections: state => id => state.itemsToAdd[id]
+};
 
 // actions
 const actions = {
-  get_collection_details({ commit, state }, setId) {
-    if (setId == state.set.id) return Promise.resolve();
-    return API.post("/setDetails", {
-      setId
+  get_collection_details({ commit, state }, collectionId) {
+    if (collectionId == state.collection.id) return Promise.resolve();
+    return API.post("/collectionDetails", {
+      collectionId
     }).then(res => {
-      commit("ADD_ITEMS", res.data.data.set.items, { root: true });
-      res.data.data.set.items = res.data.data.set.items.map(item => item.id);
-      commit("SET", res.data.data.set);
+      commit("ADD_ITEMS", res.data.data.collection.items, { root: true });
+      res.data.data.collection.items = res.data.data.collection.items.map(
+        item => item.id
+      );
+      commit("collection", res.data.data.collection);
     });
   },
   add_collection({ commit }, payload) {
-    return API.post("/addSet", payload);
+    return API.post("/createCollection", payload);
   },
-  remove_collection({ commit }, setId) {
-    return API.post("/deleteSet", {
-      setId
-    }).then(res => {
-      commit("REMOVE_SET", res.data.data.set);
+  edit_collection({ commit }, payload) {
+    return API.post("/editCollection", payload);
+  },
+  remove_collection({ commit }, collectionId) {
+    return API.post("/deleteCollection", { collectionId }).then(res => {
+      commit("REMOVE_COLLECTION", res.data.data.collection);
     });
   },
   like_collection_toggle({ commit }) {
-    commit("LIKE_SET_TOGGLE");
+    commit("LIKE_COLLECTION_TOGGLE");
   },
-  get_collection_comments({ commit }, setId) {
-    return API.post("/getSetComments", {
-      setId
+  get_collection_comments({ commit }, collectionId) {
+    return API.post("/getCollectionComments", {
+      collectionId,
+      limit: 30
     }).then(res => {
-      commit("SET_COMMENTS", res.data.data.comments);
+      commit("COLLECTION_COMMENTS", res.data.data.comments);
     });
   },
   add_comment_to_collection({ commit, dispatch }, payload) {
-    return API.post("/addCommentToSet", {
-      setId: payload.setId,
+    return API.post("/addCommentToCollection", {
+      collectionId: payload.collectionId,
       text: payload.comment,
       parentId: "0"
-    }).then(dispatch("get_set_comments", payload.setId));
+    }).then(() => dispatch("get_collection_comments", payload.collectionId));
   },
-  delete_comment_on_collection({ commit, dispatch }, setId) {
-    return API.post("/deleteComment", { setId }).then(
-      dispatch("get_set_comments", setId)
+  delete_comment_on_collection({ commit, dispatch }, collectionId) {
+    return API.post("/deleteCollectionComment", {
+      collectionId
+    }).then(() => dispatch("get_collection_comments", collectionId));
+  },
+  get_items_for_add_collection({ commit, state, rootGetters }) {
+    return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
+      commit("ITEMS_FOR_ADD_COLLECTION", resArray.map(res => res.data.data));
+    });
+  },
+  collection_load_more_to_add({ commit, state, rootGetters }, view) {
+    return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(
+      res => {
+        commit("ADD_ITEMS", res.data.data, { root: true });
+        commit("LOAD_MORE_ITEMS_FOR_ADD_COLLECTION", {
+          data: res.data.data,
+          view
+        });
+      }
     );
   }
 };
 
 // mutations
-const mutations = {};
+const mutations = {
+  COLLECTION(state, data) {
+    state.collection = data;
+  },
+  REMOVE_COLLECTION(state) {
+    state.collection = {};
+  },
+  LIKE_COLLECTION_TOGGLE(state) {
+    if (state.collection.title_en) {
+      state.collection.is_liked = !state.collection.is_liked;
+      state.collection.is_liked
+        ? state.collection.likes++
+        : state.collection.likes--;
+      state.collection = { ...state.collection };
+    }
+  },
+  COLLECTION_COMMENTS(state, data) {
+    state.collectionComments = data;
+  },
+  ITEMS_FOR_ADD_COLLECTION(state, arrayOfData) {
+    state.offcollections = state.offsets.map(i => i + 6);
+    state.itemsToAdd = arrayOfData;
+  },
+  LOAD_MORE_ITEMS_FOR_ADD_COLLECTION(state, payload) {
+    state.offsets[payload.view] += 6;
+    state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(
+      payload.data
+    );
+    state.itemsToAdd = [...state.itemsToAdd];
+  }
+};
 
 export default {
   state,
@@ -60,3 +129,39 @@ export default {
   actions,
   mutations
 };
+
+function itemsToAdd(userId, offset) {
+  offset = offset || 0;
+  return [
+    API.post("/getLikedSets", {
+      userId: userId,
+      offset: offset,
+      limit: 6
+    }),
+    API.post("/getLikedItems", {
+      userId: userId,
+      offset: offset,
+      limit: 6
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      limit: 6,
+      categoryId: 1
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      limit: 6,
+      categoryId: 4
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      limit: 6,
+      categoryId: 6
+    }),
+    API.post("/getItemsFromCategory", {
+      offset: offset,
+      limit: 6,
+      categoryId: 24
+    })
+  ];
+}

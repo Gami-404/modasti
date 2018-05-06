@@ -44,7 +44,9 @@ export default {
     "objId",
     "context",
     "isLiked",
-    "commentUrl"
+    "commentUrl",
+    "parentContext",
+    "parentId"
   ],
   data() {
     return {
@@ -91,10 +93,12 @@ export default {
       let link =
         url +
         encodeURIComponent(
-          window.baseURL + "/#/" + this.context + "/" + this.objId
+          window.baseURL +
+            "/#/" +
+            (this.parentContext || this.context) +
+            "/" +
+            (this.parentId || this.objId)
         );
-      console.log(link);
-
       return link;
     },
     openLogin() {

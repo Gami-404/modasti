@@ -20,7 +20,7 @@
             <br>
             <div v-if="set.user && userId == set.user_id">
               <router-link :to="'?popup=edit_set&setId='+set.id" class="mainBtn brandBg">Edit</router-link>
-              <a href="#" class="mainBtn">Remove</a>
+              <a href="#" @click.prevent="remove" class="mainBtn">Remove</a>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
         <a v-if="showNumOfComments < setComments.length" href="#" @click.prevent="showMoreComments" class="moreLinks">More Comments</a>
       </div>
     </div>
-    <WrapperCardListTitled title="Items">
+    <WrapperCardListTitled title="Items" url="#" more="false">
       <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />
       </div>
@@ -112,8 +112,9 @@ export default {
     },
     remove() {
       this.loading = true;
-      this.$store.dispatch("remove_set", this.set.setId).then(() => {
+      this.$store.dispatch("remove_set", this.set.id).then(() => {
         this.$router.push("/profile/me/sets");
+        window.location.reload();
         this.loading = false;
       });
     },
@@ -134,7 +135,10 @@ export default {
     deleteComment(id) {
       this.loadingComments = true;
       this.$store
-        .dispatch("delete_comment")
+        .dispatch("delete_comment_from_set", {
+          commentId: id,
+          setId: this.set.id
+        })
         .then(() => (this.loadingComments = false));
     },
     showMoreComments() {

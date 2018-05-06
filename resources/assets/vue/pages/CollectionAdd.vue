@@ -39,45 +39,48 @@
       </div>
       <div class="rightArea">
         <div class="theTabs">
-          <a href="#" @click.prevent="view=0" :class="{'active':view==0}">Liked Items</a>
-          <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
-          <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
-          <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
+          <a href="#" @click.prevent="view=0" :class="{'active':view==0}">Liked Sets</a>
+          <a href="#" @click.prevent="view=1" :class="{'active':view==1}">Liked Items</a>
+          <a href="#" @click.prevent="view=2" :class="{'active':view==2}">clothing</a>
+          <a href="#" @click.prevent="view=3" :class="{'active':view==3}">shoes</a>
+          <a href="#" @click.prevent="view=4" :class="{'active':view==4}">beauty</a>
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
             <div v-for="(item,i) of items" :key="i" class="mycol-sm-4">
-              <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
+              <div @dragstart="dragStart" draggable="true" :src="item['photos']?item['photos'][0]['photo_name']:item['photo']['photo_name']" :data-id="item.id" :data-type="view==0?'set':'item'" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
-                    <div class="theCell"><img :src="item['photos'][0]['photo_name']" :data-id="item.id" alt=""></div>
+                    <div class="theCell"><img :src="item['photos']?item['photos'][0]['photo_name']:item['photo']['photo_name']" :data-id="item.id" :data-type="view==0?'set':'item'" alt=""></div>
                   </div>
                 </div>
                 <div class="name">{{item.title_en}}</div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
     <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
-        <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="collection" :base64-img="base64Img" :items="collectionItems" :sets="collectionSets"></SetCollectionAddPopup>
+        <SetCollectionAddPopup v-if="$route.query.popup=='create_collection'" submit-type="collection" :base64-img="base64Img" :items="collectionItems" :sets="collectionSets"></SetCollectionAddPopup>
       </WrapperPopups>
     </transition>
+    <Loading v-if="loading" />
   </div>
 </template>
 <script>
 import Knova from "konva";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
+import Loading from "@/components/Loading";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     SetCollectionAddPopup,
-    WrapperPopups
+    WrapperPopups,
+    Loading
   },
 
   data() {
@@ -90,17 +93,17 @@ export default {
       flipBit: -1,
       base64Img: "",
       collectionItems: [],
-      collectionSets:[],
+      collectionSets: [],
       loading: true
     };
   },
   computed: {
     items() {
-      return this.$store.getters.itemsToAdd(this.view);
+      return this.$store.getters.itemsToAddCollections(this.view);
     }
   },
   created() {
-    this.$store.dispatch("get_items_for_add_set_or_collection").then(() => {
+    this.$store.dispatch("get_items_for_add_collection").then(() => {
       this.loading = false;
     });
   },
@@ -151,13 +154,13 @@ export default {
       event.preventDefault();
       this.itemsCounter++;
       let item = JSON.parse(event.dataTransfer.getData("item"));
-      if(item.type=="item"){
-        this.collectionItems.indexOf(item.id) === -1
-          ? this.collectionItems.push(item.id)
-          : null;
-      }else{
+      if (item.type == "set") {
         this.collectionSets.indexOf(item.id) === -1
           ? this.collectionSets.push(item.id)
+          : null;
+      } else {
+        this.collectionItems.indexOf(item.id) === -1
+          ? this.collectionItems.push(item.id)
           : null;
       }
       let img = new Image();
@@ -245,8 +248,7 @@ export default {
       this.itemsCounter++;
     },
     publish() {
-      console.log(this.stage.toDataURL());
-      this.$router.push({ query: { popup: "create_set" } });
+      this.$router.push({ query: { popup: "create_collection" } });
       this.base64Img = this.stage.toDataURL();
     }
   }
