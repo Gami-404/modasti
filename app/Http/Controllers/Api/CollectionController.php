@@ -21,7 +21,7 @@ class CollectionController extends Controller
         $data = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:254',
             'items.*' => 'exists:posts,id',
             'sets.*' => 'exists:sets,id',
         ]);
