@@ -337,6 +337,8 @@ namespace Maps\Collection {
         $newCollection->user_id = $collection->user_id;
         $newCollection->title_en = $collection->title;
         $newCollection->text_en = $collection->excerpt;
+        $newCollection->is_liked = $collection->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newCollection->likes = $collection->likes()->where('id', fauth()->user()->id)->count();
         $newCollection->created = $collection->created_at->diffForHumans();
         $newCollection->items = \Maps\Collection\items($collection->items);
         $newCollection->user = \Maps\User\user($collection->user);

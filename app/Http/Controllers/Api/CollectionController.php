@@ -270,10 +270,7 @@ class CollectionController extends Controller
             return response()->json($data, 400);
         }
         $collection = Collection::with('image')->where('id', $request->get('collectionId'))->first();
-        $data['data'] = $collection;
-        $data['data']->image = uploads_url($collection->image->path);
-        $data['data']->sets = \Maps\Set\sets($collection->sets);
-        $data['data']->items = \Maps\Item\items($collection->items);
+        $data['data'] = \Maps\Collection\collection($collection);
         return response()->json($data);
     }
 
