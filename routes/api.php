@@ -47,6 +47,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('addItemToCollection', 'Api\CollectionController@addItemToCollection');
     $router->post('addSetToCollection', 'Api\CollectionController@addSetToCollection');
     $router->post('editCollection', 'Api\CollectionController@editCollection');
+    $router->post('collectionDetails', 'Api\CollectionController@collectionDetails');
     // Collection >> comments
     $router->post('addCommentToCollection', 'Api\CollectionController@addCommentToCollection');
     $router->post('getCollectionComments', 'Api\CollectionController@getCollectionComments');
