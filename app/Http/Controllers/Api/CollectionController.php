@@ -271,6 +271,7 @@ class CollectionController extends Controller
         }
         $collection = Collection::with('image')->where('id', $request->get('collectionId'))->first();
         $data['data'] = $collection;
+        $data['data']->image = uploads_url($collection->image);
         $data['data']->sets = \Maps\Set\sets($collection->sets);
         $data['data']->items = \Maps\Item\items($collection->items);
         return response()->json($data);
