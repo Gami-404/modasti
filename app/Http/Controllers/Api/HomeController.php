@@ -203,7 +203,9 @@ class HomeController extends Controller
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
         $items = Post::with('image', 'brand')->confirmed()
-          ->whereHas('likes.follower', function ($query) {
+            ->whereHas('user.follower', function ($query) {
+                $query->where('following_id', fauth()->user()->id);
+            })->orWhereHas('likes.follower', function ($query) {
                 $query->where('following_id', fauth()->user()->id);
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
         $data['data']['items'] = \Maps\Item\items($items);
