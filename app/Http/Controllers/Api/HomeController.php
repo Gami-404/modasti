@@ -206,7 +206,7 @@ class HomeController extends Controller
             ->whereHas('user.follower', function ($query) {
                 $query->where('following_id', fauth()->user()->id);
             })->orWhereHas('likes.following', function ($query) {
-                $query->where('following_id', fauth()->user()->id);
+                $query->where('follower_id', fauth()->user()->id);
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
         $data['data']['items'] = \Maps\Item\items($items);
         return response()->json($data);
