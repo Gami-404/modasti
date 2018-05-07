@@ -55,7 +55,6 @@ const actions = {
   get_messages({ commit }, userId) {
     return API.post("/getChannelMessages", {
       userId: userId,
-      channelId: 1,
       offset: 0,
       limit: 50
     }).then(res => {
@@ -114,10 +113,13 @@ const mutations = {
     if (!state.messages[state.currMessagingUserId])
       state.messages[state.currMessagingUserId] = [];
     state.messages[state.currMessagingUserId].push({
-      from_id: state.user.userId,
+      sender_id: state.user.userId,
       message,
       created_at: "1111111111 Now"
     });
+  },
+  NO_USER(state) {
+    state.currMessagingUserId = -1;
   },
   CURR_MESSAGING_USER(state, userId) {
     state.currMessagingUserId = userId;

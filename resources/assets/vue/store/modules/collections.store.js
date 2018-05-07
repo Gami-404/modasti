@@ -11,16 +11,16 @@ const state = {
 const getters = {
   collection: state => state.collection,
   collectionComments: state => state.collectionComments,
-  collectionTotalPrice: (state, _, __, rootGetters) =>
-    state.collection.items
-      ? state.collection.items
-          .reduce(
-            (sum, itemId) =>
-              sum + parseFloat(rootGetters.getItem(itemId).price),
-            0
-          )
-          .toFixed(2)
-      : "000",
+  // collectionTotalPrice: (state, _, __, rootGetters) =>
+  //   state.collection.items
+  //     ? state.collection.items
+  //         .reduce(
+  //           (sum, itemId) =>
+  //             sum + parseFloat(rootGetters.getItem(itemId).price),
+  //           0
+  //         )
+  //         .toFixed(2)
+  //     : "000",
   itemsToAddCollections: state => id => state.itemsToAdd[id]
 };
 
@@ -31,11 +31,11 @@ const actions = {
     return API.post("/collectionDetails", {
       collectionId
     }).then(res => {
-      commit("ADD_ITEMS", res.data.data.collection.items, { root: true });
-      res.data.data.collection.items = res.data.data.collection.items.map(
-        item => item.id
-      );
-      commit("collection", res.data.data.collection);
+      commit("ADD_ITEMS", res.data.data.items, { root: true });
+      commit("ADD_SETS", res.data.data.sets, { root: true });
+      res.data.data.items = res.data.data.items.map(item => item.id);
+      res.data.data.sets = res.data.data.sets.map(set => set.id);
+      commit("COLLECTION", res.data.data);
     });
   },
   add_collection({ commit }, payload) {
@@ -67,10 +67,10 @@ const actions = {
       parentId: "0"
     }).then(() => dispatch("get_collection_comments", payload.collectionId));
   },
-  delete_comment_on_collection({ commit, dispatch }, collectionId) {
-    return API.post("/deleteCollectionComment", {
-      collectionId
-    }).then(() => dispatch("get_collection_comments", collectionId));
+  delete_comment_from_collection({ commit, dispatch }, payload) {
+    return API.post("/deleteCollectionComment", payload).then(() =>
+      dispatch("get_collection_comments", payload.collectionId)
+    );
   },
   get_items_for_add_collection({ commit, state, rootGetters }) {
     return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
@@ -99,7 +99,7 @@ const mutations = {
     state.collection = {};
   },
   LIKE_COLLECTION_TOGGLE(state) {
-    if (state.collection.title_en) {
+    if (state.collection) {
       state.collection.is_liked = !state.collection.is_liked;
       state.collection.is_liked
         ? state.collection.likes++

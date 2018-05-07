@@ -51,6 +51,14 @@ const actions = {
       commit("LIKE_SET_PROPAGATE", objId);
     });
   },
+  like_collection({ commit, dispatch }, objId) {
+    return API.post("/switchLike", {
+      objId,
+      targetObject: "collection"
+    }).then(() => {
+      commit("LIKE_COLLECTION_PROPAGATE", objId);
+    });
+  },
   follow_user({ commit }, id) {
     return API.post("/followUser", {
       userId: id
@@ -130,6 +138,15 @@ const mutations = {
       state.sets[id].is_liked = !state.sets[id].is_liked;
       state.sets[id].is_liked ? state.sets[id].likes++ : state.sets[id].likes--;
       state.sets = { ...state.sets };
+    }
+  },
+  LIKE_COLLECTION_PROPAGATE(state, id) {
+    if (state.collections[id]) {
+      state.collections[id].is_liked = !state.collections[id].is_liked;
+      state.collections[id].is_liked
+        ? state.collections[id].likes++
+        : state.collections[id].likes--;
+      state.collections = { ...state.collections };
     }
   },
   FOLLOW_USER_PROPAGATE(state, id) {

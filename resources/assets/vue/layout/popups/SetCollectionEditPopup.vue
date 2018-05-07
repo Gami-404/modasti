@@ -28,13 +28,14 @@
 
 <script>
 export default {
-  props:["submitType"],
+  props: ["submitType"],
   data() {
     return {
-      formData:{
+      formData: {
         setId: this.$route.query.setId,
-        title:"",
-        description:"",
+        collectionId: this.$route.query.collectionId,
+        title: "",
+        description: ""
       },
       loading: false,
       errors: []
@@ -44,12 +45,15 @@ export default {
     add() {
       this.loading = true;
       this.$store
-        .dispatch("edit_"+this.submitType, this.formData)
+        .dispatch("edit_" + this.submitType, this.formData)
         .then(res => {
-            this.$router.push({ path: "/profile/me/"+this.submitType+"s" , query: {} });
-            window.location.reload();
+          this.$router.push({
+            path: "/profile/me/" + this.submitType + "s",
+            query: {}
+          });
+          window.location.reload();
         })
-        .catch( err =>{
+        .catch(err => {
           this.errors = err.response.data.errors;
         })
         .finally(() => {

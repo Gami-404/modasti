@@ -17,12 +17,17 @@ const getters = {
 // actions
 const actions = {
   get_notifications({ commit, state }) {
-    return API.post("/getNotifications", { offset: state.offset }).then(res => {
+    return API.post("/getNotifications", {
+      offset: state.offset,
+      limit: 8
+    }).then(res => {
       commit("NOTIVICATIONS", res.data.data);
     });
   },
   update_notifications({ commit, state }) {
-    return API.post("/getNotifications", {}).then(res => {
+    return API.post("/getNotifications", {
+      limit: 5
+    }).then(res => {
       commit("NAV", res.data.data);
     });
   },
@@ -36,6 +41,7 @@ const actions = {
 const mutations = {
   NOTIVICATIONS(state, data) {
     state.notifications = state.notifications.concat(data.notifications);
+    state.offset += 8;
   },
   NAV(state, data) {
     state.nav = data.notifications;

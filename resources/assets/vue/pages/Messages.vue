@@ -11,9 +11,9 @@
               <i v-if="loadingMessages" class=" no-user fa fa-spinner fa-spin"></i>
             </div>
             <div v-if="!loadingMessages">
-              <div v-for="(message,i) of messages" :key="i" class="oneMessage clearfix" :class="{'second': message.from_id == $store.getters.user.userId}">
+              <div v-for="(message,i) of messages" :key="i" class="oneMessage clearfix" :class="{'second': message.sender_id == $store.getters.user.userId}">
                 <div class="avatar">
-                  <img src="images/img3.jpg" alt="">
+                  <img src="https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1" alt="">
                   <div class="textCentered">{{message.created_at.substr(10)}}</div>
                 </div>
                 <div class="theMessage">{{message.message}}</div>
@@ -51,6 +51,7 @@ import MessageCard from "@/components/MessageCard";
 import Loading from "@/components/Loading";
 import { mapGetters } from "vuex";
 export default {
+  name: "messages",
   components: {
     WrapperCardList,
     MessageCard,
@@ -77,20 +78,28 @@ export default {
     this.$store.dispatch("get_users_messages").then(() => {
       this.loading = false;
       if (this.$route.params.userMessagesId) {
-        this.loadMessages(this.$route.params.userMessagesId);
+        this.loadMessages(this.$route.params.userMessagesId, true);
       }
     });
+    setInterval(() => this.$store.dispatch("get_users_messages"), 15000);
+    setInterval(() => {
+      if (this.currMessagingUserId !== -1)
+        this.loadMessages(this.currMessagingUserId, false);
+    }, 8000);
   },
   watch: {
     "$route.params.userMessagesId"(userMessagesId) {
       if (userMessagesId) {
-        this.loadMessages(userMessagesId);
+        this.loadMessages(userMessagesId, true);
+      } else {
+        this.$store.commit("NO_USER");
       }
     }
   },
   methods: {
-    loadMessages(userId) {
-      this.loadingMessages = true;
+    loadMessages(userId, loadingMessages) {
+      this.$router.push("/messages/" + userId);
+      this.loadingMessages = loadingMessages;
       return this.$store
         .dispatch("get_messages", userId)
         .then(() => (this.loadingMessages = false));

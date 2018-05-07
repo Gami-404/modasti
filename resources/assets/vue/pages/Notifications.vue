@@ -19,6 +19,9 @@
             <span class="time">{{notification.since}}</span>
           </span>
         </a>
+        <div class="getMore">
+          <a @click.prevent="load" href="#" class="mainBtn"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
+        </div>
       </div>
     </div>
     <Loading v-if="loading" />
@@ -33,7 +36,8 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      loadMoreLoading: false
     };
   },
   computed: {
@@ -42,11 +46,16 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("get_notifications").then(() => {
-      this.loading = false;
-    });
+    this.load();
   },
   methods: {
+    load() {
+      this.loadMoreLoading = true;
+      this.$store.dispatch("get_notifications").then(() => {
+        this.loading = false;
+        this.loadMoreLoading = false;
+      });
+    },
     see(id, objid, action) {
       this.$store.dispatch("see", id);
       this.$router.push("/" + action.split(".")[0] + "/" + objid);
