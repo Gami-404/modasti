@@ -12,6 +12,7 @@ use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class HomeController extends Controller
@@ -208,7 +209,9 @@ class HomeController extends Controller
             })->orWhereHas('likes.follower', function ($query) {
                 $query->where('following_id', fauth()->user()->id);
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+
         $data['data']['items'] = \Maps\Item\items($items);
+        $data['data']['its'] = DB::enableQueryLog();
         return response()->json($data);
     }
 
