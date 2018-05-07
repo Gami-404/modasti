@@ -107,7 +107,7 @@ const router = new Router({
       component: Category
     },
     {
-      path: "/messages",
+      path: "/messages/:userMessagesId?",
       name: "messages",
       component: Messages
     },
