@@ -269,7 +269,7 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $data['data'] = Collection::find($request->get('collectionId'));
+        $data['data'] = Collection::with('sets','items')->where('id', $request->get('collectionId'))->first();
         return response()->json($data);
     }
 
