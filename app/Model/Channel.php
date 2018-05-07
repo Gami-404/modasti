@@ -43,7 +43,7 @@ class Channel extends Model
      */
     public function getUserAttribute()
     {
-        if (auth()->id() == $this->sender_id) {
+        if (fauth()->id() == $this->sender_id) {
             return User::find($this->receiver_id);
         } else {
             return User::find($this->sender_id);
