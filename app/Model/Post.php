@@ -38,7 +38,7 @@ class Post extends Model
     public function likes()
     {
         return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
-            ->where('type', 'items');
+            ->where('type', 'item');
     }
 
 }

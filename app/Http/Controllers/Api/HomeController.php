@@ -211,7 +211,6 @@ class HomeController extends Controller
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
 
         $data['data']['items'] = \Maps\Item\items($items);
-        $data['data']['its'] = DB::enableQueryLog();
         return response()->json($data);
     }
 
