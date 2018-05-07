@@ -269,9 +269,9 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $data['data']['collection'] = Collection::with('image')->where('id', $request->get('collectionId'))->first();
-        $data['data']['sets'] = \Maps\Set\sets($data['data']['collection']->sets);
-        $data['data']['items'] = \Maps\Item\items($data['data']['collection']->items);
+        $data['data'] = new \stdClass();
+        $data['data']->sets= \Maps\Set\sets($data['data']['collection']->sets);
+        $data['data']->items = \Maps\Item\items($data['data']['collection']->items);
         return response()->json($data);
     }
 
