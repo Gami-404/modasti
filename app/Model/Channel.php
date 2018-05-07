@@ -71,7 +71,7 @@ class Channel extends Model
     {
         return $query->where(function ($query) use ($userId) {
             return $query->where(['sender_id' => fauth()->id(), 'receiver_id' => $userId]);
-        })->where(function ($query) use ($userId) {
+        })->Orwhere(function ($query) use ($userId) {
             return $query->where(['sender_id' => $userId, 'receiver_id' => fauth()->id()]);
         });
     }
