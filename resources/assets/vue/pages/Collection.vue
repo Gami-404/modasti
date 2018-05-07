@@ -2,24 +2,25 @@
   <div class="gridContainer">
     <div class="proudctDetails secondStyle">
       <div class="clearfix">
-        <div class="avatar"><img :src="set['photo'] && set['photo']['photo_name']" alt=""></div>
+        <div class="avatar"><img :src="collection['image']" alt=""></div>
         <div class="content">
           <div class="in">
             <div class="paging">
-              <a href="/">Home</a>
-              <a href="/set">Set</a>
+              <a>Home</a>
+              <a>Collection</a>
             </div>
-            <h2 class="title">{{set.title_en}}</h2>
-            <div v-html="set.text_en" class="description"></div>
+            <h2 class="title">{{collection.title_en}}</h2>
+            <div v-html="collection.text_en" class="description"></div>
             <div class="info clearfix">
-              <div class="price">{{setTotalPrice}} $</div>
-              <a v-if="set['user']" :href="'/profile/'+set['user']['id']" class="link">{{set['user']['name']}}</a>
+              <!-- <div class="price">{{setTotalPrice}} $</div> -->
+              <a v-if="collection['user']" :href="'/profile/'+collection['user']['id']" class="link">{{collection['user']['name']}}</a>
             </div>
-            <CardActions :likeable="true" :is-liked="set.is_liked" :commentable="true" :sharable="true" :obj-id="set.id" :num-of-likes="set.likes" :num-of-comments="set.comments_counter" context="set" />
-            <div v-if="set.user && userId == set.user.id">
-              <a @click.prevent="remove" href="#" class="getMore">Edit</a>
-              <a @click.prevent="remove" href="#" class="mainBtn">Remove</a>
+            <div v-if="userId == collection.user_id">
+              <router-link :to="'?popup=edit_collection&collectionId='+collection.id" class="mainBtn brandBg">Edit</router-link>
+              <a href="#" @click.prevent="remove" class="mainBtn">Remove</a>
             </div>
+            <br>
+            <CardActions :likeable="true" :is-liked="collection.is_liked" :commentable="true" :sharable="true" :obj-id="collection.id" :num-of-likes="collection.likes" :num-of-comments="collection.comments_counter" context="collection" />
           </div>
         </div>
       </div>
@@ -32,7 +33,7 @@
           </a>
         </div>
         <div v-if="!loadingComments">
-          <div v-for="comment of setComments.slice(0,showNumOfComments)" :key="comment.id" class="theComments">
+          <div v-for="comment of collectionComments.slice(0,showNumOfComments)" :key="comment.id" class="theComments">
             <div class="one clearfix">
               <router-link :to="'/profile/'+comment.from_id"> <img :src="comment.user.photo && comment.user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" class="avatar" alt=""> </router-link>
               <a href="#" @click.prevent="deleteComment(comment.id)" class="deleteComment">Delete</a>
@@ -46,11 +47,16 @@
         <div v-if="loadingComments">
           <i class="fa fa-spinner fa-spin"></i>
         </div>
-        <a v-if="showNumOfComments < setComments.length" href="#" @click.prevent="showMoreComments" class="moreLinks">More Comments</a>
+        <a v-if="showNumOfComments < collectionComments.length" href="#" @click.prevent="showMoreComments" class="moreLinks">More Comments</a>
       </div>
     </div>
-    <WrapperCardListTitled title="Items">
-      <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
+    <WrapperCardListTitled v-if="collection['sets'].length > 0" title="Sets" more="false" url="#">
+      <div v-for="set in collection['sets']" :key='set' class="mycol-lg-3 mycol-sm-6">
+        <SetCard :set-id="set" />
+      </div>
+    </WrapperCardListTitled>
+    <WrapperCardListTitled v-if="collection['items'].length > 0" title="Items" more="false" url="#">
+      <div v-for="item in collection['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />
       </div>
     </WrapperCardListTitled>
@@ -63,6 +69,7 @@ import Loading from "@/components/Loading";
 import CardActions from "@/components/CardActions";
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
+import SetCard from "@/components/SetCard";
 import { mapGetters } from "vuex";
 
 export default {
@@ -70,10 +77,16 @@ export default {
     Loading,
     CardActions,
     WrapperCardListTitled,
-    ItemCard
+    ItemCard,
+    SetCard
   },
   computed: {
-    ...mapGetters(["userId", "setComments", "set", "setTotalPrice"])
+    ...mapGetters([
+      "userId",
+      "collectionComments",
+      "collection",
+      "collectionTotalPrice"
+    ])
   },
   data() {
     return {
@@ -88,8 +101,8 @@ export default {
     this.load();
   },
   watch: {
-    "$route.params.setId"(setId) {
-      if (!setId) return;
+    "$route.params.collectionId"(collectionId) {
+      if (!collectionId) return;
       this.load();
     }
   },
@@ -98,20 +111,21 @@ export default {
       this.loading = true;
       this.loadingComments = true;
       this.$store
-        .dispatch("get_collection_details", this.$route.params.setId)
+        .dispatch("get_collection_details", this.$route.params.collectionId)
         .then(() => (this.loading = false))
         .catch(err => {
+          console.error(err);
           if (this.$store.getters.isAuth)
             this.$router.replace({ path: "/404" });
         });
       this.$store
-        .dispatch("get_collection_comments", this.$route.params.setId)
+        .dispatch("get_collection_comments", this.$route.params.collectionId)
         .then(() => (this.loadingComments = false));
     },
     remove() {
       this.loading = true;
-      this.$store.dispatch("remove_collection", this.set.setId).then(() => {
-        this.$router.push("/profile/me/collection");
+      this.$store.dispatch("remove_collection", this.collection.id).then(() => {
+        this.$router.push("/profile/me/collections");
         this.loading = false;
       });
     },
@@ -120,16 +134,25 @@ export default {
       this.loadingComments = true;
       this.$store
         .dispatch("add_comment_to_collection", {
-          setId: this.set.id,
+          collectionId: this.collection.id,
           comment: this.commentToAdd
         })
         .then(() => {
           this.sending = false;
           this.loadingComments = false;
+          this.commentToAdd = "";
         });
     },
-    deleteComment() {
-      // TODO  , wating to endpoint
+    deleteComment(id) {
+      this.loadingComments = true;
+      this.$store
+        .dispatch("delete_comment_from_collection", {
+          commentId: id,
+          collectionId: this.collection.id
+        })
+        .then(() => {
+          this.loadingComments = false;
+        });
     },
     showMoreComments() {
       this.showNumOfComments += 3;
