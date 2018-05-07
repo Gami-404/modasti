@@ -10,7 +10,7 @@
         </router-link>
       </div>
       <div class="content">
-        <form @submit="send" class="theForm">
+        <form @submit.prevent="send" class="theForm">
           <input type="text" class="formEle" placeholder="message" v-model="message">
           <div v-for="error in errors" :key="error">
             <h4 class="errors">
@@ -44,13 +44,16 @@ export default {
       if (!this.$route.query.userId) {
         this.errors.push("no user provided !");
         return;
-      }else if(this.message==""){
+      } else if (this.message == "") {
         this.errors.push("Text Message is required!");
         return;
       }
       this.loading = true;
       this.$store.commit("CURR_MESSAGING_USER", this.$route.query.userId);
-      this.$store.dispatch("send_message", this.message).then(()=> this.loading = false);
+      this.$store.dispatch("send_message", this.message).then(() => {
+        this.loading = false;
+        this.$router.push({ query: {} });
+      });
     }
   }
 };

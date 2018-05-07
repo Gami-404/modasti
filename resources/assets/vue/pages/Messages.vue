@@ -14,9 +14,9 @@
               <div v-for="(message,i) of messages" :key="i" class="oneMessage clearfix" :class="{'second': message.from_id == $store.getters.user.userId}">
                 <div class="avatar">
                   <img src="images/img3.jpg" alt="">
-                  <div class="textCentered">{{message.created}}</div>
+                  <div class="textCentered">{{message.created_at.substr(10)}}</div>
                 </div>
-                <div class="theMessage">{{message.text_en}}</div>
+                <div class="theMessage">{{message.message}}</div>
               </div>
             </div>
           </div>
@@ -33,9 +33,9 @@
         <div class="onlinePersons">
           <div class="title">Chats</div>
           <div class="content">
-            <a v-for="user of messagesFromUsers" :key="user.id" href="#" @click.prevent="loadMessages(user.id)" class="item" :class="{'selected-user': user.id == currMessagingUserId}">
-              <span class="avatar"><img :src="user.photo && user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
-              <span> {{user.fname || user.username}}</span>
+            <a v-for="channel of messagesFromUsers" :key="channel.user.id" href="#" @click.prevent="loadMessages(channel.user.id)" class="item" :class="{'selected-user': channel.user.id == currMessagingUserId}">
+              <span class="avatar"><img :src="channel.user.photo && channel.user.photo.photo_name == 'string' ? channel.user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
+              <span> {{ (channel.user.first_name +' '+ channel.user.last_name) || channel.user.username}}</span>
             </a>
           </div>
         </div>
@@ -74,10 +74,19 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch("get_users_messages")
-      .then(() => (this.loading = false));
-    console.log(this.$store.getters.userId);
+    this.$store.dispatch("get_users_messages").then(() => {
+      this.loading = false;
+      if (this.$route.params.userMessagesId) {
+        this.loadMessages(this.$route.params.userMessagesId);
+      }
+    });
+  },
+  watch: {
+    "$route.params.userMessagesId"(userMessagesId) {
+      if (userMessagesId) {
+        this.loadMessages(userMessagesId);
+      }
+    }
   },
   methods: {
     loadMessages(userId) {

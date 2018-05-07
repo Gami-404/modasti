@@ -8,7 +8,7 @@ const state = {
   messages: {
     "-1": {}
   },
-  currMessagingUserId : -1
+  currMessagingUserId: -1
 };
 
 // getters
@@ -48,27 +48,31 @@ const actions = {
       });
   },
   get_users_messages({ commit }) {
-    return API.post("/getPrivateMessageOpponents", {}).then(res => {
-      commit("MESSAGES_FROM_USERS", res.data.data);
+    return API.post("/getChannels", {}).then(res => {
+      commit("MESSAGES_FROM_USERS", res.data.data.channels);
     });
   },
   get_messages({ commit }, userId) {
-    return API.post("/getPrivateMessages", {
+    return API.post("/getChannelMessages", {
       userId: userId,
+      channelId: 1,
       offset: 0,
       limit: 50
     }).then(res => {
-      commit("ADD_MESSAGES", { messages: res.data.data.reverse(), userId });
+      commit("ADD_MESSAGES", {
+        messages: res.data.data.messages.reverse(),
+        userId
+      });
       commit("CURR_MESSAGING_USER", userId);
     });
   },
   send_message({ commit, state }, message) {
-    return API.post("/writePrivateMessage", {
-      userTo: state.currMessagingUserId,
+    return API.post("/pushMessage", {
+      userId: state.currMessagingUserId,
       message: message,
       parentMsgId: 0
     }).then(res => {
-      commit("SEND_MESSAGE" , message );
+      commit("SEND_MESSAGE", message);
     });
   }
 };
@@ -107,9 +111,15 @@ const mutations = {
     state.messagesFromUsers = messagesFromUsers;
   },
   SEND_MESSAGE(state, message) {
-    state.messages[state.currMessagingUserId].push({ from_id: state.user.userId , text_en:message , created:"Now" });
+    if (!state.messages[state.currMessagingUserId])
+      state.messages[state.currMessagingUserId] = [];
+    state.messages[state.currMessagingUserId].push({
+      from_id: state.user.userId,
+      message,
+      created_at: "1111111111 Now"
+    });
   },
-  CURR_MESSAGING_USER(state, userId){
+  CURR_MESSAGING_USER(state, userId) {
     state.currMessagingUserId = userId;
   }
 };
