@@ -10,27 +10,27 @@
         </span>
         <div class="in">
           <div class="one">
-            <div @click="showOptions('colors ')" class="title dropdownTitle">colors
+            <div @click="showOptions('colors')" class="title dropdownTitle">colors
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('coverage ')" class="title dropdownTitle">coverage
+            <div @click="showOptions('coverage')" class="title dropdownTitle">coverage
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('priceOrder ')" class="title dropdownTitle">Price
+            <div @click="showOptions('priceOrder')" class="title dropdownTitle">Price
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('sizes ')" class="title dropdownTitle">size
+            <div @click="showOptions('sizes')" class="title dropdownTitle">size
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('brands ')" class="title dropdownTitle">brand
+            <div @click="showOptions('brands')" class="title dropdownTitle">brand
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
@@ -41,11 +41,11 @@
     <transition name="filter-ops">
       <div v-if="filter" class="topCategories whiteBg filterops">
         <div class="gridContainer">
-          <div v-if="filter==='colors '">
+          <div v-if="filter==='colors'">
             <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
           </div>
           <div v-else>
-            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri ':true ,'selected ' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes '?val.id:val.title}}</a>
+            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
           </div>
         </div>
       </div>

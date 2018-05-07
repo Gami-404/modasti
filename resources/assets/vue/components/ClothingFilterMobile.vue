@@ -1,7 +1,6 @@
 <template>
   <div class="gridContainer">
     <form action="#">
-
       <div class="one" :class="{'opened':filter==='colors'}">
         <a href="#" class="theTab" @click.prevent="showOptions('colors')">
           <span>Colors</span>
@@ -11,7 +10,6 @@
           <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
         </div>
       </div>
-
       <div class="one" :class="{'opened':filter==='coverage'}">
         <a href="#" class="theTab" @click.prevent="showOptions('coverage')">
           <span>coverage</span>
@@ -21,7 +19,6 @@
           <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" class="filteri" :class="{'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
         </div>
       </div>
-
       <div class="one" :class="{'opened':filter==='sizes'}">
         <a href="#" class="theTab" @click.prevent="showOptions('sizes')">
           <span>sizes</span>
@@ -31,7 +28,6 @@
           <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" class="filteri" :class="{'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
         </div>
       </div>
-
       <div class="one" :class="{'opened':filter==='priceOrder'}">
         <a href="#" class="theTab" @click.prevent="showOptions('priceOrder')">
           <span>price</span>
@@ -41,7 +37,6 @@
           <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" class="filteri" :class="{'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
         </div>
       </div>
-
       <div class="one" :class="{'opened':filter==='brands'}">
         <a href="#" class="theTab" @click.prevent="showOptions('brands')">
           <span>Brand</span>
@@ -51,10 +46,7 @@
           <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" class="filteri" :class="{'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
         </div>
       </div>
-
-        <slot/>
-      
-
+      <slot/>
     </form>
   </div>
 </template>
