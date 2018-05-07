@@ -31,4 +31,14 @@ class Post extends Model
         return $this->belongsToMany(Post::class, "posts_blocks_orders", "post_id", "block_id")->withPivot('order')->orderBy("order", "ASC");
     }
 
+    /**
+     * Likes relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, "users_posts_like", "object_id", "user_id")
+            ->where('type', 'items');
+    }
+
 }
