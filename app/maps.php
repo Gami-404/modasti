@@ -341,7 +341,7 @@ namespace Maps\Collection {
         $newCollection->is_liked = $collection->likes()->where('id', fauth()->user()->id)->count() ? true : false;
         $newCollection->likes = $collection->likes()->where('id', fauth()->user()->id)->count();
         $newCollection->created = $collection->created_at->diffForHumans();
-        $newCollection->items = \Maps\Collection\items($collection->items);
+        $newCollection->items = \Maps\Item\items($collection->items);
         $newCollection->user = \Maps\User\user($collection->user);
         $newCollection->sets = \Maps\Set\sets($collection->sets);
         return $newCollection;
