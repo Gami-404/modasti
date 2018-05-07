@@ -269,7 +269,7 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $collection = Collection::with('image')->where('id', $request->get('id'))->first();
+        $collection = Collection::with('image')->where('id', $request->get('collectionId'))->first();
         $data['data'] = new \stdClass();
         $data['data']->sets = \Maps\Set\sets($collection->sets);
         $data['data']->items = \Maps\Item\items($collection->items);
