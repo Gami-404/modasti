@@ -234,7 +234,7 @@ class CollectionController extends Controller
         $data = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:254',
             'collectionId' => 'required|exists:collections,id',
         ]);
 
@@ -250,6 +250,26 @@ class CollectionController extends Controller
             'excerpt' => $request->get('description')
         ]);
         $data['data']['updated'] = $updated ? true : false;
+        return response()->json($data);
+    }
+
+
+    /**
+     * POST api/collectionDetails
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function collectionDetails(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $validator = Validator::make($request->all(), [
+            'collectionId' => 'required|exists:collections,id',
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $data['data'] = Collection::find($request->get('collectionId'));
         return response()->json($data);
     }
 
