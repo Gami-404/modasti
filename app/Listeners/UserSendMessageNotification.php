@@ -27,7 +27,7 @@ class UserSendMessageNotification
      */
     public function handle(UserSendMessage $event)
     {
-        $message = fauth()->user()->first_name . ' ' . fauth()->user()->first_name . '  send message for you';
+        $message = fauth()->user()->first_name . ' ' . fauth()->user()->last_name . '  send message for you';
         $receiver_id = $event->channel->sender_id == fauth()->id() ? $event->channel->receiver_id : $event->channel->sender_id;
         $notificationData = [
             'seen' => 0,

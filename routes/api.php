@@ -30,6 +30,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Home
     $router->post('/home', 'Api\HomeController@home');
+    $router->post('/feed', 'Api\HomeController@feed');
     $router->post('/trending', 'Api\HomeController@trending');
 
     // Search
@@ -47,6 +48,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('addItemToCollection', 'Api\CollectionController@addItemToCollection');
     $router->post('addSetToCollection', 'Api\CollectionController@addSetToCollection');
     $router->post('editCollection', 'Api\CollectionController@editCollection');
+    $router->post('collectionDetails', 'Api\CollectionController@collectionDetails');
     // Collection >> comments
     $router->post('addCommentToCollection', 'Api\CollectionController@addCommentToCollection');
     $router->post('getCollectionComments', 'Api\CollectionController@getCollectionComments');
@@ -94,6 +96,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('blockUser', 'Api\UserController@blockUser');
     $router->post('unblockUser', 'Api\UserController@unblockUser');
     $router->post('listBlocked', 'Api\UserController@listBlocked');
+    $router->post('recommendedUser', 'Api\UserController@recommendedUser');
 
     //Notifications
     $router->post('getNotifications', 'Api\NotificationsController@getNotifications');

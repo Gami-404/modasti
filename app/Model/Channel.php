@@ -19,7 +19,7 @@ class Channel extends Model
      *
      * @var array
      */
-    protected $appends = ['since_update','user'];
+    protected $appends = ['since_update', 'user'];
 
     /**
      * The attributes that are mass assignable.
@@ -43,7 +43,7 @@ class Channel extends Model
      */
     public function getUserAttribute()
     {
-        if (auth()->id() == $this->sender_id) {
+        if (fauth()->id() == $this->sender_id) {
             return User::find($this->receiver_id);
         } else {
             return User::find($this->sender_id);
@@ -69,8 +69,11 @@ class Channel extends Model
      */
     public function scopeUser($query, $userId)
     {
-        return $query->where(['sender_id' => fauth()->id(), 'receiver_id' => $userId])
-            ->orWhere(['sender_id' => $userId, 'receiver_id' => fauth()->id()]);
+        return $query->where(function ($query) use ($userId) {
+            return $query->where(['sender_id' => fauth()->id(), 'receiver_id' => $userId]);
+        })->Orwhere(function ($query) use ($userId) {
+            return $query->where(['sender_id' => $userId, 'receiver_id' => fauth()->id()]);
+        });
     }
 
 }

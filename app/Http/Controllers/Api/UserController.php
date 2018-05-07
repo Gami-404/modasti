@@ -344,4 +344,20 @@ class UserController extends Controller
         $data['data'] = \Maps\User\users(fauth()->user()->blocked_users()->offset($offset)->take($limit)->get());
         return response()->json($data);
     }
+
+
+    /**
+     * POST api/recommendedUser
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recommendedUser(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $users = User::with('photo')->where(['backend' => 0, 'status' => 1])->inRandomOrder()->take($limit)->offset($offset)->get();;
+        $data['data'] = \Maps\User\users($users);
+        return response()->json($data);
+    }
 }
