@@ -30,6 +30,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Home
     $router->post('/home', 'Api\HomeController@home');
+    $router->post('/feed', 'Api\HomeController@feed');
     $router->post('/trending', 'Api\HomeController@trending');
 
     // Search

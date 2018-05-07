@@ -192,4 +192,24 @@ class HomeController extends Controller
     }
 
 
+    /**
+     * POST api/feed
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function feed(Request $request)
+    {
+        $data = ['data' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $items = Post::with('image', 'brand')->confirmed()
+            ->whereHas('user', function ($query) {
+                $query->where('backend', 1);
+            })->OrWhereHas('user', function ($query) {
+                $query->follower()->where('following_id', fauth()->id());
+            })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+        $data['data']['items'] = \Maps\Item\items($items);
+        return response()->json($data);
+    }
+
 }
