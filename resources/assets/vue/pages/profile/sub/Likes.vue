@@ -20,7 +20,6 @@
     <br>
     <Loading v-if="loading" />
   </div>
-
 </template>
 
 <script>
@@ -39,7 +38,7 @@ export default {
   },
   data() {
     return {
-      id:null,
+      id: null,
       loading: true,
       loadMoreLoading: false
     };
@@ -48,13 +47,12 @@ export default {
     ...mapGetters(["likedItems", "likedSets", "likedCollections"])
   },
   created() {
-    this.id =
-      typeof this.$route.params.userId == "number"
-        ? this.$route.params.userId
-        : this.$store.getters.user.userId;
+    let id = isNaN(this.$route.params.userId)
+      ? this.$store.getters.user.userId
+      : this.$route.params.userId;
     Promise.all([
-      this.$store.dispatch("get_user_liked_items", this.id),
-      this.$store.dispatch("get_user_liked_sets", this.id)
+      this.$store.dispatch("get_user_liked_items", id),
+      this.$store.dispatch("get_user_liked_sets", id)
       //  this.$store.dispatch("get_user_liked_collections",id)
     ]).finally(() => {
       this.loading = false;
@@ -63,11 +61,15 @@ export default {
   methods: {
     loadmoreItems() {
       this.loadMoreLoading = true;
-      this.$store.dispatch("get_user_liked_items", this.id).then( () => this.loadMoreLoading = false )
+      this.$store
+        .dispatch("get_user_liked_items", this.id)
+        .then(() => (this.loadMoreLoading = false));
     },
     loadmoreSets() {
       this.loadMoreLoading = true;
-      this.$store.dispatch("get_user_liked_sets", this.id).then( () => this.loadMoreLoading = false )
+      this.$store
+        .dispatch("get_user_liked_sets", this.id)
+        .then(() => (this.loadMoreLoading = false));
     }
   }
 };
