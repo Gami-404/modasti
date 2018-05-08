@@ -40,8 +40,7 @@ export default {
 }
 @media only screen and (max-width: 1350px) {
   #header .bottom #nav ul {
-    display: block;
-    max-width: 95%;
+    max-width: 90%;
   }
 }
 </style>
