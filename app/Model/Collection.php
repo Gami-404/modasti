@@ -7,7 +7,7 @@ use Dot\Posts\Models\Collection as Model;
 
 class Collection extends Model
 {
-    protected $fillable = ['title', 'excerpt', 'image_id', 'lang', 'user_id'];
+    protected $fillable=['title','excerpt','image_id','lang','user_id'];
 
     /**
      * User relation
@@ -24,7 +24,7 @@ class Collection extends Model
      */
     public function sets()
     {
-        return $this->belongsToMany(Set::class, "collections_sets", "collection_id", "set_id");
+        return $this->belongsToMany(Set::class, "collections_sets", "collection_id","set_id");
     }
 
 

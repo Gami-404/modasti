@@ -12,6 +12,7 @@ use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class HomeController extends Controller
@@ -204,8 +205,11 @@ class HomeController extends Controller
         $limit = $request->get('limit', 8);
         $items = Post::with('image', 'brand')->confirmed()
             ->whereHas('user.follower', function ($query) {
-                $query->where('following_id', fauth()->user()->id)
+                $query->where('following_id', fauth()->user()->id);
+            })->orWhereHas('likes.follower', function ($query) {
+                $query->where('following_id', fauth()->user()->id);
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+
         $data['data']['items'] = \Maps\Item\items($items);
         return response()->json($data);
     }

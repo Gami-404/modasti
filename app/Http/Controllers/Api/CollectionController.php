@@ -58,6 +58,8 @@ class CollectionController extends Controller
      */
     public function getCollections(Request $request)
     {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
         $data = ['data' => [], 'errors' => []];
         $validator = Validator::make($request->all(), [
             'userId' => 'required|exists:users,id'
@@ -66,7 +68,11 @@ class CollectionController extends Controller
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $collections = Collection::with('user', 'items', 'items.image', 'sets')->where(['user_id' => fauth()->user()->id])->get();
+        $collections = Collection::with('user', 'items', 'items.image', 'sets')
+            ->where(['user_id' => $request->get('userId', fauth()->user()->id)])
+            ->take($limit)
+            ->offset($offset)
+            ->get();
         $data['data'] = \Maps\Collection\collections($collections);
         return response()->json($data);
     }
