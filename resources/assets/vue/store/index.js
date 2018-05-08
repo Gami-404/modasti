@@ -8,6 +8,8 @@ import _items from "./modules/items.store";
 import _collections from "./modules/collections.store";
 import _retailer from "./modules/retailer.store";
 import _contests from "./modules/contests.store";
+import _feed from "./modules/feed.store";
+
 import rootStore from "./root.store";
 Vue.use(Vuex);
 
@@ -21,6 +23,7 @@ export default new Vuex.Store({
     _items,
     _collections,
     _contests,
-    _retailer
+    _retailer,
+    _feed
   }
 });
