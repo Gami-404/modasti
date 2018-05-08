@@ -1,45 +1,47 @@
 <template>
-    <div id="profile">
-        <div class="secPaddLg whiteBg">
-            <div class="gridContainer">
-                <div class="top_userProfile clearfix">
-                    <div class="avatar"><img src="images/img2.jpg" alt=""></div>
-                    <div class="content">
-                        <div class="info">
-                            <div class="name">{{user.fname}}</div>
-                            <div class="other">test</div>
-                        </div>
-                        <div class="top_message">
-                            <div>Create 15 sets to become a STYLIST!</div>
-                            <hr>
-                            <div>{{user.sets_count||0}} / 15 Sets</div>
-                        </div>
-                    </div>
-                </div>
-                <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
-                <router-link v-if="!isCurrUser" to="/profile/edit" class="topHeadBtn brandBg blackColor">Follow</router-link>
-                <div v-if="!isCurrUser" class="TUP_otherBtns">
-                    <a href="#" :disabled="blockBtnLoading" @click.prevent="toggleBlock" class="mainBtn">{{ blockBtnLoading ? "Loading..":user.is_blocked ? "Unblock":"Block"}}</a>
-                    <router-link :to="'?popup=new_message&userId='+user.id" class="mainBtn">send Message</router-link>
-                </div>
+  <div id="profile">
+    <div class="secPaddLg whiteBg">
+      <div class="gridContainer">
+        <div class="top_userProfile clearfix">
+          <div class="avatar"><img src="images/img2.jpg" alt=""></div>
+          <div class="content">
+            <div class="info">
+              <div class="name">{{user.fname}}</div>
+              <div class="other">test</div>
             </div>
-
-            <Loading v-if="loading" />
+            <div class="top_message">
+              <div>Create 15 sets to become a STYLIST!</div>
+              <hr>
+              <div>{{user.sets_count||0}} / 15 Sets</div>
+            </div>
+          </div>
         </div>
-        <ProfileNav/>
-        <div v-if="!loading">
-            <transition name="subpage" enter-active-class="animated fadeIn">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
-            </transition>
+        <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
+        <a v-if="!user.is_blocked && !isCurrUser" href="#" @click.prevent="toggleFollow" class="topHeadBtn followBtn" :class="{ 'follow': !following }">
+          <i v-if="!canChange" class="fa fa-spinner fa-spin"></i>
+          <span v-if="canChange">{{following ? 'unfollow':'follow' }}</span>
+        </a>
+        <div v-if="!isCurrUser" class="TUP_otherBtns">
+          <a href="#" :disabled="blockBtnLoading" @click.prevent="toggleBlock" class="mainBtn">{{ blockBtnLoading ? "Loading..":user.is_blocked ? "Unblock":"Block"}}</a>
+          <router-link :to="'?popup=new_message&userId='+user.id" class="mainBtn">send Message</router-link>
         </div>
-        <transition name="popup_new_message" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <WrapperPopups v-if="$route.query.popup && $route.query.popup=='new_message'">
-                <NewMessage v-if="$route.query.popup=='new_message'" />
-            </WrapperPopups>
-        </transition>
+      </div>
+      <Loading v-if="loading" />
     </div>
+    <ProfileNav/>
+    <div v-if="!loading">
+      <transition name="subpage" enter-active-class="animated fadeIn">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
+    </div>
+    <transition name="popup_new_message" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <WrapperPopups v-if="$route.query.popup && $route.query.popup=='new_message'">
+        <NewMessage v-if="$route.query.popup=='new_message'" />
+      </WrapperPopups>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -56,7 +58,12 @@ export default {
     WrapperPopups
   },
   data() {
-    return { loading: true, blockBtnLoading: false };
+    return {
+      loading: true,
+      blockBtnLoading: false,
+      following: false,
+      canChange: true
+    };
   },
   computed: {
     user() {
@@ -67,6 +74,9 @@ export default {
         this.$store.getters.user.userId == this.$route.params.userId ||
         this.$route.params.userId == "me"
       );
+    },
+    isAuth() {
+      return this.$store.getters.isAuth;
     }
   },
   created() {
@@ -85,8 +95,15 @@ export default {
         .dispatch("get_user_profile", id)
         .then(() => {
           this.loading = false;
+          if (this.$store.getters.getUser(id)) {
+            this.following = this.$store.getters.getUser(id).is_followed;
+          }
         })
-        .catch(err => this.$router.push("/404"));
+        .catch(err => {
+          console.log(err);
+
+          this.$router.push("/404");
+        });
     },
     toggleBlock() {
       this.blockBtnLoading = true;
@@ -94,7 +111,31 @@ export default {
         this.blockBtnLoading = false;
         this.$router.push("/profile/me/blocked");
       });
+    },
+    toggleFollow() {
+      if (this.isAuth) {
+        if (this.canChange) {
+          this.canChange = false;
+          let action = this.following ? "unfollow_user" : "follow_user";
+          this.following = !this.following;
+          this.$store.dispatch(action, this.$route.params.userId).then(() => {
+            this.canChange = true;
+          });
+        }
+      } else {
+        this.openLogin();
+      }
+    },
+    openLogin() {
+      this.$router.push({ query: { popup: "login" } });
     }
   }
 };
 </script>
+
+<style>
+.follow {
+  background: #ffbeb8;
+}
+</style>
+

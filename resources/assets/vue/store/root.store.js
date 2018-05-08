@@ -150,8 +150,10 @@ const mutations = {
     }
   },
   FOLLOW_USER_PROPAGATE(state, id) {
-    state.users[id].is_followed = !state.users[id].is_followed;
-    state.users = { ...state.users };
+    if (state.users[id]) {
+      state.users[id].is_followed = !state.users[id].is_followed;
+      state.users = { ...state.users };
+    }
   },
   COLORS(state, colors) {
     state.colors = colors;

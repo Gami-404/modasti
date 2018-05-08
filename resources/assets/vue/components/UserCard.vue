@@ -6,10 +6,10 @@
       <!-- <div class="joined">{{date}}</div> -->
       <a v-if="!user.is_blocked" href="#" @click.prevent="toggleFollow" class="followBtn" :class="{ 'follow': !following }">
         <i v-if="!canChange" class="fa fa-spinner fa-spin"></i>
-        <span v-if="canChange" >{{following ? 'unfollow':'follow' }}</span> 
+        <span v-if="canChange">{{following ? 'unfollow':'follow' }}</span>
       </a>
-      <router-link v-if="user.is_blocked"  :to="'/profile/'+user.id" class="blocked" :class="{ 'follow': !following }">
-        <span>{{"BLOCKED"}}</span> 
+      <router-link v-if="user.is_blocked" :to="'/profile/'+user.id" class="blocked" :class="{ 'follow': !following }">
+        <span>{{"BLOCKED"}}</span>
       </router-link>
     </div>
   </div>
@@ -51,14 +51,20 @@ export default {
       } else {
         this.openLogin();
       }
+    },
+    openLogin() {
+      this.$router.push({ query: { popup: "login" } });
     }
   }
 };
 </script>
 
 <style>
-.blocked{
+.blocked {
   display: block !important;
   padding: 14px;
+}
+.userCard .followBtn.follow {
+  background: #ffbeb8;
 }
 </style>
