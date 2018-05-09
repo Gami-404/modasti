@@ -101,8 +101,12 @@ export default {
       this.$router.push("/messages/" + userId);
       this.loadingMessages = loadingMessages;
       return this.$store
-        .dispatch("get_messages", userId)
-        .then(() => (this.loadingMessages = false));
+        .dispatch("get_messages", Number(userId))
+        .then(() => (this.loadingMessages = false))
+        .catch(err => {
+          this.loadingMessages = false;
+          this.$store.commit("NO_USER");
+        });
     },
     loadMore() {
       //TODO

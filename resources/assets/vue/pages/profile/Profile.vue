@@ -17,9 +17,9 @@
           </div>
         </div>
         <router-link v-if="isCurrUser" to="/profile/edit" class="topHeadBtn">Edit Profile</router-link>
-        <a v-if="!user.is_blocked && !isCurrUser" href="#" @click.prevent="toggleFollow" class="topHeadBtn followBtn" :class="{ 'follow': !following }">
+        <a v-if="!user.is_blocked && !isCurrUser" href="#" @click.prevent="toggleFollow" class="topHeadBtn followBtn" :class="{ 'follow': !user.is_followed }">
           <i v-if="!canChange" class="fa fa-spinner fa-spin"></i>
-          <span v-if="canChange">{{following ? 'unfollow':'follow' }}</span>
+          <span v-if="canChange">{{user.is_followed ? 'unfollow':'follow' }}</span>
         </a>
         <div v-if="!isCurrUser" class="TUP_otherBtns">
           <a href="#" :disabled="blockBtnLoading" @click.prevent="toggleBlock" class="mainBtn">{{ blockBtnLoading ? "Loading..":user.is_blocked ? "Unblock":"Block"}}</a>
@@ -61,7 +61,7 @@ export default {
     return {
       loading: true,
       blockBtnLoading: false,
-      following: false,
+      // following: false,
       canChange: true
     };
   },
@@ -95,9 +95,6 @@ export default {
         .dispatch("get_user_profile", id)
         .then(() => {
           this.loading = false;
-          if (this.$store.getters.getUser(id)) {
-            this.following = this.$store.getters.getUser(id).is_followed;
-          }
         })
         .catch(err => {
           console.log(err);
@@ -116,8 +113,8 @@ export default {
       if (this.isAuth) {
         if (this.canChange) {
           this.canChange = false;
-          let action = this.following ? "unfollow_user" : "follow_user";
-          this.following = !this.following;
+          let action = this.user.is_followed ? "unfollow_user" : "follow_user";
+          this.user.is_followed = !this.user.is_followed;
           this.$store.dispatch(action, this.$route.params.userId).then(() => {
             this.canChange = true;
           });

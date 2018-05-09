@@ -152,6 +152,7 @@ const mutations = {
   FOLLOW_USER_PROPAGATE(state, id) {
     if (state.users[id]) {
       state.users[id].is_followed = !state.users[id].is_followed;
+      state.users[id] = { ...state.users[id] };
       state.users = { ...state.users };
     }
   },
