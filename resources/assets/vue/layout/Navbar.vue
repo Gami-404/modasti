@@ -133,6 +133,10 @@ export default {
     search() {
       if (this.searchString)
         this.$router.push(`/search/${this.area}/${this.searchString}`);
+        // GEMI was Here
+        this.area == "item"
+            ? this.$store.dispatch("search_item_offset_reset")
+            : this.$store.dispatch("search_user_offset_reset");
     }
   },
   computed: {
