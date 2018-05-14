@@ -437,6 +437,9 @@ body{background: #f8f8f8;}
 		font-size: 100%;
 		margin: 0 0 15px;
 	}
+	.theImage{
+		margin: 0 0 10px;
+	}
 	.second{
 		font-size: 50%;
 		color: $brandColor;
@@ -599,6 +602,7 @@ body{background: #f8f8f8;}
 		overflow: hidden;
 	}
 	.content{
+		position: relative;
 		padding: 20px;
 		border-bottom: 1px solid $borderColor;
 		h3{
@@ -647,6 +651,20 @@ body{background: #f8f8f8;}
 				}
 			}
 		}
+		.winCup{
+			position: absolute;
+			top: -50px;
+			left: 50%;
+			transform: translate(-50%, 0);
+			text-align: center;
+			line-height: 100px;
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			border-radius: 100%;
+			border: 1px solid #f2f2f2;
+			background: #fff;
+		}
 	}
 	.likesAndComments{
 		padding: 20px;
@@ -659,6 +677,14 @@ body{background: #f8f8f8;}
 			&:hover{
 				color: $brandColor;
 			}
+		}
+	}
+	&.winners{
+		.avatar{
+			padding: 0;
+		}
+		.content{
+			padding-top: 70px;
 		}
 	}
 }
@@ -1546,6 +1572,13 @@ body{background: #f8f8f8;}
 					}
 				}
 			}
+			.thanksPopup{
+				font-size: 22px;
+				max-width: 500px;
+				margin: 0 auto;
+				text-align: center;
+				padding: 20px 0;
+			}
 		}
 	}
 }
@@ -2033,6 +2066,7 @@ body{background: #f8f8f8;}
 	.createSetPage .rightArea .theProducts .one .avatar{height: 250px;overflow: hidden;margin: 0;}
 	.createSetPage .leftArea .actionBtns .publishBtn{width: 200px;}
 	.createSetPage .leftArea .actionBtns .otherBtns{margin: 0 0 0 220px;}
+	.popupPage .thePage .content .thanksPopup{font-size: 30px;padding: 50px 0;}
 	
 }
 
