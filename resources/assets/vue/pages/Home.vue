@@ -3,9 +3,9 @@
 		<div class="secPaddLg whiteBg textCentered">
 			<div class="gridContainer">
 				<div class="sectionName">
-					<div class="theName">MODEST FASHION FOR ALL</div>
+					<!--<div class="theName">MODEST FASHION FOR ALL</div>-->
 					<div class="theImage"><img src="/images/moc.jpg" alt="Imges"></div>
-					<div class="second">FASHION + INSPIRE + LOVE</div>
+					<!--<div class="second">FASHION + INSPIRE + LOVE</div>-->
 				</div>
 			</div>
 		</div>

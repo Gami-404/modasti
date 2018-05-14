@@ -37637,16 +37637,8 @@ var staticRenderFns = [
     return _c("div", { staticClass: "secPaddLg whiteBg textCentered" }, [
       _c("div", { staticClass: "gridContainer" }, [
         _c("div", { staticClass: "sectionName" }, [
-          _c("div", { staticClass: "theName" }, [
-            _vm._v("MODEST FASHION FOR ALL")
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "theImage" }, [
             _c("img", { attrs: { src: "/images/moc.jpg", alt: "Imges" } })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "second" }, [
-            _vm._v("FASHION + INSPIRE + LOVE")
           ])
         ])
       ])

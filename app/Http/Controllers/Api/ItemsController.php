@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\LikesEvent;
+use App\Model\ContestItem;
 use App\Model\Media;
 use App\Model\Post;
 use App\User;
@@ -340,14 +341,22 @@ class ItemsController extends Controller
      */
     private function counterLikes($id, $target, $up = true)
     {
-        if ($target == "item") {
-            $object = Post::where('id', $id)->first();
-            if ($up) {
-                $object->likes++;
-            } else {
-                $object->likes--;
-            }
-            $object->save();
+        switch ($target) {
+            case 'item':
+                $object = Post::where('id', $id)->first();
+                break;
+            case 'contest_item':
+                $object = ContestItem::where('id', $id)->first();
+                break;
+            default:
+                return;
         }
+        if ($up) {
+            $object->likes++;
+        } else {
+            $object->likes--;
+        }
+        $object->save();
+        return;
     }
 }
