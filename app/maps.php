@@ -46,8 +46,8 @@ namespace Maps\User {
             $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
             $newUser->following_counter = $user->following()->count();
             $newUser->follower_counter = $user->follower()->count();
-            $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
+            $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
+            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
             $newUser->photo = null;
             if ($newUser->photo) {
@@ -74,8 +74,8 @@ namespace Maps\User {
         $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         $newUser->following_counter = $user->following()->count();
         $newUser->follower_counter = $user->follower()->count();
-        $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
+        $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
+        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
         $newUser->sets_count = Set::where('user_id', $user->id)->count();
         $newUser->photo = null;
         if ($newUser->photo) {
@@ -240,7 +240,7 @@ namespace Maps\Set {
         $newSet->likes = $newSet->likes_counter = $set->likes()->count();
         $newSet->created = $set->created_at->diffForHumans();
         $newSet->contest_id = null;
-        $newSet->is_liked = $set->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newSet->is_liked = $set->likes()->where('id', fauth()->id())->count() ? true : false;
         $newSet->comments_counter = $set->comments()->count();
         $newSet->group = [];
         $newSet->photo = null;
@@ -293,7 +293,7 @@ namespace Maps\Set {
             $newItem->title_en = $item->title;
             $newItem->price = $item->price;
             $newItem->currency = $item->currency;
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photos = [];
 
