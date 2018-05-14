@@ -91,7 +91,7 @@ class Collection extends Model
             public function apply(Builder $builder, OModel $model)
             {
 
-                if (GUARD == "api") {
+                if (GUARD == "api" && Auth::guard("api")->check()) {
                     $lang = Auth::guard("api")->user()->lang;
                 } else {
                     $lang = app()->getLocale();

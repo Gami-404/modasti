@@ -79,7 +79,7 @@ class Post extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new PostScope);
+//        static::addGlobalScope(new PostScope);
     }
 
     /**
