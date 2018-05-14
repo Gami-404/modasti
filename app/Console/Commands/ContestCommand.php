@@ -40,16 +40,13 @@ class ContestCommand extends Command
      */
     public function handle()
     {
-        $contests = Contest::where('winner_id', 0)->where('expired_at', '<=', Carbon::now())->get();
+        $contests = Contest::where('expired', 0)->where('expired_at', '<=', Carbon::now())->get();
         foreach ($contests as $contest) {
-            $item = $contest->items()->orderBy('likes', 'DESC')->first();
-            if ($item) {
-                $contest->winner_id = $item->id;
-            }else{
-                $contest->winner_id = -1;
-            }
+            $items = $contest->items()->orderBy('likes', 'DESC')->take(5)->get();
+            $contest->winners()->sync($items->pluck('id')->toArray());
+            $contest->expired=1;
             $contest->save();
-            event(new ContestEvents($contest,$item));
+            event(new ContestEvents($contest, $items));
         }
     }
 }

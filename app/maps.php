@@ -425,7 +425,7 @@ namespace Maps\Contest {
             $photo->photo_name = uploads_url($contest->image->path);
             $newContest->photo = $photo;
         }
-        $newContest->winners = $contest->winner ? [\Maps\Contest\winner($contest->winner, $contest)] : [];
+        $newContest->winners = \Maps\Contest\winners($contest);
         return $newContest;
     }
 
@@ -466,6 +466,20 @@ namespace Maps\Contest {
         }
         $newItem->user = \Maps\User\user($winner->user);
         return $newItem;
+    }
+
+    /**
+     * Winners
+     * @param $contest
+     * @return array
+     */
+    function winners($contest)
+    {
+        $newWinners = [];
+        foreach ($contest->winners as $winner) {
+            $newWinners[] = \Maps\Contest\winner($winner, $contest);
+        }
+        return $newWinners;
     }
 
     /**

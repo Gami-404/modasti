@@ -27,6 +27,14 @@ class Contest extends Model
     }
 
     /**
+     * Winner items
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function winners(){
+        return $this->belongsToMany(ContestItem::class,'contests_winners','contest_id','winner_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function items(){

@@ -29,7 +29,7 @@ class ContestNotification
     {
 
         $expired_message = $event->contest->title . ' has expired"';
-        $winner_message = 'Winner is announced for ' . $event->contest->title;
+        $winner_message = 'Winners is announced for ' . $event->contest->title;
         foreach ($event->contest->items as $item) {
             $notificationData = [
                 'seen' => 0,
@@ -40,18 +40,35 @@ class ContestNotification
                 'message' => $expired_message
             ];
             Notification::create($notificationData);
-        }
 
-        if (isset($event->winner->id)) {
+            // Winner announced
             $notificationData = [
-                'seen' => 0,
-                'action' => 'contest.winner',
-                'object_id' => $event->contest->id,
-                'sender_id' => 0,
-                'receiver_id' => $event->winner->user_id,
-                'message' => $winner_message
-            ];
+                    'seen' => 0,
+                    'action' => 'contest.winner',
+                    'object_id' => $event->contest->id,
+                    'sender_id' => 0,
+                    'receiver_id' =>  $item->user_id,
+                    'message' => $winner_message
+                ];
             Notification::create($notificationData);
         }
+
+        // Winner Conditions
+//        if (!empty($event->winners)) {
+//            foreach ($event->winners as $winner) {
+//                $notificationData = [
+//                    'seen' => 0,
+//                    'action' => 'contest.winner',
+//                    'object_id' => $event->contest->id,
+//                    'sender_id' => 0,
+//                    'receiver_id' => $winner->user_id,
+//                    'message' => $winner_message
+//                ];
+//                Notification::create($notificationData);
+//            }
+//
+//        }
+
+
     }
 }

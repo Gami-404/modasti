@@ -18,11 +18,11 @@ class ContestEvents
      * @return void
      */
     public $contest = null;
-    public $winner = null;
+    public $winners = null;
 
-    public function __construct(Contest $contest, $winner)
+    public function __construct(Contest $contest, $winners)
     {
         $this->contest = $contest;
-        $this->winner = $winner;
+        $this->winners = $winners;
     }
 }
