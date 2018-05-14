@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\ContestEvents;
 use App\Model\Contest;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -47,6 +48,7 @@ class ContestCommand extends Command
             }
             $contest->winner_id = -1;
             $contest->save();
+            event(new ContestEvents($contest,$item));
         }
     }
 }

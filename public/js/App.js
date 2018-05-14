@@ -37638,7 +37638,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "gridContainer" }, [
         _c("div", { staticClass: "sectionName" }, [
           _c("div", { staticClass: "theImage" }, [
-            _c("img", { attrs: { src: "/images/moc.jpg", alt: "Imges" } })
+            _c("img", { attrs: { src: "/images/Mockup.jpg", alt: "Imges" } })
           ])
         ])
       ])
