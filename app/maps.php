@@ -141,7 +141,7 @@ namespace Maps\Item {
             $newItem->url_en = $item->url;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->color_id = $item->color_id;
             $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
@@ -207,7 +207,7 @@ namespace Maps\Item {
         $newItem->url_en = $item->url;
         $newItem->brand = $item->brand ? $item->brand->title : "";
         $newItem->likes = $item->likes()->count();
-        $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
         $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
         $newItem->color_id = $item->color_id;
         $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
@@ -347,7 +347,7 @@ namespace Maps\Collection {
             $newItem->text_en = $item->content;
             $newItem->url_en = $item->url;
             $newItem->brand = $item->brand ? $item->brand->title : "";
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photo = [];
             if ($item->image) {
@@ -373,8 +373,8 @@ namespace Maps\Collection {
         $newCollection->title_en = $collection->title;
         $newCollection->text_en = $collection->excerpt;
         $newCollection->image = uploads_url($collection->image->path);
-        $newCollection->is_liked = $collection->likes()->where('id', fauth()->user()->id)->count() ? true : false;
-        $newCollection->likes = $collection->likes()->where('id', fauth()->user()->id)->count();
+        $newCollection->is_liked = $collection->likes()->where('id', fauth()->id())->count() ? true : false;
+        $newCollection->likes = $collection->likes()->where('id', fauth()->id())->count();
         $newCollection->created = $collection->created_at->diffForHumans();
         $newCollection->items = \Maps\Item\items($collection->items);
         $newCollection->user = \Maps\User\user($collection->user);
@@ -415,7 +415,7 @@ namespace Maps\Contest {
         $newContest->text_en = $contest->title;
         $newContest->text2_en = $contest->content;
         $newContest->time_diff = $contest->expired_at->diffForHumans();
-        $newContest->is_liked = $contest->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newContest->is_liked = $contest->likes()->where('id', fauth()->id())->count() ? true : false;
         $newContest->likes = $contest->likes()->count();
         $newContest->is_photo_submitted = $contest->items()->where('user_id', fauth()->id())->count() ? true : false;
         $newContest->photo = null;
@@ -485,7 +485,7 @@ namespace Maps\Contest {
             $newItem->likes = $item->likes()->count();
             $newItem->date_created = $item->created_at->toDateTimeString();
             $newItem->date_likes = $item->created_at->toDateTimeString();
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
             if ($item->image) {
                 $photo = new \stdClass();
