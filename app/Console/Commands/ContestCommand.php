@@ -45,8 +45,9 @@ class ContestCommand extends Command
             $item = $contest->items()->orderBy('likes', 'DESC')->first();
             if ($item) {
                 $contest->winner_id = $item->id;
+            }else{
+                $contest->winner_id = -1;
             }
-            $contest->winner_id = -1;
             $contest->save();
             event(new ContestEvents($contest,$item));
         }
