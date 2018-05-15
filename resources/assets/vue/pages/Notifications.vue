@@ -19,7 +19,7 @@
             <span class="time">{{notification.since}}</span>
           </span>
         </a>
-        <div class="getMore">
+        <div v-if="canLoadMoreNotifications" class="getMore">
           <a @click.prevent="load" href="#" class="mainBtn"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
         </div>
       </div>
@@ -43,6 +43,9 @@ export default {
   computed: {
     notifications() {
       return this.$store.getters.notifications;
+    },
+    canLoadMoreNotifications() {
+      return this.$store.getters.canLoadMoreNotifications;
     }
   },
   created() {

@@ -4,6 +4,7 @@ const state = {
   nav: [],
   unseenCount: 2,
   notifications: [],
+  canLoadMoreNotifications: true,
   offset: 0
 };
 
@@ -11,6 +12,7 @@ const state = {
 const getters = {
   nav: state => state.nav,
   notifications: state => state.notifications,
+  canLoadMoreNotifications: state => state.canLoadMoreNotifications,
   unseenCount: state => state.unseenCount
 };
 
@@ -40,6 +42,10 @@ const actions = {
 // mutations
 const mutations = {
   NOTIVICATIONS(state, data) {
+    if (data.notifications.length < 1) {
+      state.canLoadMoreNotifications = false;
+      return;
+    }
     state.notifications = state.notifications.concat(data.notifications);
     state.offset += 8;
   },

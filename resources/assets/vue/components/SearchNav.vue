@@ -1,5 +1,5 @@
 <template>
-    <div class="secPaddLg whiteBg textCentered">
+	<div class="secPaddLg whiteBg textCentered">
 		<div class="gridContainer">
 			<div class="sectionName">
 				<div class="theName">SEARCH IN {{searchIn}}S</div>
@@ -11,7 +11,13 @@
 
 <script>
 export default {
-	props:["searchIn"]
-}
+  props: ["searchIn"]
+};
 </script>
+
+<style scoped>
+.theName {
+  text-transform: uppercase;
+}
+</style>
 

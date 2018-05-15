@@ -42,14 +42,14 @@
             </div>
             <ul class="clearfix">
               <li v-for="route of routes" v-if="!route.auth || isAuth " :key="route.uri">
-                <router-link active-class="active-header" :to="route.uri" exact>
+                <router-link active-class="active-header" :to="isAuth?route.uri:(route.uri!='/'?'?popup=login':'')" exact>
                   <i :class="route.icon"></i>
                   <span>{{route.name}}</span>
                 </router-link>
               </li>
             </ul>
           </nav>
-          <router-link to="/contest" class="contest">
+          <router-link :to="isAuth?'/contest':'?popup=login'" class="contest">
             <img src="images/new.png" alt="">
             <span>CONTESTS</span>
           </router-link>
@@ -131,12 +131,16 @@ export default {
       this.$router.push("/");
     },
     search() {
-      if (this.searchString)
-        this.$router.push(`/search/${this.area}/${this.searchString}`);
+      if (this.isAuth) {
+        if (this.searchString)
+          this.$router.push(`/search/${this.area}/${this.searchString}`);
         // GEMI was Here
         this.area == "item"
-            ? this.$store.dispatch("search_item_offset_reset")
-            : this.$store.dispatch("search_user_offset_reset");
+          ? this.$store.dispatch("search_item_offset_reset")
+          : this.$store.dispatch("search_user_offset_reset");
+      } else {
+        this.$router.push({ query: { popup: "login" } });
+      }
     }
   },
   computed: {
