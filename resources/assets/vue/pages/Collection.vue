@@ -36,7 +36,7 @@
           <div v-for="comment of collectionComments.slice(0,showNumOfComments)" :key="comment.id" class="theComments">
             <div class="one clearfix">
               <router-link :to="'/profile/'+comment.from_id"> <img :src="comment.user.photo && comment.user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" class="avatar" alt=""> </router-link>
-              <a href="#" @click.prevent="deleteComment(comment.id)" class="deleteComment">Delete</a>
+              <a href="#" v-if="userId === comment.from_id" @click.prevent="deleteComment(comment.id)" class="deleteComment">Delete</a>
               <div class="itsContent">
                 <div class="message">{{comment.text_en}}</div>
                 <div class="time">{{comment.created}}</div>
