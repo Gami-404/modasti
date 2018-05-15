@@ -10,12 +10,12 @@
         </span>
         <div class="in">
           <div class="one">
-            <div @click="showOptions('colors')" class="title dropdownTitle">colors
+            <div @click="showOptions('colors')" class="title dropdownTitle">Colors
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('coverage')" class="title dropdownTitle">coverage
+            <div @click="showOptions('coverage')" class="title dropdownTitle">Coverage
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
@@ -25,12 +25,12 @@
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('sizes')" class="title dropdownTitle">size
+            <div @click="showOptions('sizes')" class="title dropdownTitle">Size
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
           <div class="one">
-            <div @click="showOptions('brands')" class="title dropdownTitle">brand
+            <div @click="showOptions('brands')" class="title dropdownTitle">Brand
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
