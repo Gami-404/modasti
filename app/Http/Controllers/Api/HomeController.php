@@ -165,11 +165,11 @@ class HomeController extends Controller
     {
         $data = [];
         $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
-        $data['items_most_popular'] = \Maps\Item\items_public($items_most_popular);
+        $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
         $block = Block::find(1);
 
         $items_latest_trends = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(8)->get() : collect();
-        $data['items_latest_trends'] = \Maps\Item\items_public($items_latest_trends);
+        $data['items_latest_trends'] = \Maps\Item\items($items_latest_trends);
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
             ->take(8)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
