@@ -2,7 +2,7 @@
   <transition name="popups" enter-active-class="animated bounceIn">
     <div>
       <div class="head">
-        <span>signup</span>
+        <span>Sign Up</span>
         <router-link class="head" to="?popup=">
           <span class="icon">
             <i class="fa fa-close"></i>
@@ -52,7 +52,7 @@ export default {
             name: this.name
           })
           .then(errors => {
-            if (errors.length == 0) this.$router.push("/");
+            if (errors.length == 0) this.$router.push("?popup=login");
             else this.errors = errors;
           })
           .finally(() => {
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.loading ? "Loading.." : "login";
+      return this.loading ? "Loading.." : "Sign Up";
     }
   }
 };

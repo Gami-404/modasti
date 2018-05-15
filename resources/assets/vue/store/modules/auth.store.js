@@ -99,13 +99,13 @@ const mutations = {
     state.user = {};
   },
   REGISTER(state, data) {
-    if (data.errors.length == 0) {
-      localStorage.setItem("api_token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.data));
-      state.isAuth = true;
-      state.user = data.data;
-      state.api_token = data.token;
-    }
+    // if (data.errors.length == 0) {
+    //   localStorage.setItem("api_token", data.token);
+    //   localStorage.setItem("user", JSON.stringify(data.data));
+    //   state.isAuth = true;
+    //   state.user = data.data;
+    //   state.api_token = data.token;
+    // }
   },
   ADD_MESSAGES(state, payload) {
     state.messages[payload.userId] = payload.messages;
