@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\UserFollowing;
+use App\Events\VerificationMail;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,12 +36,16 @@ class UserController extends Controller
         $isAuthed = fauth()->once([
             'username' => $request->get('email'),
             'password' => $request->get('password'),
-            'backend' => 0,
-            'status' => 1
+            'backend' => 0
         ]);
 
         if (!$isAuthed) {
             $response['errors'] = ["Email or password incorrect."];
+            return response()->json($response, '400');
+        }
+
+        if (fauth()->user()->status == 0) {
+            $response['errors'] = ["Please Verification your mail (check your e-mail)."];
             return response()->json($response, '400');
         }
         $response['data'] = \Maps\User\login(fauth()->user());
@@ -75,9 +80,10 @@ class UserController extends Controller
         $user->last_name = isset($names[1]) ? $names[1] : '';
         $user->api_token = str_random(60);
         $user->backend = 0;
-        $user->status = 1;
+        $user->status = 0;
         $user->role_id = 3;
         $user->save();
+        event(new VerificationMail($user));
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;
         return response()->json($response);
@@ -122,6 +128,7 @@ class UserController extends Controller
         $user->status = 1;
         $user->role_id = 2;
         $user->save();
+        event(new VerificationMail($user));
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;
         return response()->json($response);
@@ -252,9 +259,6 @@ class UserController extends Controller
         $validator->sometimes('currentPassword', 'required|min:6', function () use ($request) {
             return $request->filled('password') || $request->filled('currentPassword');
         });
-        $validator->sometimes('userName', 'required|unique:users,username,[id],id', function () use ($request, $user) {
-            return $request->filled('userName') && (trim($request->get('userName')) != trim($user->username));
-        });
         $validator->sometimes('email', 'required|email|unique:users,email,[id],id', function () use ($request, $user) {
             return $request->filled('email') && (trim($request->get('email')) != trim($user->email));
         });
@@ -268,11 +272,9 @@ class UserController extends Controller
         if ($request->filled('lastName')) {
             $user->last_name = $request->get('lastName');
         }
-        if ($request->filled('userName')) {
-            $user->username = $request->get('userName');
-        }
         if ($request->filled('email')) {
             $user->email = $request->get('email');
+            $user->username = $request->get('email');
         }
         if ($request->filled('password')) {
             $user->password = $request->get('password');
