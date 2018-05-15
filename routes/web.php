@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('layouts.index');
 });
+
+
+Route::get('/verification/{token}','MailVerificationController@verification')->name('verification.mail');
+

@@ -32,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ContestEvents' => [
             'App\Listeners\ContestNotification',
         ],
+        'App\Events\VerificationMail' => [
+            'App\Listeners\VerificationMailListener',
+        ],
+
 
     ];
 
