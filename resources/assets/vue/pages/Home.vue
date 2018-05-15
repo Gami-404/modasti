@@ -15,19 +15,24 @@
 					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
-			<WrapperCardListTitled title="Most Liked From Our Community" more="false" url="/trending">
-				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="itemId" />
-				</div>
-			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Most Viewed Sets" url="#" more="false">
 				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
 					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
-			<WrapperCardListTitled title="Official Contests" url="/contest">
-				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
+			<WrapperCardListTitled title="Most Liked From Our Community" more="false" url="/trending">
+				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+					<ItemCard :item-id="itemId" />
+				</div>
+			</WrapperCardListTitled>
+			<WrapperCardListTitled title="Best From Modasti" more="false" url="/contest">
+				<div v-for="set in setsBestFromModasti" :key="set" class="mycol-lg-3 mycol-sm-6">
 					<SetCard :set-id="set" />
+				</div>
+			</WrapperCardListTitled>
+			<WrapperCardListTitled title="Official Contests" url="/contest">
+				<div v-for="contest in homeContests" :key="contest" class="mycol-lg-3 mycol-sm-6">
+					<ContestCard :contest-id="contest" />
 				</div>
 			</WrapperCardListTitled>
 		</div>
@@ -38,6 +43,7 @@
 <script>
 import ItemCard from "@/components/ItemCard";
 import SetCard from "@/components/SetCard";
+import ContestCard from "@/components/ContestCard";
 import Loading from "@/components/Loading";
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import { mapGetters } from "vuex";
@@ -46,6 +52,7 @@ export default {
   components: {
     ItemCard,
     SetCard,
+    ContestCard,
     Loading,
     WrapperCardListTitled
   },
@@ -59,7 +66,8 @@ export default {
       "itemsLatestTrends",
       "itemsMostPopular",
       "setsBestFromCommunity",
-      "setsBestFromModasti"
+      "setsBestFromModasti",
+      "homeContests"
     ])
   },
   created() {

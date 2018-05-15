@@ -6,7 +6,8 @@ const state = {
     itemsMostPopular: [],
     setsBestFromCommunity: [],
     itemsLatestTrends: [],
-    setsBestFromModasti: []
+    setsBestFromModasti: [],
+    homeContests: []
   },
   trending: [],
   feed: [],
@@ -39,6 +40,7 @@ const getters = {
   itemsLatestTrends: state => state.home.itemsLatestTrends,
   setsBestFromCommunity: state => state.home.setsBestFromCommunity,
   setsBestFromModasti: state => state.home.setsBestFromModasti,
+  homeContests: state => state.home.homeContests,
   trending: state => state.trending,
   categories: stable => state.categories,
   category: state => state.category,
@@ -74,12 +76,20 @@ const actions = {
   },
   get_home_items({ commit }) {
     return API.post("/home", {}).then(res => {
-      let data = res.data;
+      let { data } = res;
       let items = {};
       commit("ADD_ITEMS", data["items_most_popular"], { root: true });
       commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
       commit("ADD_SETS", data["sets_best_from_modasti"], { root: true });
       commit("ADD_SETS", data["sets_best_from_community"], { root: true });
+      data["contests"].forEach(item => {
+        if (+new Date() <= +new Date(item.expires)) {
+          item._type = "new";
+        } else {
+          item._type = "old";
+        }
+        commit("CONTESTSMAP", item, { root: true });
+      });
       Object.keys(data).forEach(key => {
         items[key] = data[key].map(item => item.id);
       });
@@ -204,6 +214,7 @@ const mutations = {
     home.itemsLatestTrends = data.items_latest_trends;
     home.setsBestFromModasti = data.sets_best_from_modasti;
     home.setsBestFromCommunity = data.sets_best_from_community;
+    home.homeContests = data.contests;
   },
   TRENDING(state, data) {
     state.trending = state.trending.concat(data);

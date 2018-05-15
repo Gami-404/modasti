@@ -7,12 +7,12 @@
         <i class="fa fa-angle-down"></i>
       </router-link>
       <div class="dropdown-content">
-        <router-link to="/profile/me/sets" class="addlinks">Sets</router-link>
-        <router-link to="/profile/me/collections" class="addlinks">collections</router-link>
-        <router-link to="/profile/me/likes" class="addlinks">LIKES</router-link>
-        <router-link to="/profile/me/Following" class="addlinks">Following</router-link>
-        <router-link to="/profile/me/Followers" class="addlinks">Followers</router-link>
-        <router-link to="/messages" class="addlinks">Messages</router-link>
+        <router-link to="/profile/me/sets" class="addlinks" active-class="active-header">Sets</router-link>
+        <router-link to="/profile/me/collections" class="addlinks" active-class="active-header">Collections</router-link>
+        <router-link to="/profile/me/likes" class="addlinks" active-class="active-header">LIKES</router-link>
+        <router-link to="/profile/me/Following" class="addlinks" active-class="active-header">Following</router-link>
+        <router-link to="/profile/me/Followers" class="addlinks" active-class="active-header">Followers</router-link>
+        <router-link to="/messages" class="addlinks" active-class="active-header">Messages</router-link>
         <hr>
         <a href="#" class="addlinks" @click.prevent="logout">LOGOUT</a>
       </div>
@@ -67,5 +67,8 @@ export default {
 .dropdown:hover .dropdown-content {
   transition: opacity 1s ease-in;
   display: block;
+}
+.active-header {
+  color: #ffbeb8 !important;
 }
 </style>

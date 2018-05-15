@@ -87,6 +87,10 @@ const mutations = {
       state.api_token = data.token;
     }
   },
+  EDIT_USER(state, user) {
+    state.user = user;
+    localStorage.setItem("user", JSON.stringify(user));
+  },
   LOGOUT(state) {
     localStorage.removeItem("api_token");
     localStorage.removeItem("user");
