@@ -6,8 +6,8 @@
         <div class="content">
           <div class="in">
             <div class="paging">
-              <a href="#">Clothing</a>
-              <a href="#">Dresses</a>
+              <router-link  :to="'/category/'+data.categories[0].name.toLowerCase()">{{data.categories[0].name}}</router-link>
+              <router-link  :to="'/category/'+data.categories[0].name.toLowerCase()+'/'+data.categories[1].id">{{data.categories[1].name}}</router-link>
             </div>
             <h2 class="title">{{data.title_en}}</h2>
             <div v-html="data.text_en" class="description"></div>
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: true,
     };
   },
   created() {
@@ -73,7 +73,7 @@ export default {
   computed: {
     data() {
       return this.$store.getters.item;
-    }
+    },
   }
 };
 </script>

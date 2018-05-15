@@ -39406,7 +39406,38 @@ var render = function() {
                     "div",
                     { staticClass: "in" },
                     [
-                      _vm._m(0),
+                      _c(
+                        "div",
+                        { staticClass: "paging" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to:
+                                  "/category/" +
+                                  _vm.data.categories[0].name.toLowerCase()
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.data.categories[0].name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to:
+                                  "/category/" +
+                                  _vm.data.categories[0].name.toLowerCase() +
+                                  "/" +
+                                  _vm.data.categories[1].id
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.data.categories[1].name))]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c("h2", { staticClass: "title" }, [
                         _vm._v(_vm._s(_vm.data.title_en))
@@ -39470,18 +39501,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "paging" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Clothing")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Dresses")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
