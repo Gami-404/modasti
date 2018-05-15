@@ -30,3 +30,20 @@ $('.openPopup').click(function(){
 $('body').on('click', '.closePopup', function(){
 	$('.thePopup').remove();
 });
+
+function readURL(ele, input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.' + ele).attr('src', e.target.result).prev('.hideAfterUpload').addClass('disNone');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('.importItemsForm input[type="file"]').change(function(){
+	var theFileUrl = $(this).val();
+	$(this).next('.uploadedFileDisplay').html(theFileUrl);
+});

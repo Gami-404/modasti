@@ -29,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserSendMessage' => [
             'App\Listeners\UserSendMessageNotification',
         ],
+        'App\Events\ContestEvents' => [
+            'App\Listeners\ContestNotification',
+        ],
 
     ];
 

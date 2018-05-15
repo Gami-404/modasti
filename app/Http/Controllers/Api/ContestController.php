@@ -21,7 +21,7 @@ class ContestController extends Controller
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
 
-        $contests = Contest::with('image')->where(['status' => 1])
+        $contests = Contest::with('image','winners')->where(['status' => 1])
             ->take($limit)
             ->offset($offset)
             ->get();

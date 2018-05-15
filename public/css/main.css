@@ -394,6 +394,8 @@ body {
   .sectionName .theName {
     font-size: 100%;
     margin: 0 0 15px; }
+  .sectionName .theImage {
+    margin: 0 0 10px; }
   .sectionName .second {
     font-size: 50%;
     color: #ffbeb8; }
@@ -522,6 +524,7 @@ body {
     height: 340px;
     overflow: hidden; }
   .productCard .content {
+    position: relative;
     padding: 20px;
     border-bottom: 1px solid #ccc; }
     .productCard .content h3 {
@@ -561,6 +564,19 @@ body {
         .productCard .content .setEdit a.remove {
           color: #fff;
           background: #000; }
+    .productCard .content .winCup {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      text-align: center;
+      line-height: 100px;
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      border-radius: 100%;
+      border: 1px solid #f2f2f2;
+      background: #fff; }
   .productCard .likesAndComments {
     padding: 20px; }
     .productCard .likesAndComments a {
@@ -570,6 +586,10 @@ body {
         margin: 0 5px 0 0; }
       .productCard .likesAndComments a:hover {
         color: #ffbeb8; }
+  .productCard.winners .avatar {
+    padding: 0; }
+  .productCard.winners .content {
+    padding-top: 70px; }
 
 #footer {
   padding: 40px 0;
@@ -1251,6 +1271,12 @@ body {
           color: #ffbeb8;
           margin: 0 0 0 10px;
           font-family: "Cheque-Black"; }
+      .popupPage .thePage .content .thanksPopup {
+        font-size: 22px;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px 0; }
 
 .thePopup {
   position: fixed;
@@ -1713,7 +1739,11 @@ body {
     width: 200px; }
 
   .createSetPage .leftArea .actionBtns .otherBtns {
-    margin: 0 0 0 220px; } }
+    margin: 0 0 0 220px; }
+
+  .popupPage .thePage .content .thanksPopup {
+    font-size: 30px;
+    padding: 50px 0; } }
 @media only screen and (min-width: 769px) {
   .secPaddLg {
     padding: 60px 0; }

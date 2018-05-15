@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Collection;
+use App\Model\Contest;
 use App\Model\Post;
 use App\Model\Set;
 use App\User;
@@ -172,6 +173,12 @@ class HomeController extends Controller
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
             ->take(8)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
+
+        // Contest
+        $contests = Contest::with('image')->where(['status' => 1])
+            ->take(8)
+            ->get();
+        $data['contests'] = \Maps\Contest\contests($contests);
         $data['sets_best_from_modasti'] = [];
         return response()->json($data);
     }

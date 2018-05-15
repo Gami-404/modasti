@@ -46,8 +46,8 @@ namespace Maps\User {
             $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
             $newUser->following_counter = $user->following()->count();
             $newUser->follower_counter = $user->follower()->count();
-            $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
+            $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
+            $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
             $newUser->photo = null;
             if ($newUser->photo) {
@@ -74,8 +74,8 @@ namespace Maps\User {
         $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         $newUser->following_counter = $user->following()->count();
         $newUser->follower_counter = $user->follower()->count();
-        $newUser->is_followed = $user->follower()->where('following_id', fauth()->user()->id)->count() ? true : false;
-        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->user()->id, 'blocked_id' => $user->id])->count() ? true : false;
+        $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
+        $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
         $newUser->sets_count = Set::where('user_id', $user->id)->count();
         $newUser->photo = null;
         if ($newUser->photo) {
@@ -141,7 +141,7 @@ namespace Maps\Item {
             $newItem->url_en = $item->url;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->color_id = $item->color_id;
             $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
@@ -172,7 +172,7 @@ namespace Maps\Item {
         $newItem->url_en = $item->url;
         $newItem->brand = $item->brand ? $item->brand->title : "";
         $newItem->likes = $item->likes()->count();
-        $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
         $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
         $newItem->color_id = $item->color_id;
         $newItem->color = ($color = Color::find($item->color_id)) ? $color->value : null;
@@ -205,7 +205,7 @@ namespace Maps\Set {
         $newSet->likes = $newSet->likes_counter = $set->likes()->count();
         $newSet->created = $set->created_at->diffForHumans();
         $newSet->contest_id = null;
-        $newSet->is_liked = $set->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newSet->is_liked = $set->likes()->where('id', fauth()->id())->count() ? true : false;
         $newSet->comments_counter = $set->comments()->count();
         $newSet->group = [];
         $newSet->photo = null;
@@ -258,7 +258,7 @@ namespace Maps\Set {
             $newItem->title_en = $item->title;
             $newItem->price = $item->price;
             $newItem->currency = $item->currency;
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photos = [];
 
@@ -312,7 +312,7 @@ namespace Maps\Collection {
             $newItem->text_en = $item->content;
             $newItem->url_en = $item->url;
             $newItem->brand = $item->brand ? $item->brand->title : "";
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photo = [];
             if ($item->image) {
@@ -338,8 +338,8 @@ namespace Maps\Collection {
         $newCollection->title_en = $collection->title;
         $newCollection->text_en = $collection->excerpt;
         $newCollection->image = uploads_url($collection->image->path);
-        $newCollection->is_liked = $collection->likes()->where('id', fauth()->user()->id)->count() ? true : false;
-        $newCollection->likes = $collection->likes()->where('id', fauth()->user()->id)->count();
+        $newCollection->is_liked = $collection->likes()->where('id', fauth()->id())->count() ? true : false;
+        $newCollection->likes = $collection->likes()->where('id', fauth()->id())->count();
         $newCollection->created = $collection->created_at->diffForHumans();
         $newCollection->items = \Maps\Item\items($collection->items);
         $newCollection->user = \Maps\User\user($collection->user);
@@ -380,7 +380,7 @@ namespace Maps\Contest {
         $newContest->text_en = $contest->title;
         $newContest->text2_en = $contest->content;
         $newContest->time_diff = $contest->expired_at->diffForHumans();
-        $newContest->is_liked = $contest->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+        $newContest->is_liked = $contest->likes()->where('id', fauth()->id())->count() ? true : false;
         $newContest->likes = $contest->likes()->count();
         $newContest->is_photo_submitted = $contest->items()->where('user_id', fauth()->id())->count() ? true : false;
         $newContest->photo = null;
@@ -390,7 +390,7 @@ namespace Maps\Contest {
             $photo->photo_name = uploads_url($contest->image->path);
             $newContest->photo = $photo;
         }
-        $newContest->winners = $contest->winner ? [\Maps\Contest\winner($contest->winner, $contest)] : [];
+        $newContest->winners = \Maps\Contest\winners($contest);
         return $newContest;
     }
 
@@ -434,6 +434,20 @@ namespace Maps\Contest {
     }
 
     /**
+     * Winners
+     * @param $contest
+     * @return array
+     */
+    function winners($contest)
+    {
+        $newWinners = [];
+        foreach ($contest->winners as $winner) {
+            $newWinners[] = \Maps\Contest\winner($winner, $contest);
+        }
+        return $newWinners;
+    }
+
+    /**
      * Contest items
      * @param $contestItems
      * @return array
@@ -450,7 +464,7 @@ namespace Maps\Contest {
             $newItem->likes = $item->likes()->count();
             $newItem->date_created = $item->created_at->toDateTimeString();
             $newItem->date_likes = $item->created_at->toDateTimeString();
-            $newItem->is_liked = $item->likes()->where('id', fauth()->user()->id)->count() ? true : false;
+            $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
             if ($item->image) {
                 $photo = new \stdClass();
