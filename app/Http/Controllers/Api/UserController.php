@@ -252,9 +252,6 @@ class UserController extends Controller
         $validator->sometimes('currentPassword', 'required|min:6', function () use ($request) {
             return $request->filled('password') || $request->filled('currentPassword');
         });
-        $validator->sometimes('userName', 'required|unique:users,username,[id],id', function () use ($request, $user) {
-            return $request->filled('userName') && (trim($request->get('userName')) != trim($user->username));
-        });
         $validator->sometimes('email', 'required|email|unique:users,email,[id],id', function () use ($request, $user) {
             return $request->filled('email') && (trim($request->get('email')) != trim($user->email));
         });
@@ -268,11 +265,9 @@ class UserController extends Controller
         if ($request->filled('lastName')) {
             $user->last_name = $request->get('lastName');
         }
-        if ($request->filled('userName')) {
-            $user->username = $request->get('userName');
-        }
         if ($request->filled('email')) {
             $user->email = $request->get('email');
+            $user->username = $request->get('email');
         }
         if ($request->filled('password')) {
             $user->password = $request->get('password');
