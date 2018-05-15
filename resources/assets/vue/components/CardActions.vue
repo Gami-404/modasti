@@ -115,10 +115,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .fa {
   margin-left: 3px;
   margin-right: 3px;
   font-size: 20px;
+}
+.fa-heart {
+  color: #f76c6c !important;
 }
 </style>
