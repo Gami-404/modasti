@@ -184,6 +184,7 @@ namespace Maps\Item {
             $photo->photo_name = uploads_url($item->image->path);
             $newItem->photos[] = $photo;
         }
+        $newItem->categories = $item->categories()->orderBy('parent', 'ASC')->get();
         return $newItem;
     }
 }
