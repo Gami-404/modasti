@@ -191,10 +191,13 @@ class HomeController extends Controller
     public function trending(Request $request)
     {
         $data = ['data' => []];
-        $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
-        $items_most_popular = Post::with('image', 'brand')->confirmed()
-            ->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+        $offset = $request->get('offset', 0);
+//        $items_most_popular = Post::with('image', 'brand')->confirmed()
+//            ->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+
+        $block = Block::find(1);
+        $items_most_popular  = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take($limit)->offset($offset)->get() : collect();
         $data['data']['items'] = \Maps\Item\items($items_most_popular);
         return response()->json($data);
     }
