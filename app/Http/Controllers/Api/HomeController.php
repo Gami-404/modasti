@@ -197,7 +197,7 @@ class HomeController extends Controller
 //            ->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
 
         $block = Block::find(1);
-        $items_most_popular  = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take($limit)->offset($offset)->get() : collect();
+        $items_most_popular = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take($limit)->offset($offset)->get() : collect();
         $data['data']['items'] = \Maps\Item\items($items_most_popular);
         return response()->json($data);
     }
@@ -220,6 +220,11 @@ class HomeController extends Controller
                 $query->where('following_id', fauth()->user()->id);
             })->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
 
+        // return most view if his feed empty
+        if (count($items) == 0) {
+            $items = Post::with('image', 'brand')->confirmed()
+                ->orderBy('likes', 'desc')->offset($offset)->take($limit)->get();
+        }
         $data['data']['items'] = \Maps\Item\items($items);
         return response()->json($data);
     }
