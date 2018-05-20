@@ -423,8 +423,12 @@ namespace Maps\Contest {
         $newItem->contest_id = $winner->contest_id;
         $newItem->contest_title = $contest->title;
         $newItem->win_place = 1;
-        $newItem->join_on = $winner->created_at->diffForHumans();
+        $newItem->join_on = $winner->created_at->toDayDateTimeString();
         $newItem->photo_id = $winner->image_id;
+        $newItem->likes = $winner->likes()->count();
+        $newItem->date_created = $winner->created_at->toDateTimeString();
+        $newItem->is_liked = $winner->likes()->where('id', fauth()->id())->count() ? true : false;
+
         $newItem->photo = null;
         if ($winner->image) {
             $photo = new \stdClass();

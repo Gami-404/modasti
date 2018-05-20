@@ -51674,7 +51674,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -51793,14 +51792,14 @@ var render = function() {
                         _vm._v(" "),
                         _c("CardActions", {
                           attrs: {
-                            likeable: true,
-                            "is-liked": _vm.contest.is_liked,
-                            commentable: true,
+                            likebale: true,
+                            "is-liked": winner.is_liked,
                             sharable: true,
-                            "obj-id": _vm.contest.id,
-                            "num-of-likes": _vm.contest.likes,
-                            "num-of-comments": _vm.contest.comment,
-                            context: "contest_photo"
+                            "num-of-likes": winner.likes,
+                            parentId: _vm.contest.id,
+                            "obj-id": winner.id,
+                            "parent-context": "contest",
+                            context: "contest_item"
                           }
                         })
                       ],
@@ -51829,10 +51828,32 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "brandColor joinedDate" }, [
-                            _vm._v("Joined on " + _vm._s(winner.user.fname))
+                            _vm._v("Joined on " + _vm._s(winner.join_on))
                           ]),
                           _vm._v(" "),
-                          _vm._m(2, true)
+                          _c(
+                            "div",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "name",
+                                  class: "mainBtn",
+                                  attrs: { to: "/profile/" + winner.user_id }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      !winner.user.is_followed
+                                        ? "Follow"
+                                        : "Unfollow"
+                                    )
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
                         ])
                       ]),
                       _vm._v(" "),
@@ -51874,16 +51895,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "itsTitle" }, [
       _c("span", [_vm._v("The Winners")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("a", { staticClass: "mainBtn", attrs: { href: "#" } }, [
-        _vm._v("Follow")
-      ])
     ])
   }
 ]

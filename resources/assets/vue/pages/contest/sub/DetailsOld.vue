@@ -31,16 +31,15 @@
 							<div class="createdBy">Created by</div>
 							<div>Modasti retail - {{winner.user.fname +' '+winner.user.lname}}</div>
 						</div>
-						<CardActions :likeable="true" :is-liked="contest.is_liked" :commentable="true" :sharable="true" :obj-id="contest.id" :num-of-likes="contest.likes" :num-of-comments="contest.comment" context="contest_photo" />
-					</div>
+						<CardActions :likebale="true" :is-liked="winner.is_liked" :sharable="true" :num-of-likes="winner.likes" :parentId="contest.id" :obj-id="winner.id" :parent-context="'contest'" :context="'contest_item'" />					</div>
 					<div class="PD_about">
 						<div class="PD_aboutUser clearfix">
 							<img :src="winner.user.photo?winner.user.photo.photo_name:'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt="" class="itsAvatar">
 							<div class="itsData">
 								<div class="name">{{winner.user.fname +' '+winner.user.lname}}</div>
-								<div class="brandColor joinedDate">Joined on {{winner.user.fname}}</div>
+								<div class="brandColor joinedDate">Joined on {{winner.join_on}}</div>
 								<div>
-									<a href="#" class="mainBtn">Follow</a>
+									<router-link :class="'mainBtn'" :to="'/profile/'+winner.user_id" class="name">{{ !winner.user.is_followed?'Follow':'Unfollow'  }}</router-link>
 								</div>
 							</div>
 						</div>
