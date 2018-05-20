@@ -50035,6 +50035,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           var user = _extends({}, _this.$store.getters.user);
           user.name = _this.form.firstName + " " + _this.form.lastName;
           user.email = _this.form.email;
+          user.currency = _this.form.currency;
           _this.$store.commit("EDIT_USER", user);
         }
       }).catch(function (err) {
@@ -50172,11 +50173,9 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "mycol-md-6" }, [
+            _c("div", { staticClass: "mycol-md-12" }, [
               _c("div", { staticClass: "mrgBtmLg" }, [
-                _c("div", { staticClass: "mrgBtmMd fontLarger" }, [
-                  _vm._v("Currency :")
-                ]),
+                _c("div", { staticClass: "mrgBtmMd" }, [_vm._v("Currency :")]),
                 _vm._v(" "),
                 _c(
                   "select",

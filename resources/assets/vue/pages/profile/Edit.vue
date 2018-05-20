@@ -35,9 +35,9 @@
               <input v-model="form.email" type="email" class="inputEle" required>
             </div>
           </div>
-          <div class="mycol-md-6">
+          <div class="mycol-md-12">
             <div class="mrgBtmLg">
-              <div class="mrgBtmMd fontLarger">Currency :</div>
+              <div class="mrgBtmMd">Currency :</div>
               <select required v-model="form.currency" class="inputEle">
                 <option hidden value="">...</option>
                 <option v-for="curr of currency" :key="curr" :value="curr">{{curr}}</option>
@@ -80,7 +80,7 @@ export default {
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
-          currency: this.$store.getters.user.currency,
+        currency: this.$store.getters.user.currency,
       },
       btnText: "Save Edits",
       errors: [],
@@ -90,7 +90,7 @@ export default {
   computed: {
     user() {
       return this.$store.getters.userProfile;
-    }
+    },
   },
   methods: {
     saveEdits() {
@@ -108,6 +108,7 @@ export default {
             let user = { ...this.$store.getters.user };
             user.name = this.form.firstName + " " + this.form.lastName;
             user.email = this.form.email;
+            user.currency = this.form.currency;
             this.$store.commit("EDIT_USER", user);
           }
         })

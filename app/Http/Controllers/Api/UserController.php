@@ -49,6 +49,7 @@ class UserController extends Controller
             return response()->json($response, '400');
         }
         $response['data'] = \Maps\User\login(fauth()->user());
+        $response['data']->currency = fauth()->user()->currency;
         $response['token'] = fauth()->user()->api_token;
         return response()->json($response);
     }
