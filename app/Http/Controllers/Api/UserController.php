@@ -49,7 +49,6 @@ class UserController extends Controller
             return response()->json($response, '400');
         }
         $response['data'] = \Maps\User\login(fauth()->user());
-        $response['data']->currency = fauth()->user()->currency;
         $response['token'] = fauth()->user()->api_token;
         return response()->json($response);
     }
@@ -365,5 +364,24 @@ class UserController extends Controller
         $users = User::with('photo')->where(['backend' => 0, 'status' => 1])->inRandomOrder()->take($limit)->offset($offset)->get();;
         $data['data'] = \Maps\User\users($users);
         return response()->json($data);
+    }
+
+
+    /**
+     * POST api/getProfileForm
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProfileForm(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $id = $request->get('userId');
+        $user = User::find($id);
+        if (!$user) {
+            $data['errors'][] = "User not found";
+            return response()->json($data, 400);
+        }
+        $data['data'] = $user;
+        return response()->json($data['data']);
     }
 }
