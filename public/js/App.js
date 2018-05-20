@@ -36738,7 +36738,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["itemsLatestTrends", "itemsMostPopular", "setsBestFromCommunity", "setsBestFromModasti", "homeContests"])),
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["itemsLatestTrends", "itemsMostPopular", "setsBestFromCommunity", "itemsBestFromModasti", "homeContests"])),
   created: function created() {
     var _this = this;
 
@@ -37871,11 +37871,11 @@ var render = function() {
                 url: "/contest"
               }
             },
-            _vm._l(_vm.setsBestFromModasti, function(set) {
+            _vm._l(_vm.itemsBestFromModasti, function(itemId) {
               return _c(
                 "div",
-                { key: set, staticClass: "mycol-lg-3 mycol-sm-6" },
-                [_c("SetCard", { attrs: { "set-id": set } })],
+                { key: _vm.set, staticClass: "mycol-lg-3 mycol-sm-6" },
+                [_c("ItemCard", { attrs: { "item-id": itemId } })],
                 1
               )
             })
@@ -57560,6 +57560,7 @@ var state = {
     setsBestFromCommunity: [],
     itemsLatestTrends: [],
     setsBestFromModasti: [],
+    itemsBestFromModasti: [],
     homeContests: []
   },
   trending: [],
@@ -57857,7 +57858,7 @@ var mutations = {
 
     home.itemsMostPopular = data.items_most_popular;
     home.itemsLatestTrends = data.items_latest_trends;
-    home.setsBestFromModasti = data.sets_best_from_modasti;
+    home.itemsBestFromModasti = data.items_best_from_modasti;
     home.setsBestFromCommunity = data.sets_best_from_community;
     home.homeContests = data.contests;
   },

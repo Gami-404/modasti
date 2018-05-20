@@ -7,6 +7,7 @@ const state = {
     setsBestFromCommunity: [],
     itemsLatestTrends: [],
     setsBestFromModasti: [],
+    itemsBestFromModasti:[],
     homeContests: []
   },
   trending: [],
@@ -212,7 +213,7 @@ const mutations = {
   HOME_ITEMS({ home }, data) {
     home.itemsMostPopular = data.items_most_popular;
     home.itemsLatestTrends = data.items_latest_trends;
-    home.setsBestFromModasti = data.sets_best_from_modasti;
+    home.itemsBestFromModasti = data.items_best_from_modasti;
     home.setsBestFromCommunity = data.sets_best_from_community;
     home.homeContests = data.contests;
   },
