@@ -20,7 +20,7 @@
 				<div class="itsTitle">
 					<span>The Winners</span>
 				</div>
-				<div class="itsContent" v-for="winner of contest.winners">
+				<div class="itsContent" v-for="winner of winners" :key="winner.id">
 					<div class="PD_Card">
 						<div class="PD_cardAvatar"><img :src="winner.photo.photo_name" :alt="winner.photo.title"></div>
 						<div class="PD_cardContent">
@@ -31,7 +31,7 @@
 							<div class="createdBy">Created by</div>
 							<div>Modasti retail - {{winner.user.fname +' '+winner.user.lname}}</div>
 						</div>
-						<CardActions :likebale="true" :is-liked="winner.is_liked" :sharable="true" :num-of-likes="winner.likes" :parentId="contest.id" :obj-id="winner.id" :parent-context="'contest'" :context="'contest_item'" />					</div>
+						<CardActions :likebale="true" :no-wait-action="true" :afterLike="changeWinner(winner)" :is-liked="winner.is_liked" :sharable="true" :num-of-likes="winner.likes" :parentId="contest.id" :obj-id="winner.id" :parent-context="'contest'" :context="'contest_item'" />					</div>
 					<div class="PD_about">
 						<div class="PD_aboutUser clearfix">
 							<img :src="winner.user.photo?winner.user.photo.photo_name:'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt="" class="itsAvatar">
@@ -59,9 +59,17 @@ import CardActions from "@/components/CardActions";
 import ContestComments from "./ContestComments";
 export default {
   props: ["contest"],
+	computed:{
+        winners(){
+           return this.contest.winners
+        }
+	},
+	methods:{
+
+	},
   components: {
     CardActions,
     ContestComments
-  }
+  },
 };
 </script>

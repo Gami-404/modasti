@@ -36923,7 +36923,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["sharable", "likable", "commentable", "numOfLikes", "numOfComments", "objId", "context", "isLiked", "commentUrl", "parentContext", "parentId"],
+  props: ["sharable", "likable", "commentable", "numOfLikes", "numOfComments", "objId", "context", "isLiked", "commentUrl", "parentContext", "parentId", "noWaitAction"],
   data: function data() {
     return {
       shareActions: false,
@@ -36954,7 +36954,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.$store.dispatch("like_" + this.context, this.objId);
           this.$store.dispatch("like_" + this.context + "_toggle");
         }
-        this.canChange = false;
+        if (this.noWaitAction) {
+          this.canChange = true;
+        } else {
+          this.canChange = false;
+        }
       } else {
         this.openLogin();
       }
@@ -51679,6 +51683,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["contest"],
+  computed: {
+    winners: function winners() {
+      return this.contest.winners;
+    }
+  },
+  methods: {},
   components: {
     CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a,
     ContestComments: __WEBPACK_IMPORTED_MODULE_1__ContestComments___default.a
@@ -51752,120 +51762,130 @@ var render = function() {
               [
                 _vm._m(1),
                 _vm._v(" "),
-                _vm._l(_vm.contest.winners, function(winner) {
-                  return _c("div", { staticClass: "itsContent" }, [
-                    _c(
-                      "div",
-                      { staticClass: "PD_Card" },
-                      [
-                        _c("div", { staticClass: "PD_cardAvatar" }, [
-                          _c("img", {
-                            attrs: {
-                              src: winner.photo.photo_name,
-                              alt: winner.photo.title
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "PD_cardContent" }, [
-                          _c("h3", [
-                            _c("a", { attrs: { href: "javascript:void(0)" } }, [
-                              _vm._v(_vm._s(winner.contest_title))
+                _vm._l(_vm.winners, function(winner) {
+                  return _c(
+                    "div",
+                    { key: winner.id, staticClass: "itsContent" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "PD_Card" },
+                        [
+                          _c("div", { staticClass: "PD_cardAvatar" }, [
+                            _c("img", {
+                              attrs: {
+                                src: winner.photo.photo_name,
+                                alt: winner.photo.title
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "PD_cardContent" }, [
+                            _c("h3", [
+                              _c(
+                                "a",
+                                { attrs: { href: "javascript:void(0)" } },
+                                [_vm._v(_vm._s(winner.contest_title))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "createdBy" }, [
+                              _vm._v("Created by")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _vm._v(
+                                "Modasti retail - " +
+                                  _vm._s(
+                                    winner.user.fname + " " + winner.user.lname
+                                  )
+                              )
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("hr"),
+                          _c("CardActions", {
+                            attrs: {
+                              likebale: true,
+                              "no-wait-action": true,
+                              afterLike: _vm.changeWinner(winner),
+                              "is-liked": winner.is_liked,
+                              sharable: true,
+                              "num-of-likes": winner.likes,
+                              parentId: _vm.contest.id,
+                              "obj-id": winner.id,
+                              "parent-context": "contest",
+                              context: "contest_item"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "PD_about" }, [
+                        _c("div", { staticClass: "PD_aboutUser clearfix" }, [
+                          _c("img", {
+                            staticClass: "itsAvatar",
+                            attrs: {
+                              src: winner.user.photo
+                                ? winner.user.photo.photo_name
+                                : "https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1",
+                              alt: ""
+                            }
+                          }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "createdBy" }, [
-                            _vm._v("Created by")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", [
-                            _vm._v(
-                              "Modasti retail - " +
+                          _c("div", { staticClass: "itsData" }, [
+                            _c("div", { staticClass: "name" }, [
+                              _vm._v(
                                 _vm._s(
                                   winner.user.fname + " " + winner.user.lname
                                 )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "brandColor joinedDate" },
+                              [_vm._v("Joined on " + _vm._s(winner.join_on))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "name",
+                                    class: "mainBtn",
+                                    attrs: { to: "/profile/" + winner.user_id }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        !winner.user.is_followed
+                                          ? "Follow"
+                                          : "Unfollow"
+                                      )
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
                             )
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("CardActions", {
-                          attrs: {
-                            likebale: true,
-                            "is-liked": winner.is_liked,
-                            sharable: true,
-                            "num-of-likes": winner.likes,
-                            parentId: _vm.contest.id,
-                            "obj-id": winner.id,
-                            "parent-context": "contest",
-                            context: "contest_item"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "PD_about" }, [
-                      _c("div", { staticClass: "PD_aboutUser clearfix" }, [
-                        _c("img", {
-                          staticClass: "itsAvatar",
-                          attrs: {
-                            src: winner.user.photo
-                              ? winner.user.photo.photo_name
-                              : "https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1",
-                            alt: ""
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "itsData" }, [
-                          _c("div", { staticClass: "name" }, [
-                            _vm._v(
-                              _vm._s(
-                                winner.user.fname + " " + winner.user.lname
-                              )
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "brandColor joinedDate" }, [
-                            _vm._v("Joined on " + _vm._s(winner.join_on))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "name",
-                                  class: "mainBtn",
-                                  attrs: { to: "/profile/" + winner.user_id }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      !winner.user.is_followed
-                                        ? "Follow"
-                                        : "Unfollow"
-                                    )
-                                  )
-                                ]
-                              )
-                            ],
-                            1
+                        _c("div", { staticClass: "description" }, [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t" +
+                              _vm._s(winner.user.about) +
+                              "\n\t\t\t\t\t"
                           )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "description" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t" +
-                            _vm._s(winner.user.about) +
-                            "\n\t\t\t\t\t"
-                        )
                       ])
-                    ])
-                  ])
+                    ]
+                  )
                 })
               ],
               2

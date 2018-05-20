@@ -46,7 +46,8 @@ export default {
     "isLiked",
     "commentUrl",
     "parentContext",
-    "parentId"
+    "parentId",
+      "noWaitAction",
   ],
   data() {
     return {
@@ -77,7 +78,12 @@ export default {
           this.$store.dispatch("like_" + this.context, this.objId);
           this.$store.dispatch("like_" + this.context + "_toggle");
         }
-        this.canChange = false;
+        if(this.noWaitAction){
+            this.canChange = true;
+
+        }else{
+            this.canChange = false;
+        }
       } else {
         this.openLogin();
       }
