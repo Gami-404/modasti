@@ -36923,7 +36923,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["sharable", "likable", "commentable", "numOfLikes", "numOfComments", "objId", "context", "isLiked", "commentUrl", "parentContext", "parentId", "noWaitAction"],
+  props: ["sharable", "likable", "commentable", "numOfLikes", "numOfComments", "objId", "context", "isLiked", "commentUrl", "parentContext", "parentId", "noWaitAction", "callback"],
   data: function data() {
     return {
       shareActions: false,
@@ -36953,6 +36953,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.liked = !this.liked;
           this.$store.dispatch("like_" + this.context, this.objId);
           this.$store.dispatch("like_" + this.context + "_toggle");
+          if (this.callback) {
+            this.callback();
+          }
         }
         if (this.noWaitAction) {
           this.canChange = true;
@@ -51682,17 +51685,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["contest"],
-  computed: {
-    winners: function winners() {
-      return this.contest.winners;
+    props: ["contest"],
+    computed: {
+        winners: function winners() {
+            return this.contest.winners;
+        }
+    },
+    methods: {
+        changeWinner: function changeWinner(winner) {
+            var self = this;
+            return function () {
+                winner.is_liked = !winner.is_liked;
+                winner.likes = winner.is_liked ? winner.likes + 1 : winner.likes - 1;
+                self.$forceUpdate();
+            };
+        }
+    },
+    components: {
+        CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a,
+        ContestComments: __WEBPACK_IMPORTED_MODULE_1__ContestComments___default.a
     }
-  },
-  methods: {},
-  components: {
-    CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a,
-    ContestComments: __WEBPACK_IMPORTED_MODULE_1__ContestComments___default.a
-  }
 });
 
 /***/ }),
@@ -51807,6 +51819,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("CardActions", {
                             attrs: {
+                              callback: _vm.changeWinner(winner),
                               likebale: true,
                               "no-wait-action": true,
                               afterLike: _vm.changeWinner(winner),

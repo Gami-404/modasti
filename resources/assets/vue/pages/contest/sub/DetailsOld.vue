@@ -31,7 +31,7 @@
 							<div class="createdBy">Created by</div>
 							<div>Modasti retail - {{winner.user.fname +' '+winner.user.lname}}</div>
 						</div>
-						<CardActions :likebale="true" :no-wait-action="true" :afterLike="changeWinner(winner)" :is-liked="winner.is_liked" :sharable="true" :num-of-likes="winner.likes" :parentId="contest.id" :obj-id="winner.id" :parent-context="'contest'" :context="'contest_item'" />					</div>
+						<CardActions :callback="changeWinner(winner)" :likebale="true" :no-wait-action="true" :afterLike="changeWinner(winner)" :is-liked="winner.is_liked" :sharable="true" :num-of-likes="winner.likes" :parentId="contest.id" :obj-id="winner.id" :parent-context="'contest'" :context="'contest_item'" />					</div>
 					<div class="PD_about">
 						<div class="PD_aboutUser clearfix">
 							<img :src="winner.user.photo?winner.user.photo.photo_name:'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt="" class="itsAvatar">
@@ -65,7 +65,14 @@ export default {
         }
 	},
 	methods:{
-
+        changeWinner(winner) {
+            var self=this;
+            return function () {
+                winner.is_liked = !winner.is_liked;
+                winner.likes = winner.is_liked? winner.likes+1:winner.likes-1;
+                self.$forceUpdate()
+            }
+        }
 	},
   components: {
     CardActions,

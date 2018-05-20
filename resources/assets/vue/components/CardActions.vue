@@ -48,6 +48,7 @@ export default {
     "parentContext",
     "parentId",
       "noWaitAction",
+      "callback"
   ],
   data() {
     return {
@@ -77,6 +78,9 @@ export default {
           this.liked = !this.liked;
           this.$store.dispatch("like_" + this.context, this.objId);
           this.$store.dispatch("like_" + this.context + "_toggle");
+          if(this.callback){
+              this.callback();
+          }
         }
         if(this.noWaitAction){
             this.canChange = true;
