@@ -167,6 +167,7 @@ class ContestController extends Controller
      */
     public function getWins(Request $request)
     {
+        $data = ['data' => [], 'errors' => []];
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
 
@@ -176,7 +177,7 @@ class ContestController extends Controller
             ->take($limit)
             ->offset($offset)
             ->get();
-        $contests = \Maps\Contest\contests($contests);
+        $data['data']=$contests = \Maps\Contest\contests($contests);
         return response()->json($contests);
     }
 }

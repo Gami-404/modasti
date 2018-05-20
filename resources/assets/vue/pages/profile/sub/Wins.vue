@@ -1,0 +1,55 @@
+<template>
+    <div class="gridContainer">
+        <WrapperCardList>
+            <div v-for="contest in contests" :key='contest' class="mycol-lg-3 mycol-sm-6">
+                <ContestCard :contest-id="contest" />
+            </div>
+        </WrapperCardList>
+        <div v-if="contests.length % 8 === 0 && contests.length!==0" class="getMore">
+            <a @click.prevent="load" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
+        </div>
+        <Loading v-if="loading" />
+    </div>
+</template>
+
+<script>
+    import SetCard from "@/components/ContestCard";
+    import Loading from "@/components/Loading";
+    import WrapperCardList from "@/wrappers/WrapperCardList";
+
+    export default {
+        components: {
+            SetCard,
+            WrapperCardList,
+            Loading
+        },
+        data() {
+            return {
+                loading: true,
+                loadMoreLoading: false
+            };
+        },
+        computed: {
+            contests() {
+                return this.$store.getters.winsContests;
+            }
+        },
+        created() {
+            this.load().then(() => {
+                this.loading = false;
+            });
+        },
+        methods: {
+            load() {
+                this.loadMoreLoading = true;
+                let id = isNaN(this.$route.params.userId) ? this.$store.getters.user.userId : this.$route.params.userId;
+                return this.$store.dispatch("get_wins_contests", id).then(() => {
+                    this.loadMoreLoading = false;
+                });
+            }
+        }
+    };
+</script>
+<style>
+
+</style>
