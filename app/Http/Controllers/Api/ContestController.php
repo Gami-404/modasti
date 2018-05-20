@@ -178,6 +178,6 @@ class ContestController extends Controller
             ->offset($offset)
             ->get();
         $data['data']=$contests = \Maps\Contest\contests($contests);
-        return response()->json($contests);
+        return response()->json($data);
     }
 }
