@@ -50006,7 +50006,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
-        currency: ""
+        currency: this.$store.getters.user.currency
       },
       btnText: "Save Edits",
       errors: [],
