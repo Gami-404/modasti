@@ -6,8 +6,8 @@
 				<div class="content">
 					<div class="in">
 						<div class="paging">
-							<a href="#">Home</a>
-							<a href="#">Contest</a>
+							<router-link :to="'/'" class="name">Home</router-link>
+							<router-link :to="'/contest/s/old'" class="name">Contest</router-link>
 						</div>
 						<h2 class="title">{{contest.text_en}}</h2>
 						<div v-html="contest.text2_en" class="description">
