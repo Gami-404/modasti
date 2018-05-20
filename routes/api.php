@@ -81,6 +81,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('getContests', 'Api\ContestController@getContests');
     $router->post('getContestPhotos', 'Api\ContestController@getContestPhotos');
     $router->post('publishContestPhoto', 'Api\ContestController@publishContestPhoto');
+    $router->post('getWins', 'Api\ContestController@getWins');
 
     // Contests >> comments
     $router->post('addCommentToContest', 'Api\ContestController@addCommentToContest');

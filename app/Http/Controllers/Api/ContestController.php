@@ -21,7 +21,7 @@ class ContestController extends Controller
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
 
-        $contests = Contest::with('image','winners')->where(['status' => 1])
+        $contests = Contest::with('image', 'winners')->where(['status' => 1])
             ->take($limit)
             ->offset($offset)
             ->get();
@@ -159,5 +159,24 @@ class ContestController extends Controller
         }
         $comment->delete();
         return response()->json($data);
+    }
+
+    /**
+     * POST api/getWins
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getWins(Request $request)
+    {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+
+        $contests = Contest::with('image', 'winners')->whereHas('winners', function ($query) {
+            $query->where('contests_items.user_id', fauth()->id());
+        })->where(['status' => 1])
+            ->take($limit)
+            ->offset($offset)
+            ->get();
+        $contests = \Maps\Contest\contests($contests);
+        return response()->json($contests);
     }
 }
