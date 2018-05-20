@@ -13215,6 +13215,18 @@ module.exports = Component.exports
 
 /***/ }),
 /* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return currency; });
+var arr = ["XOF", "EUR", "USD", "MRU", "MUR", "XUA", "MXN", "MXV", "MDL", "MNT", "XCD", "MAD", "MZN", "MMK", "NAD", "ZAR", "AUD", "NPR", "XPF", "NZD", "NIO", "NGN", "OMR", "PKR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "SHP", "SOS", "WST", "STN", "SAR", "RSD", "SCR", "SLL", "SGD", "ANG", "XSU", "SBD", "SSP", "LKR", "SDG", "SRD", "NOK", "SZL", "SEK", "CHF", "CHE", "CHW", "SYP", "TWD", "TJS", "TZS", "THB", "TOP", "TTD", "TND", "TRY", "TMT", "UGX", "UAH", "AED", "GBP", "USN", "UYU", "UYI", "UZS", "VUV", "VEF", "VND", "XPF", "YER", "ZMW", "ZWL", "XBA", "XBB", "XBC", "XBD", "XTS", "XXX", "XAU", "XPD", "XPT", "XAG"];
+
+var currency = arr.filter(function (item, pos) {
+  return arr.indexOf(item) == pos;
+});;
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13315,10 +13327,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13508,7 +13520,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -13559,7 +13571,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*
@@ -33036,7 +33048,7 @@ module.exports = Component.exports
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -33087,7 +33099,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -33136,18 +33148,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return currency; });
-var arr = ["XOF", "EUR", "USD", "MRU", "MUR", "XUA", "MXN", "MXV", "MDL", "MNT", "XCD", "MAD", "MZN", "MMK", "NAD", "ZAR", "AUD", "NPR", "XPF", "NZD", "NIO", "NGN", "OMR", "PKR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "SHP", "SOS", "WST", "STN", "SAR", "RSD", "SCR", "SLL", "SGD", "ANG", "XSU", "SBD", "SSP", "LKR", "SDG", "SRD", "NOK", "SZL", "SEK", "CHF", "CHE", "CHW", "SYP", "TWD", "TJS", "TZS", "THB", "TOP", "TTD", "TND", "TRY", "TMT", "UGX", "UAH", "AED", "GBP", "USN", "UYU", "UYI", "UZS", "VUV", "VEF", "VND", "XPF", "YER", "ZMW", "ZWL", "XBA", "XBB", "XBC", "XBD", "XTS", "XXX", "XAU", "XPD", "XPT", "XAG"];
-
-var currency = arr.filter(function (item, pos) {
-  return arr.indexOf(item) == pos;
-});;
 
 /***/ }),
 /* 24 */
@@ -33786,7 +33786,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(19)))
 
 /***/ }),
 /* 36 */
@@ -38229,7 +38229,7 @@ exports.push([module.i, "\n.filter-ops-enter[data-v-55da7f88],\n.filter-ops-leav
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
@@ -38410,7 +38410,7 @@ exports.push([module.i, "\n.filteri.selected[data-v-965b7e04] {\n  color: #18171
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ClothingFilterMobile__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -42318,13 +42318,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_konva__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperPopups__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperPopups__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_popups_SetCollectionAddPopup__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_popups_SetCollectionAddPopup__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_popups_SetCollectionAddPopup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__layout_popups_SetCollectionAddPopup__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
 //
@@ -43268,11 +43268,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_konva___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_konva__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrappers_WrapperPopups__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__wrappers_WrapperPopups__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Loading__);
@@ -49921,6 +49921,7 @@ exports.push([module.i, "\n.errors[data-v-64e73de8] {\n  color: red;\n}\n", ""])
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_retailer_sub_currency__ = __webpack_require__(17);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -49984,6 +49985,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -49994,10 +50005,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         // userName: "",
         email: this.$store.getters.user.email,
         currentPassword: "",
-        password: ""
+        password: "",
+        currency: ""
       },
       btnText: "Save Edits",
-      errors: []
+      errors: [],
+      currency: __WEBPACK_IMPORTED_MODULE_0__pages_retailer_sub_currency__["a" /* currency */]
     };
   },
 
@@ -50156,6 +50169,63 @@ var render = function() {
                     }
                   }
                 })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mycol-md-6" }, [
+              _c("div", { staticClass: "mrgBtmLg" }, [
+                _c("div", { staticClass: "mrgBtmMd fontLarger" }, [
+                  _vm._v("Currency :")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.currency,
+                        expression: "form.currency"
+                      }
+                    ],
+                    staticClass: "inputEle",
+                    attrs: { required: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "currency",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { hidden: "", value: "" } }, [
+                      _vm._v("...")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.currency, function(curr) {
+                      return _c(
+                        "option",
+                        { key: curr, domProps: { value: curr } },
+                        [_vm._v(_vm._s(curr))]
+                      )
+                    })
+                  ],
+                  2
+                )
               ])
             ]),
             _vm._v(" "),
@@ -50801,7 +50871,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_CardActions__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_CardActions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ContestComments__);
 //
 //
@@ -51511,7 +51581,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_CardActions__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_CardActions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ContestComments___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ContestComments__);
 //
 //
@@ -53127,7 +53197,7 @@ exports.push([module.i, "\n.inputEle {\n  background: #ffffff;\n}\n.errors {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__currency__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__currency__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__johmun_vue_tags_input__ = __webpack_require__(24);
@@ -54193,7 +54263,7 @@ exports.push([module.i, "\n.inputEle {\n  background: #ffffff;\n}\n.errors {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__currency__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__currency__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
@@ -55837,7 +55907,7 @@ var mutations = {
 var utils = __webpack_require__(5);
 var bind = __webpack_require__(26);
 var Axios = __webpack_require__(277);
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 
 /**
  * Create an instance of Axios
@@ -55920,7 +55990,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 var utils = __webpack_require__(5);
 var InterceptorManager = __webpack_require__(286);
 var dispatchRequest = __webpack_require__(287);
@@ -56459,7 +56529,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(5);
 var transformData = __webpack_require__(288);
 var isCancel = __webpack_require__(29);
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 var isAbsoluteURL = __webpack_require__(289);
 var combineURLs = __webpack_require__(290);
 

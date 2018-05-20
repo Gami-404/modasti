@@ -279,6 +279,9 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = $request->get('password');
         }
+        if ($request->filled('currency')) {
+            $user->currency = $request->get('currency');
+        }
         $user->save();
         return response()->json($data);
     }

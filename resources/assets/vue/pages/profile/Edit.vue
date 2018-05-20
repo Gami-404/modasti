@@ -35,6 +35,15 @@
               <input v-model="form.email" type="email" class="inputEle" required>
             </div>
           </div>
+          <div class="mycol-md-6">
+            <div class="mrgBtmLg">
+              <div class="mrgBtmMd fontLarger">Currency :</div>
+              <select required v-model="form.currency" class="inputEle">
+                <option hidden value="">...</option>
+                <option v-for="curr of currency" :key="curr" :value="curr">{{curr}}</option>
+              </select>
+            </div>
+          </div>
           <div class="mycol-md-4">
             <div class="mrgBtmLg">
               <div class="mrgBtmMd">Your Current Password</div>
@@ -60,6 +69,7 @@
 </template>
 
 <script>
+    import { currency } from "@/pages/retailer/sub/currency";
 export default {
   data() {
     return {
@@ -69,10 +79,12 @@ export default {
         // userName: "",
         email: this.$store.getters.user.email,
         currentPassword: "",
-        password: ""
+        password: "",
+          currency:"",
       },
       btnText: "Save Edits",
-      errors: []
+      errors: [],
+        currency
     };
   },
   computed: {
