@@ -51766,7 +51766,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "itsTitle" }, [
-      _c("span", [_vm._v("The Winner")])
+      _c("span", [_vm._v("The Winners")])
     ])
   },
   function() {

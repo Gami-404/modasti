@@ -18,7 +18,7 @@
 			</div>
 			<div class="PD_winner clearfix">
 				<div class="itsTitle">
-					<span>The Winner</span>
+					<span>The Winners</span>
 				</div>
 				<div class="itsContent">
 					<div class="PD_Card">

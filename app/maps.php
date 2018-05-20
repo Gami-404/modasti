@@ -71,6 +71,7 @@ namespace Maps\User {
         $newUser->fname = $user->first_name;
         $newUser->lname = $user->last_name;
         $newUser->username = $user->username;
+        $newUser->about = $user->about;
         $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         $newUser->following_counter = $user->following()->count();
         $newUser->follower_counter = $user->follower()->count();

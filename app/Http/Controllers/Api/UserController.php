@@ -50,6 +50,7 @@ class UserController extends Controller
         }
         $response['data'] = \Maps\User\login(fauth()->user());
         $response['data']->currency = fauth()->user()->currency;
+        $response['data']->about = fauth()->user()->about;
         $response['token'] = fauth()->user()->api_token;
         return response()->json($response);
     }
@@ -282,6 +283,9 @@ class UserController extends Controller
         }
         if ($request->filled('currency')) {
             $user->currency = $request->get('currency');
+        }
+        if ($request->filled('about')) {
+            $user->about = $request->get('about');
         }
         $user->save();
         return response()->json($data);
