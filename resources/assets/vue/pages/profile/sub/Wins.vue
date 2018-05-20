@@ -1,6 +1,11 @@
 <template>
     <div class="gridContainer">
         <WrapperCardList>
+            <div v-if="contests.length==0" class="btn-wrapper">
+                <router-link :to="'/contest'"  class="btn">
+                    Join a contest and win fantastic discounts!
+                </router-link>
+            </div>
             <div v-for="contest in contests" :key='contest' class="mycol-lg-3 mycol-sm-6">
                 <ContestCard :contest-id="contest" />
             </div>
@@ -13,13 +18,13 @@
 </template>
 
 <script>
-    import SetCard from "@/components/ContestCard";
+    import ContestCard from "@/components/ContestCard";
     import Loading from "@/components/Loading";
     import WrapperCardList from "@/wrappers/WrapperCardList";
 
     export default {
         components: {
-            SetCard,
+            ContestCard,
             WrapperCardList,
             Loading
         },

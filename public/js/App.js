@@ -49232,7 +49232,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49263,6 +49263,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -49270,7 +49275,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        SetCard: __WEBPACK_IMPORTED_MODULE_0__components_ContestCard___default.a,
+        ContestCard: __WEBPACK_IMPORTED_MODULE_0__components_ContestCard___default.a,
         WrapperCardList: __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList___default.a,
         Loading: __WEBPACK_IMPORTED_MODULE_1__components_Loading___default.a
     },
@@ -49321,14 +49326,36 @@ var render = function() {
     [
       _c(
         "WrapperCardList",
-        _vm._l(_vm.contests, function(contest) {
-          return _c(
-            "div",
-            { key: contest, staticClass: "mycol-lg-3 mycol-sm-6" },
-            [_c("ContestCard", { attrs: { "contest-id": contest } })],
-            1
-          )
-        })
+        [
+          _vm.contests.length == 0
+            ? _c(
+                "div",
+                { staticClass: "btn-wrapper" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "btn", attrs: { to: "/contest" } },
+                    [
+                      _vm._v(
+                        "\n                Join a contest and win fantastic discounts!\n            "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.contests, function(contest) {
+            return _c(
+              "div",
+              { key: contest, staticClass: "mycol-lg-3 mycol-sm-6" },
+              [_c("ContestCard", { attrs: { "contest-id": contest } })],
+              1
+            )
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _vm.contests.length % 8 === 0 && _vm.contests.length !== 0
@@ -57043,10 +57070,13 @@ var actions = {
         });
     },
     get_wins_contests: function get_wins_contests(_ref15) {
-        var commit = _ref15.commit;
+        var commit = _ref15.commit,
+            state = _ref15.state;
 
-        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("getWins", {}).then(function (res) {
-            commit("ADD_CONTESTS", res.data.data, { root: true });
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("getWins", { 'offset': state.offsets.winsContests }).then(function (res) {
+            res.data.data.map(function (item) {
+                commit("CONTESTSMAP", item);
+            });
             commit("WINS_CONTESTS", res.data.data.map(function (user) {
                 return user.id;
             }));

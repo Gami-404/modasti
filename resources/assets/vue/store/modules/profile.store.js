@@ -173,9 +173,11 @@ const actions = {
             commit("BLOCKED", res.data.data.map(user => user.id));
         });
     },
-    get_wins_contests({commit}) {
-        return API.post("getWins", {}).then(res => {
-            commit("ADD_CONTESTS", res.data.data, {root: true});
+    get_wins_contests({commit,state}) {
+        return API.post("getWins", {'offset':state.offsets.winsContests}).then(res => {
+            res.data.data.map(function (item) {
+                commit("CONTESTSMAP", item);
+            });
             commit("WINS_CONTESTS", res.data.data.map(user => user.id));
         });
     }
