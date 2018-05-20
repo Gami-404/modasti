@@ -1,5 +1,14 @@
 <template>
   <div class="gridContainer">
+    <div class="secPaddMd">
+      <div class="myrow clearfix">
+        <div v-if="likedItems.length==0&&likedSets.length==0" class="btn-wrapper">
+          <router-link :to="'/category/clothing'"  class="btn">
+            Explore Modasti
+          </router-link>
+        </div>
+      </div>
+    </div>
     <WrapperCardListTitled v-if="likedItems.length > 0" title="Liked Items" url="#" :more="'false'">
       <div v-for="item in likedItems" :key='item' class="mycol-lg-3 mycol-sm-6">
         <ItemCard :item-id="item" />

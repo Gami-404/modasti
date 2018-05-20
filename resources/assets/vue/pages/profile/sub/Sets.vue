@@ -1,6 +1,11 @@
 <template>
   <div class="gridContainer">
     <WrapperCardList>
+      <div v-if="sets.length==0" class="btn-wrapper">
+        <router-link :to="'/set/add'"  class="btn">
+          Create your first set now
+        </router-link>
+      </div>
       <div v-for="set in sets" :key='set' class="mycol-lg-3 mycol-sm-6">
         <SetCard :set-id="set" />
       </div>
@@ -52,4 +57,6 @@ export default {
   }
 };
 </script>
+<style>
 
+</style>

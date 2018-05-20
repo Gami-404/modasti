@@ -43,4 +43,11 @@ export default {
     max-width: 90%;
   }
 }
+.btn{
+  padding: 20px;
+  background-color: #fbbeb9;
+}
+.btn-wrapper{
+  text-align: center;
+}
 </style>

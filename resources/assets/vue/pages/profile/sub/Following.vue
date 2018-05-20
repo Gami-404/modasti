@@ -1,7 +1,13 @@
 <template>
   <div class="gridContainer">
     <div class="followersPage secPaddLg">
+      <div v-if="users.length==0" class="btn-wrapper">
+        <router-link :to="'/recommended'"  class="btn">
+          Discover new stylists
+        </router-link>
+      </div>
       <div class="myrow clearfix">
+
         <UserCard v-for="user of users" :key="user" :user-id="user" />
       </div>
     </div>

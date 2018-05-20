@@ -1,6 +1,11 @@
 <template>
   <div class="gridContainer">
     <WrapperCardList>
+      <div v-if="collections.length==0" class="btn-wrapper">
+        <router-link :to="'/collection/add'"  class="btn">
+          Create your first collection now
+        </router-link>
+      </div>
       <div v-for="collection in collections" :key='collection' class="mycol-lg-3 mycol-sm-6">
         <CollectionCard :collection-id="collection" />
       </div>
