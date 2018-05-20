@@ -20,32 +20,32 @@
 				<div class="itsTitle">
 					<span>The Winners</span>
 				</div>
-				<div class="itsContent">
+				<div class="itsContent" v-for="winner of contest.winners">
 					<div class="PD_Card">
-						<div class="PD_cardAvatar"><img src="images/img5.jpg" alt=""></div>
+						<div class="PD_cardAvatar"><img :src="winner.photo.photo_name" :alt="winner.photo.title"></div>
 						<div class="PD_cardContent">
 							<h3>
-								<a href="#">Milan fashionweek</a>
+								<a href="javascript:void(0)">{{winner.contest_title}}</a>
 							</h3>
 							<hr>
 							<div class="createdBy">Created by</div>
-							<div>Modasti retail - Modasti</div>
+							<div>Modasti retail - {{winner.user.fname +' '+winner.user.lname}}</div>
 						</div>
 						<CardActions :likeable="true" :is-liked="contest.is_liked" :commentable="true" :sharable="true" :obj-id="contest.id" :num-of-likes="contest.likes" :num-of-comments="contest.comment" context="contest_photo" />
 					</div>
 					<div class="PD_about">
 						<div class="PD_aboutUser clearfix">
-							<img src="images/img3.jpg" alt="" class="itsAvatar">
+							<img :src="winner.user.photo?winner.user.photo.photo_name:'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt="" class="itsAvatar">
 							<div class="itsData">
-								<div class="name">User Name</div>
-								<div class="brandColor joinedDate">Joined on 22. 02. 2017</div>
+								<div class="name">{{winner.user.fname +' '+winner.user.lname}}</div>
+								<div class="brandColor joinedDate">Joined on {{winner.user.fname}}</div>
 								<div>
 									<a href="#" class="mainBtn">Follow</a>
 								</div>
 							</div>
 						</div>
 						<div class="description">
-							Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+							{{winner.user.about}}
 						</div>
 					</div>
 				</div>

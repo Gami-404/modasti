@@ -35,13 +35,19 @@
               <input v-model="form.email" type="email" class="inputEle" required>
             </div>
           </div>
-          <div class="mycol-md-12">
+          <div class="mycol-md-6">
             <div class="mrgBtmLg">
               <div class="mrgBtmMd">Currency :</div>
               <select required v-model="form.currency" class="inputEle">
                 <option hidden value="">...</option>
                 <option v-for="curr of currency" :key="curr" :value="curr">{{curr}}</option>
               </select>
+            </div>
+          </div>
+          <div class="mycol-md-6">
+            <div class="mrgBtmLg">
+              <div class="mrgBtmMd">About me :</div>
+              <textarea class="inputEle" v-model="form.about" row="4" ></textarea>
             </div>
           </div>
           <div class="mycol-md-4">
@@ -81,6 +87,7 @@ export default {
         currentPassword: "",
         password: "",
         currency: this.$store.getters.user.currency,
+          about: this.$store.getters.user.about,
       },
       btnText: "Save Edits",
       errors: [],
@@ -109,6 +116,7 @@ export default {
             user.name = this.form.firstName + " " + this.form.lastName;
             user.email = this.form.email;
             user.currency = this.form.currency;
+            user.about = this.form.about;
             this.$store.commit("EDIT_USER", user);
           }
         })

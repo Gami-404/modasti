@@ -423,6 +423,7 @@ namespace Maps\Contest {
         $newItem->contest_id = $winner->contest_id;
         $newItem->contest_title = $contest->title;
         $newItem->win_place = 1;
+        $newItem->join_on = $winner->created_at->diffForHumans();
         $newItem->photo_id = $winner->image_id;
         $newItem->photo = null;
         if ($winner->image) {

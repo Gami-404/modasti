@@ -49994,6 +49994,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -50006,7 +50012,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
-        currency: this.$store.getters.user.currency
+        currency: this.$store.getters.user.currency,
+        about: this.$store.getters.user.about
       },
       btnText: "Save Edits",
       errors: [],
@@ -50036,6 +50043,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           user.name = _this.form.firstName + " " + _this.form.lastName;
           user.email = _this.form.email;
           user.currency = _this.form.currency;
+          user.about = _this.form.about;
           _this.$store.commit("EDIT_USER", user);
         }
       }).catch(function (err) {
@@ -50173,7 +50181,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "mycol-md-12" }, [
+            _c("div", { staticClass: "mycol-md-6" }, [
               _c("div", { staticClass: "mrgBtmLg" }, [
                 _c("div", { staticClass: "mrgBtmMd" }, [_vm._v("Currency :")]),
                 _vm._v(" "),
@@ -50225,6 +50233,34 @@ var render = function() {
                   ],
                   2
                 )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mycol-md-6" }, [
+              _c("div", { staticClass: "mrgBtmLg" }, [
+                _c("div", { staticClass: "mrgBtmMd" }, [_vm._v("About me :")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.about,
+                      expression: "form.about"
+                    }
+                  ],
+                  staticClass: "inputEle",
+                  attrs: { row: "4" },
+                  domProps: { value: _vm.form.about },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "about", $event.target.value)
+                    }
+                  }
+                })
               ])
             ]),
             _vm._v(" "),
@@ -51711,37 +51747,108 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "PD_winner clearfix" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "itsContent" }, [
-                _c(
-                  "div",
-                  { staticClass: "PD_Card" },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("CardActions", {
-                      attrs: {
-                        likeable: true,
-                        "is-liked": _vm.contest.is_liked,
-                        commentable: true,
-                        sharable: true,
-                        "obj-id": _vm.contest.id,
-                        "num-of-likes": _vm.contest.likes,
-                        "num-of-comments": _vm.contest.comment,
-                        context: "contest_photo"
-                      }
-                    })
-                  ],
-                  1
-                ),
+            _c(
+              "div",
+              { staticClass: "PD_winner clearfix" },
+              [
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(4)
-              ])
-            ]),
+                _vm._l(_vm.contest.winners, function(winner) {
+                  return _c("div", { staticClass: "itsContent" }, [
+                    _c(
+                      "div",
+                      { staticClass: "PD_Card" },
+                      [
+                        _c("div", { staticClass: "PD_cardAvatar" }, [
+                          _c("img", {
+                            attrs: {
+                              src: winner.photo.photo_name,
+                              alt: winner.photo.title
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "PD_cardContent" }, [
+                          _c("h3", [
+                            _c("a", { attrs: { href: "javascript:void(0)" } }, [
+                              _vm._v(_vm._s(winner.contest_title))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "createdBy" }, [
+                            _vm._v("Created by")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _vm._v(
+                              "Modasti retail - " +
+                                _vm._s(
+                                  winner.user.fname + " " + winner.user.lname
+                                )
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("CardActions", {
+                          attrs: {
+                            likeable: true,
+                            "is-liked": _vm.contest.is_liked,
+                            commentable: true,
+                            sharable: true,
+                            "obj-id": _vm.contest.id,
+                            "num-of-likes": _vm.contest.likes,
+                            "num-of-comments": _vm.contest.comment,
+                            context: "contest_photo"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "PD_about" }, [
+                      _c("div", { staticClass: "PD_aboutUser clearfix" }, [
+                        _c("img", {
+                          staticClass: "itsAvatar",
+                          attrs: {
+                            src: winner.user.photo
+                              ? winner.user.photo.photo_name
+                              : "https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1",
+                            alt: ""
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "itsData" }, [
+                          _c("div", { staticClass: "name" }, [
+                            _vm._v(
+                              _vm._s(
+                                winner.user.fname + " " + winner.user.lname
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "brandColor joinedDate" }, [
+                            _vm._v("Joined on " + _vm._s(winner.user.fname))
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(2, true)
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "description" }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t" +
+                            _vm._s(winner.user.about) +
+                            "\n\t\t\t\t\t"
+                        )
+                      ])
+                    ])
+                  ])
+                })
+              ],
+              2
+            ),
             _vm._v(" "),
             _c("ContestComments", { attrs: { "contest-id": _vm.contest.id } })
           ],
@@ -51773,56 +51880,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "PD_cardAvatar" }, [
-      _c("img", { attrs: { src: "images/img5.jpg", alt: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "PD_cardContent" }, [
-      _c("h3", [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Milan fashionweek")])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("div", { staticClass: "createdBy" }, [_vm._v("Created by")]),
-      _vm._v(" "),
-      _c("div", [_vm._v("Modasti retail - Modasti")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "PD_about" }, [
-      _c("div", { staticClass: "PD_aboutUser clearfix" }, [
-        _c("img", {
-          staticClass: "itsAvatar",
-          attrs: { src: "images/img3.jpg", alt: "" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "itsData" }, [
-          _c("div", { staticClass: "name" }, [_vm._v("User Name")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "brandColor joinedDate" }, [
-            _vm._v("Joined on 22. 02. 2017")
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("a", { staticClass: "mainBtn", attrs: { href: "#" } }, [
-              _vm._v("Follow")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "description" }, [
-        _vm._v(
-          "\n\t\t\t\t\t\tLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown\n\t\t\t\t\t"
-        )
+    return _c("div", [
+      _c("a", { staticClass: "mainBtn", attrs: { href: "#" } }, [
+        _vm._v("Follow")
       ])
     ])
   }
