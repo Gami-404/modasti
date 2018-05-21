@@ -375,7 +375,12 @@ class UserController extends Controller
         $data = ['data' => [], 'errors' => []];
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
-        $users = User::with('photo')->where(['backend' => 0, 'status' => 1])->inRandomOrder()->take($limit)->offset($offset)->get();;
+        $users = User::with('photo')->where(['backend' => 0, 'status' => 1])
+            ->where('id', '<>', fauth()->id())
+            ->inRandomOrder()
+            ->take($limit)
+            ->offset($offset)
+            ->get();;
         $data['data'] = \Maps\User\users($users);
         return response()->json($data);
     }
