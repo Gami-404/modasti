@@ -163,12 +163,11 @@ export default {
         })
       );
     },
-      searchItems: _.debounce((event)=>{
+      searchItems: _.throttle((event)=>{
           this.loadMoreLoading = true;
           this.$store.dispatch("get_items_for_add_set", this.query).then(() => {
               this.loadMoreLoading = false;
           });
-
       },500)
       ,
     drop(event) {
