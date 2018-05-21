@@ -1,3 +1,6 @@
 #header .top .rightArea .search form input[type='text'] {
     width: 67%;
 }
+#header .top .rightArea .search form {
+    display: flex;
+}

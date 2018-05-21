@@ -59112,13 +59112,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$router.push("/");
     },
     search: function search() {
-      if (this.isAuth) {
-        if (this.searchString) this.$router.push("/search/" + this.area + "/" + this.searchString);
-        // GEMI was Here
-        this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
-      } else {
-        this.$router.push({ query: { popup: "login" } });
+      if (this.searchString) {
+        this.$router.push("/search/" + this.area + "/" + this.searchString);
       }
+      // GEMI was Here
+      this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
     }
   },
   computed: {
@@ -61555,11 +61553,7 @@ var render = function() {
                               {
                                 attrs: {
                                   "active-class": "active-header",
-                                  to: _vm.isAuth
-                                    ? route.uri
-                                    : route.uri != "/"
-                                      ? "?popup=login"
-                                      : "",
+                                  to: route.uri,
                                   exact: ""
                                 }
                               },
