@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Model\Set;
-use Dot\Posts\Models\Post;
+use App\Model\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
