@@ -1,18 +1,18 @@
 <template>
   <div class="productCard">
     <div class="avatar">
-      <router-link :to="  isAuth? (item.id?'/item/'+item.id : '') : '?popup=login' " class="verticalCentered">
-        <div class="theCell"><img :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg" alt=""></div>
+      <router-link :to="(item.id?'/item/'+item.id : '')" class="verticalCentered">
+        <div class="theCell"><img :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg" :alt="item.title_en"></div>
       </router-link>
     </div>
     <div class="content">
       <h3>
-        <router-link :to="isAuth? (item.id?'/item/'+item.id : '') : '?popup=login'">{{item.title_en}}</router-link>
+        <router-link :to="(item.id?'/item/'+item.id : '')">{{item.title_en}}</router-link>
       </h3>
       <hr>
       <div class="price">{{item.price}} €</div>
       <div class="link">
-        <a :href=" isAuth? item.url_en : '#/?popup=login'">{{item.brand||"Unknown"}}</a>
+        <a :href=" (item.id?'/item/'+item.id : '')">{{item.brand||"Unknown"}}</a>
       </div>
     </div>
     <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true" :is-liked="item.is_liked" :obj-id="item.id" :context="'item'" />
