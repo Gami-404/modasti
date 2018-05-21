@@ -79,7 +79,7 @@ class ItemsController extends Controller
             return response()->json($data);
         }
 
-        $query = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        $query = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset);
 
         // Search if Exits
         if ($request->filled('q')) {

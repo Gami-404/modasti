@@ -43104,9 +43104,10 @@ var render = function() {
               directives: [
                 {
                   name: "model",
-                  rawName: "v-model",
+                  rawName: "v-model.trim",
                   value: _vm.query,
-                  expression: "query"
+                  expression: "query",
+                  modifiers: { trim: true }
                 }
               ],
               attrs: {
@@ -43116,15 +43117,18 @@ var render = function() {
               },
               domProps: { value: _vm.query },
               on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.query = $event.target.value
-                  },
-                  _vm.searchItems
-                ]
+                "&input": function($event) {
+                  return _vm.searchItems($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.query = $event.target.value.trim()
+                },
+                blur: function($event) {
+                  _vm.$forceUpdate()
+                }
               }
             })
           ]),

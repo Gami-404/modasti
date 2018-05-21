@@ -43,7 +43,7 @@
           <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
           <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
           <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
-          <input  id="set-item-search" type="search" @input="searchItems" v-model="query" placeholder="Search for item ..." />
+          <input  id="set-item-search" type="search" @input.passive="searchItems" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
