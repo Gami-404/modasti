@@ -3,7 +3,7 @@
     <div class="secPaddLg whiteBg">
       <div class="gridContainer">
         <div class="top_userProfile clearfix">
-          <div class="avatar"><img src="images/img2.jpg" alt=""></div>
+          <div class="avatar"><img :src="user.photo?user.photo.photo_name:'/images/img2.jpg'" alt=""></div>
           <div class="content">
             <div class="info">
               <div class="name">{{user.fname}}</div>
@@ -133,6 +133,10 @@ export default {
 <style>
 .follow {
   background: #ffbeb8;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
 }
 </style>
 

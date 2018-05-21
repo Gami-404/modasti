@@ -47251,7 +47251,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.follow {\n  background: #ffbeb8;\n}\n", ""]);
+exports.push([module.i, "\n.follow {\n  background: #ffbeb8;\n}\n.avatar img {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -47851,7 +47851,16 @@ var render = function() {
             { staticClass: "gridContainer" },
             [
               _c("div", { staticClass: "top_userProfile clearfix" }, [
-                _vm._m(0),
+                _c("div", { staticClass: "avatar" }, [
+                  _c("img", {
+                    attrs: {
+                      src: _vm.user.photo
+                        ? _vm.user.photo.photo_name
+                        : "/images/img2.jpg",
+                      alt: ""
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "content" }, [
                   _c("div", { staticClass: "info" }, [
@@ -48020,16 +48029,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "avatar" }, [
-      _c("img", { attrs: { src: "images/img2.jpg", alt: "" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -49917,7 +49917,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.errors[data-v-64e73de8] {\n    color: red;\n}\n.avatar img[data-v-64e73de8] {\n    width: 100%;\n    height: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.errors[data-v-64e73de8] {\n    color: red;\n}\n.avatar img[data-v-64e73de8] {\n    width: 100%;\n    height: 100%;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
