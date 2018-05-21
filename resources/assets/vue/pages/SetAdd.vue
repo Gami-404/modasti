@@ -106,7 +106,7 @@ export default {
       return this.$store.getters.itemsToAdd(this.view);
     },
     canloadmore() {
-      return this.items && this.items.length % 6 === 0;
+      return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
     }
   },
   created() {
@@ -148,7 +148,7 @@ export default {
   methods: {
     loadmore() {
       this.loadMoreLoading = true;
-      this.$store.dispatch("get_items_for_add_set", this.view).then(() => {
+      this.$store.dispatch("set_load_more_to_add", this.view).then(() => {
         this.loadMoreLoading = false;
       });
     },

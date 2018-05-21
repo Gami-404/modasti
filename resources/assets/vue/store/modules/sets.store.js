@@ -172,6 +172,12 @@ function itemsToAdd(userId, offset) {
 function itemsToAddWithSearch(userId, offset, query) {
     offset = offset || 0;
     return [
+        API.post("/getLikedItems", {
+            userId: userId,
+            offset: offset,
+            limit: 6,
+            q: query
+        }),
         API.post("/getItemsFromCategory", {
             offset: offset,
             categoryId: 1,

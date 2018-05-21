@@ -79,7 +79,14 @@ class ItemsController extends Controller
             return response()->json($data);
         }
 
-        $items = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+        $query = $user->liked_items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+
+        // Search if Exits
+        if ($request->filled('q')) {
+            $query->search('q');
+        }
+
+        $items = $query->get();
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
     }

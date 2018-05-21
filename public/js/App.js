@@ -42427,7 +42427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.itemsToAdd(this.view);
     },
     canloadmore: function canloadmore() {
-      return this.items && this.items.length % 6 === 0;
+      return this.items && this.items.length != 0 && this.items.length % 6 === 0;
     }
   },
   created: function created() {
@@ -42476,7 +42476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       this.loadMoreLoading = true;
-      this.$store.dispatch("get_items_for_add_set", this.view).then(function () {
+      this.$store.dispatch("set_load_more_to_add", this.view).then(function () {
         _this3.loadMoreLoading = false;
       });
     },
@@ -57668,7 +57668,12 @@ function itemsToAdd(userId, offset) {
 
 function itemsToAddWithSearch(userId, offset, query) {
     offset = offset || 0;
-    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getLikedItems", {
+        userId: userId,
+        offset: offset,
+        limit: 6,
+        q: query
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
         offset: offset,
         categoryId: 1,
         q: query
