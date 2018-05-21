@@ -28,21 +28,25 @@ Route::post('/getCountries', 'Api\HomeController@getCountries');
 Route::post('/home', 'Api\HomeController@home');
 
 
-Route::group(["middleware" => ['api-auth']], function ($router) {
 
+Route::post('/trending', 'Api\HomeController@trending');
+
+// Search
+Route::post('/search', 'Api\HomeController@search');
+// Brands
+Route::post('/getBrands', 'Api\ItemsController@getBrands');
+//filters
+Route::post('/filter', 'Api\HomeController@filter');
+
+
+//Categories
+Route::post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
+Route::post('getItemsCategories', 'Api\CategoriesController@getItemsCategories');
+
+Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Home
     $router->post('/feed', 'Api\HomeController@feed');
-    $router->post('/trending', 'Api\HomeController@trending');
-
-    // Search
-    $router->post('/search', 'Api\HomeController@search');
-    // Brands
-    $router->post('/getBrands', 'Api\ItemsController@getBrands');
-    //filters
-    $router->post('/filter', 'Api\HomeController@filter');
-
-
     // Collection
     $router->post('createCollection', 'Api\CollectionController@createCollection');
     $router->post('getCollections', 'Api\CollectionController@getCollections');
@@ -66,10 +70,6 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('deleteSet', 'Api\SetsController@deleteSet');
     $router->post('getSets', 'Api\SetsController@getSets');
     $router->post('editSet', 'Api\SetsController@editSet');
-
-    //Categories
-    $router->post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
-    $router->post('getItemsCategories', 'Api\CategoriesController@getItemsCategories');
 
     // Items
     $router->post('switchLike', 'Api\ItemsController@switchLike');
