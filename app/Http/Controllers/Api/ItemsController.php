@@ -83,7 +83,7 @@ class ItemsController extends Controller
 
         // Search if Exits
         if ($request->filled('q')) {
-            $query->search('q');
+            $query->where('title','LIKE','%'.$request->get('q').'%');
         }
 
         $items = $query->take($limit)->offset($offset)->get();
