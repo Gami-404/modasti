@@ -130,7 +130,6 @@ const mutations = {
     },
     CLEAR_FOR_ADD_SEST(state, arrayOfData) {
         state.offsets =[0,0,0,0]
-        console.log(arrayOfData)
         state.itemsToAdd = arrayOfData;
     },
 };

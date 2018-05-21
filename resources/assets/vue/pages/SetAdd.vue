@@ -77,6 +77,7 @@ import Knova from "konva";
 import Loading from "@/components/Loading";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
+import _ from 'lodash';
 import { mapGetters } from "vuex";
 
 export default {
@@ -162,12 +163,14 @@ export default {
         })
       );
     },
-      searchItems(event){
+      searchItems: _.debounce((event)=>{
           this.loadMoreLoading = true;
           this.$store.dispatch("get_items_for_add_set", this.query).then(() => {
               this.loadMoreLoading = false;
           });
-      },
+
+      },500)
+      ,
     drop(event) {
       event.preventDefault();
       this.itemsCounter++;
