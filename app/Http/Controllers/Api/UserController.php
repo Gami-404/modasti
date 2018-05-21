@@ -273,7 +273,6 @@ class UserController extends Controller
             return response()->json($data, 400);
         }
 
-
         if ($request->filled('firstName')) {
             $user->first_name = $request->get('firstName');
         }
@@ -295,7 +294,6 @@ class UserController extends Controller
         }
         if ($request->get('image', false)) {
             $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
-            $user->photo_id = $media->id;
             $user->photo_id = $media->id;
         }
         $user->save();

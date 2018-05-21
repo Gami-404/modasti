@@ -164,6 +164,7 @@
                 reader.onloadend = () => {
                     this.form.image = reader.result;
                 }
+                this.form.photo = window.URL.createObjectURL(event.target.files[0]);
             }
         }
     };

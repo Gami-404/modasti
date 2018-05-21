@@ -50100,6 +50100,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             reader.onloadend = function () {
                 _this3.form.image = reader.result;
             };
+            this.form.photo = window.URL.createObjectURL(event.target.files[0]);
         }
     }
 });
