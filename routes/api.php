@@ -38,6 +38,8 @@ Route::post('/getBrands', 'Api\ItemsController@getBrands');
 //filters
 Route::post('/filter', 'Api\HomeController@filter');
 
+Route::post('/itemDetails', 'Api\ItemsController@itemDetails');
+
 
 //Categories
 Route::post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
@@ -74,7 +76,6 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Items
     $router->post('switchLike', 'Api\ItemsController@switchLike');
     $router->post('getLikedItems', 'Api\ItemsController@getLikedItems');
-    $router->post('/itemDetails', 'Api\ItemsController@itemDetails');
 
 
     //Contests
