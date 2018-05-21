@@ -53,12 +53,11 @@ namespace Maps\User {
             $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
             $newUser->photo = null;
-            if ($newUser->photo) {
+            if ($user->photo) {
                 $newUser->photo = new \stdClass();
                 $newUser->table_id = $user->photo->id;
                 $newUser->photo_name = uploads_url($user->photo->path);
             }
-            $newUser->photo = $newUser->photo ? $newUser->photo : null;
             $newArray[] = $newUser;
         }
         return $newArray;
