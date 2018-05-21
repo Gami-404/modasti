@@ -3,7 +3,9 @@
         <div class="secPaddLg whiteBg">
             <div class="gridContainer">
                 <div class="top_userProfile clearfix">
-                    <div class="avatar"><img src="images/img2.jpg" alt=""></div>
+                    <div class="avatar"><img :src="form.photo" @click="chooseImage"></div>
+                    <input type="file" accept="image/*" ref="imageUpload" @change="selectImage" onclick=""
+                           style="display: none"/>
                     <div class="content">
                         <div class="info">
                             <div class="name">{{form.firstName}}</div>
@@ -89,6 +91,7 @@
                     password: "",
                     currency: this.$store.getters.user.currency,
                     about: this.$store.getters.user.about,
+                    photo: ''
                 },
                 btnText: "Save Edits",
                 errors: [],
@@ -113,6 +116,8 @@
                     password: "",
                     currency: this.user.currency,
                     about: this.user.about,
+                    photo: this.user.photo ? this.user.photo.photo_name : '/images/img2.jpg',
+                    image: false,
                 }
             }, (err) => {
                 this.loading = false;
@@ -149,6 +154,17 @@
             load(cb, cb_err) {
                 this.$store.dispatch('get_user_profile', this.$store.getters.user.userId).then(cb).catch(cb_err);
             },
+            chooseImage(event) {
+                this.$refs.imageUpload.click();
+
+            },
+            selectImage(event) {
+                var reader = new FileReader();
+                reader.readAsDataURL(event.target.files[0]);
+                reader.onloadend = () => {
+                    this.form.image = reader.result;
+                }
+            }
         }
     };
 </script>
@@ -156,5 +172,10 @@
 <style scoped>
     .errors {
         color: red;
+    }
+
+    .avatar img {
+        width: 100%;
+        height: 100%;
     }
 </style>

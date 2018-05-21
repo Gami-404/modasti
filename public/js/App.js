@@ -49917,7 +49917,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.errors[data-v-64e73de8] {\n    color: red;\n}\n", ""]);
+exports.push([module.i, "\n.errors[data-v-64e73de8] {\n    color: red;\n}\n.avatar img[data-v-64e73de8] {\n    width: 100%;\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -49931,6 +49931,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_retailer_sub_currency__ = __webpack_require__(17);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -50021,7 +50023,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 currentPassword: "",
                 password: "",
                 currency: this.$store.getters.user.currency,
-                about: this.$store.getters.user.about
+                about: this.$store.getters.user.about,
+                photo: ''
             },
             btnText: "Save Edits",
             errors: [],
@@ -50048,7 +50051,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 currentPassword: "",
                 password: "",
                 currency: _this.user.currency,
-                about: _this.user.about
+                about: _this.user.about,
+                photo: _this.user.photo ? _this.user.photo.photo_name : '/images/img2.jpg',
+                image: false
             };
         }, function (err) {
             _this.loading = false;
@@ -50083,6 +50088,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         load: function load(cb, cb_err) {
             this.$store.dispatch('get_user_profile', this.$store.getters.user.userId).then(cb).catch(cb_err);
+        },
+        chooseImage: function chooseImage(event) {
+            this.$refs.imageUpload.click();
+        },
+        selectImage: function selectImage(event) {
+            var _this3 = this;
+
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onloadend = function () {
+                _this3.form.image = reader.result;
+            };
         }
     }
 });
@@ -50100,7 +50117,19 @@ var render = function() {
         _c("div", { staticClass: "secPaddLg whiteBg" }, [
           _c("div", { staticClass: "gridContainer" }, [
             _c("div", { staticClass: "top_userProfile clearfix" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "avatar" }, [
+                _c("img", {
+                  attrs: { src: _vm.form.photo },
+                  on: { click: _vm.chooseImage }
+                })
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "imageUpload",
+                staticStyle: { display: "none" },
+                attrs: { type: "file", accept: "image/*", onclick: "" },
+                on: { change: _vm.selectImage }
+              }),
               _vm._v(" "),
               _c("div", { staticClass: "content" }, [
                 _c("div", { staticClass: "info" }, [
@@ -50393,16 +50422,7 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "avatar" }, [
-      _c("img", { attrs: { src: "images/img2.jpg", alt: "" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

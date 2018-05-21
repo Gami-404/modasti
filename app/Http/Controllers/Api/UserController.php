@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\UserFollowing;
 use App\Events\VerificationMail;
+use App\Model\Media;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -264,10 +265,15 @@ class UserController extends Controller
         $validator->sometimes('email', 'required|email|unique:users,email,[id],id', function () use ($request, $user) {
             return $request->filled('email') && (trim($request->get('email')) != trim($user->email));
         });
-        if ($validator->fails()) {
+
+        $media = new Media();
+
+        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
+
+
         if ($request->filled('firstName')) {
             $user->first_name = $request->get('firstName');
         }
@@ -286,6 +292,11 @@ class UserController extends Controller
         }
         if ($request->filled('about')) {
             $user->about = $request->get('about');
+        }
+        if ($request->get('image', false)) {
+            $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+            $user->photo_id = $media->id;
+            $user->photo_id = $media->id;
         }
         $user->save();
         return response()->json($data);
