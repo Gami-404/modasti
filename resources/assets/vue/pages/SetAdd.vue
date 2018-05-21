@@ -43,6 +43,7 @@
           <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
           <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
           <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
+          <input  id="set-item-search" type="search" @input="searchItems" v-model="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
@@ -96,7 +97,8 @@ export default {
       base64Img: "",
       setItems: [],
       loading: true,
-      loadMoreLoading: false
+      loadMoreLoading: false,
+        query:''
     };
   },
   computed: {
@@ -146,7 +148,7 @@ export default {
   methods: {
     loadmore() {
       this.loadMoreLoading = true;
-      this.$store.dispatch("set_load_more_to_add", this.view).then(() => {
+      this.$store.dispatch("get_items_for_add_set", this.view).then(() => {
         this.loadMoreLoading = false;
       });
     },
@@ -160,6 +162,12 @@ export default {
         })
       );
     },
+      searchItems(event){
+          this.loadMoreLoading = true;
+          this.$store.dispatch("get_items_for_add_set", this.query).then(() => {
+              this.loadMoreLoading = false;
+          });
+      },
     drop(event) {
       event.preventDefault();
       this.itemsCounter++;

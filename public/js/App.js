@@ -42391,6 +42391,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -42416,7 +42417,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       base64Img: "",
       setItems: [],
       loading: true,
-      loadMoreLoading: false
+      loadMoreLoading: false,
+      query: ''
     };
   },
 
@@ -42474,7 +42476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       this.loadMoreLoading = true;
-      this.$store.dispatch("set_load_more_to_add", this.view).then(function () {
+      this.$store.dispatch("get_items_for_add_set", this.view).then(function () {
         _this3.loadMoreLoading = false;
       });
     },
@@ -42485,8 +42487,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         id: event.target.getAttribute("data-id")
       }));
     },
-    drop: function drop(event) {
+    searchItems: function searchItems(event) {
       var _this4 = this;
+
+      this.loadMoreLoading = true;
+      this.$store.dispatch("get_items_for_add_set", this.query).then(function () {
+        _this4.loadMoreLoading = false;
+      });
+    },
+    drop: function drop(event) {
+      var _this5 = this;
 
       event.preventDefault();
       this.itemsCounter++;
@@ -42494,7 +42504,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.setItems.indexOf(item.id) === -1 ? this.setItems.push(item.id) : null;
       var img = new Image();
       img.onload = function () {
-        _this4.drawImage(img, item.id, event.offsetX, event.offsetY);
+        _this5.drawImage(img, item.id, event.offsetX, event.offsetY);
       };
       img.src = item.src;
     },
@@ -43088,7 +43098,35 @@ var render = function() {
                 }
               },
               [_vm._v("beauty")]
-            )
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.query,
+                  expression: "query"
+                }
+              ],
+              attrs: {
+                id: "set-item-search",
+                type: "search",
+                placeholder: "Search for item ..."
+              },
+              domProps: { value: _vm.query },
+              on: {
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.query = $event.target.value
+                  },
+                  _vm.searchItems
+                ]
+              }
+            })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "theProducts" }, [
@@ -57426,190 +57464,227 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 var state = {
-  set: {},
-  setComments: [],
-  itemsToAdd: [],
-  offsets: [0, 0, 0, 0]
+    set: {},
+    setComments: [],
+    itemsToAdd: [],
+    offsets: [0, 0, 0, 0]
 };
 
 // getters
 var getters = {
-  set: function set(state) {
-    return state.set;
-  },
-  setComments: function setComments(state) {
-    return state.setComments;
-  },
-  setTotalPrice: function setTotalPrice(state, _, __, rootGetters) {
-    return state.set.items ? state.set.items.reduce(function (sum, itemId) {
-      return sum + parseFloat(rootGetters.getItem(itemId).price);
-    }, 0).toFixed(2) : "000";
-  },
-  itemsToAdd: function itemsToAdd(state) {
-    return function (id) {
-      return state.itemsToAdd[id];
-    };
-  }
+    set: function set(state) {
+        return state.set;
+    },
+    setComments: function setComments(state) {
+        return state.setComments;
+    },
+    setTotalPrice: function setTotalPrice(state, _, __, rootGetters) {
+        return state.set.items ? state.set.items.reduce(function (sum, itemId) {
+            return sum + parseFloat(rootGetters.getItem(itemId).price);
+        }, 0).toFixed(2) : "000";
+    },
+    itemsToAdd: function itemsToAdd(state) {
+        return function (id) {
+            return state.itemsToAdd[id];
+        };
+    }
 };
 
 // actions
 var actions = {
-  get_set_details: function get_set_details(_ref, setId) {
-    var commit = _ref.commit,
-        state = _ref.state;
+    get_set_details: function get_set_details(_ref, setId) {
+        var commit = _ref.commit,
+            state = _ref.state;
 
-    if (setId == state.set.id) return Promise.resolve();
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/setDetails", {
-      setId: setId
-    }).then(function (res) {
-      commit("ADD_ITEMS", res.data.data.set.items, { root: true });
-      res.data.data.set.items = res.data.data.set.items.map(function (item) {
-        return item.id;
-      });
-      commit("SET", res.data.data.set);
-    });
-  },
-  add_set: function add_set(_ref2, payload) {
-    var commit = _ref2.commit;
+        if (setId == state.set.id) return Promise.resolve();
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/setDetails", {
+            setId: setId
+        }).then(function (res) {
+            commit("ADD_ITEMS", res.data.data.set.items, { root: true });
+            res.data.data.set.items = res.data.data.set.items.map(function (item) {
+                return item.id;
+            });
+            commit("SET", res.data.data.set);
+        });
+    },
+    add_set: function add_set(_ref2, payload) {
+        var commit = _ref2.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/addSet", payload);
-  },
-  edit_set: function edit_set(_ref3, payload) {
-    var commit = _ref3.commit;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/addSet", payload);
+    },
+    edit_set: function edit_set(_ref3, payload) {
+        var commit = _ref3.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/editSet", payload);
-  },
-  remove_set: function remove_set(_ref4, setId) {
-    var commit = _ref4.commit;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/editSet", payload);
+    },
+    remove_set: function remove_set(_ref4, setId) {
+        var commit = _ref4.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/deleteSet", {
-      setId: setId
-    }).then(function (res) {
-      commit("REMOVE_SET", res.data.data.set);
-    });
-  },
-  like_set_toggle: function like_set_toggle(_ref5) {
-    var commit = _ref5.commit;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/deleteSet", {
+            setId: setId
+        }).then(function (res) {
+            commit("REMOVE_SET", res.data.data.set);
+        });
+    },
+    like_set_toggle: function like_set_toggle(_ref5) {
+        var commit = _ref5.commit;
 
-    commit("LIKE_SET_TOGGLE");
-  },
-  get_set_comments: function get_set_comments(_ref6, setId) {
-    var commit = _ref6.commit;
+        commit("LIKE_SET_TOGGLE");
+    },
+    get_set_comments: function get_set_comments(_ref6, setId) {
+        var commit = _ref6.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSetComments", {
-      setId: setId,
-      limit: 30
-    }).then(function (res) {
-      commit("SET_COMMENTS", res.data.data.comments);
-    });
-  },
-  add_comment_to_set: function add_comment_to_set(_ref7, payload) {
-    var commit = _ref7.commit,
-        dispatch = _ref7.dispatch;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSetComments", {
+            setId: setId,
+            limit: 30
+        }).then(function (res) {
+            commit("SET_COMMENTS", res.data.data.comments);
+        });
+    },
+    add_comment_to_set: function add_comment_to_set(_ref7, payload) {
+        var commit = _ref7.commit,
+            dispatch = _ref7.dispatch;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/addCommentToSet", {
-      setId: payload.setId,
-      text: payload.comment,
-      parentId: "0"
-    }).then(function () {
-      return dispatch("get_set_comments", payload.setId);
-    });
-  },
-  delete_comment_from_set: function delete_comment_from_set(_ref8, _ref9) {
-    var commit = _ref8.commit,
-        dispatch = _ref8.dispatch;
-    var setId = _ref9.setId,
-        commentId = _ref9.commentId;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/addCommentToSet", {
+            setId: payload.setId,
+            text: payload.comment,
+            parentId: "0"
+        }).then(function () {
+            return dispatch("get_set_comments", payload.setId);
+        });
+    },
+    delete_comment_from_set: function delete_comment_from_set(_ref8, _ref9) {
+        var commit = _ref8.commit,
+            dispatch = _ref8.dispatch;
+        var setId = _ref9.setId,
+            commentId = _ref9.commentId;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/deleteComment", {
-      commentId: commentId
-    }).then(function () {
-      return dispatch("get_set_comments", setId);
-    });
-  },
-  get_items_for_add_set: function get_items_for_add_set(_ref10) {
-    var commit = _ref10.commit,
-        state = _ref10.state,
-        rootGetters = _ref10.rootGetters;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/deleteComment", {
+            commentId: commentId
+        }).then(function () {
+            return dispatch("get_set_comments", setId);
+        });
+    },
+    get_items_for_add_set: function get_items_for_add_set(_ref10, query) {
+        var commit = _ref10.commit,
+            state = _ref10.state,
+            rootGetters = _ref10.rootGetters;
 
-    return Promise.all(itemsToAdd(rootGetters.userId)).then(function (resArray) {
-      resArray.forEach(function (res) {
-        commit("ADD_ITEMS", res.data.data, { root: true });
-      });
-      commit("ITEMS_FOR_ADD_SEST", resArray.map(function (res) {
-        return res.data.data;
-      }));
-    });
-  },
-  set_load_more_to_add: function set_load_more_to_add(_ref11, view) {
-    var commit = _ref11.commit,
-        state = _ref11.state,
-        rootGetters = _ref11.rootGetters;
+        if (query) {
+            return Promise.all(itemsToAddWithSearch(rootGetters.userId, 0, query)).then(function (resArray) {
+                resArray.forEach(function (res) {
+                    commit("ADD_ITEMS", res.data.data, { root: true });
+                });
+                commit("CLEAR_FOR_ADD_SEST", resArray.map(function (res) {
+                    return res.data.data;
+                }));
+                // CLEAR_FOR_ADD_SEST
+            });
+        }
+        return Promise.all(itemsToAdd(rootGetters.userId)).then(function (resArray) {
+            resArray.forEach(function (res) {
+                commit("ADD_ITEMS", res.data.data, { root: true });
+            });
+            commit("ITEMS_FOR_ADD_SEST", resArray.map(function (res) {
+                return res.data.data;
+            }));
+        });
+    },
+    set_load_more_to_add: function set_load_more_to_add(_ref11, view) {
+        var commit = _ref11.commit,
+            state = _ref11.state,
+            rootGetters = _ref11.rootGetters;
 
-    return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(function (res) {
-      commit("ADD_ITEMS", res.data.data, { root: true });
-      commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view: view });
-    });
-  }
+        return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(function (res) {
+            commit("ADD_ITEMS", res.data.data, { root: true });
+            commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view: view });
+        });
+    }
 };
 
 // mutations
 var mutations = {
-  SET: function SET(state, data) {
-    state.set = data;
-  },
-  REMOVE_SET: function REMOVE_SET(state) {
-    state.set = {};
-  },
-  LIKE_SET_TOGGLE: function LIKE_SET_TOGGLE(state) {
-    if (state.set.title_en) {
-      state.set.is_liked = !state.set.is_liked;
-      state.set.is_liked ? state.set.likes++ : state.set.likes--;
-      state.set = _extends({}, state.set);
+    SET: function SET(state, data) {
+        state.set = data;
+    },
+    REMOVE_SET: function REMOVE_SET(state) {
+        state.set = {};
+    },
+    LIKE_SET_TOGGLE: function LIKE_SET_TOGGLE(state) {
+        if (state.set.title_en) {
+            state.set.is_liked = !state.set.is_liked;
+            state.set.is_liked ? state.set.likes++ : state.set.likes--;
+            state.set = _extends({}, state.set);
+        }
+    },
+    SET_COMMENTS: function SET_COMMENTS(state, data) {
+        state.setComments = data;
+    },
+    ITEMS_FOR_ADD_SEST: function ITEMS_FOR_ADD_SEST(state, arrayOfData) {
+        state.offsets = state.offsets.map(function (i) {
+            return i + 6;
+        });
+        state.itemsToAdd = arrayOfData;
+    },
+    LOAD_MORE_ITEMS_FOR_ADD_SEST: function LOAD_MORE_ITEMS_FOR_ADD_SEST(state, payload) {
+        state.offsets[payload.view] += 6;
+        state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(payload.data);
+        state.itemsToAdd = [].concat(_toConsumableArray(state.itemsToAdd));
+    },
+    CLEAR_FOR_ADD_SEST: function CLEAR_FOR_ADD_SEST(state, arrayOfData) {
+        state.offsets = [0, 0, 0, 0];
+        console.log(arrayOfData);
+        state.itemsToAdd = arrayOfData;
     }
-  },
-  SET_COMMENTS: function SET_COMMENTS(state, data) {
-    state.setComments = data;
-  },
-  ITEMS_FOR_ADD_SEST: function ITEMS_FOR_ADD_SEST(state, arrayOfData) {
-    state.offsets = state.offsets.map(function (i) {
-      return i + 6;
-    });
-    state.itemsToAdd = arrayOfData;
-  },
-  LOAD_MORE_ITEMS_FOR_ADD_SEST: function LOAD_MORE_ITEMS_FOR_ADD_SEST(state, payload) {
-    state.offsets[payload.view] += 6;
-    state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(payload.data);
-    state.itemsToAdd = [].concat(_toConsumableArray(state.itemsToAdd));
-  }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
+    state: state,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
 });
 
 function itemsToAdd(userId, offset) {
-  offset = offset || 0;
-  return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getLikedItems", {
-    userId: userId,
-    offset: offset,
-    limit: 6
-  }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-    offset: offset,
-    categoryId: 1
-  }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-    offset: offset,
-    categoryId: 4
-  }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-    offset: offset,
-    categoryId: 6
-  }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-    offset: offset,
-    categoryId: 24
-  })];
+    offset = offset || 0;
+    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getLikedItems", {
+        userId: userId,
+        offset: offset,
+        limit: 6
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 1
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 4
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 6
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 24
+    })];
+}
+
+function itemsToAddWithSearch(userId, offset, query) {
+    offset = offset || 0;
+    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 1,
+        q: query
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 4,
+        q: query
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 6,
+        q: query
+    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
+        offset: offset,
+        categoryId: 24,
+        q: query
+    })];
 }
 
 /***/ }),
