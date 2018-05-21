@@ -43117,15 +43117,15 @@ var render = function() {
               },
               domProps: { value: _vm.query },
               on: {
-                "&input": function($event) {
-                  return _vm.searchItems($event)
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.query = $event.target.value.trim()
-                },
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.query = $event.target.value.trim()
+                  },
+                  _vm.searchItems
+                ],
                 blur: function($event) {
                   _vm.$forceUpdate()
                 }

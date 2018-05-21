@@ -43,11 +43,11 @@
           <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
           <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
           <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
-          <input  id="set-item-search" type="search" @input.passive="searchItems" v-model.trim="query" placeholder="Search for item ..." />
+          <input  id="set-item-search" type="search" @input="searchItems" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-for="(item,i) of items" :key="i" class="mycol-sm-4">
+            <div v-for="(item,i) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
