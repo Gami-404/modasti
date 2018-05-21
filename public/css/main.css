@@ -1446,6 +1446,87 @@ body {
   padding: 100px 0 0; }
 .aboutusPage .oneBlock.padd {
   padding: 100px 0; }
+.aboutusPage .about3 .topAbout {
+  position: relative; }
+  .aboutusPage .about3 .topAbout .title {
+    font-size: 70px;
+    position: relative;
+    margin: 0 0 20px; }
+    .aboutusPage .about3 .topAbout .title:before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100px;
+      max-width: 100%;
+      height: 1px;
+      background: #ffbeb8; }
+  .aboutusPage .about3 .topAbout .description {
+    opacity: 0.5;
+    font-family: "'Lato', sans-serif";
+    font-size: 22px; }
+  .aboutusPage .about3 .topAbout .avatar img {
+    width: 100%; }
+  .aboutusPage .about3 .topAbout:before, .aboutusPage .about3 .topAbout:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 20%;
+    background: #fff; }
+  .aboutusPage .about3 .topAbout:after {
+    margin-bottom: -2px;
+    background: #ffbeb8;
+    z-index: -1; }
+.aboutusPage .about3 .padTop {
+  padding: 100px 0 0; }
+.aboutusPage .about3 .AUP_title {
+  margin: 0 0 30px;
+  font-size: 24px; }
+  .aboutusPage .about3 .AUP_title span {
+    display: inline-block;
+    padding: 0 0 10px;
+    position: relative; }
+    .aboutusPage .about3 .AUP_title span:before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 90px;
+      max-width: 70%;
+      height: 2px;
+      background: #ffbeb8;
+      margin: 0 0 20px; }
+.aboutusPage .about3 .descFont {
+  font-size: 24px;
+  font-family: "'Lato', sans-serif";
+  opacity: 0.5;
+  margin: 0 0 50px; }
+.aboutusPage .about3 .imgAvatar img {
+  width: 100%;
+  box-shadow: 0 0 20px #ddd; }
+.aboutusPage .about3 .inspire .in {
+  position: relative; }
+  .aboutusPage .about3 .inspire .in .theContent {
+    padding: 100px 0;
+    background: #000;
+    color: #fff; }
+  .aboutusPage .about3 .inspire .in .avatar {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 50%;
+    -ms-transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    display: none; }
+.aboutusPage .about3 .theName {
+  padding: 100px 0; }
+  .aboutusPage .about3 .theName .avatar {
+    width: 45%;
+    margin: -235px 0 0;
+    display: none; }
 
 .helpPage {
   margin: 0 0 50px; }
@@ -1828,7 +1909,20 @@ body {
     float: right; }
 
   .createSetPage .leftArea .areaToDrop {
-    height: 862px; } }
+    height: 862px; }
+
+  .aboutusPage .about3 .inspire .in {
+    padding: 135px 0; }
+
+  .aboutusPage .about3 .inspire .in .avatar {
+    display: block; }
+
+  .aboutusPage .about3 .theName .avatar {
+    display: block; }
+
+  .aboutusPage .about3 .theName .theContent {
+    width: 50%;
+    float: right; } }
 @media only screen and (min-width: 1000px) {
   .fixHeaderSpace {
     height: 0; }

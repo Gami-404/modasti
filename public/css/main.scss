@@ -1808,6 +1808,115 @@ body{background: #f8f8f8;}
 			padding: 100px 0;
 		}
 	}
+	.about3{
+		.topAbout{
+			position: relative;
+			.title{
+				font-size: 70px;
+				position: relative;
+				margin: 0 0 20px;
+				&:before{
+					content: '';
+					position: absolute;
+					top: 100%;
+					left: 0;
+					width: 100px;
+					max-width: 100%;
+					height: 1px;
+					background: $brandColor;
+				}
+			}
+			.description{
+				opacity: 0.5;
+				font-family: $lato;
+				font-size: 22px;
+			}
+			.avatar{
+				img{
+					width: 100%;
+				}
+			}
+			&:before, &:after{
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 20%;
+				background: #fff;
+			}
+			&:after{
+				margin-bottom: -2px;
+				background: $brandColor;
+				z-index: -1;
+			}
+		}
+		.padTop{
+				padding: 100px 0 0;
+			}
+		.AUP_title{
+			margin: 0 0 30px;
+			font-size: 24px;
+			span{
+				display: inline-block;
+				padding: 0 0 10px;
+				position: relative;
+				&:before{
+					content: '';
+					position: absolute;
+					top: 100%;
+					left: 0;
+					width: 90px;
+					max-width: 70%;
+					height: 2px;
+					background: $brandColor;
+					margin: 0 0 20px;
+				}
+			}
+		}
+		.descFont{
+			font-size: 24px;
+			font-family: $lato;
+			opacity: 0.5;
+			margin: 0 0 50px;
+		}
+		.imgAvatar{
+			img{
+				width: 100%;
+				box-shadow: 0 0 20px #ddd;
+			}
+		}
+		.inspire{
+			.in{
+				position: relative;
+				.theContent{
+					padding: 100px 0;
+					background: #000;
+					color: #fff;
+				}
+				.avatar{
+					position: absolute;
+					top: 50%;
+					right: 0;
+					width: 50%;
+					@include myTranslate(0, -50%);
+					display: none;
+				}
+			}
+		}
+		.theName{
+			padding: 100px 0;
+			.theContent{
+			}
+			.avatar{
+				width: 45%;
+				margin: -235px 0 0;
+				display: none;
+			}
+		}
+	}
+	
+	
 }
 
 .helpPage{
@@ -2095,6 +2204,10 @@ body{background: #f8f8f8;}
 	.createSetPage .leftArea{width: 49%;float: left;margin: 0;}
 	.createSetPage .rightArea{width: 49%;float: right;}
 	.createSetPage .leftArea .areaToDrop{height: 862px;}
+	.aboutusPage .about3 .inspire .in{padding: 135px 0;}
+	.aboutusPage .about3 .inspire .in .avatar{display: block;}
+	.aboutusPage .about3 .theName .avatar{display: block;}
+	.aboutusPage .about3 .theName .theContent{width: 50%;float: right;}
 }
 
 @media only screen and (min-width: 1000px) {
