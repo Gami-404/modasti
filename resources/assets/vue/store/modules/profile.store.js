@@ -44,7 +44,7 @@ const getters = {
     likedItems: state => state.liked.items,
     likedSets: state => state.liked.sets,
     likedCollections: state => state.liked.collections,
-    winsContests: state => state.winsContests
+    winsContests: state => state.winsContests,
 };
 
 // helper function !
@@ -180,7 +180,7 @@ const actions = {
             });
             commit("WINS_CONTESTS", res.data.data.map(user => user.id));
         });
-    }
+    },
 };
 
 // mutations
@@ -239,7 +239,7 @@ const mutations = {
     BLOCKED(state, data) {
         state.blocked = state.blocked.concat(data);
         state.offsets.blocked += 8;
-    }
+    },
 };
 
 export default {

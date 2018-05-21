@@ -44,6 +44,9 @@ namespace Maps\User {
             $newUser->lname = $user->last_name;
             $newUser->username = $user->username;
             $newUser->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
+            $newUser->about = $user->about;
+            $newUser->currency = $user->currency;
+            $newUser->email = $user->email;
             $newUser->following_counter = $user->following()->count();
             $newUser->follower_counter = $user->follower()->count();
             $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
