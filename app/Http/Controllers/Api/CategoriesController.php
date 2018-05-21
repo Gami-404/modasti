@@ -43,10 +43,16 @@ class CategoriesController extends Controller
         } else {
             $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
             $categoriesIds[] = $category->id;
-            $items = Post::with('image', 'brand', 'user')->
+            $query = Post::with('image', 'brand', 'user')->
             whereHas('categories', function ($query) use ($categoriesIds) {
                 $query->whereIn('category_id', $categoriesIds);
-            })->take($limit)->offset($offset)->get();
+            })->take($limit)->offset($offset);
+
+            if ($request->filled('q')) {
+                $query->search($request->get('q'));
+            }
+
+            $items = $query->get();
         }
         $data['data'] = \Maps\Item\items($items);
         return response()->json($data);
