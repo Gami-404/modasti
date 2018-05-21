@@ -80,6 +80,7 @@ import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
 import _ from 'lodash';
 import { mapGetters } from "vuex";
 
+var $com=null;
 export default {
   components: {
     Loading,
@@ -99,7 +100,7 @@ export default {
       setItems: [],
       loading: true,
       loadMoreLoading: false,
-        query:''
+        query:'',
     };
   },
   computed: {
@@ -114,6 +115,7 @@ export default {
     this.$store.dispatch("get_items_for_add_set", this.view).then(() => {
       this.loading = false;
     });
+      $com=this;
   },
   mounted() {
     var width = this.$refs.droparea.offsetWidth - 20;
@@ -164,11 +166,11 @@ export default {
       );
     },
       searchItems: _.throttle((event)=>{
-          this.loadMoreLoading = true;
-          this.$store.dispatch("get_items_for_add_set", this.query).then(() => {
-              this.loadMoreLoading = false;
+          $com.loadMoreLoading = true;
+          $com.$store.dispatch("get_items_for_add_set", $com.query).then(() => {
+              $com.loadMoreLoading = false;
           });
-      },500)
+      },500).bind(this)
       ,
     drop(event) {
       event.preventDefault();
