@@ -101,7 +101,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('unblockUser', 'Api\UserController@unblockUser');
     $router->post('listBlocked', 'Api\UserController@listBlocked');
     $router->post('recommendedUser', 'Api\UserController@recommendedUser');
-    $router->post('getProfileForm', 'Api\UserController@getProfileForm');
+    $router->post('myProfile', 'Api\UserController@myProfile');
 
     //Notifications
     $router->post('getNotifications', 'Api\NotificationsController@getNotifications');

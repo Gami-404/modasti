@@ -377,10 +377,10 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getProfileForm(Request $request)
+    public function myProfile(Request $request)
     {
         $data = ['data' => [], 'errors' => []];
-        $id = $request->get('userId');
+        $id = fauth()->id();
         $user = User::find($id);
         if (!$user) {
             $data['errors'][] = "User not found";
