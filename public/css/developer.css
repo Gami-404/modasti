@@ -4,3 +4,11 @@
 #header .top .rightArea .search form {
     display: flex;
 }
+
+.topCategories a {
+    opacity: .8;
+}
+.topCategories a {
+    font-size: 15px;
+    text-transform: uppercase;
+}
