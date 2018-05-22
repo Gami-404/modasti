@@ -16,11 +16,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="PD_winner clearfix">
+			<div class="PD_winner clearfix" v-for="winner of winners" :key="winner.id">
 				<div class="itsTitle">
-					<span>The Winners</span>
+					<span>The Winner</span>
 				</div>
-				<div class="itsContent" v-for="winner of winners" :key="winner.id">
+				<div class="itsContent" >
 					<div class="PD_Card">
 						<div class="PD_cardAvatar"><img :src="winner.photo.photo_name" :alt="winner.photo.title"></div>
 						<div class="PD_cardContent">
