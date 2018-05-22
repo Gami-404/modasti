@@ -41,11 +41,11 @@
         <div class="theTabs">
           <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
           <ColorDropdown id="set-select-colors" @change="changeCategory" v-model="color"></ColorDropdown>
-          <input  id="set-item-search" type="search" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
+          <input  id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-for="(item,i) of items" :key="item.id" class="mycol-sm-4">
+            <div v-if="!loading" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
@@ -55,9 +55,11 @@
                 <div class="name">{{item.title_en}}</div>
               </div>
             </div>
-            <div v-if="canloadmore" class="getMore">
+            <div v-if="canloadmore&&!loading" class="getMore">
               <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
             </div>
+            <div v-if="loading" class="set-loading"><img src="images/loading.gif"  width="50px" alt="loading"></div>
+            <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@
         <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :base64-img="base64Img" :items="setItems"></SetCollectionAddPopup>
       </WrapperPopups>
     </transition>
-    <Loading v-if="loading" />
+    <!--<Loading v-if="loading" />-->
   </div>
 </template>
 <script>
@@ -117,7 +119,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("get_items_for_add_set_v2",{
+    this.$store.dispatch("get_items_for_add_set",{
         query:this.query,
         category:this.category,
         color:this.color,
@@ -161,24 +163,25 @@ export default {
   methods: {
     loadmore() {
         this.loadMoreLoading = true;
-        this.$store.dispatch("get_items_for_add_set_v2",{
+        this.$store.dispatch("get_items_for_add_set",{
             query:this.query,
             category:this.category,
             color:this.color,
             clearOffset:false
         }).then(() => {
             this.loadMoreLoading = false;
-
+            this.loading = false;
         });
     },
       changeCategory(){
-          this.$store.dispatch("get_items_for_add_set_v2",{
+          this.loading = true;
+          this.$store.dispatch("get_items_for_add_set",{
               query:this.query,
               category:this.category,
               color:this.color,
               clearOffset:true
           }).then(() => {
-              // this.loading = false;
+              this.loading = false;
           });
       },
     nothing() {},
@@ -192,13 +195,15 @@ export default {
       );
     },
       searchItems: _.debounce((event)=>{
-          $vm.$store.dispatch("get_items_for_add_set_v2",{
+          this.loading = true;
+
+          $vm.$store.dispatch("get_items_for_add_set",{
               query:$vm.query,
               category:$vm.category,
               color:$vm.color,
               clearOffset:true
           }).then(() => {
-              // $vm.loading = false;
+              $vm.loading = false;
           });
       },500).bind(this)
       ,

@@ -14,8 +14,8 @@
 }
 
 #set-item-search {
-    width: 50%;
     height: 36px;
+    min-width: 50%;
 }
 
 #header .bottom #nav ul li a i {
@@ -35,6 +35,15 @@
     background-color: #000;
     font-family: "'Lato', sans-serif";
 }
+.set-loading{
+    margin-top: 45%;
+    margin-left: 50%;
+}
+.set-no-found{
+    margin-top: 45%;
+    margin-left: 44%;
+}
 .theTabs{
     padding: 20px 30px!important;
+    text-align: center;
 }

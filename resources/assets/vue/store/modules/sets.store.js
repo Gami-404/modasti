@@ -3,8 +3,6 @@ import API from "../API";
 const state = {
     set: {},
     setComments: [],
-    itemsToAdd: [],
-    offsets: [0, 0, 0, 0],
     itemsToAddSet:[],
     itemsToAddSetOffset:0,
 };
@@ -23,7 +21,6 @@ const getters = {
                 )
                 .toFixed(2)
             : "000",
-    itemsToAdd: state => id => state.itemsToAdd[id],
     itemsToAddSet: state => state.itemsToAddSet,
 };
 
@@ -75,32 +72,7 @@ const actions = {
             commentId
         }).then(() => dispatch("get_set_comments", setId));
     },
-    get_items_for_add_set({commit, state, rootGetters}, query) {
-        if (query) {
-            return Promise.all(itemsToAddWithSearch(rootGetters.userId, 0, query)).then(resArray => {
-                resArray.forEach(res => {
-                    commit("ADD_ITEMS", res.data.data, {root: true});
-                });
-                commit("CLEAR_FOR_ADD_SEST", resArray.map(res => res.data.data));
-                // CLEAR_FOR_ADD_SEST
-            });
-        }
-        return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
-            resArray.forEach(res => {
-                commit("ADD_ITEMS", res.data.data, {root: true});
-            });
-            commit("ITEMS_FOR_ADD_SEST", resArray.map(res => res.data.data));
-        });
-    },
-    set_load_more_to_add({commit, state, rootGetters}, view) {
-        return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(
-            res => {
-                commit("ADD_ITEMS", res.data.data, {root: true});
-                commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", {data: res.data.data, view});
-            }
-        );
-    },
-    get_items_for_add_set_v2({commit, state, rootGetters},q) {
+    get_items_for_add_set({commit, state, rootGetters},q) {
         console.log(q);
         return API.post("/getSearchForAddSet", {
             query: q.query,
@@ -138,21 +110,6 @@ const mutations = {
     SET_COMMENTS(state, data) {
         state.setComments = data;
     },
-    ITEMS_FOR_ADD_SEST(state, arrayOfData) {
-        state.offsets = state.offsets.map(i => i + 6);
-        state.itemsToAdd = arrayOfData;
-    },
-    LOAD_MORE_ITEMS_FOR_ADD_SEST(state, payload) {
-        state.offsets[payload.view] += 6;
-        state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(
-            payload.data
-        );
-        state.itemsToAdd = [...state.itemsToAdd];
-    },
-    CLEAR_FOR_ADD_SEST(state, arrayOfData) {
-        state.offsets =[0,0,0,0]
-        state.itemsToAdd = arrayOfData;
-    },
     ITEMS_TO_ADD_SET(state,data){
         state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset+=6;
@@ -169,62 +126,3 @@ export default {
     actions,
     mutations
 };
-
-function itemsToAdd(userId, offset) {
-    offset = offset || 0;
-    return [
-        API.post("/getLikedItems", {
-            userId: userId,
-            offset: offset,
-            limit: 6
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 1
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 4
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 6
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 24
-        })
-    ];
-}
-
-function itemsToAddWithSearch(userId, offset, query) {
-    offset = offset || 0;
-    return [
-        API.post("/getLikedItems", {
-            userId: userId,
-            offset: offset,
-            limit: 6,
-            q: query
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 1,
-            q: query
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 4,
-            q: query
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 6,
-            q: query
-        }),
-        API.post("/getItemsFromCategory", {
-            offset: offset,
-            categoryId: 24,
-            q: query
-        })
-    ];
-}

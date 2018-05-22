@@ -42324,6 +42324,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(4);
+var _this5 = this;
+
+//
+//
 //
 //
 //
@@ -42446,7 +42450,7 @@ var $vm = null;
   created: function created() {
     var _this = this;
 
-    this.$store.dispatch("get_items_for_add_set_v2", {
+    this.$store.dispatch("get_items_for_add_set", {
       query: this.query,
       category: this.category,
       color: this.color,
@@ -42495,23 +42499,27 @@ var $vm = null;
       var _this3 = this;
 
       this.loadMoreLoading = true;
-      this.$store.dispatch("get_items_for_add_set_v2", {
+      this.$store.dispatch("get_items_for_add_set", {
         query: this.query,
         category: this.category,
         color: this.color,
         clearOffset: false
       }).then(function () {
         _this3.loadMoreLoading = false;
+        _this3.loading = false;
       });
     },
     changeCategory: function changeCategory() {
-      this.$store.dispatch("get_items_for_add_set_v2", {
+      var _this4 = this;
+
+      this.loading = true;
+      this.$store.dispatch("get_items_for_add_set", {
         query: this.query,
         category: this.category,
         color: this.color,
         clearOffset: true
       }).then(function () {
-        // this.loading = false;
+        _this4.loading = false;
       });
     },
     nothing: function nothing() {},
@@ -42523,18 +42531,20 @@ var $vm = null;
     },
 
     searchItems: __WEBPACK_IMPORTED_MODULE_6_lodash___default.a.debounce(function (event) {
-      $vm.$store.dispatch("get_items_for_add_set_v2", {
+      _this5.loading = true;
+
+      $vm.$store.dispatch("get_items_for_add_set", {
         query: $vm.query,
         category: $vm.category,
         color: $vm.color,
         clearOffset: true
       }).then(function () {
-        // $vm.loading = false;
+        $vm.loading = false;
       });
     }, 500).bind(this),
 
     drop: function drop(event) {
-      var _this4 = this;
+      var _this6 = this;
 
       event.preventDefault();
       this.itemsCounter++;
@@ -42542,7 +42552,7 @@ var $vm = null;
       this.setItems.indexOf(item.id) === -1 ? this.setItems.push(item.id) : null;
       var img = new Image();
       img.onload = function () {
-        _this4.drawImage(img, item.id, event.offsetX, event.offsetY);
+        _this6.drawImage(img, item.id, event.offsetX, event.offsetY);
       };
       img.src = item.src;
     },
@@ -60569,6 +60579,7 @@ var render = function() {
                 attrs: {
                   id: "set-item-search",
                   type: "search",
+                  col: "50",
                   placeholder: "Search for item ..."
                 },
                 domProps: { value: _vm.query },
@@ -60596,47 +60607,45 @@ var render = function() {
               "div",
               { staticClass: "myrow clearfix" },
               [
-                _vm._l(_vm.items, function(item, i) {
-                  return _c(
-                    "div",
-                    { key: item.id, staticClass: "mycol-sm-4" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "one",
-                          attrs: {
-                            draggable: "true",
-                            src: item["photos"][0]["photo_name"],
-                            "data-id": item.id
+                _vm._l(_vm.items, function(item) {
+                  return !_vm.loading
+                    ? _c("div", { key: item.id, staticClass: "mycol-sm-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "one",
+                            attrs: {
+                              draggable: "true",
+                              src: item["photos"][0]["photo_name"],
+                              "data-id": item.id
+                            },
+                            on: { dragstart: _vm.dragStart }
                           },
-                          on: { dragstart: _vm.dragStart }
-                        },
-                        [
-                          _c("div", { staticClass: "avatar" }, [
-                            _c("div", { staticClass: "verticalCentered" }, [
-                              _c("div", { staticClass: "theCell" }, [
-                                _c("img", {
-                                  attrs: {
-                                    src: item["photos"][0]["photo_name"],
-                                    "data-id": item.id,
-                                    alt: ""
-                                  }
-                                })
+                          [
+                            _c("div", { staticClass: "avatar" }, [
+                              _c("div", { staticClass: "verticalCentered" }, [
+                                _c("div", { staticClass: "theCell" }, [
+                                  _c("img", {
+                                    attrs: {
+                                      src: item["photos"][0]["photo_name"],
+                                      "data-id": item.id,
+                                      alt: ""
+                                    }
+                                  })
+                                ])
                               ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "name" }, [
+                              _vm._v(_vm._s(item.title_en))
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "name" }, [
-                            _vm._v(_vm._s(item.title_en))
-                          ])
-                        ]
-                      )
-                    ]
-                  )
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 }),
                 _vm._v(" "),
-                _vm.canloadmore
+                _vm.canloadmore && !_vm.loading
                   ? _c("div", { staticClass: "getMore" }, [
                       _c(
                         "a",
@@ -60657,6 +60666,24 @@ var render = function() {
                           )
                         ]
                       )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.loading
+                  ? _c("div", { staticClass: "set-loading" }, [
+                      _c("img", {
+                        attrs: {
+                          src: "images/loading.gif",
+                          width: "50px",
+                          alt: "loading"
+                        }
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.items && _vm.items.length == 0 && !_vm.loading
+                  ? _c("div", { staticClass: "set-no-found" }, [
+                      _vm._v("No found items")
                     ])
                   : _vm._e()
               ],
@@ -60695,9 +60722,7 @@ var render = function() {
             : _vm._e()
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm.loading ? _c("Loading") : _vm._e()
+      )
     ],
     1
   )
@@ -74916,15 +74941,11 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__API__ = __webpack_require__(8);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 
 
 var state = {
     set: {},
     setComments: [],
-    itemsToAdd: [],
-    offsets: [0, 0, 0, 0],
     itemsToAddSet: [],
     itemsToAddSetOffset: 0
 };
@@ -74941,11 +74962,6 @@ var getters = {
         return state.set.items ? state.set.items.reduce(function (sum, itemId) {
             return sum + parseFloat(rootGetters.getItem(itemId).price);
         }, 0).toFixed(2) : "000";
-    },
-    itemsToAdd: function itemsToAdd(state) {
-        return function (id) {
-            return state.itemsToAdd[id];
-        };
     },
     itemsToAddSet: function itemsToAddSet(state) {
         return state.itemsToAddSet;
@@ -75027,45 +75043,10 @@ var actions = {
             return dispatch("get_set_comments", setId);
         });
     },
-    get_items_for_add_set: function get_items_for_add_set(_ref10, query) {
+    get_items_for_add_set: function get_items_for_add_set(_ref10, q) {
         var commit = _ref10.commit,
             state = _ref10.state,
             rootGetters = _ref10.rootGetters;
-
-        if (query) {
-            return Promise.all(itemsToAddWithSearch(rootGetters.userId, 0, query)).then(function (resArray) {
-                resArray.forEach(function (res) {
-                    commit("ADD_ITEMS", res.data.data, { root: true });
-                });
-                commit("CLEAR_FOR_ADD_SEST", resArray.map(function (res) {
-                    return res.data.data;
-                }));
-                // CLEAR_FOR_ADD_SEST
-            });
-        }
-        return Promise.all(itemsToAdd(rootGetters.userId)).then(function (resArray) {
-            resArray.forEach(function (res) {
-                commit("ADD_ITEMS", res.data.data, { root: true });
-            });
-            commit("ITEMS_FOR_ADD_SEST", resArray.map(function (res) {
-                return res.data.data;
-            }));
-        });
-    },
-    set_load_more_to_add: function set_load_more_to_add(_ref11, view) {
-        var commit = _ref11.commit,
-            state = _ref11.state,
-            rootGetters = _ref11.rootGetters;
-
-        return itemsToAdd(rootGetters.userId, state.offsets[view])[view].then(function (res) {
-            commit("ADD_ITEMS", res.data.data, { root: true });
-            commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view: view });
-        });
-    },
-    get_items_for_add_set_v2: function get_items_for_add_set_v2(_ref12, q) {
-        var commit = _ref12.commit,
-            state = _ref12.state,
-            rootGetters = _ref12.rootGetters;
 
         console.log(q);
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSearchForAddSet", {
@@ -75102,21 +75083,6 @@ var mutations = {
     SET_COMMENTS: function SET_COMMENTS(state, data) {
         state.setComments = data;
     },
-    ITEMS_FOR_ADD_SEST: function ITEMS_FOR_ADD_SEST(state, arrayOfData) {
-        state.offsets = state.offsets.map(function (i) {
-            return i + 6;
-        });
-        state.itemsToAdd = arrayOfData;
-    },
-    LOAD_MORE_ITEMS_FOR_ADD_SEST: function LOAD_MORE_ITEMS_FOR_ADD_SEST(state, payload) {
-        state.offsets[payload.view] += 6;
-        state.itemsToAdd[payload.view] = state.itemsToAdd[payload.view].concat(payload.data);
-        state.itemsToAdd = [].concat(_toConsumableArray(state.itemsToAdd));
-    },
-    CLEAR_FOR_ADD_SEST: function CLEAR_FOR_ADD_SEST(state, arrayOfData) {
-        state.offsets = [0, 0, 0, 0];
-        state.itemsToAdd = arrayOfData;
-    },
     ITEMS_TO_ADD_SET: function ITEMS_TO_ADD_SET(state, data) {
         state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset += 6;
@@ -75133,53 +75099,6 @@ var mutations = {
     actions: actions,
     mutations: mutations
 });
-
-function itemsToAdd(userId, offset) {
-    offset = offset || 0;
-    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getLikedItems", {
-        userId: userId,
-        offset: offset,
-        limit: 6
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 1
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 4
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 6
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 24
-    })];
-}
-
-function itemsToAddWithSearch(userId, offset, query) {
-    offset = offset || 0;
-    return [__WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getLikedItems", {
-        userId: userId,
-        offset: offset,
-        limit: 6,
-        q: query
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 1,
-        q: query
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 4,
-        q: query
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 6,
-        q: query
-    }), __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsFromCategory", {
-        offset: offset,
-        categoryId: 24,
-        q: query
-    })];
-}
 
 /***/ }),
 /* 304 */
