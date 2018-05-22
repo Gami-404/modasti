@@ -94,7 +94,6 @@ export default {
 
   data() {
     return {
-      view: 0,
       stage: {},
       layer: {},
       selected: null,
@@ -118,7 +117,12 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("get_items_for_add_set", this.view).then(() => {
+    this.$store.dispatch("get_items_for_add_set_v2",{
+        query:this.query,
+        category:this.category,
+        color:this.color,
+        ClearOffset:true
+    }).then(() => {
       this.loading = false;
     });
       $vm=this;

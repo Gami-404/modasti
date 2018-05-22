@@ -4,7 +4,9 @@ const state = {
     set: {},
     setComments: [],
     itemsToAdd: [],
-    offsets: [0, 0, 0, 0]
+    offsets: [0, 0, 0, 0],
+    itemsToAddSet:[],
+    itemsToAddSetOffset:0,
 };
 
 // getters
@@ -21,7 +23,8 @@ const getters = {
                 )
                 .toFixed(2)
             : "000",
-    itemsToAdd: state => id => state.itemsToAdd[id]
+    itemsToAdd: state => id => state.itemsToAdd[id],
+    itemsToAddSet: state.itemsToAddSet,
 };
 
 // actions
@@ -96,7 +99,22 @@ const actions = {
                 commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", {data: res.data.data, view});
             }
         );
-    }
+    },
+    get_items_for_add_set_v2({commit, state, rootGetters}, {query,category,color,ClearOffset}) {
+        return API.post("/getSearchForAddSet", {
+            query: query,
+            category:category,
+            color: color,
+            offset:ClearOffset?0:state.itemsToAddSetOffset,
+            limit:6
+        }).then((res) =>{
+            if(ClearOffset){
+                commit("ITEMS_TO_ADD_SET_OFFSET_CLEAR");
+            }
+            commit("ADD_ITEMS", res.data.data, {root: true});
+            commit("ITEMS_TO_ADD_SET", res.data.data.map(item=>item.id));
+        });
+    },
 };
 
 // mutations
@@ -132,6 +150,13 @@ const mutations = {
         state.offsets =[0,0,0,0]
         state.itemsToAdd = arrayOfData;
     },
+    ITEMS_TO_ADD_SET(state,data){
+        state.itemsToAddSet = data;
+        state.itemsToAddSetOffset+=6;
+    },
+    ITEMS_TO_ADD_SET_OFFSET_CLEAR(state){
+        state.itemsToAddSetOffset=0;
+    }
 };
 
 export default {

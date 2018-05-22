@@ -353,7 +353,7 @@ class ItemsController extends Controller
         $limit = $request->get('limit', 8);
 
         $query = Post::with('image');
-        if ($request->filled('color')) {
+        if ($request->filled('color') && $request->get('color') != 0) {
             $query->where('color_id', $request->get('color'));
         }
 

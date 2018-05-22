@@ -42420,7 +42420,6 @@ var $vm = null;
 
   data: function data() {
     return {
-      view: 0,
       stage: {},
       layer: {},
       selected: null,
@@ -42447,7 +42446,12 @@ var $vm = null;
   created: function created() {
     var _this = this;
 
-    this.$store.dispatch("get_items_for_add_set", this.view).then(function () {
+    this.$store.dispatch("get_items_for_add_set_v2", {
+      query: this.query,
+      category: this.category,
+      color: this.color,
+      ClearOffset: true
+    }).then(function () {
       _this.loading = false;
     });
     $vm = this;
@@ -74902,7 +74906,9 @@ var state = {
     set: {},
     setComments: [],
     itemsToAdd: [],
-    offsets: [0, 0, 0, 0]
+    offsets: [0, 0, 0, 0],
+    itemsToAddSet: [],
+    itemsToAddSetOffset: 0
 };
 
 // getters
@@ -74922,7 +74928,8 @@ var getters = {
         return function (id) {
             return state.itemsToAdd[id];
         };
-    }
+    },
+    itemsToAddSet: state.itemsToAddSet
 };
 
 // actions
@@ -75034,6 +75041,31 @@ var actions = {
             commit("ADD_ITEMS", res.data.data, { root: true });
             commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view: view });
         });
+    },
+    get_items_for_add_set_v2: function get_items_for_add_set_v2(_ref12, _ref13) {
+        var commit = _ref12.commit,
+            state = _ref12.state,
+            rootGetters = _ref12.rootGetters;
+        var query = _ref13.query,
+            category = _ref13.category,
+            color = _ref13.color,
+            ClearOffset = _ref13.ClearOffset;
+
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSearchForAddSet", {
+            query: query,
+            category: category,
+            color: color,
+            offset: ClearOffset ? 0 : state.itemsToAddSetOffset,
+            limit: 6
+        }).then(function (res) {
+            if (ClearOffset) {
+                commit("ITEMS_TO_ADD_SET_OFFSET_CLEAR");
+            }
+            commit("ADD_ITEMS", res.data.data, { root: true });
+            commit("ITEMS_TO_ADD_SET", res.data.data.map(function (item) {
+                return item.id;
+            }));
+        });
     }
 };
 
@@ -75069,6 +75101,13 @@ var mutations = {
     CLEAR_FOR_ADD_SEST: function CLEAR_FOR_ADD_SEST(state, arrayOfData) {
         state.offsets = [0, 0, 0, 0];
         state.itemsToAdd = arrayOfData;
+    },
+    ITEMS_TO_ADD_SET: function ITEMS_TO_ADD_SET(state, data) {
+        state.itemsToAddSet = data;
+        state.itemsToAddSetOffset += 6;
+    },
+    ITEMS_TO_ADD_SET_OFFSET_CLEAR: function ITEMS_TO_ADD_SET_OFFSET_CLEAR(state) {
+        state.itemsToAddSetOffset = 0;
     }
 };
 
