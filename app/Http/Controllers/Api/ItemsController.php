@@ -357,7 +357,7 @@ class ItemsController extends Controller
             $query->where('color_id', $request->get('color'));
         }
 
-        if ($request->filled('category') && $request->get('category') != 0) {
+        if ($request->filled('category') && $request->get('category') != "liked_items") {
             $category = Category::find($request->get('category'));
             $categoriesIds = [$category->id];
             if ($category->parent == 0) {
@@ -375,6 +375,10 @@ class ItemsController extends Controller
             });
         }
 
+
+        if ($request->filled('query')) {
+            $query->where('title', 'LIKE', '%' . $request->get('query') . '%');
+        }
         $items = $query->orderBy($request->get('orderby', 'created_at'), 'DESC')
             ->take($limit)
             ->offset($offset)

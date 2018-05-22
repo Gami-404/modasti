@@ -42500,8 +42500,15 @@ var $vm = null;
         _this3.loadMoreLoading = false;
       });
     },
-    changeCategory: function changeCategory(event, v) {
-      console.log(event, v);
+    changeCategory: function changeCategory() {
+      this.$store.dispatch("get_items_for_add_set_v2", {
+        query: this.query,
+        category: this.category,
+        color: this.color,
+        clearOffset: true
+      }).then(function () {
+        // this.loading = false;
+      });
     },
     nothing: function nothing() {},
     dragStart: function dragStart(event) {
@@ -42511,10 +42518,14 @@ var $vm = null;
       }));
     },
 
-    searchItems: __WEBPACK_IMPORTED_MODULE_6_lodash___default.a.throttle(function (event) {
-      $vm.loadMoreLoading = true;
-      $vm.$store.dispatch("get_items_for_add_set", $vm.query).then(function () {
-        $vm.loadMoreLoading = false;
+    searchItems: __WEBPACK_IMPORTED_MODULE_6_lodash___default.a.debounce(function (event) {
+      $vm.$store.dispatch("get_items_for_add_set_v2", {
+        query: $vm.query,
+        category: $vm.category,
+        color: $vm.color,
+        clearOffset: true
+      }).then(function () {
+        // $vm.loading = false;
       });
     }, 500).bind(this),
 
@@ -60519,6 +60530,7 @@ var render = function() {
                   id: "set-select-categories",
                   options: [{ id: "liked_items", label: "Liked item" }]
                 },
+                on: { change: _vm.changeCategory },
                 model: {
                   value: _vm.category,
                   callback: function($$v) {
@@ -60530,6 +60542,7 @@ var render = function() {
               _vm._v(" "),
               _c("ColorDropdown", {
                 attrs: { id: "set-select-colors" },
+                on: { change: _vm.changeCategory },
                 model: {
                   value: _vm.color,
                   callback: function($$v) {
@@ -60563,7 +60576,7 @@ var render = function() {
                       }
                       _vm.query = $event.target.value.trim()
                     },
-                    _vm.searchItems
+                    _vm.changeCategory
                   ],
                   blur: function($event) {
                     _vm.$forceUpdate()

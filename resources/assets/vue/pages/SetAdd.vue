@@ -39,9 +39,9 @@
       </div>
       <div class="rightArea">
         <div class="theTabs">
-          <CategoriesDropdown id="set-select-categories" v-model="category" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
-          <ColorDropdown id="set-select-colors" v-model="color"></ColorDropdown>
-          <input  id="set-item-search" type="search" @input="searchItems" v-model.trim="query" placeholder="Search for item ..." />
+          <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
+          <ColorDropdown id="set-select-colors" @change="changeCategory" v-model="color"></ColorDropdown>
+          <input  id="set-item-search" type="search" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
@@ -166,8 +166,15 @@ export default {
         this.loadMoreLoading = false;
       });
     },
-      changeCategory(event,v){
-        console.log(event,v)
+      changeCategory(){
+          this.$store.dispatch("get_items_for_add_set_v2",{
+              query:this.query,
+              category:this.category,
+              color:this.color,
+              clearOffset:true
+          }).then(() => {
+              // this.loading = false;
+          });
       },
     nothing() {},
     dragStart(event) {
@@ -179,10 +186,14 @@ export default {
         })
       );
     },
-      searchItems: _.throttle((event)=>{
-          $vm.loadMoreLoading = true;
-          $vm.$store.dispatch("get_items_for_add_set", $vm.query).then(() => {
-              $vm.loadMoreLoading = false;
+      searchItems: _.debounce((event)=>{
+          $vm.$store.dispatch("get_items_for_add_set_v2",{
+              query:$vm.query,
+              category:$vm.category,
+              color:$vm.color,
+              clearOffset:true
+          }).then(() => {
+              // $vm.loading = false;
           });
       },500).bind(this)
       ,
