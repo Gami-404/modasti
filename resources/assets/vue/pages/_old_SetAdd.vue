@@ -39,8 +39,10 @@
       </div>
       <div class="rightArea">
         <div class="theTabs">
-          <CategoriesDropdown id="set-select-categories" v-model="category" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
-          <ColorDropdown id="set-select-colors" v-model="color"></ColorDropdown>
+          <a href="#" @click.prevent="view=0" :class="{'active':view==0}">Liked Items</a>
+          <a href="#" @click.prevent="view=1" :class="{'active':view==1}">clothing</a>
+          <a href="#" @click.prevent="view=2" :class="{'active':view==2}">shoes</a>
+          <a href="#" @click.prevent="view=3" :class="{'active':view==3}">beauty</a>
           <input  id="set-item-search" type="search" @input="searchItems" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
@@ -73,23 +75,17 @@
 <script>
 import Knova from "konva";
 import Loading from "@/components/Loading";
-import CategoriesDropdown from "@/components/CategoriesDropdown";
-import ColorDropdown from "@/components/ColorDropdown";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
 import _ from 'lodash';
 import { mapGetters } from "vuex";
 
-// vue Components
-var $vm=null;
-
+var $com=null;
 export default {
   components: {
     Loading,
     SetCollectionAddPopup,
-    WrapperPopups,
-      CategoriesDropdown,
-      ColorDropdown
+    WrapperPopups
   },
 
   data() {
@@ -105,13 +101,11 @@ export default {
       loading: true,
       loadMoreLoading: false,
         query:'',
-        category:0,
-        color:0,
     };
   },
   computed: {
     items() {
-      return this.$store.getters.itemsToAddSet
+      return this.$store.getters.itemsToAdd(this.view);
     },
     canloadmore() {
       return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
@@ -121,7 +115,7 @@ export default {
     this.$store.dispatch("get_items_for_add_set", this.view).then(() => {
       this.loading = false;
     });
-      $vm=this;
+      $com=this;
   },
   mounted() {
     var width = this.$refs.droparea.offsetWidth - 20;
@@ -161,9 +155,6 @@ export default {
         this.loadMoreLoading = false;
       });
     },
-      changeCategory(event,v){
-        console.log(event,v)
-      },
     nothing() {},
     dragStart(event) {
       event.dataTransfer.setData(
@@ -175,9 +166,9 @@ export default {
       );
     },
       searchItems: _.throttle((event)=>{
-          $vm.loadMoreLoading = true;
-          $vm.$store.dispatch("get_items_for_add_set", $vm.query).then(() => {
-              $vm.loadMoreLoading = false;
+          $com.loadMoreLoading = true;
+          $com.$store.dispatch("get_items_for_add_set", $com.query).then(() => {
+              $com.loadMoreLoading = false;
           });
       },500).bind(this)
       ,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\LikesEvent;
+use App\Model\Category;
 use App\Model\ContestItem;
 use App\Model\Media;
 use App\Model\Post;
@@ -83,7 +84,7 @@ class ItemsController extends Controller
 
         // Search if Exits
         if ($request->filled('q')) {
-            $query->where('title','LIKE','%'.$request->get('q').'%');
+            $query->where('title', 'LIKE', '%' . $request->get('q') . '%');
         }
 
         $items = $query->take($limit)->offset($offset)->get();
@@ -339,6 +340,49 @@ class ItemsController extends Controller
         return response()->json($data);
     }
 
+
+    /**
+     * POST api/getSearchForAddSet
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSearchForAddSet(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+
+        $query = Post::with('image');
+        if ($request->filled('color')) {
+            $query->where('color_id', $request->get('color'));
+        }
+
+        if ($request->filled('category') && $request->get('category') != 0) {
+            $category = Category::find($request->get('category'));
+            $categoriesIds = [$category->id];
+            if ($category->parent == 0) {
+                $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
+                $categoriesIds[] = $category->id;
+            }
+            $query->whereHas('categories', function ($query) use ($request, $categoriesIds) {
+                $query->whereIn('category_id', $categoriesIds);
+            });
+        }
+
+        if ($request->filled('category') && $request->get('category') == 0) {
+            $query->whereHas('likes', function ($query) use ($request) {
+                $query->where('user_id', fauth()->id());
+            });
+        }
+
+        $items = $query->orderBy($request->get('orderby', 'created_at'), 'DESC')
+            ->take($limit)
+            ->offset($offset)
+            ->get();
+
+        $data['data'] = \Maps\Item\items($items);
+        return response()->json($data);
+    }
 
     /**
      * Incrementing Functionality for likes

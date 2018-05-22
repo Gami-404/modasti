@@ -119,7 +119,9 @@ const actions = {
     },
     get_categories({commit}) {
         return API.post("/getItemsCategories", {}).then(res => {
+            const data= {...res.data.data};
             commit("CATEGORIES", res.data.data);
+            return data;
         });
     },
     get_category_items({commit, state}, catId) {

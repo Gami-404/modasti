@@ -21,7 +21,9 @@ const actions = {
   get_colors({ commit }) {
     if (state.sizes.length > 0) return Promise.resolve();
     return API.post("/getColors").then(res => {
+      const data=[... res.data.data]
       commit("COLORS", res.data.data);
+      return data;
     });
   },
   get_brands({ commit }) {
