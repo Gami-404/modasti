@@ -114,6 +114,7 @@ const actions = {
             }
             commit("ADD_ITEMS", res.data.data, {root: true});
             commit("ITEMS_TO_ADD_SET", res.data.data);
+
         });
 
     },
@@ -153,11 +154,12 @@ const mutations = {
         state.itemsToAdd = arrayOfData;
     },
     ITEMS_TO_ADD_SET(state,data){
-        state.itemsToAddSet = data;
+        state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset+=6;
     },
     ITEMS_TO_ADD_SET_OFFSET_CLEAR(state){
         state.itemsToAddSetOffset=0;
+        state.itemsToAddSet=[];
     }
 };
 

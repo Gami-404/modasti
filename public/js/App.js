@@ -75118,11 +75118,12 @@ var mutations = {
         state.itemsToAdd = arrayOfData;
     },
     ITEMS_TO_ADD_SET: function ITEMS_TO_ADD_SET(state, data) {
-        state.itemsToAddSet = data;
+        state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset += 6;
     },
     ITEMS_TO_ADD_SET_OFFSET_CLEAR: function ITEMS_TO_ADD_SET_OFFSET_CLEAR(state) {
         state.itemsToAddSetOffset = 0;
+        state.itemsToAddSet = [];
     }
 };
 
