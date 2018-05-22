@@ -184,7 +184,7 @@ class HomeController extends Controller
 
         // Contest
         $contests = Contest::with('image')->where(['status' => 1])
-            ->take(8)
+            ->take(4)
             ->get();
         $data['contests'] = \Maps\Contest\contests($contests);
         $data['sets_best_from_modasti'] = [];

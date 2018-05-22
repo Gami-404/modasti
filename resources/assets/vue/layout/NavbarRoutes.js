@@ -2,7 +2,7 @@ export default [
     {
         uri:'/',
         name:'Home',
-        icon:'icon-home'
+        icon:''
     },
     {
         uri:'/feed',
@@ -13,27 +13,27 @@ export default [
     {
         uri:'/trending',
         name:'Trending',
-        icon:'fa fa-line-chart',
+        icon:'',
         auth:true
     },
     {
         uri:'/category/clothing',
         name:'Clothing',
-        icon:'icon-dressing'
+        icon:''
     },
     {
         uri:'/category/shoes',
         name:'Shoes',
-        icon:'icon-shoe'
+        icon:''
     },
     {
         uri:'/category/accessories',
         name:'Accessories',
-        icon:'icon-accessories'
+        icon:''
     },
     {
         uri:'/category/beauty',
         name:'Beauty',
-        icon:'icon-beauty'
+        icon:''
     }
 ]
