@@ -113,7 +113,8 @@ export default {
       return this.$store.getters.itemsToAddSet
     },
     canloadmore() {
-      return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
+      // return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
+      return false;
     }
   },
   created() {
@@ -121,7 +122,7 @@ export default {
         query:this.query,
         category:this.category,
         color:this.color,
-        ClearOffset:true
+        clearOffset:true
     }).then(() => {
       this.loading = false;
     });

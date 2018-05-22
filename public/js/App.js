@@ -42440,7 +42440,8 @@ var $vm = null;
       return this.$store.getters.itemsToAddSet;
     },
     canloadmore: function canloadmore() {
-      return this.items && this.items.length != 0 && this.items.length % 6 === 0;
+      // return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
+      return false;
     }
   },
   created: function created() {
@@ -42450,7 +42451,7 @@ var $vm = null;
       query: this.query,
       category: this.category,
       color: this.color,
-      ClearOffset: true
+      clearOffset: true
     }).then(function () {
       _this.loading = false;
     });
@@ -74929,7 +74930,9 @@ var getters = {
             return state.itemsToAdd[id];
         };
     },
-    itemsToAddSet: state.itemsToAddSet
+    itemsToAddSet: function itemsToAddSet(state) {
+        return state.itemsToAddSet;
+    }
 };
 
 // actions
@@ -75042,29 +75045,24 @@ var actions = {
             commit("LOAD_MORE_ITEMS_FOR_ADD_SEST", { data: res.data.data, view: view });
         });
     },
-    get_items_for_add_set_v2: function get_items_for_add_set_v2(_ref12, _ref13) {
+    get_items_for_add_set_v2: function get_items_for_add_set_v2(_ref12, q) {
         var commit = _ref12.commit,
             state = _ref12.state,
             rootGetters = _ref12.rootGetters;
-        var query = _ref13.query,
-            category = _ref13.category,
-            color = _ref13.color,
-            ClearOffset = _ref13.ClearOffset;
 
+        console.log(q);
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSearchForAddSet", {
-            query: query,
-            category: category,
-            color: color,
-            offset: ClearOffset ? 0 : state.itemsToAddSetOffset,
+            query: q.query,
+            category: q.category,
+            color: q.color,
+            offset: q.clearOffset ? 0 : state.itemsToAddSetOffset,
             limit: 6
         }).then(function (res) {
-            if (ClearOffset) {
+            if (q.clearOffset) {
                 commit("ITEMS_TO_ADD_SET_OFFSET_CLEAR");
             }
             commit("ADD_ITEMS", res.data.data, { root: true });
-            commit("ITEMS_TO_ADD_SET", res.data.data.map(function (item) {
-                return item.id;
-            }));
+            commit("ITEMS_TO_ADD_SET", res.data.data);
         });
     }
 };

@@ -24,7 +24,7 @@ const getters = {
                 .toFixed(2)
             : "000",
     itemsToAdd: state => id => state.itemsToAdd[id],
-    itemsToAddSet: state.itemsToAddSet,
+    itemsToAddSet: state => state.itemsToAddSet,
 };
 
 // actions
@@ -100,20 +100,22 @@ const actions = {
             }
         );
     },
-    get_items_for_add_set_v2({commit, state, rootGetters}, {query,category,color,ClearOffset}) {
+    get_items_for_add_set_v2({commit, state, rootGetters},q) {
+        console.log(q);
         return API.post("/getSearchForAddSet", {
-            query: query,
-            category:category,
-            color: color,
-            offset:ClearOffset?0:state.itemsToAddSetOffset,
+            query: q.query,
+            category:q.category,
+            color: q.color,
+            offset:q.clearOffset?0:state.itemsToAddSetOffset,
             limit:6
         }).then((res) =>{
-            if(ClearOffset){
+            if(q.clearOffset){
                 commit("ITEMS_TO_ADD_SET_OFFSET_CLEAR");
             }
             commit("ADD_ITEMS", res.data.data, {root: true});
-            commit("ITEMS_TO_ADD_SET", res.data.data.map(item=>item.id));
+            commit("ITEMS_TO_ADD_SET", res.data.data);
         });
+
     },
 };
 
