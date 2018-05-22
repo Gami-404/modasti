@@ -113,8 +113,7 @@ export default {
       return this.$store.getters.itemsToAddSet
     },
     canloadmore() {
-      // return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
-      return false;
+      return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
     }
   },
   created() {
@@ -161,10 +160,16 @@ export default {
   },
   methods: {
     loadmore() {
-      this.loadMoreLoading = true;
-      this.$store.dispatch("set_load_more_to_add", this.view).then(() => {
-        this.loadMoreLoading = false;
-      });
+        this.loadMoreLoading = true;
+        this.$store.dispatch("get_items_for_add_set_v2",{
+            query:this.query,
+            category:this.category,
+            color:this.color,
+            clearOffset:false
+        }).then(() => {
+            this.loadMoreLoading = false;
+
+        });
     },
       changeCategory(){
           this.$store.dispatch("get_items_for_add_set_v2",{
