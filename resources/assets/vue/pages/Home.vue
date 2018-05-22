@@ -26,7 +26,7 @@
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Best From Modasti" more="false" url="/contest">
-				<div v-for="itemId in itemsBestFromModasti" :key="set" class="mycol-lg-3 mycol-sm-6">
+				<div v-for="itemId in itemsBestFromModasti" :key="itemId" class="mycol-lg-3 mycol-sm-6">
 					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>

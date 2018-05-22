@@ -37858,7 +37858,7 @@ var render = function() {
             _vm._l(_vm.itemsBestFromModasti, function(itemId) {
               return _c(
                 "div",
-                { key: _vm.set, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: itemId, staticClass: "mycol-lg-3 mycol-sm-6" },
                 [_c("ItemCard", { attrs: { "item-id": itemId } })],
                 1
               )
@@ -74856,406 +74856,410 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 var state = {
-  item: {},
-  home: {
-    itemsMostPopular: [],
-    setsBestFromCommunity: [],
-    itemsLatestTrends: [],
-    setsBestFromModasti: [],
-    itemsBestFromModasti: [],
-    homeContests: []
-  },
-  trending: [],
-  feed: [],
-  categories: [],
-  category: { items: [] },
-  catIdMap: {},
-  searchResults: {
-    items: [],
-    offset: 0
-  },
-  filters: {
-    brands: {},
-    colors: {},
-    sizes: {},
-    priceOrder: {}
-  },
-  appliedFilters: {},
-  offsets: {
-    category: 0,
-    feed: 0,
-    trending: 0
-  },
-  currentCategoryId: -1
+    item: {},
+    home: {
+        itemsMostPopular: [],
+        setsBestFromCommunity: [],
+        itemsLatestTrends: [],
+        setsBestFromModasti: [],
+        itemsBestFromModasti: [],
+        homeContests: []
+    },
+    trending: [],
+    feed: [],
+    categories: [],
+    category: { items: [] },
+    catIdMap: {},
+    searchResults: {
+        items: [],
+        offset: 0
+    },
+    filters: {
+        brands: {},
+        colors: {},
+        sizes: {},
+        priceOrder: {}
+    },
+    appliedFilters: {},
+    offsets: {
+        category: 0,
+        feed: 0,
+        trending: 0
+    },
+    currentCategoryId: -1
 };
 
 // getters
 var getters = {
-  item: function item(state) {
-    return state.item;
-  },
-  itemsMostPopular: function itemsMostPopular(state) {
-    return state.home.itemsMostPopular;
-  },
-  itemsLatestTrends: function itemsLatestTrends(state) {
-    return state.home.itemsLatestTrends;
-  },
-  setsBestFromCommunity: function setsBestFromCommunity(state) {
-    return state.home.setsBestFromCommunity;
-  },
-  setsBestFromModasti: function setsBestFromModasti(state) {
-    return state.home.setsBestFromModasti;
-  },
-  homeContests: function homeContests(state) {
-    return state.home.homeContests;
-  },
-  trending: function trending(state) {
-    return state.trending;
-  },
-  categories: function categories(stable) {
-    return state.categories;
-  },
-  category: function category(state) {
-    return state.category;
-  },
-  categoryItems: function categoryItems(state) {
-    return state.category.items;
-  },
-  itemSearchResults: function itemSearchResults(state) {
-    return state.searchResults.items;
-  },
-  filters: function filters(state) {
-    return state.filters;
-  },
-  colors: function colors(state) {
-    return state.filters.colors;
-  },
-  sizes: function sizes(state) {
-    return state.filters.sizes;
-  },
-  brands: function brands(state) {
-    return state.filters.brands;
-  },
-  coverage: function coverage(state) {
-    return state.filters.coverage;
-  },
-  priceOrder: function priceOrder(state) {
-    return state.filters.priceOrder;
-  }
+    item: function item(state) {
+        return state.item;
+    },
+    itemsMostPopular: function itemsMostPopular(state) {
+        return state.home.itemsMostPopular;
+    },
+    itemsLatestTrends: function itemsLatestTrends(state) {
+        return state.home.itemsLatestTrends;
+    },
+    setsBestFromCommunity: function setsBestFromCommunity(state) {
+        return state.home.setsBestFromCommunity;
+    },
+    setsBestFromModasti: function setsBestFromModasti(state) {
+        return state.home.setsBestFromModasti;
+    },
+    itemsBestFromModasti: function itemsBestFromModasti(state) {
+        return state.home.itemsBestFromModasti;
+    },
+    homeContests: function homeContests(state) {
+        return state.home.homeContests;
+    },
+    trending: function trending(state) {
+        return state.trending;
+    },
+    categories: function categories(stable) {
+        return state.categories;
+    },
+    category: function category(state) {
+        return state.category;
+    },
+    categoryItems: function categoryItems(state) {
+        return state.category.items;
+    },
+    itemSearchResults: function itemSearchResults(state) {
+        return state.searchResults.items;
+    },
+    filters: function filters(state) {
+        return state.filters;
+    },
+    colors: function colors(state) {
+        return state.filters.colors;
+    },
+    sizes: function sizes(state) {
+        return state.filters.sizes;
+    },
+    brands: function brands(state) {
+        return state.filters.brands;
+    },
+    coverage: function coverage(state) {
+        return state.filters.coverage;
+    },
+    priceOrder: function priceOrder(state) {
+        return state.filters.priceOrder;
+    }
 };
 
 // helper function !
 var search = function search(searchString, offset) {
-  return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/search", {
-    searchString: searchString,
-    searchArea: "items",
-    offset: offset
-  });
+    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/search", {
+        searchString: searchString,
+        searchArea: "items",
+        offset: offset
+    });
 };
 
 // actions
 var actions = {
-  get_item: function get_item(_ref, id) {
-    var commit = _ref.commit;
+    get_item: function get_item(_ref, id) {
+        var commit = _ref.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/itemDetails", {
-      itemId: id
-    }).then(function (res) {
-      commit("ADD_ITEM", res.data.data, { root: true });
-      commit("ADD_ITEMS", res.data.data.similar, { root: true });
-      res.data.data.similar = res.data.data.similar.map(function (item) {
-        return item.id;
-      });
-      commit("ITEM", res.data.data);
-    });
-  },
-  get_home_items: function get_home_items(_ref2) {
-    var commit = _ref2.commit;
-
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/home", {}).then(function (res) {
-      var data = res.data;
-
-      var items = {};
-      commit("ADD_ITEMS", data["items_most_popular"], { root: true });
-      commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
-      commit("ADD_SETS", data["sets_best_from_modasti"], { root: true });
-      commit("ADD_SETS", data["sets_best_from_community"], { root: true });
-      data["contests"].forEach(function (item) {
-        if (+new Date() <= +new Date(item.expires)) {
-          item._type = "new";
-        } else {
-          item._type = "old";
-        }
-        commit("CONTESTSMAP", item, { root: true });
-      });
-      Object.keys(data).forEach(function (key) {
-        items[key] = data[key].map(function (item) {
-          return item.id;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/itemDetails", {
+            itemId: id
+        }).then(function (res) {
+            commit("ADD_ITEM", res.data.data, { root: true });
+            commit("ADD_ITEMS", res.data.data.similar, { root: true });
+            res.data.data.similar = res.data.data.similar.map(function (item) {
+                return item.id;
+            });
+            commit("ITEM", res.data.data);
         });
-      });
-      commit("HOME_ITEMS", items);
-    });
-  },
-  get_feed: function get_feed(_ref3) {
-    var commit = _ref3.commit,
-        state = _ref3.state;
+    },
+    get_home_items: function get_home_items(_ref2) {
+        var commit = _ref2.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/homeFeeds", {
-      offset: state.offsets.feed,
-      limit: 8
-    }).then(function (res) {
-      // commet feed
-      commit("FEED", res.data.data);
-    });
-  },
-  get_trending: function get_trending(_ref4) {
-    var commit = _ref4.commit,
-        state = _ref4.state;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/home", {}).then(function (res) {
+            var data = res.data;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/trending", {
-      offset: state.offsets.trending,
-      limit: 8
-    }).then(function (res) {
-      commit("ADD_ITEMS", res.data.data.items, { root: true });
-      commit("TRENDING", res.data.data.items.map(function (item) {
-        return item.id;
-      }));
-    });
-  },
-  get_categories: function get_categories(_ref5) {
-    var commit = _ref5.commit;
+            var items = {};
+            commit("ADD_ITEMS", data["items_most_popular"], { root: true });
+            commit("ADD_ITEMS", data["items_latest_trends"], { root: true });
+            commit("ADD_ITEMS", data["items_best_from_modasti"], { root: true });
+            commit("ADD_SETS", data["sets_best_from_modasti"], { root: true });
+            commit("ADD_SETS", data["sets_best_from_community"], { root: true });
+            data["contests"].forEach(function (item) {
+                if (+new Date() <= +new Date(item.expires)) {
+                    item._type = "new";
+                } else {
+                    item._type = "old";
+                }
+                commit("CONTESTSMAP", item, { root: true });
+            });
+            Object.keys(data).forEach(function (key) {
+                items[key] = data[key].map(function (item) {
+                    return item.id;
+                });
+            });
+            commit("HOME_ITEMS", items);
+        });
+    },
+    get_feed: function get_feed(_ref3) {
+        var commit = _ref3.commit,
+            state = _ref3.state;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsCategories", {}).then(function (res) {
-      commit("CATEGORIES", res.data.data);
-    });
-  },
-  get_category_items: function get_category_items(_ref6, catId) {
-    var commit = _ref6.commit,
-        state = _ref6.state;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/homeFeeds", {
+            offset: state.offsets.feed,
+            limit: 8
+        }).then(function (res) {
+            // commet feed
+            commit("FEED", res.data.data);
+        });
+    },
+    get_trending: function get_trending(_ref4) {
+        var commit = _ref4.commit,
+            state = _ref4.state;
 
-    catId = catId || state.currentCategoryId;
-    commit("CURRENT_CAT", catId);
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/trending", {
+            offset: state.offsets.trending,
+            limit: 8
+        }).then(function (res) {
+            commit("ADD_ITEMS", res.data.data.items, { root: true });
+            commit("TRENDING", res.data.data.items.map(function (item) {
+                return item.id;
+            }));
+        });
+    },
+    get_categories: function get_categories(_ref5) {
+        var commit = _ref5.commit;
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/filter", _extends({
-      categoryId: catId,
-      offset: state.offsets.category
-    }, state.appliedFilters)).then(function (res) {
-      commit("ADD_ITEMS", res.data.data);
-      commit("CATEGORY", {
-        items: res.data.data.map(function (item) {
-          return item.id;
-        }),
-        id: catId
-      });
-    });
-  },
-  get_category_items_by_name: function get_category_items_by_name(_ref7, name) {
-    var commit = _ref7.commit,
-        state = _ref7.state,
-        dispatch = _ref7.dispatch;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getItemsCategories", {}).then(function (res) {
+            commit("CATEGORIES", res.data.data);
+        });
+    },
+    get_category_items: function get_category_items(_ref6, catId) {
+        var commit = _ref6.commit,
+            state = _ref6.state;
 
-    var catId = state.catIdMap[name];
-    if (!catId) return Promise.reject(new Error("category not found"));
-    return dispatch("get_category_items", catId);
-  },
-  get_more_category_items: function get_more_category_items(_ref8) {
-    var commit = _ref8.commit,
-        state = _ref8.state;
+        catId = catId || state.currentCategoryId;
+        commit("CURRENT_CAT", catId);
 
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/filter", _extends({
-      categoryId: state.currentCategoryId,
-      offset: state.offsets.category + 8
-    }, state.appliedFilters)).then(function (res) {
-      commit("ADD_ITEMS", res.data.data);
-      commit("MORE_CATEGORY_ITEMS", res.data.data.map(function (item) {
-        return item.id;
-      }));
-    });
-  },
-  applyFilters: function applyFilters(_ref9) {
-    var commit = _ref9.commit;
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/filter", _extends({
+            categoryId: catId,
+            offset: state.offsets.category
+        }, state.appliedFilters)).then(function (res) {
+            commit("ADD_ITEMS", res.data.data);
+            commit("CATEGORY", {
+                items: res.data.data.map(function (item) {
+                    return item.id;
+                }),
+                id: catId
+            });
+        });
+    },
+    get_category_items_by_name: function get_category_items_by_name(_ref7, name) {
+        var commit = _ref7.commit,
+            state = _ref7.state,
+            dispatch = _ref7.dispatch;
 
-    var getFilterd = function getFilterd(obj) {
-      return Object.keys(obj).map(function (key) {
-        return obj[key].isSelected ? obj[key] : null;
-      }).filter(function (c) {
-        return c;
-      }).map(function (i) {
-        return i.id;
-      });
-    };
-    var filter = {
-      brands: getFilterd(state.filters.brands),
-      colors: getFilterd(state.filters.colors),
-      sizes: getFilterd(state.filters.sizes),
-      coverage: getFilterd(state.filters.coverage)
-    };
-    if (state.filters.priceOrder[1].isSelected || state.filters.priceOrder[2].isSelected) {
-      filter.orderby = "price";
-      filter.order = state.filters.priceOrder[1].isSelected ? "DESC" : "ASC";
+        var catId = state.catIdMap[name];
+        if (!catId) return Promise.reject(new Error("category not found"));
+        return dispatch("get_category_items", catId);
+    },
+    get_more_category_items: function get_more_category_items(_ref8) {
+        var commit = _ref8.commit,
+            state = _ref8.state;
+
+        return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/filter", _extends({
+            categoryId: state.currentCategoryId,
+            offset: state.offsets.category + 8
+        }, state.appliedFilters)).then(function (res) {
+            commit("ADD_ITEMS", res.data.data);
+            commit("MORE_CATEGORY_ITEMS", res.data.data.map(function (item) {
+                return item.id;
+            }));
+        });
+    },
+    applyFilters: function applyFilters(_ref9) {
+        var commit = _ref9.commit;
+
+        var getFilterd = function getFilterd(obj) {
+            return Object.keys(obj).map(function (key) {
+                return obj[key].isSelected ? obj[key] : null;
+            }).filter(function (c) {
+                return c;
+            }).map(function (i) {
+                return i.id;
+            });
+        };
+        var filter = {
+            brands: getFilterd(state.filters.brands),
+            colors: getFilterd(state.filters.colors),
+            sizes: getFilterd(state.filters.sizes),
+            coverage: getFilterd(state.filters.coverage)
+        };
+        if (state.filters.priceOrder[1].isSelected || state.filters.priceOrder[2].isSelected) {
+            filter.orderby = "price";
+            filter.order = state.filters.priceOrder[1].isSelected ? "DESC" : "ASC";
+        }
+        commit("APPLY_FILTERS", filter);
+    },
+    search_item: function search_item(_ref10, searchString) {
+        var commit = _ref10.commit,
+            state = _ref10.state;
+
+        return search(searchString, state.searchResults.offset).then(function (res) {
+            commit("ADD_ITEMS", res.data.data, { root: true });
+            commit("SEARCH_RESULTS_OFFSET");
+            commit("SEARCH_RESULTS", res.data.data.map(function (item) {
+                return item.id;
+            }));
+        });
+    },
+    search_item_more: function search_item_more(_ref11, searchString) {
+        var commit = _ref11.commit,
+            state = _ref11.state;
+
+        return search(searchString, state.searchResults.offset).then(function (res) {
+            commit("ADD_ITEMS", res.data.data, { root: true });
+            commit("SEARCH_RESULTS_OFFSET");
+            commit("SEARCH_RESULTS_MORE", res.data.data.map(function (item) {
+                return item.id;
+            }));
+        });
+    },
+    search_item_offset_reset: function search_item_offset_reset(_ref12) {
+        var commit = _ref12.commit;
+
+        commit("SEARCH_RESULTS_OFFSET_RESET");
+    },
+    like_item_toggle: function like_item_toggle(_ref13) {
+        var commit = _ref13.commit;
+
+        commit("LIKE_ITEM_TOGGLE");
+    },
+    map_filters: function map_filters(_ref14) {
+        var commit = _ref14.commit,
+            rootGetters = _ref14.rootGetters;
+
+        var sizes = {};
+        rootGetters.getSizes.forEach(function (size) {
+            return size && (sizes[size] = { id: size });
+        });
+        var colors = {};
+        rootGetters.getColors.forEach(function (color) {
+            return colors[color.id] = color;
+        });
+        var brands = {};
+        rootGetters.getBrands.forEach(function (brand) {
+            return brands[brand.id] = brand;
+        });
+        commit("MAP_FILTERS", { sizes: sizes, colors: colors, brands: brands });
     }
-    commit("APPLY_FILTERS", filter);
-  },
-  search_item: function search_item(_ref10, searchString) {
-    var commit = _ref10.commit,
-        state = _ref10.state;
-
-    return search(searchString, state.searchResults.offset).then(function (res) {
-      commit("ADD_ITEMS", res.data.data, { root: true });
-      commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS", res.data.data.map(function (item) {
-        return item.id;
-      }));
-    });
-  },
-  search_item_more: function search_item_more(_ref11, searchString) {
-    var commit = _ref11.commit,
-        state = _ref11.state;
-
-    return search(searchString, state.searchResults.offset).then(function (res) {
-      commit("ADD_ITEMS", res.data.data, { root: true });
-      commit("SEARCH_RESULTS_OFFSET");
-      commit("SEARCH_RESULTS_MORE", res.data.data.map(function (item) {
-        return item.id;
-      }));
-    });
-  },
-  search_item_offset_reset: function search_item_offset_reset(_ref12) {
-    var commit = _ref12.commit;
-
-    commit("SEARCH_RESULTS_OFFSET_RESET");
-  },
-  like_item_toggle: function like_item_toggle(_ref13) {
-    var commit = _ref13.commit;
-
-    commit("LIKE_ITEM_TOGGLE");
-  },
-  map_filters: function map_filters(_ref14) {
-    var commit = _ref14.commit,
-        rootGetters = _ref14.rootGetters;
-
-    var sizes = {};
-    rootGetters.getSizes.forEach(function (size) {
-      return size && (sizes[size] = { id: size });
-    });
-    var colors = {};
-    rootGetters.getColors.forEach(function (color) {
-      return colors[color.id] = color;
-    });
-    var brands = {};
-    rootGetters.getBrands.forEach(function (brand) {
-      return brands[brand.id] = brand;
-    });
-    commit("MAP_FILTERS", { sizes: sizes, colors: colors, brands: brands });
-  }
 };
 
 // mutations
 var mutations = {
-  ITEM: function ITEM(state, data) {
-    state.item = data;
-  },
-  HOME_ITEMS: function HOME_ITEMS(_ref15, data) {
-    var home = _ref15.home;
+    ITEM: function ITEM(state, data) {
+        state.item = data;
+    },
+    HOME_ITEMS: function HOME_ITEMS(_ref15, data) {
+        var home = _ref15.home;
 
-    home.itemsMostPopular = data.items_most_popular;
-    home.itemsLatestTrends = data.items_latest_trends;
-    home.itemsBestFromModasti = data.items_best_from_modasti;
-    home.setsBestFromCommunity = data.sets_best_from_community;
-    home.homeContests = data.contests;
-  },
-  TRENDING: function TRENDING(state, data) {
-    state.trending = state.trending.concat(data);
-    state.offsets.trending += 8;
-  },
-  FEED: function FEED(state, data) {
-    state.feed = state.feed.concat(data);
-    state.offsets.feed += 8;
-  },
-  CATEGORIES: function CATEGORIES(state, data) {
-    var temp = {};
-    for (var key in data) {
-      temp[data[key].id] = data[key];
-      state.catIdMap[key.toLocaleLowerCase()] = data[key].id;
-      data[key].subcategories.forEach(function (sub) {
-        return temp[sub.id] = sub;
-      });
-      delete data[key];
+        home.itemsLatestTrends = data.items_latest_trends;
+        home.itemsBestFromModasti = data.items_best_from_modasti;
+        home.itemsMostPopular = data.items_most_popular;
+        home.setsBestFromCommunity = data.sets_best_from_community;
+        home.homeContests = data.contests;
+    },
+    TRENDING: function TRENDING(state, data) {
+        state.trending = state.trending.concat(data);
+        state.offsets.trending += 8;
+    },
+    FEED: function FEED(state, data) {
+        state.feed = state.feed.concat(data);
+        state.offsets.feed += 8;
+    },
+    CATEGORIES: function CATEGORIES(state, data) {
+        var temp = {};
+        for (var key in data) {
+            temp[data[key].id] = data[key];
+            state.catIdMap[key.toLocaleLowerCase()] = data[key].id;
+            data[key].subcategories.forEach(function (sub) {
+                return temp[sub.id] = sub;
+            });
+            delete data[key];
+        }
+        state.categories = temp;
+    },
+    CATEGORY: function CATEGORY(state, data) {
+        state.category = _extends({}, state.categories[data.id], {
+            items: data.items
+        });
+    },
+    MORE_CATEGORY_ITEMS: function MORE_CATEGORY_ITEMS(state, items) {
+        state.offsets.category += 8;
+        state.category.items = state.category.items.concat(items);
+    },
+    APPLY_FILTERS: function APPLY_FILTERS(state, filter) {
+        state.appliedFilters = filter;
+    },
+    SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref16) {
+        var searchResults = _ref16.searchResults;
+
+        searchResults.offset += 8;
+    },
+    SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref17) {
+        var searchResults = _ref17.searchResults;
+
+        searchResults.offset = 0;
+    },
+    SEARCH_RESULTS: function SEARCH_RESULTS(state, data) {
+        state.searchResults.items = data;
+    },
+    SEARCH_RESULTS_MORE: function SEARCH_RESULTS_MORE(state, data) {
+        state.searchResults.items = state.searchResults.items.concat(data);
+    },
+    MAP_FILTERS: function MAP_FILTERS(state, filters) {
+        filters.cat = -1;
+        filters.priceOrder = {
+            1: { id: 1, title: "From High To Low" },
+            2: { id: 2, title: "From Low To High" }
+        };
+        filters.coverage = {
+            1: { id: 1, title: "low" },
+            2: { id: 2, title: "medium" },
+            3: { id: 3, title: "high" },
+            4: { id: 4, title: "full" }
+        };
+        state.filters = filters;
+    },
+    ADD_FILTER: function ADD_FILTER(state, payload) {
+        if (!state.filters[payload.filter][payload.id]) return;
+        state.filters[payload.filter][payload.id].isSelected = true;
+        state.filters[payload.filter][payload.id] = _extends({}, state.filters[payload.filter][payload.id]);
+    },
+    REMOVE_FILTER: function REMOVE_FILTER(state, payload) {
+        if (!state.filters[payload.filter][payload.id]) return;
+        state.filters[payload.filter][payload.id].isSelected = false;
+        state.filters[payload.filter][payload.id] = _extends({}, state.filters[payload.filter][payload.id]);
+    },
+    CHANGE_FILTER_SUB: function CHANGE_FILTER_SUB(state, id) {
+        state.filters.sub = id;
+    },
+    LIKE_ITEM_TOGGLE: function LIKE_ITEM_TOGGLE(state) {
+        if (state.item.title_en) {
+            state.item.is_liked = !state.item.is_liked;
+            state.item.is_liked ? state.item.likes++ : state.item.likes--;
+            state.item = _extends({}, state.item);
+        }
+    },
+    CURRENT_CAT: function CURRENT_CAT(state, id) {
+        state.currentCategoryId = id;
     }
-    state.categories = temp;
-  },
-  CATEGORY: function CATEGORY(state, data) {
-    state.category = _extends({}, state.categories[data.id], {
-      items: data.items
-    });
-  },
-  MORE_CATEGORY_ITEMS: function MORE_CATEGORY_ITEMS(state, items) {
-    state.offsets.category += 8;
-    state.category.items = state.category.items.concat(items);
-  },
-  APPLY_FILTERS: function APPLY_FILTERS(state, filter) {
-    state.appliedFilters = filter;
-  },
-  SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref16) {
-    var searchResults = _ref16.searchResults;
-
-    searchResults.offset += 8;
-  },
-  SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref17) {
-    var searchResults = _ref17.searchResults;
-
-    searchResults.offset = 0;
-  },
-  SEARCH_RESULTS: function SEARCH_RESULTS(state, data) {
-    state.searchResults.items = data;
-  },
-  SEARCH_RESULTS_MORE: function SEARCH_RESULTS_MORE(state, data) {
-    state.searchResults.items = state.searchResults.items.concat(data);
-  },
-  MAP_FILTERS: function MAP_FILTERS(state, filters) {
-    filters.cat = -1;
-    filters.priceOrder = {
-      1: { id: 1, title: "From High To Low" },
-      2: { id: 2, title: "From Low To High" }
-    };
-    filters.coverage = {
-      1: { id: 1, title: "low" },
-      2: { id: 2, title: "medium" },
-      3: { id: 3, title: "high" },
-      4: { id: 4, title: "full" }
-    };
-    state.filters = filters;
-  },
-  ADD_FILTER: function ADD_FILTER(state, payload) {
-    if (!state.filters[payload.filter][payload.id]) return;
-    state.filters[payload.filter][payload.id].isSelected = true;
-    state.filters[payload.filter][payload.id] = _extends({}, state.filters[payload.filter][payload.id]);
-  },
-  REMOVE_FILTER: function REMOVE_FILTER(state, payload) {
-    if (!state.filters[payload.filter][payload.id]) return;
-    state.filters[payload.filter][payload.id].isSelected = false;
-    state.filters[payload.filter][payload.id] = _extends({}, state.filters[payload.filter][payload.id]);
-  },
-  CHANGE_FILTER_SUB: function CHANGE_FILTER_SUB(state, id) {
-    state.filters.sub = id;
-  },
-  LIKE_ITEM_TOGGLE: function LIKE_ITEM_TOGGLE(state) {
-    if (state.item.title_en) {
-      state.item.is_liked = !state.item.is_liked;
-      state.item.is_liked ? state.item.likes++ : state.item.likes--;
-      state.item = _extends({}, state.item);
-    }
-  },
-  CURRENT_CAT: function CURRENT_CAT(state, id) {
-    state.currentCategoryId = id;
-  }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
+    state: state,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
 });
 
 /***/ }),
