@@ -370,7 +370,8 @@ class ItemsController extends Controller
         }
 
         if ($request->filled('category') && ($request->get('category') == "liked_items")) {
-            $data['errors']=($request->get('category') == "liked_items");
+            $data['errors']=($request->get('category') === "liked_items");
+            $data['errors_2']=$request->get('category');
             $query->whereHas('likes', function ($query) use ($request) {
                 $query->where('user_id', fauth()->id());
             });
