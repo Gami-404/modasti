@@ -237,4 +237,43 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+
+    /**
+     * POST api/search
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function searchAutoComplete(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $for = $request->get('searchArea', "items");
+        $validator = Validator::make($request->all(), [
+            'searchString' => 'required',
+            'searchArea' => 'required|in:items,sets,users,collections',
+        ]);
+        if ($validator->fails()) {
+            $data['errors'] = ($validator->errors()->all());
+            return response()->json($data, 400);
+        }
+        $classes = [
+            "items" => Post::class,
+            "sets" => Set::class,
+            "users" => User::class,
+            "collections" => Collection::class,
+        ];
+        $maps = [
+            "users" => '\Maps\User\users',
+            "sets" => '\Maps\Set\sets',
+            "items" => '\Maps\Item\items',
+            "collections" => '\Maps\Collection\collections',
+        ];
+        $class = $classes[$for];
+
+        $objects = $class::search($request->get('searchString'))->take($limit)->offset($offset)->get();
+        $data['data'] = $maps[$for]($objects);
+        return response()->json($data);
+    }
+
 }

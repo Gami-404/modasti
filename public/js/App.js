@@ -64782,7 +64782,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.follow {\n  background: #ffbeb8;\n}\n.avatar img {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.follow {\n  background: #ffbeb8;\n}\n.profile-after img {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -65382,7 +65382,7 @@ var render = function() {
             { staticClass: "gridContainer" },
             [
               _c("div", { staticClass: "top_userProfile clearfix" }, [
-                _c("div", { staticClass: "avatar" }, [
+                _c("div", { staticClass: "avatar profile-after" }, [
                   _c("img", {
                     attrs: {
                       src: _vm.user.photo
@@ -76519,7 +76519,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.active-header {\n  border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n  z-index: 50;\n}\n.mobileMenu .in {\n  overflow: scroll;\n}\n#header .top .rightArea .search form select {\n  text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n  color: #df6262;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.active-header {\n    border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n    z-index: 50;\n}\n.mobileMenu .in {\n    overflow: scroll;\n}\n#header .top .rightArea .search form select {\n    text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n    color: #df6262;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -76644,7 +76644,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
 
 
 
@@ -76655,42 +76657,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Login: __WEBPACK_IMPORTED_MODULE_0__popups_Login___default.a,
-    SignUp: __WEBPACK_IMPORTED_MODULE_1__popups_Signup___default.a,
-    Forget: __WEBPACK_IMPORTED_MODULE_2__popups_Forget___default.a,
-    WrapperPopups: __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups___default.a,
-    UserActions: __WEBPACK_IMPORTED_MODULE_5__UserActions___default.a,
-    SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_4__popups_SetCollectionEditPopup___default.a,
-    ContestUpload: __WEBPACK_IMPORTED_MODULE_3__popups_ContestUpload___default.a
-  },
-  data: function data() {
-    return {
-      navOpend: false,
-      routes: __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__["a" /* default */],
-      area: "item",
-      searchString: ""
-    };
-  },
-
-  methods: {
-    logout: function logout() {
-      this.$store.dispatch("logout");
-      this.$router.push("/");
+    components: {
+        Login: __WEBPACK_IMPORTED_MODULE_0__popups_Login___default.a,
+        SignUp: __WEBPACK_IMPORTED_MODULE_1__popups_Signup___default.a,
+        Forget: __WEBPACK_IMPORTED_MODULE_2__popups_Forget___default.a,
+        WrapperPopups: __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups___default.a,
+        UserActions: __WEBPACK_IMPORTED_MODULE_5__UserActions___default.a,
+        SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_4__popups_SetCollectionEditPopup___default.a,
+        ContestUpload: __WEBPACK_IMPORTED_MODULE_3__popups_ContestUpload___default.a
+        // Autocomplete
     },
-    search: function search() {
-      if (this.searchString) {
-        this.$router.push("/search/" + this.area + "/" + this.searchString);
-      }
-      // GEMI was Here
-      this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
+    data: function data() {
+        return {
+            navOpend: false,
+            routes: __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__["a" /* default */],
+            area: "item",
+            searchString: "",
+            source: [{ id: 1, name: 'abc' }, { id: 2, name: 'def' }]
+        };
+    },
+
+    methods: {
+        logout: function logout() {
+            this.$store.dispatch("logout");
+            this.$router.push("/");
+        },
+        search: function search() {
+            if (this.searchString) {
+                this.$router.push("/search/" + this.area + "/" + this.searchString);
+            }
+            // GEMI was Here
+            this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
+        },
+        autoComplete: function autoComplete(event) {
+            console.log(event, event.value);
+        }
+    },
+    computed: {
+        isAuth: function isAuth() {
+            return this.$store.getters.isAuth;
+        }
     }
-  },
-  computed: {
-    isAuth: function isAuth() {
-      return this.$store.getters.isAuth;
-    }
-  }
 });
 
 /***/ }),
