@@ -73,7 +73,6 @@ const actions = {
         }).then(() => dispatch("get_set_comments", setId));
     },
     get_items_for_add_set({commit, state, rootGetters},q) {
-        console.log(q);
         return API.post("/getSearchForAddSet", {
             query: q.query,
             category:q.category,

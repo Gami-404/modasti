@@ -60811,6 +60811,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Loading__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_CategoriesDropdown__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_CategoriesDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_CategoriesDropdown__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ColorDropdown__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ColorDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_ColorDropdown__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash__);
+var _this5 = this;
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -60889,181 +60905,240 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+
+
+var $vm = null;
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    SetCollectionAddPopup: __WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup___default.a,
-    WrapperPopups: __WEBPACK_IMPORTED_MODULE_1__wrappers_WrapperPopups___default.a,
-    Loading: __WEBPACK_IMPORTED_MODULE_3__components_Loading___default.a
-  },
+    components: {
+        SetCollectionAddPopup: __WEBPACK_IMPORTED_MODULE_2__layout_popups_SetCollectionAddPopup___default.a,
+        WrapperPopups: __WEBPACK_IMPORTED_MODULE_1__wrappers_WrapperPopups___default.a,
+        Loading: __WEBPACK_IMPORTED_MODULE_3__components_Loading___default.a,
+        CategoriesDropdown: __WEBPACK_IMPORTED_MODULE_5__components_CategoriesDropdown___default.a,
+        ColorDropdown: __WEBPACK_IMPORTED_MODULE_6__components_ColorDropdown___default.a
+    },
 
-  data: function data() {
-    return {
-      view: 0,
-      stage: {},
-      layer: {},
-      selected: null,
-      itemsCounter: 0,
-      flipBit: -1,
-      base64Img: "",
-      collectionItems: [],
-      collectionSets: [],
-      loading: true
-    };
-  },
+    data: function data() {
+        return {
+            view: 0,
+            stage: {},
+            layer: {},
+            selected: null,
+            itemsCounter: 0,
+            flipBit: -1,
+            base64Img: "",
+            collectionItems: [],
+            collectionSets: [],
+            loading: true,
+            query: '',
+            color: 0,
+            category: 0,
+            loadMoreLoading: false
+        };
+    },
 
-  computed: {
-    items: function items() {
-      return this.$store.getters.itemsToAddCollections(this.view);
+    computed: {
+        items: function items() {
+            return this.$store.getters.itemsToAddSet;
+        },
+        canloadmore: function canloadmore() {
+            return this.items && this.items.length != 0 && this.items.length % 6 === 0;
+        }
+    },
+    created: function created() {
+        var _this = this;
+
+        this.$store.dispatch("get_items_for_add_set", {
+            query: this.query,
+            category: this.category,
+            color: this.color,
+            clearOffset: true
+        }).then(function () {
+            _this.loading = false;
+        });
+        $vm = this;
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
+        var width = this.$refs.droparea.offsetWidth - 20;
+        var height = this.$refs.droparea.offsetHeight - 20;
+        this.stage = new Konva.Stage({
+            container: "droparea",
+            width: width,
+            height: height
+        });
+        this.layer = new Konva.Layer();
+        this.stage.add(this.layer);
+        var drawImage = this.drawImage;
+        var transformerFunction = function transformerFunction(e) {
+            if (e.target === _this2.stage) {
+                _this2.stage.find("Transformer").destroy();
+                _this2.layer.draw();
+                _this2.selected = null;
+                _this2.stage.container().style.cursor = "default";
+                return;
+            } else if (e.target.hasName("img") && e.target !== _this2.selected) {
+                _this2.stage.find("Transformer").destroy();
+                var tr = new Konva.Transformer();
+                _this2.layer.add(tr);
+                tr.attachTo(e.target);
+                _this2.selected = e.target;
+                _this2.layer.draw();
+            }
+        };
+
+        this.stage.on("click", transformerFunction);
+        this.stage.on("dragstart", transformerFunction);
+    },
+
+    methods: {
+        nothing: function nothing() {},
+        loadmore: function loadmore() {
+            var _this3 = this;
+
+            this.loadMoreLoading = true;
+            this.$store.dispatch("get_items_for_add_set", {
+                query: this.query,
+                category: this.category,
+                color: this.color,
+                clearOffset: false
+            }).then(function () {
+                _this3.loadMoreLoading = false;
+                _this3.loading = false;
+            });
+        },
+        changeCategory: function changeCategory() {
+            var _this4 = this;
+
+            this.loading = true;
+            this.$store.dispatch("get_items_for_add_set", {
+                query: this.query,
+                category: this.category,
+                color: this.color,
+                clearOffset: true
+            }).then(function () {
+                _this4.loading = false;
+            });
+        },
+
+        searchItems: __WEBPACK_IMPORTED_MODULE_7_lodash___default.a.debounce(function (event) {
+            _this5.loading = true;
+
+            $vm.$store.dispatch("get_items_for_add_set", {
+                query: $vm.query,
+                category: $vm.category,
+                color: $vm.color,
+                clearOffset: true
+            }).then(function () {
+                $vm.loading = false;
+            });
+        }, 500).bind(this),
+        dragStart: function dragStart(event) {
+            event.dataTransfer.setData("item", JSON.stringify({
+                src: event.target.src,
+                id: event.target.getAttribute("data-id"),
+                type: event.target.getAttribute("data-type")
+            }));
+        },
+        drop: function drop(event) {
+            var _this6 = this;
+
+            event.preventDefault();
+            this.itemsCounter++;
+            var item = JSON.parse(event.dataTransfer.getData("item"));
+            if (item.type == "set") {
+                this.collectionSets.indexOf(item.id) === -1 ? this.collectionSets.push(item.id) : null;
+            } else {
+                this.collectionItems.indexOf(item.id) === -1 ? this.collectionItems.push(item.id) : null;
+            }
+            var img = new Image();
+            img.onload = function () {
+                _this6.drawImage(img, item.id, event.offsetX, event.offsetY);
+            };
+            img.src = item.src;
+        },
+        drawImage: function drawImage(imageObj, id, x, y) {
+            // darth vader
+            var darthVaderImg = new Konva.Image({
+                image: imageObj,
+                name: "img",
+                id: id,
+                x: x - imageObj.width / 2,
+                y: y - imageObj.height / 2,
+                draggable: true
+            });
+
+            // add cursor styling
+            darthVaderImg.on("mouseover", function () {
+                document.body.style.cursor = "pointer";
+            });
+            darthVaderImg.on("mouseout", function () {
+                document.body.style.cursor = "default";
+            });
+
+            this.stage.find("Transformer").destroy();
+
+            var tr = new Konva.Transformer();
+            this.layer.add(darthVaderImg);
+            this.layer.add(tr);
+            tr.attachTo(darthVaderImg);
+            this.selected = darthVaderImg;
+            this.layer.draw();
+        },
+        remove: function remove() {
+            if (!this.selected) return;
+            this.itemsCounter--;
+            var index = this.collectionItems.indexOf(this.selected.getId());
+            this.collectionItems.splice(index, 1);
+            this.selected.destroy();
+            this.stage.find("Transformer").destroy();
+            this.layer.draw();
+        },
+        forward: function forward() {
+            this.stage.find("Transformer").destroy();
+            this.selected.moveUp();
+            this.selected = null;
+            this.layer.draw();
+        },
+        backward: function backward() {
+            this.stage.find("Transformer").destroy();
+            this.selected.moveDown();
+            this.selected = null;
+            this.layer.draw();
+        },
+        flip: function flip() {
+            this.selected.scaleX(this.flipBit);
+            this.selected.x(this.selected.x() + this.selected.width() * this.flipBit * -1);
+            this.flipBit *= -1;
+
+            this.stage.find("Transformer").destroy();
+
+            var tr = new Konva.Transformer();
+            this.layer.add(tr);
+
+            tr.attachTo(this.selected);
+
+            this.layer.draw();
+        },
+        copy: function copy() {
+            var cloned = this.selected.clone();
+            cloned.x(cloned.x() - 50);
+            cloned.y(cloned.y() - 50);
+            this.selected = cloned;
+            this.layer.add(cloned);
+            this.stage.find("Transformer").destroy();
+            var tr = new Konva.Transformer();
+            this.layer.add(tr);
+            tr.attachTo(cloned);
+            this.layer.draw();
+            this.itemsCounter++;
+        },
+        publish: function publish() {
+            this.$router.push({ query: { popup: "create_collection" } });
+            this.base64Img = this.stage.toDataURL();
+        }
     }
-  },
-  created: function created() {
-    var _this = this;
-
-    this.$store.dispatch("get_items_for_add_collection").then(function () {
-      _this.loading = false;
-    });
-  },
-  mounted: function mounted() {
-    var _this2 = this;
-
-    var width = this.$refs.droparea.offsetWidth - 20;
-    var height = this.$refs.droparea.offsetHeight - 20;
-    this.stage = new Konva.Stage({
-      container: "droparea",
-      width: width,
-      height: height
-    });
-    this.layer = new Konva.Layer();
-    this.stage.add(this.layer);
-    var drawImage = this.drawImage;
-    var transformerFunction = function transformerFunction(e) {
-      if (e.target === _this2.stage) {
-        _this2.stage.find("Transformer").destroy();
-        _this2.layer.draw();
-        _this2.selected = null;
-        _this2.stage.container().style.cursor = "default";
-        return;
-      } else if (e.target.hasName("img") && e.target !== _this2.selected) {
-        _this2.stage.find("Transformer").destroy();
-        var tr = new Konva.Transformer();
-        _this2.layer.add(tr);
-        tr.attachTo(e.target);
-        _this2.selected = e.target;
-        _this2.layer.draw();
-      }
-    };
-
-    this.stage.on("click", transformerFunction);
-    this.stage.on("dragstart", transformerFunction);
-  },
-
-  methods: {
-    nothing: function nothing() {},
-    dragStart: function dragStart(event) {
-      event.dataTransfer.setData("item", JSON.stringify({
-        src: event.target.src,
-        id: event.target.getAttribute("data-id"),
-        type: event.target.getAttribute("data-type")
-      }));
-    },
-    drop: function drop(event) {
-      var _this3 = this;
-
-      event.preventDefault();
-      this.itemsCounter++;
-      var item = JSON.parse(event.dataTransfer.getData("item"));
-      if (item.type == "set") {
-        this.collectionSets.indexOf(item.id) === -1 ? this.collectionSets.push(item.id) : null;
-      } else {
-        this.collectionItems.indexOf(item.id) === -1 ? this.collectionItems.push(item.id) : null;
-      }
-      var img = new Image();
-      img.onload = function () {
-        _this3.drawImage(img, item.id, event.offsetX, event.offsetY);
-      };
-      img.src = item.src;
-    },
-    drawImage: function drawImage(imageObj, id, x, y) {
-      // darth vader
-      var darthVaderImg = new Konva.Image({
-        image: imageObj,
-        name: "img",
-        id: id,
-        x: x - imageObj.width / 2,
-        y: y - imageObj.height / 2,
-        draggable: true
-      });
-
-      // add cursor styling
-      darthVaderImg.on("mouseover", function () {
-        document.body.style.cursor = "pointer";
-      });
-      darthVaderImg.on("mouseout", function () {
-        document.body.style.cursor = "default";
-      });
-
-      this.stage.find("Transformer").destroy();
-
-      var tr = new Konva.Transformer();
-      this.layer.add(darthVaderImg);
-      this.layer.add(tr);
-      tr.attachTo(darthVaderImg);
-      this.selected = darthVaderImg;
-      this.layer.draw();
-    },
-    remove: function remove() {
-      if (!this.selected) return;
-      this.itemsCounter--;
-      var index = this.collectionItems.indexOf(this.selected.getId());
-      this.collectionItems.splice(index, 1);
-      this.selected.destroy();
-      this.stage.find("Transformer").destroy();
-      this.layer.draw();
-    },
-    forward: function forward() {
-      this.stage.find("Transformer").destroy();
-      this.selected.moveUp();
-      this.selected = null;
-      this.layer.draw();
-    },
-    backward: function backward() {
-      this.stage.find("Transformer").destroy();
-      this.selected.moveDown();
-      this.selected = null;
-      this.layer.draw();
-    },
-    flip: function flip() {
-      this.selected.scaleX(this.flipBit);
-      this.selected.x(this.selected.x() + this.selected.width() * this.flipBit * -1);
-      this.flipBit *= -1;
-
-      this.stage.find("Transformer").destroy();
-
-      var tr = new Konva.Transformer();
-      this.layer.add(tr);
-
-      tr.attachTo(this.selected);
-
-      this.layer.draw();
-    },
-    copy: function copy() {
-      var cloned = this.selected.clone();
-      cloned.x(cloned.x() - 50);
-      cloned.y(cloned.y() - 50);
-      this.selected = cloned;
-      this.layer.add(cloned);
-      this.stage.find("Transformer").destroy();
-      var tr = new Konva.Transformer();
-      this.layer.add(tr);
-      tr.attachTo(cloned);
-      this.layer.draw();
-      this.itemsCounter++;
-    },
-    publish: function publish() {
-      this.$router.push({ query: { popup: "create_collection" } });
-      this.base64Img = this.stage.toDataURL();
-    }
-  }
 });
 
 /***/ }),
@@ -61206,128 +61281,159 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "rightArea" }, [
-          _c("div", { staticClass: "theTabs" }, [
-            _c(
-              "a",
-              {
-                class: { active: _vm.view == 0 },
-                attrs: { href: "#" },
+          _c(
+            "div",
+            { staticClass: "theTabs" },
+            [
+              _c("CategoriesDropdown", {
+                attrs: {
+                  id: "set-select-categories",
+                  options: [{ id: "liked_items", label: "Liked item" }]
+                },
+                on: { change: _vm.changeCategory },
+                model: {
+                  value: _vm.category,
+                  callback: function($$v) {
+                    _vm.category = $$v
+                  },
+                  expression: "category"
+                }
+              }),
+              _vm._v(" "),
+              _c("ColorDropdown", {
+                attrs: { id: "set-select-colors" },
+                on: { change: _vm.changeCategory },
+                model: {
+                  value: _vm.color,
+                  callback: function($$v) {
+                    _vm.color = $$v
+                  },
+                  expression: "color"
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.trim",
+                    value: _vm.query,
+                    expression: "query",
+                    modifiers: { trim: true }
+                  }
+                ],
+                attrs: {
+                  id: "set-item-search",
+                  type: "search",
+                  col: "50",
+                  placeholder: "Search for item ..."
+                },
+                domProps: { value: _vm.query },
                 on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.view = 0
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.query = $event.target.value.trim()
+                    },
+                    _vm.changeCategory
+                  ],
+                  blur: function($event) {
+                    _vm.$forceUpdate()
                   }
                 }
-              },
-              [_vm._v("Liked Sets")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: { active: _vm.view == 1 },
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.view = 1
-                  }
-                }
-              },
-              [_vm._v("Liked Items")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: { active: _vm.view == 2 },
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.view = 2
-                  }
-                }
-              },
-              [_vm._v("clothing")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: { active: _vm.view == 3 },
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.view = 3
-                  }
-                }
-              },
-              [_vm._v("shoes")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: { active: _vm.view == 4 },
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.view = 4
-                  }
-                }
-              },
-              [_vm._v("beauty")]
-            )
-          ]),
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "theProducts" }, [
             _c(
               "div",
               { staticClass: "myrow clearfix" },
-              _vm._l(_vm.items, function(item, i) {
-                return _c("div", { key: i, staticClass: "mycol-sm-4" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "one",
-                      attrs: {
-                        draggable: "true",
-                        src: item["photos"]
-                          ? item["photos"][0]["photo_name"]
-                          : item["photo"]["photo_name"],
-                        "data-id": item.id,
-                        "data-type": _vm.view == 0 ? "set" : "item"
-                      },
-                      on: { dragstart: _vm.dragStart }
-                    },
-                    [
-                      _c("div", { staticClass: "avatar" }, [
-                        _c("div", { staticClass: "verticalCentered" }, [
-                          _c("div", { staticClass: "theCell" }, [
-                            _c("img", {
-                              attrs: {
-                                src: item["photos"]
-                                  ? item["photos"][0]["photo_name"]
-                                  : item["photo"]["photo_name"],
-                                "data-id": item.id,
-                                "data-type": _vm.view == 0 ? "set" : "item",
-                                alt: ""
-                              }
-                            })
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "name" }, [
-                        _vm._v(_vm._s(item.title_en))
+              [
+                _vm._l(_vm.items, function(item) {
+                  return !_vm.loading
+                    ? _c("div", { key: item.id, staticClass: "mycol-sm-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "one",
+                            attrs: {
+                              draggable: "true",
+                              src: item["photos"][0]["photo_name"],
+                              "data-id": item.id
+                            },
+                            on: { dragstart: _vm.dragStart }
+                          },
+                          [
+                            _c("div", { staticClass: "avatar" }, [
+                              _c("div", { staticClass: "verticalCentered" }, [
+                                _c("div", { staticClass: "theCell" }, [
+                                  _c("img", {
+                                    attrs: {
+                                      src: item["photos"][0]["photo_name"],
+                                      "data-id": item.id,
+                                      alt: ""
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "name" }, [
+                              _vm._v(_vm._s(item.title_en))
+                            ])
+                          ]
+                        )
                       ])
-                    ]
-                  )
-                ])
-              })
+                    : _vm._e()
+                }),
+                _vm._v(" "),
+                _vm.canloadmore && !_vm.loading
+                  ? _c("div", { staticClass: "getMore" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.loadmore($event)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.loadMoreLoading ? "Loading" : "More") +
+                              " "
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.loading
+                  ? _c("div", { staticClass: "set-loading" }, [
+                      _c("img", {
+                        attrs: {
+                          src: "images/loading.gif",
+                          width: "50px",
+                          alt: "loading"
+                        }
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.items && _vm.items.length == 0 && !_vm.loading
+                  ? _c("div", { staticClass: "set-no-found" }, [
+                      _vm._v("No found items")
+                    ])
+                  : _vm._e()
+              ],
+              2
             )
           ])
         ])
@@ -61363,9 +61469,7 @@ var render = function() {
             : _vm._e()
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm.loading ? _c("Loading") : _vm._e()
+      )
     ],
     1
   )
@@ -75075,7 +75179,6 @@ var actions = {
             state = _ref10.state,
             rootGetters = _ref10.rootGetters;
 
-        console.log(q);
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getSearchForAddSet", {
             query: q.query,
             category: q.category,

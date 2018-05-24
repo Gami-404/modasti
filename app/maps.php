@@ -143,6 +143,7 @@ namespace Maps\Item {
             $newItem->text_en = $item->content;
             $newItem->url_en = $item->url;
             $newItem->user_id =  $item->user_id;
+            $newItem->user_url = $item->user->website ? $item->user->website : null;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
@@ -177,6 +178,7 @@ namespace Maps\Item {
         $newItem->user_id =  $item->user_id;
         $newItem->brand = $item->brand ? $item->brand->title : "";
         $newItem->likes = $item->likes()->count();
+        $newItem->user_url = $item->user->website ? $item->user->website : null;
         $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
         $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
         $newItem->color_id = $item->color_id;
@@ -268,6 +270,7 @@ namespace Maps\Set {
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photos = [];
             $newItem->user_id =  $item->user_id;
+            $newItem->user_url = $item->user->website ? $item->user->website : null;
 
             if ($item->image) {
                 $photo = new \stdClass();
@@ -317,6 +320,7 @@ namespace Maps\Collection {
             $newItem->price = $item->price;
             $newItem->currency = $item->currency;
             $newItem->text_en = $item->content;
+            $newItem->user_url = $item->user->website ? $item->user->website : null;
             $newItem->url_en = $item->url;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
@@ -474,7 +478,6 @@ namespace Maps\Contest {
             $newItem->id = $item->id;
             $newItem->contest_id = $item->contest_id;
             $newItem->photo_id = $item->image_id;
-            $newItem->user_id = $item->user_id;
             $newItem->likes = $item->likes()->count();
             $newItem->date_created = $item->created_at->toDateTimeString();
             $newItem->date_likes = $item->created_at->toDateTimeString();

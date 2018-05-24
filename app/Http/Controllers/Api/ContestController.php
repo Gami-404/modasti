@@ -14,6 +14,7 @@ class ContestController extends Controller
 {
     /**
      * POST api/getContests
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getContests(Request $request)
@@ -31,6 +32,7 @@ class ContestController extends Controller
 
     /**
      * POST api/getContestPhotos
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getContestPhotos(Request $request)
@@ -54,6 +56,7 @@ class ContestController extends Controller
 
     /**
      * POST api/publishContestPhoto
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function publishContestPhoto(Request $request)
