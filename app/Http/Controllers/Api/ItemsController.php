@@ -11,6 +11,7 @@ use App\User;
 use Dot\Colors\Models\Color;
 use Dot\Posts\Models\Brand;
 use Dot\Posts\Models\PostSize;
+use Dot\Posts\Posts;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
@@ -110,13 +111,19 @@ class ItemsController extends Controller
         }
 
         $item = Post::find($request->get('itemId'));
-        $category = $item->categories()->where('parent', '<>', 0)->first();
-        $similarItems = collect();
-        if ($category) {
-            $similarItems = $category->posts()->take(3)->get();
-        }
         $item->views++;
         $item->save();
+        $similarItems = collect();
+        if ($item->brand_id) {
+            $similarItems = Post::where('brand_id', $item->brand_id)->take(4)->get();
+        }
+        $count=count($similarItems);
+        if($count<4){
+            $category = $item->categories()->where('parent', '<>', 0)->first();
+            if ($category) {
+                $similarItems = $similarItems->concat($category->posts()->take(4-$count)->get());
+            }
+        }
         $data['data'] = \Maps\Item\itemDetails($item, $similarItems);
         return response()->json($data);
 
@@ -357,7 +364,7 @@ class ItemsController extends Controller
             $query->where('color_id', $request->get('color'));
         }
 
-        if ($request->filled('category') && ($request->get('category')!=0) &&$request->get('category') != "liked_items") {
+        if ($request->filled('category') && ($request->get('category') != 0) && $request->get('category') != "liked_items") {
             $category = Category::find($request->get('category'));
             $categoriesIds = [$category->id];
             if ($category->parent == 0) {

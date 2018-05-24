@@ -142,14 +142,21 @@ const actions = {
             commit("UPDATE_USER_PROFILE", formData);
         });
     },
-    search_user({commit, state}, searchString) {
+    search_user({commit, state}, searchString,commit_data) {
         return search(searchString, state.searchResults.offset).then(res => {
             var data=[...res.data.data];
-
+            if(commit_data){
+                return data;
+            }
             commit("SEARCH_RESULTS_OFFSET");
             commit("ADD_USERS", res.data.data, {root: true});
             commit("SEARCH_RESULTS", res.data.data.map(user => user.id));
             return data;
+        });
+    },
+    search_user_autocomplete({commit, state}, searchString) {
+        return search(searchString, state.searchResults.offset).then(res => {
+            return res.data.data;
         });
     },
     search_user_more({commit, state}, searchString) {

@@ -19,17 +19,19 @@
               <span class="icon">
                 <i class="fa fa-search"></i>
               </span>
-                            <form @submit.prevent="search" action="#">
-                                <select v-model="area" @change="searchAutocomplete">
+                            <form @submit.prevent="searchSubmit" action="#">
+                                <select v-model="area" @change="changeArea">
                                     <option value="item">Items</option>
                                     <option value="user">Users</option>
                                     <!-- <option value="2">Group</option> -->
                                 </select>
                                 <div class="autocomplete">
-                                    <input v-model="searchString" @input="searchAutocomplete" @blur="toggleAutoomplete" @focus="toggleAutoomplete"
+                                    <input v-model="searchString" @input="searchAutocomplete" @blur="toggleAutoomplete"
+                                           @focus="toggleAutoomplete"
                                            maxlength="500" type="text">
                                     <div class="autocomplete-items" id="autocomplete-list" v-show="openAutocomplete">
-                                        <div v-if="!searching" v-for="item in source" :key="item.id" @click="search(item.label)">
+                                        <div v-if="!searching" v-for="item in source" :key="item.id"
+                                             @click="search(item.label)">
                                             {{item.label}}
                                         </div>
                                         <div v-if="searching" style="text-align: center">
@@ -144,7 +146,7 @@
                 source: [],
                 openAutocomplete: false,
                 searching: false,
-                firsttime:true,
+                firsttime: true,
             };
         },
         methods: {
@@ -153,60 +155,82 @@
                 this.$router.push("/");
             },
             search(search) {
-                var  search=search || this.searchString;
-                if (search.length>0) {
-                    this.$router.push(`/search/${this.area}/${search}`);
-                    this.searchString=search;
+                const search2 = search || this.searchString;
+                if (search2.length > 0) {
+                    this.$router.push(`/search/${this.area}/${search2}`);
+                    this.searchString = search2;
                     this.area == "item"
                         ? this.$store.dispatch("search_item_offset_reset")
                         : this.$store.dispatch("search_user_offset_reset");
                 }
             },
+            searchSubmit() {
+                if (this.searchString.length > 0) {
+                    this.$router.push(`/search/${this.area}/${this.searchString}`);
+                    this.area == "item"
+                        ? this.$store.dispatch("search_item_offset_reset")
+                        : this.$store.dispatch("search_user_offset_reset");
+                }
+
+            },
             toggleAutoomplete() {
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.openAutocomplete = !this.openAutocomplete;
-                },300);
+                }, 300);
             },
             autoCompleteUpdate(data) {
-               this.firsttime=false;
-                if(this.area==="item"){
-                   this.source=data.map((item)=> {
-                       return {...item, label:item.title_en,id:item.id+'_item'}
-                   })
+                this.firsttime = false;
+                if (this.area === "item") {
+                    this.source = data.map((item) => {
+                        return {...item, label: item.title_en, id: item.id + '_item'}
+                    })
                 }
-                if(this.area==="user"){
-                    console.log('user',data);
-                    this.source=data.map((user)=> {
-                        return {...user, label:user.fname+' '+user.lname,id:user.id+'_user'}
+                if (this.area === "user") {
+                    console.log('user', data);
+                    this.source = data.map((user) => {
+                        return {...user, label: user.fname + ' ' + user.lname, id: user.id + '_user'}
                     })
                 }
             },
             searchAutocomplete: _.debounce(() => {
-                 if($vm.searchString.length==0){
-                     return;
-                 }
+                if ($vm.searchString.length == 0) {
+                    return;
+                }
                 $vm.searching = true;
                 if ($vm.area === "item") {
                     $vm.$store
-                        .dispatch("search_item", $vm.searchString)
+                        .dispatch("search_item_autocomplete", $vm.searchString)
                         .then((data) => {
                             $vm.autoCompleteUpdate(data);
                             $vm.searching = false;
-                        }).catch(()=>{
+                        }).catch(() => {
                         $vm.searching = false;
                     })
                 }
                 if ($vm.area === "user") {
                     console.log('users');
-                    $vm.$store.dispatch("search_user",  $vm.searchString)
+                    $vm.$store.dispatch("search_user_autocomplete", $vm.searchString,true)
                         .then((data) => {
                             $vm.autoCompleteUpdate(data);
                             ($vm.searching = false);
-                        }).catch(()=>{
+                        }).catch(() => {
                         $vm.searching = false
                     })
                 }
-            }, 500)
+            }, 500),
+            changeArea() {
+                if(this.searchString){
+                    if (this.$route.name === "searchInUser" && this.area === "item") {
+                        this.$router.push(`/search/${this.area}/${this.searchString}`);
+                        return;
+                    }
+                    if (this.$route.name === "searchInItem" && this.area === "user") {
+                        this.$router.push(`/search/${this.area}/${this.searchString}`);
+                        return;
+                    }
+                }
+                this.searchAutocomplete();
+            },
         },
         computed: {
             isAuth() {

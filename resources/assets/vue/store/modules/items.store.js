@@ -187,6 +187,11 @@ const actions = {
             return data;
         });
     },
+    search_item_autocomplete({commit, state}, searchString) {
+        return search(searchString, state.searchResults.offset).then(res => {
+            return res.data.data;
+        });
+    },
     search_item_more({commit, state}, searchString) {
         return search(searchString, state.searchResults.offset).then(res => {
 

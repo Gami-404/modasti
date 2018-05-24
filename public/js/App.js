@@ -57798,6 +57798,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.dispatchSearch();
       this.resetOffset();
     },
+
+    //   "$route.params.name"(name) {
+    //     console.log(name);
+    //       this.dispatchSearch();
+    //       this.resetOffset();
+    //   },
     searchIn: function searchIn(_searchIn) {
       if (!_searchIn) return;
 
@@ -74800,13 +74806,15 @@ var actions = {
             commit("UPDATE_USER_PROFILE", formData);
         });
     },
-    search_user: function search_user(_ref10, searchString) {
+    search_user: function search_user(_ref10, searchString, commit_data) {
         var commit = _ref10.commit,
             state = _ref10.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
             var data = [].concat(_toConsumableArray(res.data.data));
-
+            if (commit_data) {
+                return data;
+            }
             commit("SEARCH_RESULTS_OFFSET");
             commit("ADD_USERS", res.data.data, { root: true });
             commit("SEARCH_RESULTS", res.data.data.map(function (user) {
@@ -74815,9 +74823,17 @@ var actions = {
             return data;
         });
     },
-    search_user_more: function search_user_more(_ref11, searchString) {
+    search_user_autocomplete: function search_user_autocomplete(_ref11, searchString) {
         var commit = _ref11.commit,
             state = _ref11.state;
+
+        return search(searchString, state.searchResults.offset).then(function (res) {
+            return res.data.data;
+        });
+    },
+    search_user_more: function search_user_more(_ref12, searchString) {
+        var commit = _ref12.commit,
+            state = _ref12.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
             commit("SEARCH_RESULTS_OFFSET");
@@ -74827,14 +74843,14 @@ var actions = {
             }));
         });
     },
-    search_user_offset_reset: function search_user_offset_reset(_ref12) {
-        var commit = _ref12.commit;
+    search_user_offset_reset: function search_user_offset_reset(_ref13) {
+        var commit = _ref13.commit;
 
         commit("SEARCH_RESULTS_OFFSET_RESET");
     },
-    toggle_block: function toggle_block(_ref13) {
-        var commit = _ref13.commit,
-            state = _ref13.state;
+    toggle_block: function toggle_block(_ref14) {
+        var commit = _ref14.commit,
+            state = _ref14.state;
 
         var userId = state.userProfile.id;
         if (state.userProfile.is_blocked) {
@@ -74843,8 +74859,8 @@ var actions = {
             return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("blockUser", { userId: userId });
         }
     },
-    get_blocked_users: function get_blocked_users(_ref14) {
-        var commit = _ref14.commit;
+    get_blocked_users: function get_blocked_users(_ref15) {
+        var commit = _ref15.commit;
 
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("listBlocked", {}).then(function (res) {
             commit("ADD_USERS", res.data.data, { root: true });
@@ -74853,9 +74869,9 @@ var actions = {
             }));
         });
     },
-    get_wins_contests: function get_wins_contests(_ref15) {
-        var commit = _ref15.commit,
-            state = _ref15.state;
+    get_wins_contests: function get_wins_contests(_ref16) {
+        var commit = _ref16.commit,
+            state = _ref16.state;
 
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("getWins", { 'offset': state.offsets.winsContests }).then(function (res) {
             res.data.data.map(function (item) {
@@ -74909,13 +74925,13 @@ var mutations = {
         state.userProfile.fname = data.firstName;
         state.userProfile.email = data.email;
     },
-    SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref16) {
-        var offsets = _ref16.offsets;
+    SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref17) {
+        var offsets = _ref17.offsets;
 
         offsets.search += 8;
     },
-    SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref17) {
-        var offsets = _ref17.offsets;
+    SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref18) {
+        var offsets = _ref18.offsets;
 
         offsets.search = 0;
     },
@@ -75378,9 +75394,17 @@ var actions = {
             return data;
         });
     },
-    search_item_more: function search_item_more(_ref11, searchString) {
+    search_item_autocomplete: function search_item_autocomplete(_ref11, searchString) {
         var commit = _ref11.commit,
             state = _ref11.state;
+
+        return search(searchString, state.searchResults.offset).then(function (res) {
+            return res.data.data;
+        });
+    },
+    search_item_more: function search_item_more(_ref12, searchString) {
+        var commit = _ref12.commit,
+            state = _ref12.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
 
@@ -75391,19 +75415,19 @@ var actions = {
             }));
         });
     },
-    search_item_offset_reset: function search_item_offset_reset(_ref12) {
-        var commit = _ref12.commit;
+    search_item_offset_reset: function search_item_offset_reset(_ref13) {
+        var commit = _ref13.commit;
 
         commit("SEARCH_RESULTS_OFFSET_RESET");
     },
-    like_item_toggle: function like_item_toggle(_ref13) {
-        var commit = _ref13.commit;
+    like_item_toggle: function like_item_toggle(_ref14) {
+        var commit = _ref14.commit;
 
         commit("LIKE_ITEM_TOGGLE");
     },
-    map_filters: function map_filters(_ref14) {
-        var commit = _ref14.commit,
-            rootGetters = _ref14.rootGetters;
+    map_filters: function map_filters(_ref15) {
+        var commit = _ref15.commit,
+            rootGetters = _ref15.rootGetters;
 
         var sizes = {};
         rootGetters.getSizes.forEach(function (size) {
@@ -75426,8 +75450,8 @@ var mutations = {
     ITEM: function ITEM(state, data) {
         state.item = data;
     },
-    HOME_ITEMS: function HOME_ITEMS(_ref15, data) {
-        var home = _ref15.home;
+    HOME_ITEMS: function HOME_ITEMS(_ref16, data) {
+        var home = _ref16.home;
 
         home.itemsLatestTrends = data.items_latest_trends;
         home.itemsBestFromModasti = data.items_best_from_modasti;
@@ -75467,13 +75491,13 @@ var mutations = {
     APPLY_FILTERS: function APPLY_FILTERS(state, filter) {
         state.appliedFilters = filter;
     },
-    SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref16) {
-        var searchResults = _ref16.searchResults;
+    SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref17) {
+        var searchResults = _ref17.searchResults;
 
         searchResults.offset += 8;
     },
-    SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref17) {
-        var searchResults = _ref17.searchResults;
+    SEARCH_RESULTS_OFFSET_RESET: function SEARCH_RESULTS_OFFSET_RESET(_ref18) {
+        var searchResults = _ref18.searchResults;
 
         searchResults.offset = 0;
     },
@@ -76674,6 +76698,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -76714,11 +76740,17 @@ var $vm = null;
             this.$store.dispatch("logout");
             this.$router.push("/");
         },
-        search: function search(search) {
-            var search = search || this.searchString;
-            if (search.length > 0) {
-                this.$router.push("/search/" + this.area + "/" + search);
-                this.searchString = search;
+        search: function search(_search) {
+            var search2 = _search || this.searchString;
+            if (search2.length > 0) {
+                this.$router.push("/search/" + this.area + "/" + search2);
+                this.searchString = search2;
+                this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
+            }
+        },
+        searchSubmit: function searchSubmit() {
+            if (this.searchString.length > 0) {
+                this.$router.push("/search/" + this.area + "/" + this.searchString);
                 this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
             }
         },
@@ -76750,7 +76782,7 @@ var $vm = null;
             }
             $vm.searching = true;
             if ($vm.area === "item") {
-                $vm.$store.dispatch("search_item", $vm.searchString).then(function (data) {
+                $vm.$store.dispatch("search_item_autocomplete", $vm.searchString).then(function (data) {
                     $vm.autoCompleteUpdate(data);
                     $vm.searching = false;
                 }).catch(function () {
@@ -76759,14 +76791,27 @@ var $vm = null;
             }
             if ($vm.area === "user") {
                 console.log('users');
-                $vm.$store.dispatch("search_user", $vm.searchString).then(function (data) {
+                $vm.$store.dispatch("search_user_autocomplete", $vm.searchString, true).then(function (data) {
                     $vm.autoCompleteUpdate(data);
                     $vm.searching = false;
                 }).catch(function () {
                     $vm.searching = false;
                 });
             }
-        }, 500)
+        }, 500),
+        changeArea: function changeArea() {
+            if (this.searchString) {
+                if (this.$route.name === "searchInUser" && this.area === "item") {
+                    this.$router.push("/search/" + this.area + "/" + this.searchString);
+                    return;
+                }
+                if (this.$route.name === "searchInItem" && this.area === "user") {
+                    this.$router.push("/search/" + this.area + "/" + this.searchString);
+                    return;
+                }
+            }
+            this.searchAutocomplete();
+        }
     },
     computed: {
         isAuth: function isAuth() {
@@ -79098,7 +79143,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.search($event)
+                          return _vm.searchSubmit($event)
                         }
                       }
                     },
@@ -79129,7 +79174,7 @@ var render = function() {
                                   ? $$selectedVal
                                   : $$selectedVal[0]
                               },
-                              _vm.searchAutocomplete
+                              _vm.changeArea
                             ]
                           }
                         },

@@ -71,6 +71,11 @@ export default {
       this.dispatchSearch();
       this.resetOffset();
     },
+    //   "$route.params.name"(name) {
+    //     console.log(name);
+    //       this.dispatchSearch();
+    //       this.resetOffset();
+    //   },
     searchIn(searchIn) {
       if (!searchIn) return;
 
