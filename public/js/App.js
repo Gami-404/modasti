@@ -54313,7 +54313,9 @@ var render = function() {
             "a",
             {
               attrs: {
-                href: _vm.item.user_id ? "#/profile/" + _vm.item.user_id : ""
+                href: _vm.item.website
+                  ? _vm.item.website
+                  : "#/profile/" + _vm.item.user_id
               }
             },
             [_vm._v(_vm._s(_vm.item.brand || "Unknown"))]
@@ -56566,7 +56568,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "router-link",
-                            { attrs: { to: "/profile/" + _vm.data.user_id } },
+                            {
+                              attrs: {
+                                to: _vm.data.website
+                                  ? _vm.data.website
+                                  : "#/profile/" + _vm.data.user_id
+                              }
+                            },
                             [_vm._v(_vm._s(_vm.data.brand))]
                           )
                         ],

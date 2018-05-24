@@ -13,7 +13,7 @@
             <div v-html="data.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{data.price}} $</div>
-              <router-link  :to="'/profile/'+data.user_id">{{data.brand}}</router-link>
+              <router-link  :to="(data.website?data.website :'#/profile/'+data.user_id)">{{data.brand}}</router-link>
             </div>
             <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
           </div>
