@@ -5,8 +5,8 @@
         <i class="icon-headicon"></i>
       </a>
       <div class="dropdown-content">
-        <router-link to="/set/add" class="addlinks">new set</router-link>
-        <router-link to="/collection/add" class="addlinks">new collection</router-link>
+        <router-link to="/set/add" class="addlinks">New set</router-link>
+        <router-link to="/collection/add" class="addlinks">New collection</router-link>
       </div>
     </div>
     <router-link to="/messages" class="one">
