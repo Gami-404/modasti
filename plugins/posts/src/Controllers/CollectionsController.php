@@ -97,8 +97,6 @@ class CollectionsController extends Controller
 
             Action::fire("post.deleting", $collection);
 
-            $collection->tags()->detach();
-
             $collection->delete();
 
             // Fire deleted action

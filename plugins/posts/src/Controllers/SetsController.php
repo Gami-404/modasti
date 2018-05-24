@@ -96,8 +96,6 @@ class SetsController extends Controller
 
             Action::fire("post.deleting", $set);
 
-            $set->tags()->detach();
-
             $set->delete();
 
             // Fire deleted action

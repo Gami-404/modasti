@@ -54311,7 +54311,11 @@ var render = function() {
         _c("div", { staticClass: "link" }, [
           _c(
             "a",
-            { attrs: { href: _vm.item.id ? "/item/" + _vm.item.id : "" } },
+            {
+              attrs: {
+                href: _vm.item.user_id ? "#/profile/" + _vm.item.user_id : ""
+              }
+            },
             [_vm._v(_vm._s(_vm.item.brand || "Unknown"))]
           )
         ])
@@ -56552,20 +56556,22 @@ var render = function() {
                         domProps: { innerHTML: _vm._s(_vm.data.text_en) }
                       }),
                       _vm._v(" "),
-                      _c("div", { staticClass: "info clearfix" }, [
-                        _c("div", { staticClass: "price" }, [
-                          _vm._v(_vm._s(_vm.data.price) + " $")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "link",
-                            attrs: { href: _vm.data.url_en }
-                          },
-                          [_vm._v(_vm._s(_vm.data.brand))]
-                        )
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "info clearfix" },
+                        [
+                          _c("div", { staticClass: "price" }, [
+                            _vm._v(_vm._s(_vm.data.price) + " $")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/profile/" + _vm.data.user_id } },
+                            [_vm._v(_vm._s(_vm.data.brand))]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c("CardActions", {
                         attrs: {

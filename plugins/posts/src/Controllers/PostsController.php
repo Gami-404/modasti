@@ -123,7 +123,6 @@ class PostsController extends Controller
 
             Action::fire("post.deleting", $post);
 
-            $post->tags()->detach();
             $post->categories()->detach();
             $post->galleries()->detach();
             $post->blocks()->detach();
@@ -222,7 +221,6 @@ class PostsController extends Controller
             }
 
             $post->save();
-            $post->syncTags(Request::get("tags", []));
             $post->categories()->sync(Request::get("categories", []));
             $post->galleries()->sync(Request::get("galleries", []));
             $post->syncBlocks(Request::get("blocks", []));
@@ -308,7 +306,6 @@ class PostsController extends Controller
             $post->save();
             $post->categories()->sync(Request::get("categories", []));
             $post->galleries()->sync(Request::get("galleries", []));
-            $post->syncTags(Request::get("tags", []));
             $post->syncBlocks(Request::get("blocks", []));
 
             // Fire saved action
@@ -341,7 +338,7 @@ class PostsController extends Controller
             return Redirect::route("admin.posts.edit", array("id" => $id))->with("message", trans("posts::posts.events.updated"));
         }
 
-        $this->data["post_tags"] = $post->tags->pluck("name")->toArray();
+        $this->data["post_tags"] =[];
         $this->data["post_sizes"] = $post->sizes->pluck("size")->toArray();
         $this->data["post_categories"] = $post->categories;
         $this->data["post_galleries"] = $post->galleries;

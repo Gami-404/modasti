@@ -12,7 +12,7 @@
       <hr>
       <div class="price">{{item.price}} €</div>
       <div class="link">
-        <a :href=" (item.id?'/item/'+item.id : '')">{{item.brand||"Unknown"}}</a>
+        <a :href=" (item.user_id?'#/profile/'+item.user_id : '')">{{item.brand||"Unknown"}}</a>
       </div>
     </div>
     <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true" :is-liked="item.is_liked" :obj-id="item.id" :context="'item'" />
