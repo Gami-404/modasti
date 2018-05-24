@@ -117,7 +117,7 @@ class ItemsController extends Controller
         if ($item->brand_id) {
             $similarItems = Post::where(function ($query) use($item){
                 $query->where('brand_id', $item->brand_id)->whereHas("categories",function ($query) use($item){
-                    $query->where('categories.id',$item->categories->pluck('id')->toArray());
+                    $query->whereIn('categories.id',$item->categories->pluck('id')->toArray());
                 });
             })->orWhere(function ($query) use($item){
                 $query->where('brand_id', $item->brand_id);
