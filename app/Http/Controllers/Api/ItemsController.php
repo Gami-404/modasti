@@ -115,13 +115,17 @@ class ItemsController extends Controller
         $item->save();
         $similarItems = collect();
         if ($item->brand_id) {
-            $similarItems = Post::where(function ($query) use($item){
+            $similarItems = Post::with('image')->where(function ($query) use($item){
                 $query->where('brand_id', $item->brand_id)->whereHas("categories",function ($query) use($item){
                     $query->whereIn('categories.id',$item->categories->pluck('id')->toArray());
                 });
+                \Log::debug('first');
             })->orWhere(function ($query) use($item){
                 $query->where('brand_id', $item->brand_id);
             })->take(4)->get();
+
+            \Log::debug(count($similarItems));
+
         }
         $count=count($similarItems);
         if($count<4){
