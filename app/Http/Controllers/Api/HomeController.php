@@ -100,7 +100,7 @@ class HomeController extends Controller
                     ->offset($offset)->get();
             }
         } else {
-            $objects = $class::search($q)->where('status',1)->take($limit)->offset($offset)->get();
+            $objects = $class::search($q)->take($limit)->offset($offset)->get();
         }
         $data['data'] = $maps[$for]($objects);
         return response()->json($data);

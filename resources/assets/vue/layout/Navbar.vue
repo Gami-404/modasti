@@ -153,14 +153,14 @@
                 this.$router.push("/");
             },
             search(search) {
-                if (search) {
+                var  search=search || this.searchString;
+                if (search.length>0) {
                     this.$router.push(`/search/${this.area}/${search}`);
+                    this.searchString=search;
+                    this.area == "item"
+                        ? this.$store.dispatch("search_item_offset_reset")
+                        : this.$store.dispatch("search_user_offset_reset");
                 }
-                this.searchString=search;
-                // GEMI was Here
-                this.area == "item"
-                    ? this.$store.dispatch("search_item_offset_reset")
-                    : this.$store.dispatch("search_user_offset_reset");
             },
             toggleAutoomplete() {
                 setTimeout(()=>{
@@ -182,7 +182,10 @@
                 }
             },
             searchAutocomplete: _.debounce(() => {
-                 $vm.searching = true;
+                 if($vm.searchString.length==0){
+                     return;
+                 }
+                $vm.searching = true;
                 if ($vm.area === "item") {
                     $vm.$store
                         .dispatch("search_item", $vm.searchString)
