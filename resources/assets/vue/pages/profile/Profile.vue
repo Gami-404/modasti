@@ -3,7 +3,7 @@
     <div class="secPaddLg whiteBg">
       <div class="gridContainer">
         <div class="top_userProfile clearfix">
-          <div class="avatar profile-after"><img :src="user.photo?user.photo.photo_name:'/images/img2.jpg'" alt=""></div>
+          <div class="avatar profile-after"><img :src="user.photo?user.photo.photo_name:'images/male-user-shadow.png'" alt=""></div>
           <div class="content">
             <div class="info">
               <div class="name">{{user.fname}}</div>

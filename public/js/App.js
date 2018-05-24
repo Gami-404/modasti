@@ -65393,7 +65393,7 @@ var render = function() {
                     attrs: {
                       src: _vm.user.photo
                         ? _vm.user.photo.photo_name
-                        : "/images/img2.jpg",
+                        : "images/male-user-shadow.png",
                       alt: ""
                     }
                   })
@@ -67589,7 +67589,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 password: "",
                 currency: _this.user.currency,
                 about: _this.user.about,
-                photo: _this.user.photo ? _this.user.photo.photo_name : '/images/img2.jpg',
+                photo: _this.user.photo ? _this.user.photo.photo_name : '/images/male-user-shadow.png',
                 image: false
             };
         }, function (err) {
@@ -78997,13 +78997,13 @@ var render = function() {
             _c(
               "router-link",
               { staticClass: "addlinks", attrs: { to: "/set/add" } },
-              [_vm._v("new set")]
+              [_vm._v("New set")]
             ),
             _vm._v(" "),
             _c(
               "router-link",
               { staticClass: "addlinks", attrs: { to: "/collection/add" } },
-              [_vm._v("new collection")]
+              [_vm._v("New collection")]
             )
           ],
           1

@@ -116,7 +116,7 @@
                     password: "",
                     currency: this.user.currency,
                     about: this.user.about,
-                    photo: this.user.photo ? this.user.photo.photo_name : '/images/img2.jpg',
+                    photo: this.user.photo ? this.user.photo.photo_name : '/images/male-user-shadow.png',
                     image: false,
                 }
             }, (err) => {

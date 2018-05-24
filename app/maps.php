@@ -142,6 +142,7 @@ namespace Maps\Item {
             $newItem->currency = $item->currency;
             $newItem->text_en = $item->content;
             $newItem->url_en = $item->url;
+            $newItem->user_id =  $item->user_id;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
@@ -173,6 +174,7 @@ namespace Maps\Item {
         $newItem->currency = $item->currency;
         $newItem->text_en = $item->content;
         $newItem->url_en = $item->url;
+        $newItem->user_id =  $item->user_id;
         $newItem->brand = $item->brand ? $item->brand->title : "";
         $newItem->likes = $item->likes()->count();
         $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
@@ -265,6 +267,7 @@ namespace Maps\Set {
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photos = [];
+            $newItem->user_id =  $item->user_id;
 
             if ($item->image) {
                 $photo = new \stdClass();
@@ -319,6 +322,8 @@ namespace Maps\Collection {
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photo = [];
+            $newItem->user_id =  $item->user_id;
+
             if ($item->image) {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
@@ -475,6 +480,7 @@ namespace Maps\Contest {
             $newItem->date_likes = $item->created_at->toDateTimeString();
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
+            $newItem->user_id =  $item->user_id;
             if ($item->image) {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
