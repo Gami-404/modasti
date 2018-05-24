@@ -68,7 +68,7 @@ class HomeController extends Controller
         $for = $request->get('searchArea', "items");
         $validator = Validator::make($request->all(), [
             'searchString' => 'required',
-            'searchArea' => 'required|in:items,sets,users,collections',
+            'searchArea' => 'required|in:items,users',
         ]);
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
@@ -76,19 +76,32 @@ class HomeController extends Controller
         }
         $classes = [
             "items" => Post::class,
-            "sets" => Set::class,
             "users" => User::class,
-            "collections" => Collection::class,
         ];
         $maps = [
             "users" => '\Maps\User\users',
-            "sets" => '\Maps\Set\sets',
             "items" => '\Maps\Item\items',
-            "collections" => '\Maps\Collection\collections',
         ];
         $class = $classes[$for];
-
-        $objects = $class::search($request->get('searchString'))->take($limit)->offset($offset)->get();
+        $objects = [];
+        $q = trim($request->get('searchString'));
+        if ($for == "users") {
+            if (count(explode(' ', $q)) == 2) {
+                $names = explode(' ', $q);
+                $objects = $class::where('first_name', 'LIKE', '%' . $names[0] . '%')
+                    ->where('last_name', 'LIKE', '%' . $names[1] . '%')
+                    ->where(['status' => 1, 'backend' => 0])
+                    ->take($limit)
+                    ->offset($offset)->get();
+            } else {
+                $objects = $class::search($q)
+                    ->where(['status' => 1, 'backend' => 0])
+                    ->take($limit)
+                    ->offset($offset)->get();
+            }
+        } else {
+            $objects = $class::search($q)->where('status',1)->take($limit)->offset($offset)->get();
+        }
         $data['data'] = $maps[$for]($objects);
         return response()->json($data);
     }
@@ -175,7 +188,6 @@ class HomeController extends Controller
         $block = Block::find(2);
         $items_best_from_modasti = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(8)->get() : collect();
         $data['items_best_from_modasti'] = \Maps\Item\items($items_best_from_modasti);
-
 
 
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')

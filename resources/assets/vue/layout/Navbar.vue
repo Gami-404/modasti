@@ -20,13 +20,26 @@
                 <i class="fa fa-search"></i>
               </span>
                             <form @submit.prevent="search" action="#">
-                                <select v-model="area">
+                                <select v-model="area" @change="searchAutocomplete">
                                     <option value="item">Items</option>
                                     <option value="user">Users</option>
                                     <!-- <option value="2">Group</option> -->
                                 </select>
-                                <input v-model="searchString" maxlength="500" type="text">
-                                <!--<Autocomplete v-model="searchString" :source="source" @input="autoComplete"></Autocomplete>-->
+                                <div class="autocomplete">
+                                    <input v-model="searchString" @input="searchAutocomplete" @blur="toggleAutoomplete" @focus="toggleAutoomplete"
+                                           maxlength="500" type="text">
+                                    <div class="autocomplete-items" id="autocomplete-list" v-show="openAutocomplete">
+                                        <div v-if="!searching" v-for="item in source" :key="item.id" @click="search(item.label)">
+                                            {{item.label}}
+                                        </div>
+                                        <div v-if="searching" style="text-align: center">
+                                            <img src="/images/loading.gif" width="15px" alt="loading">
+                                        </div>
+                                        <div v-if="!searching&&source.length==0&&!firsttime" style="text-align: center">
+                                            No match result
+                                        </div>
+                                    </div>
+                                </div>
                                 <button type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -109,6 +122,9 @@
     import UserActions from "./UserActions";
     import WrapperPopups from "@/wrappers/WrapperPopups";
     import routes from "./NavbarRoutes";
+    import _ from 'lodash';
+    // vue Components
+    var $vm = null;
     export default {
         components: {
             Login,
@@ -117,8 +133,7 @@
             WrapperPopups,
             UserActions,
             SetCollectionEditPopup,
-            ContestUpload,
-            // Autocomplete
+            ContestUpload
         },
         data() {
             return {
@@ -126,7 +141,10 @@
                 routes,
                 area: "item",
                 searchString: "",
-                source:[{id:1,name:'abc'},{id:2,name:'def'}],
+                source: [],
+                openAutocomplete: false,
+                searching: false,
+                firsttime:true,
             };
         },
         methods: {
@@ -134,23 +152,66 @@
                 this.$store.dispatch("logout");
                 this.$router.push("/");
             },
-            search() {
-                if (this.searchString) {
-                    this.$router.push(`/search/${this.area}/${this.searchString}`);
+            search(search) {
+                if (search) {
+                    this.$router.push(`/search/${this.area}/${search}`);
                 }
+                this.searchString=search;
                 // GEMI was Here
                 this.area == "item"
                     ? this.$store.dispatch("search_item_offset_reset")
                     : this.$store.dispatch("search_user_offset_reset");
             },
-            autoComplete(event) {
-                console.log(event,event.value)
+            toggleAutoomplete() {
+                setTimeout(()=>{
+                    this.openAutocomplete = !this.openAutocomplete;
+                },300);
             },
+            autoCompleteUpdate(data) {
+               this.firsttime=false;
+                if(this.area==="item"){
+                   this.source=data.map((item)=> {
+                       return {...item, label:item.title_en,id:item.id+'_item'}
+                   })
+                }
+                if(this.area==="user"){
+                    console.log('user',data);
+                    this.source=data.map((user)=> {
+                        return {...user, label:user.fname+' '+user.lname,id:user.id+'_user'}
+                    })
+                }
+            },
+            searchAutocomplete: _.debounce(() => {
+                 $vm.searching = true;
+                if ($vm.area === "item") {
+                    $vm.$store
+                        .dispatch("search_item", $vm.searchString)
+                        .then((data) => {
+                            $vm.autoCompleteUpdate(data);
+                            $vm.searching = false;
+                        }).catch(()=>{
+                        $vm.searching = false;
+                    })
+                }
+                if ($vm.area === "user") {
+                    console.log('users');
+                    $vm.$store.dispatch("search_user",  $vm.searchString)
+                        .then((data) => {
+                            $vm.autoCompleteUpdate(data);
+                            ($vm.searching = false);
+                        }).catch(()=>{
+                        $vm.searching = false
+                    })
+                }
+            }, 500)
         },
         computed: {
             isAuth() {
                 return this.$store.getters.isAuth;
             }
+        },
+        created() {
+            $vm = this;
         }
     };
 </script>
@@ -176,4 +237,6 @@
         color: #df6262;
         cursor: pointer;
     }
+
+
 </style>

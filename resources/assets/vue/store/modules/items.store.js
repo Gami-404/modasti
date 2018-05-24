@@ -180,13 +180,16 @@ const actions = {
     },
     search_item({commit, state}, searchString) {
         return search(searchString, state.searchResults.offset).then(res => {
+            var data=[...res.data.data]
             commit("ADD_ITEMS", res.data.data, {root: true});
             commit("SEARCH_RESULTS_OFFSET");
             commit("SEARCH_RESULTS", res.data.data.map(item => item.id));
+            return data;
         });
     },
     search_item_more({commit, state}, searchString) {
         return search(searchString, state.searchResults.offset).then(res => {
+
             commit("ADD_ITEMS", res.data.data, {root: true});
             commit("SEARCH_RESULTS_OFFSET");
             commit("SEARCH_RESULTS_MORE", res.data.data.map(item => item.id));

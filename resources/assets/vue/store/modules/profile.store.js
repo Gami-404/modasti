@@ -144,9 +144,12 @@ const actions = {
     },
     search_user({commit, state}, searchString) {
         return search(searchString, state.searchResults.offset).then(res => {
+            var data=[...res.data.data];
+
             commit("SEARCH_RESULTS_OFFSET");
             commit("ADD_USERS", res.data.data, {root: true});
             commit("SEARCH_RESULTS", res.data.data.map(user => user.id));
+            return data;
         });
     },
     search_user_more({commit, state}, searchString) {

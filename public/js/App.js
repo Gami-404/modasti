@@ -74594,6 +74594,8 @@ var mutations = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__API__ = __webpack_require__(8);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 
 
 var emptyState = function emptyState() {
@@ -74803,11 +74805,14 @@ var actions = {
             state = _ref10.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
+            var data = [].concat(_toConsumableArray(res.data.data));
+
             commit("SEARCH_RESULTS_OFFSET");
             commit("ADD_USERS", res.data.data, { root: true });
             commit("SEARCH_RESULTS", res.data.data.map(function (user) {
                 return user.id;
             }));
+            return data;
         });
     },
     search_user_more: function search_user_more(_ref11, searchString) {
@@ -75108,6 +75113,8 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__API__ = __webpack_require__(8);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 
 
 var state = {
@@ -75362,11 +75369,13 @@ var actions = {
             state = _ref10.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
+            var data = [].concat(_toConsumableArray(res.data.data));
             commit("ADD_ITEMS", res.data.data, { root: true });
             commit("SEARCH_RESULTS_OFFSET");
             commit("SEARCH_RESULTS", res.data.data.map(function (item) {
                 return item.id;
             }));
+            return data;
         });
     },
     search_item_more: function search_item_more(_ref11, searchString) {
@@ -75374,6 +75383,7 @@ var actions = {
             state = _ref11.state;
 
         return search(searchString, state.searchResults.offset).then(function (res) {
+
             commit("ADD_ITEMS", res.data.data, { root: true });
             commit("SEARCH_RESULTS_OFFSET");
             commit("SEARCH_RESULTS_MORE", res.data.data.map(function (item) {
@@ -76519,7 +76529,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.active-header {\n    border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n    z-index: 50;\n}\n.mobileMenu .in {\n    overflow: scroll;\n}\n#header .top .rightArea .search form select {\n    text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n    color: #df6262;\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.active-header {\n    border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n    z-index: 50;\n}\n.mobileMenu .in {\n    overflow: scroll;\n}\n#header .top .rightArea .search form select {\n    text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n    color: #df6262;\n    cursor: pointer;\n}\n\n\n", ""]);
 
 // exports
 
@@ -76545,6 +76555,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -76656,6 +76683,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+// vue Components
+var $vm = null;
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         Login: __WEBPACK_IMPORTED_MODULE_0__popups_Login___default.a,
@@ -76665,7 +76695,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         UserActions: __WEBPACK_IMPORTED_MODULE_5__UserActions___default.a,
         SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_4__popups_SetCollectionEditPopup___default.a,
         ContestUpload: __WEBPACK_IMPORTED_MODULE_3__popups_ContestUpload___default.a
-        // Autocomplete
     },
     data: function data() {
         return {
@@ -76673,7 +76702,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             routes: __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__["a" /* default */],
             area: "item",
             searchString: "",
-            source: [{ id: 1, name: 'abc' }, { id: 2, name: 'def' }]
+            source: [],
+            openAutocomplete: false,
+            searching: false,
+            firsttime: true
         };
     },
 
@@ -76682,21 +76714,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch("logout");
             this.$router.push("/");
         },
-        search: function search() {
-            if (this.searchString) {
-                this.$router.push("/search/" + this.area + "/" + this.searchString);
+        search: function search(_search) {
+            if (_search) {
+                this.$router.push("/search/" + this.area + "/" + _search);
             }
+            this.searchString = _search;
             // GEMI was Here
             this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
         },
-        autoComplete: function autoComplete(event) {
-            console.log(event, event.value);
-        }
+        toggleAutoomplete: function toggleAutoomplete() {
+            var _this = this;
+
+            setTimeout(function () {
+                _this.openAutocomplete = !_this.openAutocomplete;
+            }, 300);
+        },
+        autoCompleteUpdate: function autoCompleteUpdate(data) {
+            this.firsttime = false;
+            if (this.area === "item") {
+                this.source = data.map(function (item) {
+                    return _extends({}, item, { label: item.title_en, id: item.id + '_item' });
+                });
+            }
+            if (this.area === "user") {
+                console.log('user', data);
+                this.source = data.map(function (user) {
+                    return _extends({}, user, { label: user.fname + ' ' + user.lname, id: user.id + '_user' });
+                });
+            }
+        },
+
+        searchAutocomplete: __WEBPACK_IMPORTED_MODULE_8_lodash___default.a.debounce(function () {
+            $vm.searching = true;
+            if ($vm.area === "item") {
+                $vm.$store.dispatch("search_item", $vm.searchString).then(function (data) {
+                    $vm.autoCompleteUpdate(data);
+                    $vm.searching = false;
+                }).catch(function () {
+                    $vm.searching = false;
+                });
+            }
+            if ($vm.area === "user") {
+                console.log('users');
+                $vm.$store.dispatch("search_user", $vm.searchString).then(function (data) {
+                    $vm.autoCompleteUpdate(data);
+                    $vm.searching = false;
+                }).catch(function () {
+                    $vm.searching = false;
+                });
+            }
+        }, 500)
     },
     computed: {
         isAuth: function isAuth() {
             return this.$store.getters.isAuth;
         }
+    },
+    created: function created() {
+        $vm = this;
     }
 });
 
@@ -79037,19 +79112,22 @@ var render = function() {
                             }
                           ],
                           on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.area = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.area = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              _vm.searchAutocomplete
+                            ]
                           }
                         },
                         [
@@ -79063,26 +79141,104 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.searchString,
-                            expression: "searchString"
-                          }
-                        ],
-                        attrs: { maxlength: "500", type: "text" },
-                        domProps: { value: _vm.searchString },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c("div", { staticClass: "autocomplete" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.searchString,
+                              expression: "searchString"
                             }
-                            _vm.searchString = $event.target.value
+                          ],
+                          attrs: { maxlength: "500", type: "text" },
+                          domProps: { value: _vm.searchString },
+                          on: {
+                            input: [
+                              function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.searchString = $event.target.value
+                              },
+                              _vm.searchAutocomplete
+                            ],
+                            blur: _vm.toggleAutoomplete,
+                            focus: _vm.toggleAutoomplete
                           }
-                        }
-                      }),
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.openAutocomplete,
+                                expression: "openAutocomplete"
+                              }
+                            ],
+                            staticClass: "autocomplete-items",
+                            attrs: { id: "autocomplete-list" }
+                          },
+                          [
+                            _vm._l(_vm.source, function(item) {
+                              return !_vm.searching
+                                ? _c(
+                                    "div",
+                                    {
+                                      key: item.id,
+                                      on: {
+                                        click: function($event) {
+                                          _vm.search(item.label)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(item.label) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            }),
+                            _vm._v(" "),
+                            _vm.searching
+                              ? _c(
+                                  "div",
+                                  { staticStyle: { "text-align": "center" } },
+                                  [
+                                    _c("img", {
+                                      attrs: {
+                                        src: "/images/loading.gif",
+                                        width: "15px",
+                                        alt: "loading"
+                                      }
+                                    })
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.searching &&
+                            _vm.source.length == 0 &&
+                            !_vm.firsttime
+                              ? _c(
+                                  "div",
+                                  { staticStyle: { "text-align": "center" } },
+                                  [
+                                    _vm._v(
+                                      "\n                                        No match result\n                                    "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          2
+                        )
+                      ]),
                       _vm._v(" "),
                       _vm._m(1)
                     ]
