@@ -86,3 +86,14 @@
     color: #ffffff;
 }
 
+.item-buy{
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    font-family: 'Cheque-Black';
+    margin-left: 15px;
+}
+
+.item-buy:hover{
+  opacity: .8;
+}

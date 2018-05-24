@@ -12,8 +12,9 @@
             <h2 class="title">{{data.title_en}}</h2>
             <div v-html="data.text_en" class="description"></div>
             <div class="info clearfix">
-              <div class="price">{{data.price}} $</div>
-              <router-link  :to="(data.website?data.website :'#/profile/'+data.user_id)">{{data.brand}}</router-link>
+              <div class="price">{{data.price}} {{getCurrencySymbolItem(data.currency)}}</div>
+              <router-link class="link" :to="(data.website?data.website :'/profile/'+data.user_id)">{{data.brand}}</router-link>
+              <router-link class="item-buy" :to="(data.website?data.website :'/profile/'+data.user_id)">Buy</router-link>
             </div>
             <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
           </div>
@@ -34,6 +35,7 @@ import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
 import CardActions from "@/components/CardActions";
 import Loading from "@/components/Loading";
+import {getCurrencySymbol} from "@/pages/retailer/sub/currency.js"
 export default {
   components: {
     WrapperCardListTitled,
@@ -56,6 +58,11 @@ export default {
         if (this.$store.getters.isAuth) this.$router.replace({ path: "/404" });
       });
   },
+    methods:{
+        getCurrencySymbolItem(currency){
+            return   getCurrencySymbol(currency)
+        }
+    },
   watch: {
     "$route.params.itemId"(itemId) {
       if (!itemId) return;

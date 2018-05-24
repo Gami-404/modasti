@@ -10,7 +10,7 @@
         <router-link :to="(item.id?'/item/'+item.id : '')">{{item.title_en}}</router-link>
       </h3>
       <hr>
-      <div class="price">{{item.price}} €</div>
+      <div class="price">{{item.price}} {{getCurrencySymbolItem(item.currency)}}</div>
       <div class="link">
         <a :href=" (item.website?item.website :'#/profile/'+item.user_id)">{{item.brand||"Unknown"}}</a>
       </div>
@@ -21,6 +21,7 @@
 
 <script>
 import CardActions from "./CardActions";
+import {getCurrencySymbol} from "@/pages/retailer/sub/currency.js"
 export default {
   props: ["itemId"],
   components: {
@@ -38,8 +39,13 @@ export default {
     },
     isAuth() {
       return this.$store.getters.isAuth;
-    }
+    },
   },
+    methods:{
+        getCurrencySymbolItem(currency){
+          return   getCurrencySymbol(currency)
+        }
+    },
   watch: {
     "item.is_liked"() {
       this.$forceUpdate();

@@ -13219,11 +13219,72 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return currency; });
-var arr = ["XOF", "EUR", "USD", "MRU", "MUR", "XUA", "MXN", "MXV", "MDL", "MNT", "XCD", "MAD", "MZN", "MMK", "NAD", "ZAR", "AUD", "NPR", "XPF", "NZD", "NIO", "NGN", "OMR", "PKR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "SHP", "SOS", "WST", "STN", "SAR", "RSD", "SCR", "SLL", "SGD", "ANG", "XSU", "SBD", "SSP", "LKR", "SDG", "SRD", "NOK", "SZL", "SEK", "CHF", "CHE", "CHW", "SYP", "TWD", "TJS", "TZS", "THB", "TOP", "TTD", "TND", "TRY", "TMT", "UGX", "UAH", "AED", "GBP", "USN", "UYU", "UYI", "UZS", "VUV", "VEF", "VND", "XPF", "YER", "ZMW", "ZWL", "XBA", "XBB", "XBC", "XBD", "XTS", "XXX", "XAU", "XPD", "XPT", "XAG"];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCurrencySymbol; });
+var symbols = {
+    "XOF": '$',
+    "EUR": '€',
+    "USD": '$',
+    "MUR": "'₨",
+    "MXN": '$',
+    "MNT": '₮',
+    "XCD": '$',
+    "MZN": 'MT',
+    "NAD": '$',
+    "ZAR": 'R',
+    "AUD": '$',
+    "NPR": '₨',
+    "NZD": "$",
+    "NIO": "C$",
+    "NGN": "₦",
+    "OMR": "﷼",
+    "PKR": "₨",
+    "PAB": "B/.",
+    "PYG": "Gs",
+    "PEN": 'S/.',
+    "PHP": '₱',
+    "PLN": 'zł',
+    "QAR": "﷼",
+    "RON": "lei",
+    "RUB": "₽",
+    "SHP": '£',
+    "SOS": 'S',
+    "SAR": '﷼',
+    "RSD": 'Дин',
+    "SCR": '₨',
+    "SGD": "$",
+    "ANG": "ƒ",
+    "SBD": '$',
+    "LKR": '₨',
+    "SRD": '$',
+    "NOK": 'kr',
+    "SEK": "kr",
+    "CHF": "CHF",
+    "SYP": "£",
+    "TWD": "NT$",
+    "THB": '฿',
+    "TTD": "TT$",
+    "UAH": '₴',
+    "GBP": '£',
+    "UYU": '$U',
+    "UZS": 'лв',
+    "VEF": 'Bs',
+    "VND": '₫',
+    "YER": "﷼"
+};
+
+var arr = [];
+
+for (var symbol in symbols) {
+    arr.push(symbol);
+}
 
 var currency = arr.filter(function (item, pos) {
-  return arr.indexOf(item) == pos;
+    return arr.indexOf(item) == pos;
 });;
+
+var getCurrencySymbol = function getCurrencySymbol(currency) {
+    return symbols[currency];
+};
 
 /***/ }),
 /* 18 */
@@ -53871,6 +53932,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CardActions__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CardActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CardActions__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_retailer_sub_currency_js__ = __webpack_require__(17);
 //
 //
 //
@@ -53892,6 +53954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53911,6 +53974,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     isAuth: function isAuth() {
       return this.$store.getters.isAuth;
+    }
+  },
+  methods: {
+    getCurrencySymbolItem: function getCurrencySymbolItem(currency) {
+      return Object(__WEBPACK_IMPORTED_MODULE_1__pages_retailer_sub_currency_js__["b" /* getCurrencySymbol */])(currency);
     }
   },
   watch: {
@@ -54305,7 +54373,11 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "price" }, [
-          _vm._v(_vm._s(_vm.item.price) + " €")
+          _vm._v(
+            _vm._s(_vm.item.price) +
+              " " +
+              _vm._s(_vm.getCurrencySymbolItem(_vm.item.currency))
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "link" }, [
@@ -56404,6 +56476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_CardActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_CardActions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Loading__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_retailer_sub_currency_js__ = __webpack_require__(17);
 //
 //
 //
@@ -56435,6 +56508,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -56464,6 +56539,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
 
+  methods: {
+    getCurrencySymbolItem: function getCurrencySymbolItem(currency) {
+      return Object(__WEBPACK_IMPORTED_MODULE_4__pages_retailer_sub_currency_js__["b" /* getCurrencySymbol */])(currency);
+    }
+  },
   watch: {
     "$route.params.itemId": function $routeParamsItemId(itemId) {
       var _this2 = this;
@@ -56563,19 +56643,39 @@ var render = function() {
                         { staticClass: "info clearfix" },
                         [
                           _c("div", { staticClass: "price" }, [
-                            _vm._v(_vm._s(_vm.data.price) + " $")
+                            _vm._v(
+                              _vm._s(_vm.data.price) +
+                                " " +
+                                _vm._s(
+                                  _vm.getCurrencySymbolItem(_vm.data.currency)
+                                )
+                            )
                           ]),
                           _vm._v(" "),
                           _c(
                             "router-link",
                             {
+                              staticClass: "link",
                               attrs: {
                                 to: _vm.data.website
                                   ? _vm.data.website
-                                  : "#/profile/" + _vm.data.user_id
+                                  : "/profile/" + _vm.data.user_id
                               }
                             },
                             [_vm._v(_vm._s(_vm.data.brand))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "item-buy",
+                              attrs: {
+                                to: _vm.data.website
+                                  ? _vm.data.website
+                                  : "/profile/" + _vm.data.user_id
+                              }
+                            },
+                            [_vm._v("Buy")]
                           )
                         ],
                         1
