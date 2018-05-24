@@ -115,8 +115,12 @@ class ItemsController extends Controller
         $item->save();
         $similarItems = collect();
         if ($item->brand_id) {
-            $similarItems = Post::where('brand_id', $item->brand_id)->orWhereHas("categories",function ($query) use($item){
-                $query->where('categories.id',$item->categories->pluck('id')->toArray());
+            $similarItems = Post::where(function ($query) use($item){
+                $query->where('brand_id', $item->brand_id)->whereHas("categories",function ($query) use($item){
+                    $query->where('categories.id',$item->categories->pluck('id')->toArray());
+                });
+            })->orWhere(function ($query) use($item){
+                $query->where('brand_id', $item->brand_id);
             })->take(4)->get();
         }
         $count=count($similarItems);
