@@ -177,7 +177,7 @@ class HomeController extends Controller
     public function home(Request $request)
     {
         $data = [];
-        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(8)->get();
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')->take(4)->get();
         $data['items_most_popular'] = \Maps\Item\items($items_most_popular);
         $block = Block::find(1);
 
@@ -191,7 +191,7 @@ class HomeController extends Controller
 
 
         $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
-            ->take(8)->get();
+            ->take(4)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
 
         // Contest
