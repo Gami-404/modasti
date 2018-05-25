@@ -97,7 +97,7 @@ class ExportsController extends Controller
             }
 
         }
-        return response()->json(['status' => true, 'newItems' => $count, 'foundItems' => $foundCount,$data]);
+        return response()->json(['status' => true, 'newItems' => $count, 'foundItems' => $foundCount,'notes'=>$data['notes']]);
     }
 
     /**
