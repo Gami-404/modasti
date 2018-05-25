@@ -40,7 +40,7 @@ class ExportsController extends Controller
      */
     public function importFile(Request $request)
     {
-        $data = ['data' => [], 'errors' => []];
+        $data = ['data' => [], 'errors' => [],'notes'=>[]];
         if (!$request->hasFile('importItems')) {
             $data['errors'][] = 'File not exist.';
             return response()->json($data);
@@ -65,6 +65,10 @@ class ExportsController extends Controller
             $count++;
             $post = new Post();
             $post->title = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+            if(isset($post->title)&&!empty($post->title)){
+                $data['notes'][]="$row his title is ull";
+                break;
+            }
             $post->brand_id = ($this->getBrandId($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
             $post->content = (($worksheet->getCellByColumnAndRow(3, $row)->getValue()));
             $post->url = (($worksheet->getCellByColumnAndRow(4, $row)->getValue()));
