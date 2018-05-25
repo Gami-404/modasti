@@ -289,9 +289,7 @@ class ItemsController extends Controller
             'shop_url' => 'required|url',
             'price' => 'required|numeric',
             'sale_price' => 'required|numeric',
-            'size' => 'required',
-            'coverage' => 'required|in:1,2,3,4',
-            'sizeSystem' => 'required|in:eu,uk,us',
+            'coverage' => 'in:1,2,3,4',
             'image' => 'required',
             'currency' => 'required',
 

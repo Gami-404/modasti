@@ -61245,8 +61245,11 @@ var $vm = null;
             this.itemsCounter++;
         },
         publish: function publish() {
-            this.$router.push({ query: { popup: "create_collection" } });
+            this.stage.find("Transformer").destroy();
+            this.layer.draw();
+            this.selected = null;
             this.base64Img = this.stage.toDataURL();
+            this.$router.push({ query: { popup: "create_collection" } });
         }
     }
 });
