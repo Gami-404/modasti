@@ -65,8 +65,8 @@ class ExportsController extends Controller
             $count++;
             $post = new Post();
             $post->title = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-            if(isset($post->title)&&!empty($post->title)){
-                $data['notes'][]="$row his title is ull";
+            if(!(isset($post->title)&&!empty($post->title))){
+                $data['notes'][]="$row his title is null";
                 break;
             }
             $post->brand_id = ($this->getBrandId($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
