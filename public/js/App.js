@@ -72421,7 +72421,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return { text: i };
       });
       _this2.selectedColors = _this2.form.color;
-      _this2.form.sizeSystem = _this2.form.sizeSystem.toLowerCase();
+      _this2.form.sizeSystem = _this2.form.sizeSystem ? _this2.form.sizeSystem.toLowerCase() : '';
       _this2.form.itemId = _this2.$route.params.myItemId;
       _this2.form.imageOriginal = _this2.form.image;
       _this2.form.image = false;

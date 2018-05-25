@@ -199,7 +199,7 @@ export default {
         this.form = res.data.data;
         this.selectedSizes = this.form.size.split(",").map( i => ({ text: i }) );
         this.selectedColors = this.form.color;  
-        this.form.sizeSystem = this.form.sizeSystem.toLowerCase();
+        this.form.sizeSystem =  this.form.sizeSystem?this.form.sizeSystem.toLowerCase():'';
         this.form.itemId = this.$route.params.myItemId;
         this.form.imageOriginal = this.form.image;
         this.form.image = false;
