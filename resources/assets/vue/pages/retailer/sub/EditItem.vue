@@ -197,11 +197,12 @@ export default {
       .dispatch("get_Item_edit", this.$route.params.myItemId)
       .then(res => {
         this.form = res.data.data;
-        this.selectedSizes = this.form.size.split(",").map( i => ({ text: i }) );
+        this.selectedSizes = this.form.size&&this.form.size.length>0?this.form.size.split(",").map( i => ({ text: i })):[];
         this.selectedColors = this.form.color;  
         this.form.sizeSystem =  this.form.sizeSystem?this.form.sizeSystem.toLowerCase():'';
         this.form.itemId = this.$route.params.myItemId;
         this.form.imageOriginal = this.form.image;
+
         this.form.image = false;
         Promise.all([
           this.$store.dispatch("get_colors"),

@@ -72417,13 +72417,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     this.$store.dispatch("get_Item_edit", this.$route.params.myItemId).then(function (res) {
       _this2.form = res.data.data;
-      _this2.selectedSizes = _this2.form.size.split(",").map(function (i) {
+      _this2.selectedSizes = _this2.form.size && _this2.form.size.length > 0 ? _this2.form.size.split(",").map(function (i) {
         return { text: i };
-      });
+      }) : [];
       _this2.selectedColors = _this2.form.color;
       _this2.form.sizeSystem = _this2.form.sizeSystem ? _this2.form.sizeSystem.toLowerCase() : '';
       _this2.form.itemId = _this2.$route.params.myItemId;
       _this2.form.imageOriginal = _this2.form.image;
+
       _this2.form.image = false;
       Promise.all([_this2.$store.dispatch("get_colors"), _this2.$store.dispatch("get_sizes"), _this2.$store.dispatch("get_categories")]).then(function () {
         return _this2.loadig = false;
