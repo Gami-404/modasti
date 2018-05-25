@@ -5,14 +5,11 @@
 				<div class="theLogo"><img src="images/logo.png" alt=""></div>
 				<p>A place where women from all over the world meet the widest selection of modest clothing, a place where designers, stylists, influencers, and shoppers meet and inspire each other with new fashion and trends. Indeed the era of modest fashion has just begun.</p>
 				<div class="social">
-					<a href="#">
+					<a href="https://www.facebook.com/modestfashionforall/">
 						<i class="fa fa-facebook-official"></i>
 					</a>
-					<a href="#">
-						<i class="fa fa-twitter"></i>
-					</a>
-					<a href="#">
-						<i class="fa fa-telegram"></i>
+					<a href="https://www.instagram.com/modasti_modestfashionforall/">
+						<i class="fa fa-instagram"></i>
 					</a>
 				</div>
 			</div>

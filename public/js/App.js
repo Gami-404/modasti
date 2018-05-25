@@ -79991,17 +79991,21 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "social" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-facebook-official" })
-        ]),
+        _c(
+          "a",
+          { attrs: { href: "https://www.facebook.com/modestfashionforall/" } },
+          [_c("i", { staticClass: "fa fa-facebook-official" })]
+        ),
         _vm._v(" "),
-        _c("a", { attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-twitter" })
-        ]),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-telegram" })
-        ])
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "https://www.instagram.com/modasti_modestfashionforall/"
+            }
+          },
+          [_c("i", { staticClass: "fa fa-instagram" })]
+        )
       ])
     ])
   },
