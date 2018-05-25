@@ -49,14 +49,13 @@ const actions = {
   import_items({ commit, state, getters }, file) {
     let formBody = new FormData();
     formBody.append("importItems", file);
-   return axios.post(window.baseURL + "/importFile", formBody, {
+   return axios.post(window.baseURL + "/api/importFile", formBody, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization:
           "Bearer " +
           (window._store.getters.api_token ||
-            localStorage.getItem("api_token") ||
-            "")
+            localStorage.getItem("api_token") || "")
       }
     });
   }

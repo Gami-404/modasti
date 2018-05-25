@@ -40,7 +40,10 @@ export default {
           this.theComponent = DetailsOld;
         }
         this.loading = false;
-      });
+      }).catch((err)=>{
+          this.$router.push('/404');
+        this.loading = false;
+    });;
   },
   watch: {
     "$route.params.contId"(contId) {
@@ -48,6 +51,9 @@ export default {
       this.loading = true;
       this.$store.dispatch("get_contest_details", contId).then(() => {
         this.loading = false;
+      }).catch((err)=>{
+          this.loading = false;
+          console.log('error');
       });
     }
   }

@@ -68666,7 +68666,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.theComponent = __WEBPACK_IMPORTED_MODULE_1__DetailsOld___default.a;
       }
       _this.loading = false;
-    });
+    }).catch(function (err) {
+      _this.$router.push('/404');
+      _this.loading = false;
+    });;
   },
 
   watch: {
@@ -68677,6 +68680,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.loading = true;
       this.$store.dispatch("get_contest_details", contId).then(function () {
         _this2.loading = false;
+      }).catch(function (err) {
+        _this2.loading = false;
+        console.log('error');
       });
     }
   }
@@ -76059,7 +76065,7 @@ var actions = {
 
     var formBody = new FormData();
     formBody.append("importItems", file);
-    return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(window.baseURL + "/importFile", formBody, {
+    return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(window.baseURL + "/api/importFile", formBody, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + (window._store.getters.api_token || localStorage.getItem("api_token") || "")
