@@ -45,7 +45,7 @@ class ContestController extends Controller
         ]);
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
-            return response()->json($data, 400);
+            return response()->json($data, 404);
         }
         $contestItems = ContestItem::with('image', 'user')
             ->where(['contest_id' => $request->get('contestId')])->take($limit)->offset($offset)->get();
