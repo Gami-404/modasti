@@ -79357,7 +79357,7 @@ var render = function() {
             [
               _c("router-link", { staticClass: "logo", attrs: { to: "/" } }, [
                 _c("img", {
-                  attrs: { src: "images/logo.png", alt: "Modacity" }
+                  attrs: { src: "/images/logo.png", alt: "Modacity" }
                 })
               ]),
               _vm._v(" "),
