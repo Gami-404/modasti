@@ -6,6 +6,7 @@ use App\Events\UserFollowing;
 use App\Events\VerificationMail;
 use App\Model\Media;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -49,10 +50,15 @@ class UserController extends Controller
             $response['errors'] = ["Please Verification your mail (check your e-mail)."];
             return response()->json($response, '400');
         }
-        $response['data'] = \Maps\User\login(fauth()->user());
-        $response['data']->currency = fauth()->user()->currency;
-        $response['data']->about = fauth()->user()->about;
-        $response['token'] = fauth()->user()->api_token;
+        $user = fauth()->user();
+
+        $response['data'] = \Maps\User\login($user);
+        $response['data']->currency = $user->currency;
+        $response['data']->last_login = isset($user->last_login)&&!empty($user->last_login)? $user->last_login->timestamp : null;
+        $response['data']->about = $user->about;
+        $response['token'] = $user->api_token;
+        $user->last_login = Carbon::now();
+        $user->save();
         return response()->json($response);
     }
 

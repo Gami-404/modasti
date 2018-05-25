@@ -2,7 +2,7 @@
 	<footer id="footer">
 		<div class="gridContainer clearfix">
 			<div class="logoFooter">
-				<div class="theLogo"><img src="images/logo.png" alt=""></div>
+				<div class="theLogo"><img src="/images/logo.png" alt="modisti"></div>
 				<p>A place where women from all over the world meet the widest selection of modest clothing, a place where designers, stylists, influencers, and shoppers meet and inspire each other with new fashion and trends. Indeed the era of modest fashion has just begun.</p>
 				<div class="social">
 					<a href="https://www.facebook.com/modestfashionforall/">
@@ -17,7 +17,12 @@
 				<div class="footerTitle">QUICK LINKS</div>
 				<ul>
 					<li>
-						<a href="#">Privacy Policy</a>
+						<a href="#">Privacy Policy</a>		<!-- <li>
+						<a href="#">DATA FEED GUIDELINES AND SPECIFICATIONS</a>
+					</li> -->
+					<!-- <li>
+						<a href="#">Help</a>
+					</li> -->
 					</li>
 					<li>
 						<router-link to="/contact">CONTACT US</router-link>

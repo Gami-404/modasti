@@ -20,7 +20,7 @@ class User extends \Dot\Users\Models\User
         'name', 'email', 'password',
     ];
 
-    protected $appends=['avatar'];
+    protected $appends = ['avatar'];
 
 
     /**
@@ -29,9 +29,15 @@ class User extends \Dot\Users\Models\User
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token','photo'
+        'password', 'remember_token', 'api_token', 'photo'
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['last_login', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -86,6 +92,6 @@ class User extends \Dot\Users\Models\User
      */
     public function getAvatarAttribute()
     {
-        return $this->photo?thumbnail($this->photo->path):null;
+        return $this->photo ? thumbnail($this->photo->path) : null;
     }
 }
