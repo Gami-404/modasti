@@ -62,7 +62,7 @@ class ExportsController extends Controller
                 $foundCount++;
                 continue;
             }
-            $count++;
+
             $post = new Post();
             $post->title = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
             if(!(isset($post->title)&&!empty($post->title))){
@@ -83,7 +83,7 @@ class ExportsController extends Controller
             $post->lang = "en";
 
             $post->save();
-
+            $count++;
             // Categories
             $post->categories()->sync($this->getCategoriesIds(($worksheet->getCellByColumnAndRow(12, $row)->getValue())));
 
@@ -97,7 +97,7 @@ class ExportsController extends Controller
             }
 
         }
-        return response()->json(['status' => true, 'newItems' => $count, 'foundItems' => $foundCount]);
+        return response()->json(['status' => true, 'newItems' => $count, 'foundItems' => $foundCount,$data]);
     }
 
     /**
