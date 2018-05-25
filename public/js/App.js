@@ -79910,9 +79910,15 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
+          _c(
+            "li",
+            [
+              _c("router-link", { attrs: { to: "/terms" } }, [
+                _vm._v("Terms of service")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "li",
@@ -79936,7 +79942,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(4),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "li",
@@ -79970,7 +79976,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(3)
     ])
   ])
 }
@@ -80015,22 +80021,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [_vm._v("Privacy Policy")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("About Modasti")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Terms of service")])
     ])
   },
   function() {

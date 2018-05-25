@@ -16,12 +16,6 @@
 			<div class="menu">
 				<div class="footerTitle">QUICK LINKS</div>
 				<ul>
-					<!-- <li>
-						<a href="#">DATA FEED GUIDELINES AND SPECIFICATIONS</a>
-					</li> -->
-					<!-- <li>
-						<a href="#">Help</a>
-					</li> -->
 					<li>
 						<a href="#">Privacy Policy</a>
 					</li>
@@ -29,10 +23,7 @@
 						<router-link to="/contact">CONTACT US</router-link>
 					</li>
 					<li>
-						<a href="#">About Modasti</a>
-					</li>
-					<li>
-						<a href="#">Terms of service</a>
+						<router-link to="/terms">Terms of service</router-link>
 					</li>
 					<li>
 						<router-link to="/business-with-us">Business with us</router-link>
