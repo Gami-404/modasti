@@ -36,6 +36,11 @@
 				</div>
 			</WrapperCardListTitled>
 		</div>
+		<transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+			<WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
+				<FirstTime v-if="$route.query.popup=='firsttime'"></FirstTime>
+			</WrapperPopups>
+		</transition>
 		<Loading v-if="loading" />
 	</div>
 </template>
@@ -45,7 +50,9 @@ import ItemCard from "@/components/ItemCard";
 import SetCard from "@/components/SetCard";
 import ContestCard from "@/components/ContestCard";
 import Loading from "@/components/Loading";
+import WrapperPopups from "@/wrappers/WrapperPopups";
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
+import FirstTime from "@/layout/popups/FirstTime";
 import { mapGetters } from "vuex";
 
 export default {
@@ -54,7 +61,10 @@ export default {
     SetCard,
     ContestCard,
     Loading,
-    WrapperCardListTitled
+    WrapperCardListTitled,
+      WrapperPopups,
+      FirstTime
+
   },
   data() {
     return {

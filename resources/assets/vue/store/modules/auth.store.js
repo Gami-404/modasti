@@ -28,7 +28,7 @@ const actions = {
     return API.post("/signIn", formData)
       .then(res => {
         commit("LOGIN", res.data);
-        return res.data.errors;
+        return res.data;
       })
       .catch(err => {
         return err.response.data.errors;
