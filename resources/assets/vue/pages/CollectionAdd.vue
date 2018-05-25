@@ -238,9 +238,11 @@
                     image: imageObj,
                     name: "img",
                     id,
-                    x: x - imageObj.width / 2,
-                    y: y - imageObj.height / 2,
-                    draggable: true
+                    x: x - imageObj.width / 8,
+                    y: y - imageObj.height / 8,
+                    draggable: true,
+                    width:imageObj.width / 4,
+                    height:imageObj.height / 4,
                 });
 
                 // add cursor styling
