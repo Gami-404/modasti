@@ -79052,7 +79052,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.addlinks[data-v-b22b225c] {\n  display: block;\n  color: black !important;\n  font-size: 1em;\n  text-align: left;\n  padding: 5px;\n}\n.dropdown[data-v-b22b225c] {\n  position: relative;\n  display: inline-block;\n  -webkit-transition: all 0.2s ease-out;\n  transition: all 0.2s ease-out;\n}\n.dropdown-content[data-v-b22b225c] {\n  display: none;\n  -webkit-transition: opacity 0.4s ease-out;\n  transition: opacity 0.4s ease-out;\n  position: absolute;\n  background-color: #f9f9f9;\n  min-width: 130px;\n  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  padding: 10px 14px;\n  z-index: 1;\n}\n.dropdown:hover .dropdown-content[data-v-b22b225c] {\n  -webkit-transition: opacity 1s ease-in;\n  transition: opacity 1s ease-in;\n  display: block;\n}\n.active-header[data-v-b22b225c] {\n  color: #ffbeb8 !important;\n}\n", ""]);
+exports.push([module.i, "\n.addlinks[data-v-b22b225c] {\n    display: block;\n    color: black !important;\n    font-size: 1em;\n    text-align: left;\n    padding: 5px;\n}\n.dropdown[data-v-b22b225c] {\n    position: relative;\n    display: inline-block;\n    -webkit-transition: all 0.2s ease-out;\n    transition: all 0.2s ease-out;\n}\n.dropdown-content[data-v-b22b225c] {\n    display: none;\n    -webkit-transition: opacity 0.4s ease-out;\n    transition: opacity 0.4s ease-out;\n    position: absolute;\n    background-color: #f9f9f9;\n    min-width: 130px;\n    -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n    padding: 10px 14px;\n    z-index: 1;\n}\n.dropdown:hover .dropdown-content[data-v-b22b225c] {\n    -webkit-transition: opacity 1s ease-in;\n    transition: opacity 1s ease-in;\n    display: block;\n}\n.active-header[data-v-b22b225c] {\n    color: #ffbeb8 !important;\n}\n", ""]);
 
 // exports
 
@@ -79085,21 +79085,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["username"],
-  data: function data() {
-    return {
-      hover: false
-    };
-  },
+    props: ["username"],
+    data: function data() {
+        return {
+            hover: false
+        };
+    },
 
-  methods: {
-    logout: function logout() {
-      this.$store.dispatch("logout");
-      this.$router.push("/");
+    methods: {
+        logout: function logout() {
+            this.$store.dispatch("logout");
+            this.$router.push("/");
+        }
+    },
+    computed: {
+        user: function user() {
+            return this.$store.getters.user;
+        }
     }
-  }
 });
 
 /***/ }),
@@ -79118,8 +79126,10 @@ var render = function() {
         _c("router-link", { attrs: { to: "/profile/me" } }, [
           _c("img", {
             attrs: {
-              src: "https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1",
-              alt: ""
+              src: _vm.user.avater
+                ? _vm.user.avater
+                : "/images/male-user-shadow.png",
+              alt: _vm.username
             }
           }),
           _vm._v(" "),
@@ -79153,7 +79163,7 @@ var render = function() {
                   "active-class": "active-header"
                 }
               },
-              [_vm._v("Collections")]
+              [_vm._v("Collections\n            ")]
             ),
             _vm._v(" "),
             _c(
@@ -79177,7 +79187,7 @@ var render = function() {
                   "active-class": "active-header"
                 }
               },
-              [_vm._v("Following")]
+              [_vm._v("Following\n            ")]
             ),
             _vm._v(" "),
             _c(
@@ -79189,7 +79199,7 @@ var render = function() {
                   "active-class": "active-header"
                 }
               },
-              [_vm._v("Followers")]
+              [_vm._v("Followers\n            ")]
             ),
             _vm._v(" "),
             _c(

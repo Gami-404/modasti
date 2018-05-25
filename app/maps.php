@@ -21,7 +21,7 @@ namespace Maps\User {
         $std->userId = $user->id;
         $std->email = $user->email;
         $std->name = $user->first_name . ' ' . $user->last_name;
-        $std->avater = $user->photo?uploads_url($user->photo->path):'';
+        $std->avater = $user->photo?uploads_url($user->photo->path):null;
         $std->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         return $std;
     }
