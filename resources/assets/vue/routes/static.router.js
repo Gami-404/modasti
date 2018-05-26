@@ -1,8 +1,8 @@
 import BWithUs from "@/pages/static/BWithUs";
 import Terms from "@/pages/static/Terms";
 import About from "@/pages/static/About";
-import Help from "@/pages/static/Help";
 import Contact from "@/pages/static/Contact";
+import Help from "@/pages/static/Help";
 
 export default [
   {
@@ -28,6 +28,6 @@ export default [
   {
     path: "/contact",
     name: "contact",
-    component: Help
+    component: Contact
   },
 ];

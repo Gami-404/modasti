@@ -35,7 +35,9 @@
 
     export default {
         created() {
-            // API.post();
+            API.post('/getPages/contact-us').then(function (res) {
+                console.log(res);
+            });
         },
         data() {
             return {

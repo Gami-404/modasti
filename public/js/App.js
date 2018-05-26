@@ -63165,10 +63165,10 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_static_Terms___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__pages_static_Terms__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_static_About__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_static_About___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pages_static_About__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_static_Help__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_static_Help___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__pages_static_Help__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_static_Contact__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_static_Contact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__pages_static_Contact__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_static_Contact__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_static_Contact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__pages_static_Contact__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_static_Help__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_static_Help___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__pages_static_Help__);
 
 
 
@@ -63190,11 +63190,11 @@ if (false) {
 }, {
   path: "/help",
   name: "help",
-  component: __WEBPACK_IMPORTED_MODULE_3__pages_static_Help___default.a
+  component: __WEBPACK_IMPORTED_MODULE_4__pages_static_Help___default.a
 }, {
   path: "/contact",
   name: "contact",
-  component: __WEBPACK_IMPORTED_MODULE_3__pages_static_Help___default.a
+  component: __WEBPACK_IMPORTED_MODULE_3__pages_static_Contact___default.a
 }]);
 
 /***/ }),
@@ -64901,7 +64901,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
-        // API.post();
+        __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].post('/getPages/contact-us').then(function (res) {
+            console.log(res);
+        });
     },
     data: function data() {
         return {
