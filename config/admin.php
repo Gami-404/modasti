@@ -39,5 +39,6 @@ return [
         "posts" => Dot\Posts\Posts::class,
         "colors" => Dot\Colors\Colors::class,
         "blocks" => Dot\Blocks\Blocks::class,
+        "pages" => Dot\Pages\Pages::class,
     ]
 ];
