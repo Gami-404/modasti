@@ -39,7 +39,7 @@ Route::post('/getBrands', 'Api\ItemsController@getBrands');
 Route::post('/filter', 'Api\HomeController@filter');
 
 Route::post('/itemDetails', 'Api\ItemsController@itemDetails');
-Route::post('/getPages', 'Api\PagesController@getPages');
+Route::get('/getPages/{slug}', 'Api\PagesController@getPages');
 
 
 //Categories

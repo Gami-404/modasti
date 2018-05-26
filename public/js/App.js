@@ -64901,7 +64901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
-        __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].post('/getPages/contact-us').then(function (res) {
+        __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].get('/getPages/contact-us').then(function (res) {
             console.log(res);
         });
     },

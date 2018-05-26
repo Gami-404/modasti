@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class PagesController extends Controller
 {
     /**
-     * POST /api/getPages
+     * GET /api/getPages
      * @param $slug
      * @return \Illuminate\Http\JsonResponse
      */
