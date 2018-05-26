@@ -38,7 +38,8 @@
       "Dot\\Posts\\": "plugins/posts/src/",
       "Dot\\Colors\\": "plugins/colors/src/",
       "Dot\\Categories\\": "plugins/categories/src/",
-      "Dot\\Blocks\\":"plugins/blocks/src/"
+      "Dot\\Blocks\\":"plugins/blocks/src/",
+      "Dot\\Pages\\":"plugins/pages/src/"
     }
   },
   "autoload-dev": {
