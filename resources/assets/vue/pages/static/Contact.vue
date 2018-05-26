@@ -3,44 +3,39 @@
         <div class="secPaddLg whiteBg textCentered">
             <div class="gridContainer">
                 <div class="sectionName">
-                    <div class="theName">Contact us</div>
+                    <div class="theName" >{{pageTitle}}</div>
                 </div>
             </div>
         </div>
 
         <div class="gridContainer">
-            <div class="termsPage secPaddLg">
-                <div class="content">
-                    <p>If you want to give us a feedback or If you have a question and you didn`t find the answer in the
-                        FAQ`s page feel free to contact us at <a href="#">help@modasti.com</a></p>
-                    <p><span class="brandColor fontLarger mrgRightMd"><i class="fa fa-map-marker"></i></span>123 Second
-                        Street Fifth Avenue, Manhattan, New York</p>
-                </div>
-                <div class="mainTitle second">PRESS INQUIRIES</div>
-                <div class="content">
-                    <p>For press inquiries contact us at <a href="#">press@modasti.com.</a></p>
-                </div>
-                <div class="mainTitle second">BUSINESS INQUIRIES</div>
-                <div class="content">
-                    <p>For business inquiries please visit the <a href="#">BUSINESS WITH US PAGE.</a></p>
-                </div>
+            <div class="termsPage secPaddLg" v-html="pageContent">
             </div>
         </div>
+        <Loading v-if="loading" />
     </div>
 </template>
 
 <script>
 
     import API from "@/store/API";
+    import Loading from "@/components/Loading";
 
     export default {
+        components: {
+            Loading
+        },
         created() {
-            API.get('/getPages/contact-us').then(function (res) {
-                console.log(res);
+            this.loading=true;
+            API.get('/getPages/contact-us').then((res)=>{
+                this.pageTitle = res.data.data.title;
+                this.pageContent = res.data.data.content;
+                this.loading=false;
             });
         },
         data() {
             return {
+                loading: false,
                 pageContent: '',
                 pageTitle: '',
             }

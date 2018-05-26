@@ -64864,6 +64864,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_API__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
 //
 //
 //
@@ -64882,31 +64884,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Loading: __WEBPACK_IMPORTED_MODULE_1__components_Loading___default.a
+    },
     created: function created() {
+        var _this = this;
+
+        this.loading = true;
         __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].get('/getPages/contact-us').then(function (res) {
-            console.log(res);
+            _this.pageTitle = res.data.data.title;
+            _this.pageContent = res.data.data.content;
+            _this.loading = false;
         });
     },
     data: function data() {
         return {
+            loading: false,
             pageContent: '',
             pageTitle: ''
         };
@@ -64921,70 +64920,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
+  return _c(
+    "div",
+    [
       _c("div", { staticClass: "secPaddLg whiteBg textCentered" }, [
         _c("div", { staticClass: "gridContainer" }, [
           _c("div", { staticClass: "sectionName" }, [
-            _c("div", { staticClass: "theName" }, [_vm._v("Contact us")])
+            _c("div", { staticClass: "theName" }, [
+              _vm._v(_vm._s(_vm.pageTitle))
+            ])
           ])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "gridContainer" }, [
-        _c("div", { staticClass: "termsPage secPaddLg" }, [
-          _c("div", { staticClass: "content" }, [
-            _c("p", [
-              _vm._v(
-                "If you want to give us a feedback or If you have a question and you didn`t find the answer in the\n                    FAQ`s page feel free to contact us at "
-              ),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("help@modasti.com")])
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _c("span", { staticClass: "brandColor fontLarger mrgRightMd" }, [
-                _c("i", { staticClass: "fa fa-map-marker" })
-              ]),
-              _vm._v(
-                "123 Second\n                    Street Fifth Avenue, Manhattan, New York"
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mainTitle second" }, [
-            _vm._v("PRESS INQUIRIES")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "content" }, [
-            _c("p", [
-              _vm._v("For press inquiries contact us at "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("press@modasti.com.")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mainTitle second" }, [
-            _vm._v("BUSINESS INQUIRIES")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "content" }, [
-            _c("p", [
-              _vm._v("For business inquiries please visit the "),
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("BUSINESS WITH US PAGE.")
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+        _c("div", {
+          staticClass: "termsPage secPaddLg",
+          domProps: { innerHTML: _vm._s(_vm.pageContent) }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.loading ? _c("Loading") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
