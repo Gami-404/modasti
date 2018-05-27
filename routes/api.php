@@ -20,6 +20,7 @@ Route::post('/register', 'Api\UserController@register');
 Route::post('/registerDesigner', 'Api\UserController@registerDesigner');
 // Sizes
 Route::post('/getSizes', 'Api\HomeController@getSizes');
+Route::post('/getQuestions', 'Api\HomeController@getQuestions');
 // Colors
 Route::post('/getColors', 'Api\ColorController@getColors');
 // Countries
