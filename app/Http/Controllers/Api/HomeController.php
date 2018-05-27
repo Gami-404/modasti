@@ -186,7 +186,7 @@ class HomeController extends Controller
 
 
         $block = Block::find(2);
-        $items_best_from_modasti = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(8)->get() : collect();
+        $items_best_from_modasti = $block ? $block->orderedPosts()->orderBy('likes', 'desc')->take(4)->get() : collect();
         $data['items_best_from_modasti'] = \Maps\Item\items($items_best_from_modasti);
 
 
