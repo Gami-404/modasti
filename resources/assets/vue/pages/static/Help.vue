@@ -10,7 +10,7 @@
         <div class="gridContainer">
             <div class="helpPage">
 
-                <div class="oneQuestion" v-if="questions&&questions.length>0" v-for="question of questions"
+                <div class="oneQuestion" v-if="questions&&questions.length>0&&loading" v-for="question of questions"
                      :key="question.id" :class="{'opened':question.show}" @click="question.show=!question.show">
                     <div class="theQuestion">{{question.title}}
                         <span class="icon">
@@ -25,58 +25,35 @@
             </div>
 
         </div>
+        <Loading v-if="loading" />
     </div>
 </template>
 
 <script>
+
+    import API from "@/store/API";
+    import Loading from "@/components/Loading";
     export default {
+        components: {
+            Loading
+        },
         data() {
             return {
-                tip1: true,
-                tip2: false,
-                tip3: false,
-                tip4: false,
-                tip5: false,
-                questions: [
-                    {
-                        id: 1,
-                        title: 'FROM WHO YOU BUY?',
-                        show: true,
-                        answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" +
-                        "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" +
-                        "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-                    }, {
-                        id: 2,
-                        title: 'DO YOU OFFER INTERNATIONAL SHIPPING?',
-                        show: false,
-                        answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" +
-                        "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" +
-                        "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-                    }, {
-                        id: 3,
-                        title: 'CREATE AN ACCOUNT',
-                        show: false,
-                        answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" +
-                        "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" +
-                        "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-                    }, {
-                        id: 4,
-                        title: 'Edit ACCOUNT?',
-                        show: false,
-                        answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" +
-                        "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" +
-                        "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-                    }, {
-                        id: 5,
-                        title: 'CHANGE OR RESTORE YOUR PASSWORD?',
-                        show: false,
-                        answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" +
-                        "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" +
-                        "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-                    },
-
-                ],
+                loading:false,
+                questions: [],
             }
+        },
+        created(){
+            this.loading=true;
+            API.get('/getQuestions').then((res)=>{
+                this.questions=res.data.data.map((question)=>{
+                    return {
+                        ...question,
+                        show:false
+                    }
+                });
+                this.loading=false;
+            });
         }
     };
 </script>

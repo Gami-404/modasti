@@ -65554,7 +65554,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65565,6 +65565,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_API__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
 //
 //
 //
@@ -65596,41 +65602,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Loading: __WEBPACK_IMPORTED_MODULE_1__components_Loading___default.a
+    },
     data: function data() {
         return {
-            tip1: true,
-            tip2: false,
-            tip3: false,
-            tip4: false,
-            tip5: false,
-            questions: [{
-                id: 1,
-                title: 'FROM WHO YOU BUY?',
-                show: true,
-                answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" + "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" + "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-            }, {
-                id: 2,
-                title: 'DO YOU OFFER INTERNATIONAL SHIPPING?',
-                show: false,
-                answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" + "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" + "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-            }, {
-                id: 3,
-                title: 'CREATE AN ACCOUNT',
-                show: false,
-                answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" + "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" + "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-            }, {
-                id: 4,
-                title: 'Edit ACCOUNT?',
-                show: false,
-                answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" + "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" + "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-            }, {
-                id: 5,
-                title: 'CHANGE OR RESTORE YOUR PASSWORD?',
-                show: false,
-                answer: "  <p>Modasti is not involved in any transaction, we are a social commerce platform that advertise designer items to a global community of modest fashion shoppers.</p>\n" + "            <p>All the items link back to the retailers and that`s who you buy from.</p>\n" + "            <p>If you have a question regarding a purchase of an item please contact directly the retailer.</p>"
-            }]
+            loading: false,
+            questions: []
         };
+    },
+    created: function created() {
+        var _this = this;
+
+        this.loading = true;
+        __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].get('/getQuestions').then(function (res) {
+            _this.questions = res.data.data.map(function (question) {
+                return _extends({}, question, {
+                    show: false
+                });
+            });
+            _this.loading = false;
+        });
     }
 });
 
@@ -65642,47 +65638,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "gridContainer" }, [
-      _c(
-        "div",
-        { staticClass: "helpPage" },
-        _vm._l(_vm.questions, function(question) {
-          return _vm.questions && _vm.questions.length > 0
-            ? _c(
-                "div",
-                {
-                  key: question.id,
-                  staticClass: "oneQuestion",
-                  class: { opened: question.show },
-                  on: {
-                    click: function($event) {
-                      question.show = !question.show
+  return _c(
+    "div",
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "gridContainer" }, [
+        _c(
+          "div",
+          { staticClass: "helpPage" },
+          _vm._l(_vm.questions, function(question) {
+            return _vm.questions && _vm.questions.length > 0 && _vm.loading
+              ? _c(
+                  "div",
+                  {
+                    key: question.id,
+                    staticClass: "oneQuestion",
+                    class: { opened: question.show },
+                    on: {
+                      click: function($event) {
+                        question.show = !question.show
+                      }
                     }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "theQuestion" }, [
-                    _vm._v(_vm._s(question.title) + "\n                    "),
-                    _vm._m(1, true)
-                  ]),
-                  _vm._v(" "),
-                  _c("transition", { attrs: { name: "fade" } }, [
-                    _c("div", {
-                      staticClass: "theAnswer",
-                      domProps: { innerHTML: _vm._s(question.answer) }
-                    })
-                  ])
-                ],
-                1
-              )
-            : _vm._e()
-        })
-      )
-    ])
-  ])
+                  },
+                  [
+                    _c("div", { staticClass: "theQuestion" }, [
+                      _vm._v(_vm._s(question.title) + "\n                    "),
+                      _vm._m(1, true)
+                    ]),
+                    _vm._v(" "),
+                    _c("transition", { attrs: { name: "fade" } }, [
+                      _c("div", {
+                        staticClass: "theAnswer",
+                        domProps: { innerHTML: _vm._s(question.answer) }
+                      })
+                    ])
+                  ],
+                  1
+                )
+              : _vm._e()
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _vm.loading ? _c("Loading") : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
