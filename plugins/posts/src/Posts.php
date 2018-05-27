@@ -89,6 +89,16 @@ class Posts extends \Dot\Platform\Plugin
             }
         });
 
+        Navigation::menu("sidebar", function ($menu) {
+
+            if (Auth::user()->can("posts.manage")) {
+
+                $menu->item('contests', trans("posts::questions.questions"), route("admin.posts.questions.show"))
+                    ->order(1)
+                    ->icon("fa-question");
+            }
+        });
+
         Action::listen("dashboard.featured", function () {
 
             $data = [];
