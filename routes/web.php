@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 
 Route::get('/verification/{token}','MailVerificationController@verification')->name('verification.mail');
-
+Route::get('/passwordReset/{token}', 'ResetPasswordController@resetForm')->name('_password.reset');
+Route::post('/passwordReset/{token}', 'ResetPasswordController@reset')->name('_password.reset');

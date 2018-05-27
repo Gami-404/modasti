@@ -7,6 +7,7 @@
                 <i class="fa fa-angle-down"></i>
             </router-link>
             <div class="dropdown-content">
+                <router-link  v-if="user.user_type==='RETAILER'" to="/retailer" class="addlinks" active-class="active-header">My Items</router-link>
                 <router-link to="/profile/me/sets" class="addlinks" active-class="active-header">Sets</router-link>
                 <router-link to="/profile/me/collections" class="addlinks" active-class="active-header">Collections
                 </router-link>

@@ -7,30 +7,32 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class VerificationMail extends Mailable
+class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Verification email
-     * @var null
-     */
-    public $email = null;
 
     /**
-     * Verification token
+     * User Model
      * @var null
      */
-    public $token = null;
+    protected $user = null;
+
+    /**
+     * Rest token
+     * @var null
+     */
+    protected $token = null;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email, $token)
+    public function __construct($user, $token)
     {
-        $this->email = $email;
+        //
+        $this->user = $user;
         $this->token = $token;
     }
 
@@ -41,6 +43,6 @@ class VerificationMail extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@modasti.com')->view('emails.verification', ['url' => route('verification.mail', ['token' => $this->token])]);
+        return $this->from('no-reply@modasti.com')->view('emails.reset', ['url' => route('_password.reset', ['token' => $this->token]), 'user' => $this->user]);
     }
 }

@@ -79050,6 +79050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["username"],
@@ -79104,6 +79105,17 @@ var render = function() {
           "div",
           { staticClass: "dropdown-content" },
           [
+            _vm.user.user_type === "RETAILER"
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "addlinks",
+                    attrs: { to: "/retailer", "active-class": "active-header" }
+                  },
+                  [_vm._v("My Items")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "router-link",
               {

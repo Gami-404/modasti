@@ -42,6 +42,10 @@ Route::post('/filter', 'Api\HomeController@filter');
 Route::post('/itemDetails', 'Api\ItemsController@itemDetails');
 Route::get('/getPages/{slug}', 'Api\PagesController@getPages');
 
+Route::post('/passwordReset', 'ResetPasswordController@passwordReset');
+//Route::get('/passwordReset/{token}', 'ResetPasswordController@RePassword')->name('api.password.reset');
+//Route::post('/passwordTokenCheck/{token}', 'ResetPasswordController@passwordTokenCheck')->name('api.password.token_check');
+
 
 //Categories
 Route::post('getItemsFromCategory', 'Api\CategoriesController@getItemsFromCategory');
