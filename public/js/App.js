@@ -65648,7 +65648,7 @@ var render = function() {
           "div",
           { staticClass: "helpPage" },
           _vm._l(_vm.questions, function(question) {
-            return _vm.questions && _vm.questions.length > 0 && _vm.loading
+            return _vm.questions && _vm.questions.length > 0 && !_vm.loading
               ? _c(
                   "div",
                   {

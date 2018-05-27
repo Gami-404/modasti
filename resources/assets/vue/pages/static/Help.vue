@@ -10,7 +10,7 @@
         <div class="gridContainer">
             <div class="helpPage">
 
-                <div class="oneQuestion" v-if="questions&&questions.length>0&&loading" v-for="question of questions"
+                <div class="oneQuestion" v-if="questions&&questions.length>0&&!loading" v-for="question of questions"
                      :key="question.id" :class="{'opened':question.show}" @click="question.show=!question.show">
                     <div class="theQuestion">{{question.title}}
                         <span class="icon">
