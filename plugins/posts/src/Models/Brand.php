@@ -109,6 +109,14 @@ class Brand extends Model
         return $this->hasOne(Media::class, "id", "image_id");
     }
 
+    /**
+     * Items relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function posts()
+    {
+        return $this->hasMany(\App\Model\Post::class, "brand_id");
+    }
 
     /**
      * User relation

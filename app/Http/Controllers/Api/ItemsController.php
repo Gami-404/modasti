@@ -11,7 +11,6 @@ use App\User;
 use Dot\Colors\Models\Color;
 use Dot\Posts\Models\Brand;
 use Dot\Posts\Models\PostSize;
-use Dot\Posts\Posts;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
@@ -346,6 +345,13 @@ class ItemsController extends Controller
         $query = Brand::with('image');
         if ($request->filled('q')) {
             $query->search($request->get('q'));
+        }
+        if($request->filled('categoryId')){
+            $query->whereHas('posts',function ($query)use($request){
+                $query->whereHas('categories',function ($query) use($request){
+                    $query->where('categories.id',$request->get('categoryId'));
+                });
+            });
         }
         $data['data'] = $query->take(30)->get();
         return response()->json($data);
