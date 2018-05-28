@@ -53,7 +53,8 @@ const getters = {
     sizes: state => state.filters.sizes,
     brands: state => state.filters.brands,
     coverage: state => state.filters.coverage,
-    priceOrder: state => state.filters.priceOrder
+    priceOrder: state => state.filters.priceOrder,
+    catIdMap: state => state.catIdMap,
 };
 
 // helper function !

@@ -55564,7 +55564,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     this.$store.dispatch("get_categories").then(function () {
       _this.loadItems(_this.$route.params.name, _this.$route.params.subCat).then(function () {
-        Promise.all([_this.$store.dispatch("get_colors", true), _this.$store.dispatch("get_brands"), _this.$store.dispatch("get_sizes")]).then(function () {
+        var cats_id = [_this.$store.getters.catIdMap[_this.$route.params.name]];
+        if (_this.$route.params.subCat) {
+          cats_id.push(_this.$route.params.subCat);
+        }
+        Promise.all([_this.$store.dispatch("get_colors", true), _this.$store.dispatch("get_brands", cats_id), _this.$store.dispatch("get_sizes")]).then(function () {
           _this.loading = false;
           _this.$store.dispatch("map_filters");
         });
@@ -75421,6 +75425,9 @@ var getters = {
     },
     priceOrder: function priceOrder(state) {
         return state.filters.priceOrder;
+    },
+    catIdMap: function catIdMap(state) {
+        return state.catIdMap;
     }
 };
 
@@ -76395,11 +76402,12 @@ var actions = {
       return data;
     });
   },
-  get_brands: function get_brands(_ref3) {
+  get_brands: function get_brands(_ref3, cats_id) {
     var commit = _ref3.commit;
 
+    var cats = cats_id || '';
     if (state.sizes.length > 0) return Promise.resolve();
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getBrands").then(function (res) {
+    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getBrands", { categoriesId: cats }).then(function (res) {
       commit("BRANDS", res.data.data);
     });
   },

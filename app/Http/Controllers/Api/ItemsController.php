@@ -346,10 +346,10 @@ class ItemsController extends Controller
         if ($request->filled('q')) {
             $query->search($request->get('q'));
         }
-        if($request->filled('categoryId')){
+        if($request->filled('categoriesId')){
             $query->whereHas('posts',function ($query)use($request){
                 $query->whereHas('categories',function ($query) use($request){
-                    $query->where('categories.id',$request->get('categoryId'));
+                    $query->whereIn('categories.id',$request->get('categoriesId'));
                 });
             });
         }

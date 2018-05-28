@@ -29,9 +29,10 @@ const actions = {
       return data;
     });
   },
-  get_brands({ commit }) {
+  get_brands({ commit },cats_id) {
+    var cats=  cats_id || '';
     if (state.sizes.length > 0) return Promise.resolve();
-    return API.post("/getBrands").then(res => {
+    return API.post("/getBrands",{categoriesId:cats}).then(res => {
       commit("BRANDS", res.data.data);
     });
   },

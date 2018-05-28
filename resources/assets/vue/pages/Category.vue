@@ -51,9 +51,13 @@ export default {
   created() {
     this.$store.dispatch("get_categories").then(() => {
       this.loadItems(this.$route.params.name,this.$route.params.subCat).then(() => {
+          var cats_id=[this.$store.getters.catIdMap[this.$route.params.name]];
+          if(this.$route.params.subCat){
+              cats_id.push(this.$route.params.subCat)
+          }
           Promise.all([
             this.$store.dispatch("get_colors",true),
-            this.$store.dispatch("get_brands"),
+            this.$store.dispatch("get_brands",cats_id),
             this.$store.dispatch("get_sizes")
           ]).then(() => {
             this.loading = false;
