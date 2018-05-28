@@ -18,9 +18,12 @@ const actions = {
       commit("SIZES", res.data.data);
     });
   },
-  get_colors({ commit }) {
+  get_colors({ commit },fillterd) {
+    var fillter=fillterd || '';
     if (state.sizes.length > 0) return Promise.resolve();
-    return API.post("/getColors").then(res => {
+    return API.post("/getColors",{
+        "add_to_filter":fillter,
+    }).then(res => {
       const data=[... res.data.data]
       commit("COLORS", res.data.data);
       return data;

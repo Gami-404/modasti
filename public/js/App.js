@@ -55564,7 +55564,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     this.$store.dispatch("get_categories").then(function () {
       _this.loadItems(_this.$route.params.name, _this.$route.params.subCat).then(function () {
-        Promise.all([_this.$store.dispatch("get_colors"), _this.$store.dispatch("get_brands"), _this.$store.dispatch("get_sizes")]).then(function () {
+        Promise.all([_this.$store.dispatch("get_colors", true), _this.$store.dispatch("get_brands"), _this.$store.dispatch("get_sizes")]).then(function () {
           _this.loading = false;
           _this.$store.dispatch("map_filters");
         });
@@ -76393,11 +76393,14 @@ var actions = {
       commit("SIZES", res.data.data);
     });
   },
-  get_colors: function get_colors(_ref2) {
+  get_colors: function get_colors(_ref2, fillterd) {
     var commit = _ref2.commit;
 
+    var fillter = fillterd || '';
     if (state.sizes.length > 0) return Promise.resolve();
-    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getColors").then(function (res) {
+    return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/getColors", {
+      "add_to_filter": fillter
+    }).then(function (res) {
       var data = [].concat(_toConsumableArray(res.data.data));
       commit("COLORS", res.data.data);
       return data;

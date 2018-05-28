@@ -52,7 +52,7 @@ export default {
     this.$store.dispatch("get_categories").then(() => {
       this.loadItems(this.$route.params.name,this.$route.params.subCat).then(() => {
           Promise.all([
-            this.$store.dispatch("get_colors"),
+            this.$store.dispatch("get_colors",true),
             this.$store.dispatch("get_brands"),
             this.$store.dispatch("get_sizes")
           ]).then(() => {

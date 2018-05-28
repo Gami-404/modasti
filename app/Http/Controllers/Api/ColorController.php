@@ -17,7 +17,7 @@ class ColorController extends Controller
     public function getColors(Request $request)
     {
         $colors=collect();
-        if($request->filled('categoryId')){
+        if($request->filled('add_to_filter')){
             $colors=Color::where(['add_to_filter'=>1])->get();
         }else{
             $colors= Color::all();
