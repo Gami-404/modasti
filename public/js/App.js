@@ -77192,7 +77192,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (data.errors.length == 0) {
                     _this.$router.push({ path: _this.$route.query.redirect, query: {} });
                     _this.$router.go(_this.$router.currentRoute);
-                    if (data.last_login == null) {
+                    console.log(data.last_login);
+                    if (data.last_login === null) {
                         _this.$router.push({ query: {
                                 'popup': 'firsttime'
                             } });

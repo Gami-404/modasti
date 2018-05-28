@@ -58,7 +58,8 @@
                         if (data.errors.length == 0) {
                             this.$router.push({path: this.$route.query.redirect, query: {}});
                             this.$router.go(this.$router.currentRoute);
-                            if(data.last_login==null){
+                            console.log(data.last_login);
+                            if(data.last_login===null){
                                 this.$router.push({ query: {
                                     'popup':'firsttime'
                                     }});
