@@ -3,23 +3,19 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
-use Dot\Posts\Models\Question;
-use Dot\Posts\Models\PostSize;
-use Dot\Posts\Models\Set;
+use Dot\Posts\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
-use Dot\Posts\Models\Post;
-use Dot\Posts\Models\PostMeta;
 use Redirect;
 use Request;
 use View;
 
 
 /**
- * Class QuestionsController
+ * Class PostsController
  * @package Dot\Posts\Controllers
  */
-class QuestionsController extends Controller
+class ReportsController extends Controller
 {
 
     /**
@@ -53,7 +49,7 @@ class QuestionsController extends Controller
         $this->data["order"] = (Request::filled("order")) ? Request::get("order") : "DESC";
         $this->data['per_page'] = (Request::filled("per_page")) ? Request::get("per_page") : NULL;
 
-        $query = Question::orderBy($this->data["sort"], $this->data["order"]);
+        $query = Report::orderBy($this->data["sort"], $this->data["order"]);
 
 
         if (Request::filled("from")) {
@@ -72,11 +68,11 @@ class QuestionsController extends Controller
         if (Request::filled("q")) {
             $query->search(urldecode(Request::get("q")));
         }
-        $this->data["questions"] = $query->paginate($this->data['per_page']);
+        $this->data["reports"] = $query->paginate($this->data['per_page']);
 
 
 
-        return View::make("posts::questions.show", $this->data);
+        return View::make("posts::reports.show", $this->data);
     }
 
     /**
@@ -91,60 +87,20 @@ class QuestionsController extends Controller
 
         foreach ($ids as $ID) {
 
-            $question = Question::findOrFail($ID);
+            $question = Report::findOrFail($ID);
 
             // Fire deleting action
 
-            Action::fire("post.question.deleting", $question);
+            Action::fire("post.report.deleting", $question);
 
             $question->delete();
 
             // Fire deleted action
 
-            Action::fire("post.question.deleted", $question);
+            Action::fire("post.report.deleted", $question);
         }
 
-        return Redirect::back()->with("message", trans("posts::questions.events.deleted"));
-    }
-
-    /**
-     * Create a new post
-     * @return mixed
-     */
-    public function create()
-    {
-
-        $question = new Question();
-
-        if (Request::isMethod("post")) {
-
-            $question->title = Request::get('title');
-            $question->answer = Request::get('answer');
-            $question->status = Request::get('status',0);
-
-            $question->user_id = Auth::user()->id;
-
-
-            // Fire saving action
-
-            Action::fire("question.saving", $question);
-
-            if (!$question->validate()) {
-                return Redirect::back()->withErrors($question->errors())->withInput(Request::all());
-            }
-
-            $question->save();
-            // Fire saved action
-
-            Action::fire("post.saved", $question);
-
-            return Redirect::route("admin.posts.questions.edit", array("id" => $question->id))
-                ->with("message", trans("posts::questions.events.created"));
-        }
-
-        $this->data["question"] = $question;
-
-        return View::make("posts::questions.edit", $this->data);
+        return Redirect::back()->with("message", trans("posts::reports.events.deleted"));
     }
 
     /**
@@ -152,10 +108,10 @@ class QuestionsController extends Controller
      * @param $id
      * @return mixed
      */
-    public function edit($id)
+    public function details($id)
     {
 
-        $question = Question::findOrFail($id);
+        $question = Report::findOrFail($id);
 
         if (Request::isMethod("post")) {
 
@@ -166,7 +122,7 @@ class QuestionsController extends Controller
 
             // Fire saving action
 
-            Action::fire("question.saving", $question);
+            Action::fire("report.saving", $question);
 
             if (!$question->validate()) {
                 return Redirect::back()->withErrors($question->errors())->withInput(Request::all());
@@ -175,15 +131,13 @@ class QuestionsController extends Controller
             $question->save();
             // Fire saved action
 
-            Action::fire("question.saved", $question);
+            Action::fire("report.saved", $question);
 
-            return Redirect::route("admin.posts.questions.edit", array("id" => $id))->with("message", trans("posts::questions.events.updated"));
+            return Redirect::route("admin.posts.reports.edit", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
-        $this->data["question"] = $question;
-
-
-        return View::make("posts::questions.edit", $this->data);
+        $this->data["report"] = $question;
+        return View::make("posts::reports.details", $this->data);
     }
 
 }

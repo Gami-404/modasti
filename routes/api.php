@@ -119,6 +119,10 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('pushMessage', 'Api\MessagesController@pushMessage');
     $router->post('getChannelMessages', 'Api\MessagesController@getChannelMessages');
 
+
+    // Reports
+    $router->post('pushReport', 'Api\ReportsController@pushReport');
+
 });
 
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
  * Class Report
  * @package Dot\Posts\Models
  */
-class Question extends Model
+class Report extends Model
 {
 
     /**
@@ -27,7 +27,7 @@ class Question extends Model
     /**
      * @var string
      */
-    protected $table = 'questions';
+    protected $table = 'reports';
     /**
      * @var string
      */

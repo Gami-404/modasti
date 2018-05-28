@@ -65,6 +65,13 @@ Route::group([
         $route->any('/delete', ["as" => "admin.posts.questions.delete", "uses" => "QuestionsController@delete"]);
         $route->any('/{status}/status', ["as" => "admin.posts.questions.status", "uses" => "QuestionsController@status"]);
     });
+
+    // Reports
+    $route->group(["prefix" => 'reports'], function ($route) {
+        $route->any('/', ["as" => "admin.posts.reports.show", "uses" => "ReportsController@index"]);
+        $route->any('/{id}/details', ["as" => "admin.posts.reports.details", "uses" => "ReportsController@details"]);
+        $route->any('/delete', ["as" => "admin.posts.reports.delete", "uses" => "ReportsController@delete"]);
+    });
 });
 
 /*
