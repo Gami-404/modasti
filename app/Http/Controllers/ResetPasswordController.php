@@ -27,6 +27,9 @@ class ResetPasswordController extends Controller
             return response()->json($data, 404);
         }
         $user = User::where(['backend' => 0, 'email' => $request->get('email')])->first();
+
+        (DB::table('password_resets')->where(['email'=>$user->email])->count()->delete());
+
         $token = str_random(60);
         DB::table('password_resets')->insert([
             'email' => $request->get('email'),

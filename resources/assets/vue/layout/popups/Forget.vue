@@ -10,7 +10,7 @@
 				</router-link>
 			</div>
 			<div class="content">
-				<form @submit="send" class="theForm">
+				<form @submit="send" class="theForm" v-if="upload">
 					<input type="email" class="formEle" placeholder="Email" v-model="email" required>
 					<div v-for="(error,i) in errors" :key="i">
 						<h4 class="errors">
@@ -19,7 +19,7 @@
 						<br/>
 					</div>
 					<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
-				</form>
+				</form >
 			</div>
 		</div>
 	</transition>
@@ -27,18 +27,29 @@
 
 
 <script>
+    import API from "@/store/API";
 export default {
   data() {
     return {
       email: "",
       loading: false,
-      errors: []
+      errors: [],
+		upload:false,
     };
   },
   methods: {
     send(e) {
       e.preventDefault();
-      this.errors = ["no API"];
+      	this.loading=true;
+        API.post('/passwordReset',{
+            email:this.email
+		}).then((res)=>{
+            this.loading=false;
+            this.upload=true;
+		}).catch((err)=>{
+		    this.errors=['You email not exist'];
+            this.loading=false;
+        });
     }
   },
   computed: {
