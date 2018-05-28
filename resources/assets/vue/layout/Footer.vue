@@ -35,38 +35,12 @@
 					</li>
 				</ul>
 			</div>
-			<div class="menu">
-				<div class="footerTitle">SUPPORT</div>
-				<ul>
-					<li>
-						<router-link to="/help">Help</router-link>
-					</li>
-					<li>
-						<a href="#">Privacy Policy</a>
-					</li>
-					<li>
-						<router-link to="/terms">Terms of service</router-link>
-					</li>
-					<li>
-						<router-link to="/contact">CONTACT US</router-link>
-					</li>
-					<li>
-						<router-link to="/about">About Modasti</router-link>
-					</li>
-				</ul>
-			</div>
-			<div class="contactFooter">
-				<div class="footerTitle">CONTACT US</div>
-				<div class="description">If you want to give us a feedback or If you have a question and you didn`t find the answer in the FAQ`s page feel free to contact us.</div>
-				<div class="info">
-					<i class="fa fa-map-marker"></i>
-					<span>123 Second Street Fifth Avenue, Manhattan, New York</span>
-				</div>
-				<div class="info">
-					<i class="fa fa-mail-reply"></i>
-					<a href="#">help@modasti.com</a>
-				</div>
-			</div>
 		</div>
 	</footer>
 </template>
+
+<style>
+	#footer .menu{
+		float: right;
+	}
+</style>

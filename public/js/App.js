@@ -79844,6 +79844,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(370)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
@@ -79852,7 +79856,7 @@ var __vue_template__ = __webpack_require__(358)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -79934,53 +79938,7 @@ var render = function() {
             1
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu" }, [
-        _c("div", { staticClass: "footerTitle" }, [_vm._v("SUPPORT")]),
-        _vm._v(" "),
-        _c("ul", [
-          _c(
-            "li",
-            [_c("router-link", { attrs: { to: "/help" } }, [_vm._v("Help")])],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: "/terms" } }, [
-                _vm._v("Terms of service")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: "/contact" } }, [
-                _vm._v("CONTACT US")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: "/about" } }, [
-                _vm._v("About Modasti")
-              ])
-            ],
-            1
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(3)
+      ])
     ])
   ])
 }
@@ -80025,42 +79983,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [_vm._v("Privacy Policy")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Privacy Policy")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "contactFooter" }, [
-      _c("div", { staticClass: "footerTitle" }, [_vm._v("CONTACT US")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "description" }, [
-        _vm._v(
-          "If you want to give us a feedback or If you have a question and you didn`t find the answer in the FAQ`s page feel free to contact us."
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "info" }, [
-        _c("i", { staticClass: "fa fa-map-marker" }),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v("123 Second Street Fifth Avenue, Manhattan, New York")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "info" }, [
-        _c("i", { staticClass: "fa fa-mail-reply" }),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("help@modasti.com")])
-      ])
     ])
   }
 ]
@@ -80122,6 +80044,55 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(371);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("ba306daa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-681e4fba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Footer.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-681e4fba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Footer.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#footer .menu{\n\tfloat: right;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
