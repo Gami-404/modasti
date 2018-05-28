@@ -10,7 +10,7 @@
 				</router-link>
 			</div>
 			<div class="content">
-				<form @submit="send" class="theForm" v-if="upload">
+				<form @submit="send" class="theForm" v-if="!upload">
 					<input type="email" class="formEle" placeholder="Email" v-model="email" required>
 					<div v-for="(error,i) in errors" :key="i">
 						<h4 class="errors">
@@ -20,6 +20,7 @@
 					</div>
 					<input type="submit" :disabled="loading" class="formEle btn" :value="isLoading">
 				</form >
+				<p style="color: green" v-if="upload">Check you E-mail</p>
 			</div>
 		</div>
 	</transition>
