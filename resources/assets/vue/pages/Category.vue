@@ -53,7 +53,7 @@ export default {
       this.loadItems(this.$route.params.name,this.$route.params.subCat).then(() => {
           var cats_id=[this.$store.getters.catIdMap[this.$route.params.name]];
           if(this.$route.params.subCat){
-              cats_id.push((parseInt(this.$route.params.subCat)));
+              cats_id=[(parseInt(this.$route.params.subCat))];
           }
           Promise.all([
             this.$store.dispatch("get_colors",true),

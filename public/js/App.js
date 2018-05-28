@@ -55566,7 +55566,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       _this.loadItems(_this.$route.params.name, _this.$route.params.subCat).then(function () {
         var cats_id = [_this.$store.getters.catIdMap[_this.$route.params.name]];
         if (_this.$route.params.subCat) {
-          cats_id.push(parseInt(_this.$route.params.subCat));
+          cats_id = [parseInt(_this.$route.params.subCat)];
         }
         Promise.all([_this.$store.dispatch("get_colors", true), _this.$store.dispatch("get_brands", cats_id), _this.$store.dispatch("get_sizes")]).then(function () {
           _this.loading = false;
