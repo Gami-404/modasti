@@ -55381,7 +55381,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "secPaddLg whiteBg textCentered" }, [
+    return _c("div", { staticClass: "whiteBg textCentered" }, [
       _c("div", { staticClass: "gridContainer" }, [
         _c("div", { staticClass: "sectionName" }, [
           _c("div", { staticClass: "theImage" }, [
