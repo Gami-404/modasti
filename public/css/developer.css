@@ -109,3 +109,9 @@
     color: #fff;
     font-family: 'Cheque-Black';
 }
+
+.report.set-report {
+    font-size: 12px;
+    color: red;
+    float: right;
+}

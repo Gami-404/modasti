@@ -13,6 +13,7 @@
             <div v-html="set.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{setTotalPrice}} $</div>
+              <router-link  class="report set-report" :to="'?popup=report'">Report</router-link>
             </div>
             <CardActions :likeable="true" :is-liked="set.is_liked" :commentable="true" :sharable="true" :obj-id="set.id" :num-of-likes="set.likes" :num-of-comments="set.comments_counter" context="set" />
             <br>
@@ -58,6 +59,11 @@
         <ItemCard :item-id="item" />
       </div>
     </WrapperCardListTitled>
+    <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
+        <Report v-if="$route.query.popup=='report'" :url="url"></Report>
+      </WrapperPopups>
+    </transition>
     <Loading v-if="loading" />
   </div>
 </template>
@@ -67,6 +73,8 @@ import Loading from "@/components/Loading";
 import CardActions from "@/components/CardActions";
 import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
+import Report from "@/layout/popups/Report";
+import WrapperPopups from "@/wrappers/WrapperPopups";
 import { mapGetters } from "vuex";
 
 export default {
@@ -74,10 +82,15 @@ export default {
     Loading,
     CardActions,
     WrapperCardListTitled,
-    ItemCard
+    ItemCard,
+      Report,
+      WrapperPopups
   },
   computed: {
-    ...mapGetters(["userId", "setComments", "set", "setTotalPrice"])
+    ...mapGetters(["userId", "setComments", "set", "setTotalPrice"]),
+      url(){
+          return window.location.origin+'/#/set/'+this.set.id;
+      }
   },
   data() {
     return {
