@@ -57156,7 +57156,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -57289,18 +57288,7 @@ var render = function() {
                 _c("div", { staticClass: "info clearfix" }, [
                   _c("div", { staticClass: "price" }, [
                     _vm._v(_vm._s(_vm.setTotalPrice) + " $")
-                  ]),
-                  _vm._v(" "),
-                  _vm.set["user"]
-                    ? _c(
-                        "a",
-                        {
-                          staticClass: "link",
-                          attrs: { href: "/profile/" + _vm.set["user_id"] }
-                        },
-                        [_vm._v(_vm._s(_vm.set["user"]["fname"]))]
-                      )
-                    : _vm._e()
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("CardActions", {

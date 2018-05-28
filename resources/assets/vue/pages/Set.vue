@@ -13,7 +13,6 @@
             <div v-html="set.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{setTotalPrice}} $</div>
-              <a v-if="set['user']" :href="'/profile/'+set['user_id']" class="link">{{set['user']['fname']}}</a>
             </div>
             <CardActions :likeable="true" :is-liked="set.is_liked" :commentable="true" :sharable="true" :obj-id="set.id" :num-of-likes="set.likes" :num-of-comments="set.comments_counter" context="set" />
             <br>
