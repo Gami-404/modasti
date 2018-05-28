@@ -271,6 +271,8 @@ namespace Maps\Set {
             $newItem->photos = [];
             $newItem->user_id =  $item->user_id;
             $newItem->user_url = $item->user->website ? $item->user->website : null;
+            $newItem->brand = $item->brand ? $item->brand->title : "";
+
 
             if ($item->image) {
                 $photo = new \stdClass();
@@ -481,6 +483,9 @@ namespace Maps\Contest {
             $newItem->likes = $item->likes()->count();
             $newItem->date_created = $item->created_at->toDateTimeString();
             $newItem->date_likes = $item->created_at->toDateTimeString();
+            $newItem->brand = $item->brand ? $item->brand->title : "";
+            $newItem->user_url = $item->user->website ? $item->user->website : null;
+            $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
             $newItem->user_id =  $item->user_id;
