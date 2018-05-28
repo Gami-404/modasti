@@ -8,7 +8,7 @@
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <h2>
-                    <i class="fa fa-newspaper-o"></i>
+                    <i class="fa fa-bug"></i>
                     {{ trans("posts::reports.reports") }}
                 </h2>
                 <ol class="breadcrumb">

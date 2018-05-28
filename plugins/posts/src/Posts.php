@@ -93,11 +93,22 @@ class Posts extends \Dot\Platform\Plugin
 
             if (Auth::user()->can("posts.manage")) {
 
-                $menu->item('contests', trans("posts::questions.questions"), route("admin.posts.questions.show"))
-                    ->order(1)
+                $menu->item('questions', trans("posts::questions.questions"), route("admin.posts.questions.show"))
+                    ->order(2)
                     ->icon("fa-question");
             }
         });
+
+        Navigation::menu("sidebar", function ($menu) {
+
+            if (Auth::user()->can("posts.manage")) {
+
+                $menu->item('reports', trans("posts::reports.reports"), route("admin.posts.reports.show"))
+                    ->order(3)
+                    ->icon("fa-bug");
+            }
+        });
+
 
         Action::listen("dashboard.featured", function () {
 
