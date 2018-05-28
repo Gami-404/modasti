@@ -149,6 +149,7 @@ const actions = {
         return API.post("/filter", {
             categoryId: state.currentCategoryId,
             offset: state.offsets.category + 8,
+            limit:24,
             ...state.appliedFilters
         }).then(res => {
             commit("ADD_ITEMS", res.data.data);

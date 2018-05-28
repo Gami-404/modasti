@@ -75559,7 +75559,8 @@ var actions = {
 
         return __WEBPACK_IMPORTED_MODULE_0__API__["a" /* default */].post("/filter", _extends({
             categoryId: state.currentCategoryId,
-            offset: state.offsets.category + 8
+            offset: state.offsets.category + 8,
+            limit: 24
         }, state.appliedFilters)).then(function (res) {
             commit("ADD_ITEMS", res.data.data);
             commit("MORE_CATEGORY_ITEMS", res.data.data.map(function (item) {
