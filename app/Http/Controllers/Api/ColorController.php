@@ -22,7 +22,7 @@ class ColorController extends Controller
         }else{
             $colors= Color::all();
         }
-        return response()->json(['errors' => [], 'data' => Color::all()]);
+        return response()->json(['errors' => [], 'data' => $colors]);
     }
 
     /**
