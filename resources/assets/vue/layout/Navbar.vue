@@ -3,7 +3,7 @@
         <div class="fixHeaderSpace"></div>
         <header id="header">
             <div class="top">
-                <div class="gridContainer clearfix">
+                <div class="gridContainer clearfix" :class="{'open-search':openInMobile}">
                     <router-link to="/" class="logo"><img src="/images/logo.png" alt="Modacity"></router-link>
                     <div class="rightArea">
                         <div class="userActions">
@@ -16,8 +16,8 @@
               </span>
                         </div>
                         <div class="search">
-              <span class="icon">
-                <i class="fa fa-search"></i>
+              <span class="icon" @click="openInMobile=!openInMobile">
+                <i class="fa fa-search" ></i>
               </span>
                             <form @submit.prevent="searchSubmit" action="#">
                                 <select v-model="area" @change="changeArea">
@@ -77,7 +77,7 @@
             <div class="in">
                 <div class="nav">
                     <ul>
-                        <li v-for="route of routes" :key="route.uri">
+                        <li v-for="route of routes" v-if="!route.auth || isAuth " :key="route.uri">
                             <router-link active-class="active-header" :to="route.uri" exact>
                                 <i :class="route.icon"></i>
                                 <span>{{route.name}}</span>
@@ -147,6 +147,7 @@
                 openAutocomplete: false,
                 searching: false,
                 firsttime: true,
+                openInMobile:false,
             };
         },
         methods: {
@@ -170,6 +171,8 @@
                     this.area == "item"
                         ? this.$store.dispatch("search_item_offset_reset")
                         : this.$store.dispatch("search_user_offset_reset");
+                }else{
+                    this.openInMobile=false;
                 }
 
             },
@@ -209,7 +212,7 @@
                 }
                 if ($vm.area === "user") {
                     console.log('users');
-                    $vm.$store.dispatch("search_user_autocomplete", $vm.searchString,true)
+                    $vm.$store.dispatch("search_user_autocomplete", $vm.searchString, true)
                         .then((data) => {
                             $vm.autoCompleteUpdate(data);
                             ($vm.searching = false);
@@ -219,7 +222,7 @@
                 }
             }, 500),
             changeArea() {
-                if(this.searchString){
+                if (this.searchString) {
                     if (this.$route.name === "searchInUser" && this.area === "item") {
                         this.$router.push(`/search/${this.area}/${this.searchString}`);
                         return;

@@ -1,9 +1,9 @@
 #header .top .rightArea .search form input[type='text'] {
     width: 100%;
 }
-#header .top .rightArea .search form {
-    display: flex;
-}
+/*#header .top .rightArea .search form {*/
+    /*display: flex;*/
+/*}*/
 
 .topCategories a {
     opacity: 1 !important;
@@ -113,5 +113,33 @@
 .report.set-report {
     font-size: 12px;
     color: red;
-    float: right;
+}
+
+@media only screen and (max-width: 999px){
+    #header .bottom .contest {
+        padding: 4px 13px;
+        color: #000;
+        background: #ffbeb8;
+    }
+}
+@media only screen and (max-width: 415px){
+    .open-search form {
+         display: flex !important;
+        width: 388px !important;
+    }
+
+    .open-search .logo{
+        display: none;
+    }
+}
+@media only screen and (max-width: 376px){
+    .open-search form {
+        width: 354px !important;
+    }
+}
+
+@media only screen and (max-width: 321px){
+    .open-search form {
+        width: 308px !important;
+    }
 }

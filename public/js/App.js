@@ -77298,7 +77298,8 @@ var $vm = null;
             source: [],
             openAutocomplete: false,
             searching: false,
-            firsttime: true
+            firsttime: true,
+            openInMobile: false
         };
     },
 
@@ -77319,6 +77320,8 @@ var $vm = null;
             if (this.searchString.length > 0) {
                 this.$router.push("/search/" + this.area + "/" + this.searchString);
                 this.area == "item" ? this.$store.dispatch("search_item_offset_reset") : this.$store.dispatch("search_user_offset_reset");
+            } else {
+                this.openInMobile = false;
             }
         },
         toggleAutoomplete: function toggleAutoomplete() {
@@ -79723,7 +79726,10 @@ var render = function() {
         _c("div", { staticClass: "top" }, [
           _c(
             "div",
-            { staticClass: "gridContainer clearfix" },
+            {
+              staticClass: "gridContainer clearfix",
+              class: { "open-search": _vm.openInMobile }
+            },
             [
               _c("router-link", { staticClass: "logo", attrs: { to: "/" } }, [
                 _c("img", {
@@ -79763,7 +79769,18 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "search" }, [
-                  _vm._m(0),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "icon",
+                      on: {
+                        click: function($event) {
+                          _vm.openInMobile = !_vm.openInMobile
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-search" })]
+                  ),
                   _vm._v(" "),
                   _c(
                     "form",
@@ -79917,7 +79934,7 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(1)
+                      _vm._m(0)
                     ]
                   )
                 ])
@@ -80013,28 +80030,30 @@ var render = function() {
               _c(
                 "ul",
                 _vm._l(_vm.routes, function(route) {
-                  return _c(
-                    "li",
-                    { key: route.uri },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            "active-class": "active-header",
-                            to: route.uri,
-                            exact: ""
-                          }
-                        },
+                  return !route.auth || _vm.isAuth
+                    ? _c(
+                        "li",
+                        { key: route.uri },
                         [
-                          _c("i", { class: route.icon }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v(_vm._s(route.name))])
-                        ]
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                "active-class": "active-header",
+                                to: route.uri,
+                                exact: ""
+                              }
+                            },
+                            [
+                              _c("i", { class: route.icon }),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(route.name))])
+                            ]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e()
                 })
               )
             ]),
@@ -80169,14 +80188,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fa fa-search" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
