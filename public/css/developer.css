@@ -131,6 +131,9 @@
     .open-search .logo{
         display: none;
     }
+    .open-search{
+        height: 31px!important;
+    }
 }
 @media only screen and (max-width: 376px){
     .open-search form {
