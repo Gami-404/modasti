@@ -1,9 +1,9 @@
 #header .top .rightArea .search form input[type='text'] {
     width: 100%;
 }
-/*#header .top .rightArea .search form {*/
-    /*display: flex;*/
-/*}*/
+#header .top .rightArea .search form {
+    display: flex;
+}
 
 .topCategories a {
     opacity: 1 !important;
