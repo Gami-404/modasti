@@ -1,10 +1,13 @@
 <template>
   <div class="gridContainer">
     <WrapperCardList>
-      <div v-if="sets.length==0" class="btn-wrapper">
+      <div v-if="sets.length==0&&isMyOwnProfile" class="btn-wrapper">
         <router-link :to="'/set/add'"  class="btn">
           Create your first set now
         </router-link>
+      </div>
+      <div v-if="sets.length==0&&!isMyOwnProfile" class="btn-wrapper">
+          <p>No sets found</p>
       </div>
       <div v-for="set in sets" :key='set' class="mycol-lg-3 mycol-sm-6">
         <SetCard :set-id="set" />
@@ -37,7 +40,13 @@ export default {
   computed: {
     sets() {
       return this.$store.getters.userSets;
-    }
+    },
+      isMyOwnProfile(){
+          return (
+              this.$store.getters.user.userId == this.$route.params.userId ||
+              this.$route.params.userId == "me"
+          );
+      }
   },
   created() {
     this.load().then(() => {

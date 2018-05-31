@@ -1,6 +1,9 @@
 <template>
   <div class="gridContainer">
     <div class="followersPage secPaddLg">
+      <div v-if="users.length==0" class="btn-wrapper">
+        <p>No user found</p>
+      </div>
       <div class="myrow clearfix">
         <UserCard v-for="user of users" :key="user" :user-id="user" />
       </div>

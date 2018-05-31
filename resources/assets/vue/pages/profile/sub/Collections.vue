@@ -1,21 +1,28 @@
 <template>
   <div class="gridContainer">
     <WrapperCardList>
-      <div v-if="collections.length==0" class="btn-wrapper">
+      <div v-if="collections.length==0&&isMyOwnProfile" class="btn-wrapper">
         <router-link :to="'/collection/add'"  class="btn">
           Create your first collection now
         </router-link>
+      </div>
+
+      <div v-if="collections.length==0&&!isMyOwnProfile" class="btn-wrapper">
+        <p>
+          No collections found
+        </p>
       </div>
       <div v-for="collection in collections" :key='collection' class="mycol-lg-3 mycol-sm-6">
         <CollectionCard :collection-id="collection" />
       </div>
     </WrapperCardList>
     <div v-if="collections.length % 8 === 0 && collections.length!==0" class="getMore">
-      <a @click. prevent="load" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
+      <a @click.prevent="load" href="#"> {{ loadMoreLoading ? 'Loading...' : 'More' }} </a>
     </div>
     <Loading v-if="loading" />
   </div>
 </template>
+
 
 <script>
 import CollectionCard from "@/components/CollectionCard";
@@ -37,7 +44,14 @@ export default {
   computed: {
     collections() {
       return this.$store.getters.userCollections;
-    }
+    },
+      isMyOwnProfile(){
+        console.log( this.$store.getters.user.userId,this.$route.params.userId);
+          return (
+              this.$store.getters.user.userId == this.$route.params.userId ||
+              this.$route.params.userId == "me"
+          );
+      }
   },
   created() {
     this.load().then(() => {

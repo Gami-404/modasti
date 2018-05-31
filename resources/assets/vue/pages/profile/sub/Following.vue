@@ -2,9 +2,11 @@
   <div class="gridContainer">
     <div class="followersPage secPaddLg">
       <div v-if="users.length==0" class="btn-wrapper">
-        <router-link :to="'/recommended'"  class="btn">
+        <router-link v-if="isMyOwnProfile" :to="'/recommended'"  class="btn">
           Discover new stylists
         </router-link>
+
+        <p v-if="!isMyOwnProfile">No user found</p>
       </div>
       <div class="myrow clearfix">
 
@@ -31,7 +33,13 @@ export default {
   computed:{
     users(){
       return this.$store.getters.following;
-    }
+    },
+      isMyOwnProfile(){
+          return (
+              this.$store.getters.user.userId == this.$route.params.userId ||
+              this.$route.params.userId == "me"
+          );
+      }
   },
   created(){
     let id =

@@ -3,9 +3,11 @@
     <div class="secPaddMd">
       <div class="myrow clearfix">
         <div v-if="likedItems.length==0&&likedSets.length==0" class="btn-wrapper">
-          <router-link :to="'/category/clothing'"  class="btn">
+          <router-link v-if="isMyOwnProfile" :to="'/category/clothing'"  class="btn">
             Explore Modasti
           </router-link>
+
+          <p v-if="!isMyOwnProfile">No found Data</p>
         </div>
       </div>
     </div>
@@ -53,7 +55,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["likedItems", "likedSets", "likedCollections"])
+    ...mapGetters(["likedItems", "likedSets", "likedCollections"]),
+      isMyOwnProfile(){
+          return (
+              this.$store.getters.user.userId == this.$route.params.userId ||
+              this.$route.params.userId == "me"
+          );
+      }
   },
   created() {
     let id = isNaN(this.$route.params.userId)

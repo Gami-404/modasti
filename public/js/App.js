@@ -67089,6 +67089,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -67110,6 +67113,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     sets: function sets() {
       return this.$store.getters.userSets;
+    },
+    isMyOwnProfile: function isMyOwnProfile() {
+      return this.$store.getters.user.userId == this.$route.params.userId || this.$route.params.userId == "me";
     }
   },
   created: function created() {
@@ -67148,7 +67154,7 @@ var render = function() {
       _c(
         "WrapperCardList",
         [
-          _vm.sets.length == 0
+          _vm.sets.length == 0 && _vm.isMyOwnProfile
             ? _c(
                 "div",
                 { staticClass: "btn-wrapper" },
@@ -67161,6 +67167,12 @@ var render = function() {
                 ],
                 1
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.sets.length == 0 && !_vm.isMyOwnProfile
+            ? _c("div", { staticClass: "btn-wrapper" }, [
+                _c("p", [_vm._v("No sets found")])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.sets, function(set) {
@@ -67292,6 +67304,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67313,6 +67332,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     collections: function collections() {
       return this.$store.getters.userCollections;
+    },
+    isMyOwnProfile: function isMyOwnProfile() {
+      console.log(this.$store.getters.user.userId, this.$route.params.userId);
+      return this.$store.getters.user.userId == this.$route.params.userId || this.$route.params.userId == "me";
     }
   },
   created: function created() {
@@ -67616,7 +67639,7 @@ var render = function() {
       _c(
         "WrapperCardList",
         [
-          _vm.collections.length == 0
+          _vm.collections.length == 0 && _vm.isMyOwnProfile
             ? _c(
                 "div",
                 { staticClass: "btn-wrapper" },
@@ -67633,6 +67656,12 @@ var render = function() {
                 ],
                 1
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.collections.length == 0 && !_vm.isMyOwnProfile
+            ? _c("div", { staticClass: "btn-wrapper" }, [
+                _c("p", [_vm._v("\n        No collections found\n      ")])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.collections, function(collection) {
@@ -67654,8 +67683,13 @@ var render = function() {
             _c(
               "a",
               {
-                attrs: { prevent: "load", href: "#" },
-                on: { "click.": function($event) {} }
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.load($event)
+                  }
+                }
               },
               [
                 _vm._v(
@@ -67943,6 +67977,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -67965,7 +68001,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["likedItems", "likedSets", "likedCollections"])),
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["likedItems", "likedSets", "likedCollections"]), {
+    isMyOwnProfile: function isMyOwnProfile() {
+      return this.$store.getters.user.userId == this.$route.params.userId || this.$route.params.userId == "me";
+    }
+  }),
   created: function created() {
     var _this = this;
 
@@ -68016,11 +68056,20 @@ var render = function() {
                 "div",
                 { staticClass: "btn-wrapper" },
                 [
-                  _c(
-                    "router-link",
-                    { staticClass: "btn", attrs: { to: "/category/clothing" } },
-                    [_vm._v("\n          Explore Modasti\n        ")]
-                  )
+                  _vm.isMyOwnProfile
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn",
+                          attrs: { to: "/category/clothing" }
+                        },
+                        [_vm._v("\n          Explore Modasti\n        ")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.isMyOwnProfile
+                    ? _c("p", [_vm._v("No found Data")])
+                    : _vm._e()
                 ],
                 1
               )
@@ -68211,7 +68260,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -68228,6 +68277,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Loading___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Loading__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardList__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68268,6 +68324,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         contests: function contests() {
             return this.$store.getters.winsContests;
+        },
+        isMyOwnProfile: function isMyOwnProfile() {
+            return this.$store.getters.user.userId == this.$route.params.userId || this.$route.params.userId == "me";
         }
     },
     created: function created() {
@@ -68306,7 +68365,7 @@ var render = function() {
       _c(
         "WrapperCardList",
         [
-          _vm.contests.length == 0
+          _vm.contests.length == 0 && _vm.isMyOwnProfile
             ? _c(
                 "div",
                 { staticClass: "btn-wrapper" },
@@ -68323,6 +68382,14 @@ var render = function() {
                 ],
                 1
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.contests.length == 0 && !_vm.isMyOwnProfile
+            ? _c("div", { staticClass: "btn-wrapper" }, [
+                _c("p", [
+                  _vm._v("\n                No contests found\n            ")
+                ])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.contests, function(contest) {
@@ -68450,6 +68517,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -68467,6 +68536,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     users: function users() {
       return this.$store.getters.following;
+    },
+    isMyOwnProfile: function isMyOwnProfile() {
+      return this.$store.getters.user.userId == this.$route.params.userId || this.$route.params.userId == "me";
     }
   },
   created: function created() {
@@ -68499,11 +68571,17 @@ var render = function() {
               "div",
               { staticClass: "btn-wrapper" },
               [
-                _c(
-                  "router-link",
-                  { staticClass: "btn", attrs: { to: "/recommended" } },
-                  [_vm._v("\n        Discover new stylists\n      ")]
-                )
+                _vm.isMyOwnProfile
+                  ? _c(
+                      "router-link",
+                      { staticClass: "btn", attrs: { to: "/recommended" } },
+                      [_vm._v("\n        Discover new stylists\n      ")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.isMyOwnProfile
+                  ? _c("p", [_vm._v("No user found")])
+                  : _vm._e()
               ],
               1
             )
@@ -68601,6 +68679,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -68643,6 +68724,12 @@ var render = function() {
     { staticClass: "gridContainer" },
     [
       _c("div", { staticClass: "followersPage secPaddLg" }, [
+        _vm.users.length == 0
+          ? _c("div", { staticClass: "btn-wrapper" }, [
+              _c("p", [_vm._v("No user found")])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "myrow clearfix" },

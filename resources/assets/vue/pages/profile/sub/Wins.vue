@@ -1,10 +1,17 @@
 <template>
     <div class="gridContainer">
         <WrapperCardList>
-            <div v-if="contests.length==0" class="btn-wrapper">
+            <div v-if="contests.length==0&&isMyOwnProfile" class="btn-wrapper">
                 <router-link :to="'/contest'"  class="btn">
                     Join a contest and win fantastic discounts!
                 </router-link>
+
+            </div>
+
+            <div v-if="contests.length==0&&(!isMyOwnProfile)" class="btn-wrapper">
+                <p>
+                    No contests found
+                </p>
             </div>
             <div v-for="contest in contests" :key='contest' class="mycol-lg-3 mycol-sm-6">
                 <ContestCard :contest-id="contest" />
@@ -37,6 +44,12 @@
         computed: {
             contests() {
                 return this.$store.getters.winsContests;
+            },
+            isMyOwnProfile(){
+                return (
+                    this.$store.getters.user.userId == this.$route.params.userId ||
+                    this.$route.params.userId == "me"
+                );
             }
         },
         created() {
