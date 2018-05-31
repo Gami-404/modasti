@@ -26,8 +26,8 @@
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Best From Modasti" more="false" url="/contest">
-				<div v-for="itemId in itemsBestFromModasti" :key="itemId" class="mycol-lg-3 mycol-sm-6">
-					<ItemCard :item-id="itemId" />
+				<div v-for="setId in setsBestFromModasti" :key="setId" class="mycol-lg-3 mycol-sm-6">
+					<SetCard :set-id="setId" />
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Official Contests" url="/contest">
@@ -77,6 +77,7 @@ export default {
       "itemsMostPopular",
       "setsBestFromCommunity",
       "itemsBestFromModasti",
+      "setsBestFromModasti",
       "homeContests"
     ])
   },

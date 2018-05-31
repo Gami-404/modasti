@@ -229,6 +229,7 @@ const mutations = {
         home.itemsBestFromModasti = data.items_best_from_modasti;
         home.itemsMostPopular = data.items_most_popular;
         home.setsBestFromCommunity = data.sets_best_from_community;
+        home.setsBestFromModasti = data.sets_best_from_modasti;
         home.homeContests = data.contests;
     },
     TRENDING(state, data) {
