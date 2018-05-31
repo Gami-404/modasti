@@ -199,7 +199,7 @@ class HomeController extends Controller
             ->take(4)
             ->get();
         $data['contests'] = \Maps\Contest\contests($contests);
-        $data['sets_best_from_modasti'] = [];
+        $data['sets_best_from_modasti'] = Set::where(['user_id'=>25])->take(4)->orderBy('created_at','desc')->get();
         return response()->json($data);
     }
 
