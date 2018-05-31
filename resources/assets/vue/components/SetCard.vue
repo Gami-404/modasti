@@ -20,7 +20,7 @@
       </div>
       <div v-else>
         <div class="createdBy">Created by</div>
-        <router-link :to="set['user']&& set['user_id']?'/profile/'+set['user_id']:''">{{(set['user']&&set['user']['username'])||'Modasti'}}</router-link>
+        <router-link :to="set['user']&& set['user_id']?'/profile/'+set['user_id']:''">{{(set['user']&&set['user']['fname']+' '+set['user']['lname'])||'Modasti'}}</router-link>
       </div>
     </div>
     <CardActions :likebale="true" :is-liked="set.is_liked" :sharable="true" :commentable="true" :comment-url="set.id && '/set/'+set.id" :num-of-comments="set.comments_counter" :num-of-likes="set.likes" :obj-id="set.id" :context="'set'" />

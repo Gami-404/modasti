@@ -3,60 +3,30 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-use Dot\Users\Models\User;
+use App\User;
+use Auth;
 
-class OAuthApi
+class PublicApi
 {
-
-    /**
-     * Front-end roles
-     */
-    const ROLES = [
-        "designer" => 2,
-        "normal" => 3
-    ];
-
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$roles)
+    public function handle($request, Closure $next)
     {
         if (!$token = $this->getAuthorizationToken($request)) {
-            return response('Unauthorized.', 401);
+            return $next($request);
         }
-
         // Authenticate
         if (!$this->authenticate($token)) {
-            return response('Unauthorized.', 401);
-        }
-        // Authorize
-        if (!$this->authorize($roles)) {
-            return response('Unauthorized.', 401);
+            return $next($request);
         }
         return $next($request);
     }
 
-    /**
-     * Authorize function
-     * @param $roles
-     * @return bool
-     */
-    private function authorize($roles)
-    {
-        if (empty($roles) || in_array('all', $roles)) {
-            return true;
-        }
-
-        if (($name = array_search(fauth()->user()->role_id, OAuthApi::ROLES)) && (in_array($name, $roles))) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Make User Authenticate

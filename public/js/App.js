@@ -54733,7 +54733,10 @@ var render = function() {
                   [
                     _vm._v(
                       _vm._s(
-                        (_vm.set["user"] && _vm.set["user"]["username"]) ||
+                        (_vm.set["user"] &&
+                          _vm.set["user"]["fname"] +
+                            " " +
+                            _vm.set["user"]["lname"]) ||
                           "Modasti"
                       )
                     )
@@ -79387,7 +79390,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("span", { staticClass: "pull-right" }, [
         _c("label", { staticClass: "switch" }, [
-          _c("input", { attrs: { type: "checkbox" } }),
+          _c("input", { attrs: { type: "checkbox", checked: "" } }),
           _vm._v(" "),
           _c("span", { staticClass: "slider round" })
         ])

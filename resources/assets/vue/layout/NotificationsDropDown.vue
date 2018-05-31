@@ -10,7 +10,7 @@
           <span> Notifications </span>
           <span class="pull-right">
             <label class="switch">
-              <input type="checkbox">
+              <input type="checkbox" checked>
               <span class="slider round"></span>
             </label>
           </span>
