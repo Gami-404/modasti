@@ -1,10 +1,6 @@
 #header .top .rightArea .search form input[type='text'] {
     width: 100%;
 }
-#header .top .rightArea .search form {
-    display: flex;
-}
-
 .topCategories a {
     opacity: 1 !important;
 }
@@ -115,11 +111,39 @@
     color: red;
 }
 
+.report-title{
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.report-reasons{
+    padding-left: 20px;
+}
+.report-reasons a{
+    font-size: 17px;
+    padding: 10px;
+}
+.report-reasons li{
+    font-size: 17px;
+    padding: 5px;
+}
+
+.report-reasons a.active{
+
+    border: 1px solid #0000001f;
+    background-color: #e4e4e4;
+}
 @media only screen and (max-width: 999px){
     #header .bottom .contest {
         padding: 4px 13px;
         color: #000;
         background: #ffbeb8;
+    }
+}
+
+@media only screen and (min-width: 500px){
+    #header .top .rightArea .search form {
+        display: flex;
     }
 }
 @media only screen and (max-width: 415px){
@@ -135,6 +159,7 @@
         height: 31px!important;
     }
 }
+
 @media only screen and (max-width: 376px){
     .open-search form {
         width: 354px !important;

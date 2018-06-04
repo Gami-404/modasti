@@ -57357,7 +57357,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-0727bf38]:invalid {\n  background-color: #fff;\n}\n.errors[data-v-0727bf38] {\n  font-family: \"Cheque-Black\";\n  color: RED;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-0727bf38]:invalid {\n    background-color: #fff;\n}\n.errors[data-v-0727bf38] {\n    font-family: \"Cheque-Black\";\n    color: RED;\n}\ntextarea[data-v-0727bf38]{\n    height: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -57399,43 +57399,78 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
-  data: function data() {
-    return {
-      title: "",
-      loading: false,
-      errors: [],
-      upload: false,
-      message: ""
-    };
-  },
+    props: ['url'],
+    data: function data() {
+        return {
+            title: "",
+            loading: false,
+            errors: [],
+            upload: false,
+            message: "",
+            others: false
+        };
+    },
 
-  methods: {
-    send: function send(e) {
-      var _this = this;
+    methods: {
+        send: function send(e) {
+            var _this = this;
 
-      e.preventDefault();
-      this.loading = true;
-      __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].post('/pushReport', {
-        title: this.title,
-        message: this.message,
-        url: this.url
-      }).then(function (res) {
-        _this.loading = false;
-        _this.upload = true;
-      }).catch(function (err) {
-        _this.loading = false;
-      });
+            e.preventDefault();
+            if (this.title.length == 0) {
+                this.errors = ['Please Select Reason form list'];
+            }
+            this.loading = true;
+            __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].post('/pushReport', {
+                title: this.title,
+                message: this.message,
+                url: this.url
+            }).then(function (res) {
+                _this.loading = false;
+                _this.upload = true;
+            }).catch(function (err) {
+                _this.loading = false;
+                _this.errors = err.response.data.errors;
+            });
+        }
+    },
+    computed: {
+        isLoading: function isLoading() {
+            return this.loading ? "Loading.." : "Submit";
+        }
     }
-  },
-  computed: {
-    isLoading: function isLoading() {
-      return this.loading ? "Loading.." : "Submit";
-    }
-  }
 });
 
 /***/ }),
@@ -58337,7 +58372,7 @@ var render = function() {
           "div",
           { staticClass: "head" },
           [
-            _c("span", [_vm._v("Report")]),
+            _c("span", [_vm._v("REPORT ABUSE")]),
             _vm._v(" "),
             _c(
               "router-link",
@@ -58354,87 +58389,269 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "content" }, [
           !_vm.upload
-            ? _c(
-                "form",
-                { staticClass: "theForm", on: { submit: _vm.send } },
-                [
-                  _c("input", {
-                    directives: [
+            ? _c("div", [
+                _c("h2", { staticClass: "report-title" }, [
+                  _vm._v("SELECT A REASON FROM THE ONES LISTED BELOW")
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "report-reasons" }, [
+                  _c("li", [
+                    _c(
+                      "a",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.title,
-                        expression: "title"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Enter you report title ",
-                      required: ""
-                    },
-                    domProps: { value: _vm.title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        class: { active: _vm.title === "Copyright Violations" },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Copyright Violations"
+                            _vm.others = false
+                          }
                         }
-                        _vm.title = $event.target.value
-                      }
-                    }
-                  }),
+                      },
+                      [_vm._v("Copyright Violations.")]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
+                  _c("li", [
+                    _c(
+                      "a",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.message,
-                        expression: "message"
-                      }
-                    ],
-                    staticClass: "formEle",
-                    attrs: {
-                      placeholder: "Enter you report message",
-                      cols: "30",
-                      rows: "15"
-                    },
-                    domProps: { value: _vm.message },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        class: { active: _vm.title === "Copying other sets" },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Copying other sets"
+                            _vm.others = false
+                          }
                         }
-                        _vm.message = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.errors, function(error, i) {
-                    return _c("div", { key: i }, [
-                      _c("h4", { staticClass: "errors" }, [
+                      },
+                      [
                         _vm._v(
-                          "\n\t\t\t\t\t\t" + _vm._s(error) + "\n\t\t\t\t\t"
+                          "Copying\n                            other sets"
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
-                  }),
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass: "formEle btn",
-                    attrs: { type: "submit", disabled: _vm.loading },
-                    domProps: { value: _vm.isLoading }
-                  })
-                ],
-                2
-              )
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: { active: _vm.title === "Privacy Violation" },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Privacy Violation"
+                            _vm.others = false
+                          }
+                        }
+                      },
+                      [_vm._v("Privacy\n                            Violation")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: { active: _vm.title === "Adult content" },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Adult content"
+                            _vm.others = false
+                          }
+                        }
+                      },
+                      [_vm._v("Adult\n                            content")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: {
+                          active: _vm.title === "Violation of community rules"
+                        },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Violation of community rules"
+                            _vm.others = false
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "Violation of\n                            community rules."
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: {
+                          active: _vm.title === "Racist and hate speech"
+                        },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Racist and hate speech"
+                            _vm.others = false
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "Racist\n                            and hate speech."
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: {
+                          active: _vm.title === "Using photos of others."
+                        },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = "Using photos of others."
+                            _vm.others = false
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "Using\n                            photos of\n                            others."
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        class: { active: _vm.others },
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.title = ""
+                            _vm.others = true
+                          }
+                        }
+                      },
+                      [_vm._v("Others.")]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                !_vm.upload
+                  ? _c(
+                      "form",
+                      { staticClass: "theForm", on: { submit: _vm.send } },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.title,
+                              expression: "title"
+                            },
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.others,
+                              expression: "others"
+                            }
+                          ],
+                          ref: "title",
+                          staticClass: "formEle",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter you own reason"
+                          },
+                          domProps: { value: _vm.title },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.title = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.message,
+                              expression: "message"
+                            }
+                          ],
+                          staticClass: "formEle",
+                          attrs: {
+                            placeholder: "Enter you report message",
+                            cols: "30",
+                            rows: "5"
+                          },
+                          domProps: { value: _vm.message },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.message = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.errors, function(error, i) {
+                          return _c("div", { key: i }, [
+                            _c("h4", { staticClass: "errors" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(error) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("br")
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "formEle btn",
+                          attrs: { type: "submit", disabled: _vm.loading },
+                          domProps: { value: _vm.isLoading }
+                        })
+                      ],
+                      2
+                    )
+                  : _vm._e()
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm.upload
             ? _c("p", { staticStyle: { color: "green" } }, [
-                _vm._v("You report Submits")
+                _vm._v("You report Submit")
               ])
             : _vm._e()
         ])
