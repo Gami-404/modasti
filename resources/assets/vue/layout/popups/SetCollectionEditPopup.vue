@@ -28,14 +28,14 @@
 
 <script>
 export default {
-  props: ["submitType"],
+  props: ["submitType",'title_en','description_en'],
   data() {
     return {
       formData: {
         setId: this.$route.query.setId,
         collectionId: this.$route.query.collectionId,
-        title: "",
-        description: ""
+        title: this.title_en? this.title_en:'',
+        description:  this.description_en? this.description_en:'',
       },
       loading: false,
       errors: []

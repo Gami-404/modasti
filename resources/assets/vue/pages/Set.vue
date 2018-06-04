@@ -60,8 +60,12 @@
       </div>
     </WrapperCardListTitled>
     <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
+      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth&&$route.query.popup=='report'" >
         <Report v-if="$route.query.popup=='report'" :url="url"></Report>
+      </WrapperPopups>
+
+      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_set'">
+        <SetCollectionEditPopup v-if="$route.query.popup=='edit_set'" :title_en="set.title_en" :description_en="set.text_en" submitType="set"></SetCollectionEditPopup>
       </WrapperPopups>
     </transition>
     <Loading v-if="loading" />
@@ -75,6 +79,7 @@ import WrapperCardListTitled from "@/wrappers/WrapperCardListTitled";
 import ItemCard from "@/components/ItemCard";
 import Report from "@/layout/popups/Report";
 import WrapperPopups from "@/wrappers/WrapperPopups";
+import SetCollectionEditPopup from "@/layout/popups/SetCollectionEditPopup";
 import { mapGetters } from "vuex";
 
 export default {
@@ -84,7 +89,8 @@ export default {
     WrapperCardListTitled,
     ItemCard,
       Report,
-      WrapperPopups
+      WrapperPopups,
+      SetCollectionEditPopup
   },
   computed: {
     ...mapGetters(["userId", "setComments", "set", "setTotalPrice"]),

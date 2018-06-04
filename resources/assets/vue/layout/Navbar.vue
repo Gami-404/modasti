@@ -101,9 +101,7 @@
                 <SignUp v-if="$route.query.popup=='signup'"></SignUp>
                 <Forget v-if="$route.query.popup=='forget'"></Forget>
             </WrapperPopups>
-            <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_set'">
-                <SetCollectionEditPopup v-if="$route.query.popup=='edit_set'" submitType="set"></SetCollectionEditPopup>
-            </WrapperPopups>
+
             <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_collection'">
                 <SetCollectionEditPopup v-if="$route.query.popup=='edit_collection'"
                                         submitType="collection"></SetCollectionEditPopup>

@@ -108,6 +108,7 @@ export default {
         query:'',
         category:0,
         color:0,
+        drawedItems:[],
     };
   },
   computed: {
@@ -219,6 +220,7 @@ export default {
         this.drawImage(img, item.id, event.offsetX, event.offsetY);
       };
       img.src = item.src;
+      img.dataset.itemId=item.id;
     },
     drawImage(imageObj, id, x, y) {
       // darth vader
@@ -231,6 +233,7 @@ export default {
         draggable: true,
           width:imageObj.width / 4,
           height:imageObj.height / 4,
+          "itemId":imageObj.dataset.itemId
       });
 
       // add cursor styling
@@ -305,6 +308,15 @@ export default {
       this.layer.draw();
       this.selected = null;
       this.$router.push({ query: { popup: "create_set" } });
+      this.drawedItems=(this.stage.find('Image').map(function (image) {
+          return {
+              "item_id":image.attrs.itemId,
+              "x":image.attrs.x,
+              "y":image.attrs.y,
+              "height":image.attrs.height,
+              "width":image.attrs.width,
+          };
+      }));
       this.base64Img = this.stage.toDataURL();
     }
   }

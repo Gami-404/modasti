@@ -54693,7 +54693,11 @@ var render = function() {
                 [
                   _c(
                     "router-link",
-                    { attrs: { to: "?popup=edit_set&setId=" + _vm.set.id } },
+                    {
+                      attrs: {
+                        to: "/set/23/?popup=edit_set&setId=" + _vm.set.id
+                      }
+                    },
                     [_vm._v("Edit")]
                   ),
                   _vm._v(" "),
@@ -57100,7 +57104,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_popups_Report___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__layout_popups_Report__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -57173,6 +57179,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -57189,9 +57200,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     WrapperCardListTitled: __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardListTitled___default.a,
     ItemCard: __WEBPACK_IMPORTED_MODULE_3__components_ItemCard___default.a,
     Report: __WEBPACK_IMPORTED_MODULE_4__layout_popups_Report___default.a,
-    WrapperPopups: __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups___default.a
+    WrapperPopups: __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups___default.a,
+    SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup___default.a
   },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["userId", "setComments", "set", "setTotalPrice"]), {
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["userId", "setComments", "set", "setTotalPrice"]), {
     url: function url() {
       return window.location.origin + '/#/set/' + this.set.id;
     }
@@ -58965,12 +58977,34 @@ var render = function() {
           }
         },
         [
-          _vm.$route.query.popup && _vm.$store.getters.isAuth
+          _vm.$route.query.popup &&
+          _vm.$store.getters.isAuth &&
+          _vm.$route.query.popup == "report"
             ? _c(
                 "WrapperPopups",
                 [
                   _vm.$route.query.popup == "report"
                     ? _c("Report", { attrs: { url: _vm.url } })
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.query.popup &&
+          _vm.$store.getters.isAuth &&
+          _vm.$route.query.popup == "edit_set"
+            ? _c(
+                "WrapperPopups",
+                [
+                  _vm.$route.query.popup == "edit_set"
+                    ? _c("SetCollectionEditPopup", {
+                        attrs: {
+                          title_en: _vm.set.title_en,
+                          description_en: _vm.set.text_en,
+                          submitType: "set"
+                        }
+                      })
                     : _vm._e()
                 ],
                 1
@@ -61447,7 +61481,8 @@ var $vm = null;
       loadMoreLoading: false,
       query: '',
       category: 0,
-      color: 0
+      color: 0,
+      drawedItems: []
     };
   },
 
@@ -61567,6 +61602,7 @@ var $vm = null;
         _this6.drawImage(img, item.id, event.offsetX, event.offsetY);
       };
       img.src = item.src;
+      img.dataset.itemId = item.id;
     },
     drawImage: function drawImage(imageObj, id, x, y) {
       // darth vader
@@ -61578,7 +61614,8 @@ var $vm = null;
         y: y - imageObj.height / 8,
         draggable: true,
         width: imageObj.width / 4,
-        height: imageObj.height / 4
+        height: imageObj.height / 4,
+        "itemId": imageObj.dataset.itemId
       });
 
       // add cursor styling
@@ -61651,6 +61688,15 @@ var $vm = null;
       this.layer.draw();
       this.selected = null;
       this.$router.push({ query: { popup: "create_set" } });
+      this.drawedItems = this.stage.find('Image').map(function (image) {
+        return {
+          "item_id": image.attrs.itemId,
+          "x": image.attrs.x,
+          "y": image.attrs.y,
+          "height": image.attrs.height,
+          "width": image.attrs.width
+        };
+      });
       this.base64Img = this.stage.toDataURL();
     }
   }
@@ -77573,8 +77619,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -79083,14 +79127,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["submitType"],
+  props: ["submitType", 'title_en', 'description_en'],
   data: function data() {
     return {
       formData: {
         setId: this.$route.query.setId,
         collectionId: this.$route.query.collectionId,
-        title: "",
-        description: ""
+        title: this.title_en ? this.title_en : '',
+        description: this.description_en ? this.description_en : ''
       },
       loading: false,
       errors: []
@@ -80438,22 +80482,6 @@ var render = function() {
                   _vm.$route.query.popup == "signup" ? _c("SignUp") : _vm._e(),
                   _vm._v(" "),
                   _vm.$route.query.popup == "forget" ? _c("Forget") : _vm._e()
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$route.query.popup &&
-          _vm.$store.getters.isAuth &&
-          _vm.$route.query.popup == "edit_set"
-            ? _c(
-                "WrapperPopups",
-                [
-                  _vm.$route.query.popup == "edit_set"
-                    ? _c("SetCollectionEditPopup", {
-                        attrs: { submitType: "set" }
-                      })
-                    : _vm._e()
                 ],
                 1
               )
