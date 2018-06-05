@@ -35,12 +35,12 @@ class SetsController extends Controller
         if ($request->filled('forEdit') && $request->get('forEdit')) {
             $data['data']['editableItems'] = [];
             foreach ($set->items as $item) {
-                $newItems=new \stdClass();
-                $newItems->item_id=$item->id;
-                $newItems->x=$item->pivot->x;
-                $newItems->y=$item->pivot->y;
-                $newItems->height=$item->pivot->height;
-                $newItems->width=$item->pivot->width;
+                $newItems = new \stdClass();
+                $newItems->item_id = $item->id;
+                $newItems->x = $item->pivot->x;
+                $newItems->y = $item->pivot->y;
+                $newItems->height = $item->pivot->height;
+                $newItems->width = $item->pivot->width;
                 $data['data']['editableItems'][] = $newItems;
             }
         }
@@ -165,7 +165,7 @@ class SetsController extends Controller
                 'required',
                 function ($attribute, $value, $fail) {
                     foreach ($value as $item) {
-                        if (Post::where('id', $item['item_id'])->count()) {
+                        if (Post::where('id', $item['item_id'])->count() == 0) {
                             return $fail($attribute . ' is invalid.');
                         };
                     }
