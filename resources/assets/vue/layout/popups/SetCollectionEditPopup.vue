@@ -11,7 +11,7 @@
       </div>
       <div class="content">
         <form @submit.prevent="add" class="theForm">
-          <input type="test" class="formEle" placeholder="Set title" v-model="formData.title" required>
+          <input type="test" class="formEle" placeholder="title" v-model="formData.title" required>
           <input type="text" class="formEle" placeholder="Description" v-model="formData.description" required>
           <div v-for="(error,i) in errors" :key="i">
             <h4 class="errors">

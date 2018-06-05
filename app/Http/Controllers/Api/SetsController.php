@@ -10,6 +10,7 @@ use App\Model\SetComment;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use PhpParser\Comment;
 use Validator;
 
@@ -84,7 +85,7 @@ class SetsController extends Controller
         }
 
         $comments = SetComment::with('user')
-            ->orderBy('created_at','desc')->where(['set_id' => $set_id, 'parent' => 0])->offset($offset)->take($limit)->get();
+            ->orderBy('created_at', 'desc')->where(['set_id' => $set_id, 'parent' => 0])->offset($offset)->take($limit)->get();
         $data['data']['comments'] = \Maps\Set\comments($comments);
         return response()->json($data);
     }
@@ -147,8 +148,19 @@ class SetsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required',
-            'items.*' => 'required|exists:posts,id'
+            'items' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    foreach ($value as $item) {
+                        if (Post::where('id', $item['item_id'])->count()) {
+                            return $fail($attribute . ' is invalid.');
+                        };
+                    }
+
+                },
+            ]//'required|exists:posts,id'
         ]);
+
 
         $validator->sometimes('image', 'required', function () use ($request) {
             return $request->filled('image');
@@ -156,10 +168,12 @@ class SetsController extends Controller
 
         $media = new Media();
 
+
         if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
+
         $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
 
         $set = Set::create(
@@ -172,7 +186,12 @@ class SetsController extends Controller
                 'front_page' => '1'
             ]
         );
-        $set->items()->attach($request->get('items'));
+        $items = array_map(function ($item) {
+            $item['post_id'] = $item['item_id'];
+            unset($item['item_id']);
+            return $item;
+        }, $request->get('items'));
+        $set->items()->attach($items);
         $data['data']['set_id'] = $set->id;
         return response()->json($data);
     }
