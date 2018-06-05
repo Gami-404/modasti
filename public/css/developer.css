@@ -146,6 +146,15 @@
         display: flex;
     }
 }
+@media only screen and (max-width: 500px){
+    .topCategories a {
+        opacity: 0.5;
+        display: inline-flex;
+        margin: 0;
+        padding: 8px;
+        width: fit-content;
+    }
+}
 @media only screen and (max-width: 415px){
     .open-search form {
          display: flex !important;
@@ -171,3 +180,5 @@
         width: 308px !important;
     }
 }
+
+
