@@ -26,6 +26,7 @@ Route::post('/getColors', 'Api\ColorController@getColors');
 // Countries
 Route::post('/getCountries', 'Api\HomeController@getCountries');
 
+Route::post('/home', 'Api\HomeController@home');
 Route::post('/homeFeeds', 'Api\HomeController@home');
 
 
