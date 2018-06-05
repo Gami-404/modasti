@@ -31,6 +31,19 @@ class SetsController extends Controller
         $set->views++;
         $set->save();
         $data['data']['set'] = \Maps\Set\setDetails($set, true);
+
+        if ($request->filled('forEdit') && $request->get('forEdit')) {
+            $data['data']['editableItems'] = [];
+            foreach ($set->items as $item) {
+                $newItems=new \stdClass();
+                $newItems->item_id=$item->id;
+                $newItems->x=$item->pivot->x;
+                $newItems->y=$item->pivot->y;
+                $newItems->height=$item->pivot->height;
+                $newItems->width=$item->pivot->width;
+                $data['data']['editableItems'][] = $newItems;
+            }
+        }
         return response()->json($data, 200);
     }
 
@@ -248,7 +261,6 @@ class SetsController extends Controller
         return response()->json($data);
 
     }
-
 
     /**
      * POST api/editSet
