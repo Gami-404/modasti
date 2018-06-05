@@ -25,6 +25,10 @@
     font-family: "'Lato', sans-serif";
 }
 
+.mobileMenu .in .nav li a i {
+    margin: 0 30px 0 0;
+    color: red;
+}
 #set-select-colors{
     color: #fff;
     height: 40px;
