@@ -199,7 +199,7 @@ class HomeController extends Controller
             ->take(4)
             ->get();
         $data['contests'] = \Maps\Contest\contests($contests);
-        $data['sets_best_from_modasti'] = Set::where(['user_id'=>25])->take(4)->orderBy('created_at','desc')->get();
+        $data['sets_best_from_modasti'] = Set::where(['user_id' => 25])->take(4)->orderBy('created_at', 'desc')->get();
         return response()->json($data);
     }
 
@@ -285,6 +285,22 @@ class HomeController extends Controller
 
         $objects = $class::search($request->get('searchString'))->take($limit)->offset($offset)->get();
         $data['data'] = $maps[$for]($objects);
+        return response()->json($data);
+    }
+
+    /**
+     * GET api/browsePopular
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function browsePopular(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+        $items_most_popular = Post::with('image', 'brand')->confirmed()->orderBy('likes', 'desc')
+            ->offset($offset)->take($limit)->get();
+        $data['data'] = \Maps\Item\items($items_most_popular);
         return response()->json($data);
     }
 

@@ -38,6 +38,7 @@ Route::any('/homeTrends', 'Api\HomeController@trending');
 Route::post('/search', 'Api\HomeController@search');
 // Brands
 Route::post('/getBrands', 'Api\ItemsController@getBrands');
+Route::any('/browsePopular', 'Api\ItemsController@browsePopular');
 //filters
 Route::post('/filter', 'Api\HomeController@filter');
 
