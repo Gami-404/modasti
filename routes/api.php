@@ -26,12 +26,13 @@ Route::post('/getColors', 'Api\ColorController@getColors');
 // Countries
 Route::post('/getCountries', 'Api\HomeController@getCountries');
 
-Route::post('/home', 'Api\HomeController@home');
-Route::post('/homeFeeds', 'Api\HomeController@home');
+Route::any('/home', 'Api\HomeController@home');
+Route::any('/homeFeeds', 'Api\HomeController@home');
 
 
 
-Route::post('/trending', 'Api\HomeController@trending');
+Route::any('/trending', 'Api\HomeController@trending');
+Route::any('/homeTrends', 'Api\HomeController@trending');
 
 // Search
 Route::post('/search', 'Api\HomeController@search');
