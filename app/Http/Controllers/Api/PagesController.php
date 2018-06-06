@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Dot\Pages\Models\Page;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 
 class PagesController extends Controller
 {

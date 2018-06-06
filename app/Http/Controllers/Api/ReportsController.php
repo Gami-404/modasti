@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Report;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Validator;
 
 class ReportsController extends Controller

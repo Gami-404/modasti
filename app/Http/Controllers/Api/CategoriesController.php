@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Model\Category;
 use App\Model\Post;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 
 class CategoriesController extends Controller
 {

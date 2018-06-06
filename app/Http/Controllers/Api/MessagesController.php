@@ -6,7 +6,7 @@ use App\Events\UserSendMessage;
 use App\Model\Channel;
 use App\Model\Message;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Validator;
 
 class MessagesController extends Controller

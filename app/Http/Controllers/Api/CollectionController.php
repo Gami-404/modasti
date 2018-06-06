@@ -6,7 +6,7 @@ use App\Model\Collection;
 use App\Model\CollectionComment;
 use App\Model\Media;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Validator;
 
 class CollectionController extends Controller

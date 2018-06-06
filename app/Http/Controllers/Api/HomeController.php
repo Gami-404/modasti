@@ -12,7 +12,7 @@ use Dot\Blocks\Models\Block;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
@@ -170,9 +170,25 @@ class HomeController extends Controller
     }
 
     /**
-     * POST api/home
-     * @param Request $request
+     * Listing of the home feed.
+     *
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="/api/homeFeeds",
+     *     description="Return Home Feed",
+     *     operationId="api.home.index",
+     *     produces={"application/json"},
+     *     tags={"home"},
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Home Feed."
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthorized action.",
+     *     )
+     * )
      */
     public function home(Request $request)
     {

@@ -14,7 +14,7 @@ use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 
 class ItemsController extends Controller
 {

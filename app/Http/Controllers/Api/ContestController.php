@@ -7,7 +7,7 @@ use App\Model\ContestComment;
 use App\Model\ContestItem;
 use App\Model\Media;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Validator;
 
 class ContestController extends Controller

@@ -1,0 +1,58 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Modasti API",
+        "contact": {
+            "name": "Abdulrhman gamal",
+            "url": "http://modasti.uniative.com"
+        },
+        "version": "1.0"
+    },
+    "host": "modasti.uniative.com",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/homeFeeds": {
+            "get": {
+                "tags": [
+                    "home"
+                ],
+                "summary": "Listing of the home feed.",
+                "description": "Return Home Feed",
+                "operationId": "api.home.index",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Home Feed."
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "description": "Class ApiController",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "description": "Class ApiController",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

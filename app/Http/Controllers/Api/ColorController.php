@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Color;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use function Maps\Collection\collection;
 
 class ColorController extends Controller

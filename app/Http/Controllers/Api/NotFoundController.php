@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 
 class NotFoundController extends Controller
 {

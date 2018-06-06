@@ -9,7 +9,7 @@ use App\Model\Set;
 use App\Model\SetComment;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController as Controller ;
 use Illuminate\Validation\Rule;
 use PhpParser\Comment;
 use Validator;
