@@ -62979,7 +62979,6 @@ var _this5 = this;
 //
 //
 //
-//
 
 
 
@@ -63046,6 +63045,11 @@ var $vm = null;
             _this.loading = false;
         });
         __WEBPACK_IMPORTED_MODULE_8__store_API__["a" /* default */].post('setDetails?forEdit=true', { 'setId': this.$route.params.setId }).then(function (res) {
+
+            if (res.data.data.set.user_id != _this.$store.getters.user.userId) {
+                _this.$router.push({ name: 'set', "setId": _this.$route.params.setId });
+                return;
+            }
             // this.editableItems=res.data.editableItems;
             _this.formData.title = res.data.data.set.title_en;
             _this.formData.description = res.data.data.set.text_en;
@@ -63310,7 +63314,8 @@ var $vm = null;
             var data = _extends({
                 items: this.drawedItems
             }, this.formData, {
-                image: this.base64Img
+                image: this.base64Img,
+                setId: this.$route.params.setId
             });
             __WEBPACK_IMPORTED_MODULE_8__store_API__["a" /* default */].post('editSet', data).then(function () {
                 _this7.$router.push({ name: 'set', "setId": _this7.$route.params.setId });
@@ -63388,12 +63393,6 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "areaToDrop" }, [
-            _vm.itemsCounter == 0
-              ? _c("div", { staticClass: "intialText" }, [
-                  _vm._v("Drag sets or items here")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
             _c("div", {
               ref: "droparea",
               staticStyle: {

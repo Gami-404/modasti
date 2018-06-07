@@ -7,7 +7,6 @@
                     <input type="text" class="formEle" placeholder="Description" v-model="formData.description" required>
                 </form>
                 <div class="areaToDrop">
-                    <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
                     <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea"
                          style="background:#fff; height:100%; width:100%;"></div>
                 </div>
@@ -140,6 +139,11 @@
                 this.loading = false;
             });
             Api.post('setDetails?forEdit=true', {'setId': this.$route.params.setId}).then((res) => {
+
+                if(res.data.data.set.user_id!=this.$store.getters.user.userId){
+                    this.$router.push({name:'set',"setId":this.$route.params.setId});
+                    return;
+                }
                 // this.editableItems=res.data.editableItems;
                 this.formData.title=res.data.data.set.title_en;
                 this.formData.description=res.data.data.set.text_en;
@@ -374,6 +378,7 @@
                     items:this.drawedItems,
                     ...this.formData,
                     image:   this.base64Img,
+                    setId:this.$route.params.setId,
                 };
                 Api.post('editSet',data).then(()=>{
                     this.$router.push({name:'set',"setId":this.$route.params.setId});
