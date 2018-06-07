@@ -14,7 +14,7 @@
       <hr>
       <div v-if="set['user']&& set['user_id'] == $store.getters.userId">
         <div class="setEdit">
-          <router-link :to="'/set/23/?popup=edit_set&setId='+set.id">Edit</router-link>
+          <router-link :to="{name:'set_edit',params:{setId:set.id}}">Edit</router-link>
           <a href="#" @click.prevent="remove" class="remove">{{loading?'loading..':'Remove'}}</a>
         </div>
       </div>

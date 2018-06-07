@@ -19,7 +19,7 @@
             <br>
             <br>
             <div v-if="userId === set.user_id">
-              <router-link :to="'?popup=edit_set&setId='+set.id" class="mainBtn brandBg">Edit</router-link>
+              <router-link :to="{name:'set_edit',params:{setId:set.id}}" class="mainBtn brandBg">Edit</router-link>
               <a href="#" @click.prevent="remove" class="mainBtn">Remove</a>
             </div>
           </div>
@@ -62,10 +62,6 @@
     <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth&&$route.query.popup=='report'" >
         <Report v-if="$route.query.popup=='report'" :url="url"></Report>
-      </WrapperPopups>
-
-      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='edit_set'">
-        <SetCollectionEditPopup v-if="$route.query.popup=='edit_set'" :title_en="set.title_en" :description_en="set.text_en" submitType="set"></SetCollectionEditPopup>
       </WrapperPopups>
     </transition>
     <Loading v-if="loading" />

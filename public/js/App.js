@@ -54754,7 +54754,7 @@ var render = function() {
                     "router-link",
                     {
                       attrs: {
-                        to: "/set/23/?popup=edit_set&setId=" + _vm.set.id
+                        to: { name: "set_edit", params: { setId: _vm.set.id } }
                       }
                     },
                     [_vm._v("Edit")]
@@ -57238,10 +57238,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -59065,7 +59061,12 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "mainBtn brandBg",
-                            attrs: { to: "?popup=edit_set&setId=" + _vm.set.id }
+                            attrs: {
+                              to: {
+                                name: "set_edit",
+                                params: { setId: _vm.set.id }
+                              }
+                            }
                           },
                           [_vm._v("Edit")]
                         ),
@@ -59285,26 +59286,6 @@ var render = function() {
                 [
                   _vm.$route.query.popup == "report"
                     ? _c("Report", { attrs: { url: _vm.url } })
-                    : _vm._e()
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$route.query.popup &&
-          _vm.$store.getters.isAuth &&
-          _vm.$route.query.popup == "edit_set"
-            ? _c(
-                "WrapperPopups",
-                [
-                  _vm.$route.query.popup == "edit_set"
-                    ? _c("SetCollectionEditPopup", {
-                        attrs: {
-                          title_en: _vm.set.title_en,
-                          description_en: _vm.set.text_en,
-                          submitType: "set"
-                        }
-                      })
                     : _vm._e()
                 ],
                 1
