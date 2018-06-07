@@ -9,7 +9,7 @@ use App\Model\Set;
 use App\Model\SetComment;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController as Controller ;
+use App\Http\Controllers\ApiController as Controller;
 use Illuminate\Validation\Rule;
 use PhpParser\Comment;
 use Validator;
@@ -26,6 +26,7 @@ class SetsController extends Controller
         $data = ['data' => [], 'errors' => []];
         $set = Set::with(['user', 'image', 'items'])->where('id', $request->get("setId"))->first();
         if (!$set) {
+            $data['errors'] = ['set not exist'];
             return response()->json($data, 400);
         }
         $set->views++;

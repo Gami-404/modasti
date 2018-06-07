@@ -11,6 +11,7 @@ import Page404 from "@/pages/404";
 import Page500 from "@/pages/500";
 import RetailerRegistration from "@/pages/RetailerRegistration";
 import SetAdd from "@/pages/SetAdd";
+import SetEdit from "@/pages/EditSet";
 import CollectionAdd from "@/pages/CollectionAdd";
 import Messages from "@/pages/Messages";
 import Trending from "@/pages/Trending";
@@ -66,6 +67,12 @@ const router = new Router({
             path: "/set/add",
             name: "set_add",
             component: SetAdd,
+            meta: {requiresAuth: true}
+        },
+        {
+            path: "/set/:setId/edit",
+            name: "set_edit",
+            component: SetEdit,
             meta: {requiresAuth: true}
         },
         {

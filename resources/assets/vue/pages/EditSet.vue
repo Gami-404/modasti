@@ -76,6 +76,7 @@
     import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
     import _ from 'lodash';
     import { mapGetters } from "vuex";
+    import Api from '@/store/API';
 
     // vue Components
     var $vm=null;
@@ -123,6 +124,8 @@
             }).then(() => {
                 this.loading = false;
             });
+            Api.post('setDetails?forEdit=true',{'setId':this.$route.params.setId}).then(function (res) {
+            })
             $vm=this;
         },
         mounted() {
