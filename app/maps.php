@@ -79,8 +79,9 @@ namespace Maps\User {
         $newUser->follower_counter = $user->follower()->count();
         $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
         $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
+        $newUser->currency = $user->currency;
+        $newUser->email = $user->email;
         $newUser->sets_count = Set::where('user_id', $user->id)->count();
-        $newUser->photo = null;
         $newUser->photo = null;
         if ($user->photo) {
             $newUser->photo = new \stdClass();

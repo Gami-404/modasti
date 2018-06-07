@@ -1,4 +1,3 @@
-
 {
   "swagger": "2.0",
   "info": {
@@ -315,7 +314,7 @@
                 "sets_best_from_community": {
                   "$ref": "#/definitions/Sets"
                 },
-                "sets_best_from_modasti":{
+                "sets_best_from_modasti": {
                   "$ref": "#/definitions/Sets"
                 }
               }
@@ -3031,18 +3030,7 @@
           "type": "string"
         },
         "photos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "table_id": {
-                "type": "integer"
-              },
-              "photo_name": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/Photos"
         }
       }
     },
@@ -3141,6 +3129,9 @@
         },
         "user": {
           "$ref": "#/definitions/User"
+        },
+        "contest_id": {
+          "type": "integer"
         }
       }
     },
@@ -3522,6 +3513,9 @@
         "user_type": {
           "type": "string"
         },
+        "about": {
+          "type": "string"
+        },
         "following_counter": {
           "type": "number"
         },
@@ -3532,15 +3526,19 @@
           "type": "boolean"
         },
         "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
+          "$ref": "#/definitions/Photo"
+        },
+        "is_blocked": {
+          "type": "boolean"
+        },
+        "sets_count": {
+          "type": "integer"
+        },
+        "currency":{
+          "type": "string"
+        },
+        "email":{
+            "type": "string"
         }
       }
     },
@@ -3839,6 +3837,9 @@
         "contest_title": {
           "type": "string"
         },
+        "join_on": {
+          "type": "string"
+        },
         "win_place": {
           "type": "integer"
         },
@@ -3850,7 +3851,7 @@
         }
       }
     },
-    "Photo":{
+    "Photo": {
       "type": "object",
       "properties": {
         "id": {
@@ -3859,6 +3860,12 @@
         "photo_name": {
           "type": "string"
         }
+      }
+    },
+    "Photos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Photo"
       }
     }
   }
