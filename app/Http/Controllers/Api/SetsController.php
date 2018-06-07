@@ -276,19 +276,45 @@ class SetsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'setId' => 'required|exists:sets,id',
+            'items' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    foreach ($value as $item) {
+                        if (Post::where('id', $item['item_id'])->count() == 0) {
+                            return $fail($attribute . ' is invalid.');
+                        };
+                    }
+
+                },
+            ]//'required|exists:posts,id'
         ]);
 
-        if ($validator->fails()) {
+        $validator->sometimes('image', 'required', function () use ($request) {
+            return $request->filled('image');
+        });
+
+        $media = new Media();
+
+        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
+        $set = Set::find($request->get('setId'));
+        $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
         $updated = Set::where([
             'user_id' => fauth()->user()->id,
             'id' => $request->get('setId'),
         ])->update([
             'title' => $request->get('title'),
-            'excerpt' => $request->get('description')
+            'excerpt' => $request->get('description'),
+            'image_id' => $media->id,
         ]);
+        $items = array_map(function ($item) {
+            $item['post_id'] = $item['item_id'];
+            unset($item['item_id']);
+            return $item;
+        }, $request->get('items'));
+        $set->items()->sync($items);
         $data['data']['updated'] = $updated ? true : false;
         return response()->json($data);
     }
