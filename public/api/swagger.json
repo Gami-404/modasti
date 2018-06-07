@@ -1,58 +1,129 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Modasti API",
-        "contact": {
-            "name": "Abdulrhman gamal",
-            "url": "http://modasti.uniative.com"
-        },
-        "version": "1.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "Modasti API",
+    "contact": {
+      "name": "Modasti Developer Team",
+      "url": "http://modasti.uniative.com"
     },
-    "host": "modasti.uniative.com",
-    "basePath": "/api",
-    "schemes": [
-        "http"
-    ],
-    "paths": {
-        "/api/homeFeeds": {
-            "get": {
-                "tags": [
-                    "home"
-                ],
-                "summary": "Listing of the home feed.",
-                "description": "Return Home Feed",
-                "operationId": "api.home.index",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Home Feed."
-                    },
-                    "401": {
-                        "description": "Unauthorized action."
-                    }
-                }
-            }
+    "version": "1.0"
+  },
+  "host": "modasti.uniative.com",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/homeFeeds": {
+      "post": {
+        "tags": [
+          "home"
+        ],
+        "summary": "Listing of the home feed.",
+        "description": "Return Home Feed",
+        "operationId": "api.home.index",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Home Feed."
+          },
+          "401": {
+            "description": "Unauthorized action."
+          }
         }
-    },
-    "definitions": {
-        "Error": {
-            "required": [
-                "code",
-                "message"
-            ],
-            "properties": {
-                "code": {
-                    "description": "Class ApiController",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "message": {
-                    "description": "Class ApiController",
-                    "type": "string"
-                }
-            }
-        }
+      }
     }
+  },
+  "definitions": {
+    "Error": {
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "description": "Error code",
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "description": "Message error",
+          "type": "string"
+        }
+      }
+    },
+    "Items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Item"
+      }
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title_en": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "text_en":{
+          "type": "string",
+          "description": "Item description"
+        },
+        "url_en":{
+          "type": "url_en",
+          "description": "Item Url"
+        },
+        "user_currency": {
+          "type": "string"
+        },
+        "photos": {
+          "$ref": "#/definitions/Photos"
+        },
+        "color_id":{
+          "type": "integer",
+          "description": "Color id",
+          "default": "0"
+        },
+        "color":{
+          "type": "string",
+          "description": "Color name"
+        },
+        "is_liked":{
+          "type": "boolean",
+          "description": "True if current user like this items"
+        },
+        "likes":{
+          "type": "integer",
+          "description": "The number of likes."
+        }
+
+      }
+    },
+    "Photos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "table_id": {
+            "type": "integer",
+            "description": "Photo id"
+          },
+          "photo_name": {
+            "type": "string",
+            "description": "Photo Description"
+          }
+        }
+      }
+    }
+  }
 }
