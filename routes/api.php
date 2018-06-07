@@ -27,12 +27,11 @@ Route::post('/getColors', 'Api\ColorController@getColors');
 Route::post('/getCountries', 'Api\HomeController@getCountries');
 
 Route::any('/home', 'Api\HomeController@home');
-Route::any('/homeFeeds', 'Api\HomeController@home');
+Route::any('/homeTrends', 'Api\HomeController@home');
 
 
 
 Route::any('/trending', 'Api\HomeController@trending');
-Route::any('/homeTrends', 'Api\HomeController@trending');
 
 // Search
 Route::post('/search', 'Api\HomeController@search');
