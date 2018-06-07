@@ -2,9 +2,14 @@
     <div class="gridContainer">
         <div class="createSetPage secPaddLg clearfix">
             <div class="leftArea">
+                <form class="theForm" id="sets-edit-form">
+                    <input type="test" class="formEle" placeholder="title" v-model="formData.title" required>
+                    <input type="text" class="formEle" placeholder="Description" v-model="formData.description" required>
+                </form>
                 <div class="areaToDrop">
                     <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
-                    <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div>
+                    <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea"
+                         style="background:#fff; height:100%; width:100%;"></div>
                 </div>
                 <div class="actionBtns">
                     <a href="#" @click.prevent="publish" class="publishBtn">Save</a>
@@ -39,17 +44,21 @@
             </div>
             <div class="rightArea">
                 <div class="theTabs">
-                    <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
+                    <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory"
+                                        :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
                     <ColorDropdown id="set-select-colors" @change="changeCategory" v-model="color"></ColorDropdown>
-                    <input  id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
+                    <input id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query"
+                           placeholder="Search for item ..."/>
                 </div>
                 <div class="theProducts">
                     <div class="myrow clearfix">
                         <div v-if="!loading" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
-                            <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
+                            <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']"
+                                 :data-id="item.id" class="one">
                                 <div class="avatar">
                                     <div class="verticalCentered">
-                                        <div class="theCell"><img :src="item['photos'][0]['photo_name']" :data-id="item.id" alt=""></div>
+                                        <div class="theCell"><img :src="item['photos'][0]['photo_name']"
+                                                                  :data-id="item.id" alt=""></div>
                                     </div>
                                 </div>
                                 <div class="name">{{item.title_en}}</div>
@@ -58,13 +67,14 @@
                         <div v-if="canloadmore&&!loading" class="getMore">
                             <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
                         </div>
-                        <div v-if="loading" class="set-loading"><img src="images/loading.gif"  width="50px" alt="loading"></div>
+                        <div v-if="loading" class="set-loading"><img src="images/loading.gif" width="50px"
+                                                                     alt="loading"></div>
                         <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--<Loading v-if="loading" />-->
+        <Loading v-if="pageLoad"/>
     </div>
 </template>
 <script>
@@ -75,11 +85,11 @@
     import WrapperPopups from "@/wrappers/WrapperPopups";
     import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
     import _ from 'lodash';
-    import { mapGetters } from "vuex";
+    import {mapGetters} from "vuex";
     import Api from '@/store/API';
 
     // vue Components
-    var $vm=null;
+    var $vm = null;
 
     export default {
         components: {
@@ -101,10 +111,15 @@
                 setItems: [],
                 loading: true,
                 loadMoreLoading: false,
-                query:'',
-                category:0,
-                color:0,
-                drawedItems:[],
+                query: '',
+                category: 0,
+                color: 0,
+                drawedItems: [],
+                pageLoad: true,
+                formData:{
+                    title:'',
+                    'description':''
+                }
             };
         },
         computed: {
@@ -112,21 +127,61 @@
                 return this.$store.getters.itemsToAddSet
             },
             canloadmore() {
-                return this.items && this.items.length!=0 &&this.items.length % 6 === 0;
+                return this.items && this.items.length != 0 && this.items.length % 6 === 0;
             }
         },
         created() {
-            this.$store.dispatch("get_items_for_add_set",{
-                query:this.query,
-                category:this.category,
-                color:this.color,
-                clearOffset:true
+            this.$store.dispatch("get_items_for_add_set", {
+                query: this.query,
+                category: this.category,
+                color: this.color,
+                clearOffset: true
             }).then(() => {
                 this.loading = false;
             });
-            Api.post('setDetails?forEdit=true',{'setId':this.$route.params.setId}).then(function (res) {
-            })
-            $vm=this;
+            Api.post('setDetails?forEdit=true', {'setId': this.$route.params.setId}).then((res) => {
+                // this.editableItems=res.data.editableItems;
+                this.formData.title=res.data.data.set.title_en;
+                this.formData.description=res.data.data.set.text_en;
+                for(let item of res.data.data.editableItems){
+                    let img = new Image();
+                    img.onload = () => {
+                        // darth vader
+                        var darthVaderImg = new Konva.Image({
+                            image: img,
+                            name: "img",
+                            id:item.item_id,
+                            x:  item.x,
+                            y:  item.y ,
+                            draggable: true,
+                            width: item.width ,
+                            height: item.height ,
+                            "itemId": item.item_id
+                        });
+
+                        // add cursor styling
+                        darthVaderImg.on("mouseover", function () {
+                            document.body.style.cursor = "pointer";
+                        });
+                        darthVaderImg.on("mouseout", function () {
+                            document.body.style.cursor = "default";
+                        });
+
+                        this.stage.find("Transformer").destroy();
+
+                        var tr = new Konva.Transformer();
+                        this.layer.add(darthVaderImg);
+                        this.layer.add(tr);
+                        tr.attachTo(darthVaderImg);
+                        this.selected = darthVaderImg;
+                        this.layer.draw();
+                    };
+                    img.src = item.image;
+                    img.dataset.itemId = item.id;
+                }
+                this.pageLoad = false;
+            });
+            $vm = this;
         },
         mounted() {
             var width = this.$refs.droparea.offsetWidth - 20;
@@ -155,35 +210,35 @@
                     this.layer.draw();
                 }
             };
-
             this.stage.on("click", transformerFunction);
             this.stage.on("dragstart", transformerFunction);
         },
         methods: {
             loadmore() {
                 this.loadMoreLoading = true;
-                this.$store.dispatch("get_items_for_add_set",{
-                    query:this.query,
-                    category:this.category,
-                    color:this.color,
-                    clearOffset:false
+                this.$store.dispatch("get_items_for_add_set", {
+                    query: this.query,
+                    category: this.category,
+                    color: this.color,
+                    clearOffset: false
                 }).then(() => {
                     this.loadMoreLoading = false;
                     this.loading = false;
                 });
             },
-            changeCategory(){
+            changeCategory() {
                 this.loading = true;
-                this.$store.dispatch("get_items_for_add_set",{
-                    query:this.query,
-                    category:this.category,
-                    color:this.color,
-                    clearOffset:true
+                this.$store.dispatch("get_items_for_add_set", {
+                    query: this.query,
+                    category: this.category,
+                    color: this.color,
+                    clearOffset: true
                 }).then(() => {
                     this.loading = false;
                 });
             },
-            nothing() {},
+            nothing() {
+            },
             dragStart(event) {
                 event.dataTransfer.setData(
                     "item",
@@ -193,18 +248,18 @@
                     })
                 );
             },
-            searchItems: _.debounce((event)=>{
+            searchItems: _.debounce((event) => {
                 this.loading = true;
 
-                $vm.$store.dispatch("get_items_for_add_set",{
-                    query:$vm.query,
-                    category:$vm.category,
-                    color:$vm.color,
-                    clearOffset:true
+                $vm.$store.dispatch("get_items_for_add_set", {
+                    query: $vm.query,
+                    category: $vm.category,
+                    color: $vm.color,
+                    clearOffset: true
                 }).then(() => {
                     $vm.loading = false;
                 });
-            },500).bind(this)
+            }, 500).bind(this)
             ,
             drop(event) {
                 event.preventDefault();
@@ -218,7 +273,7 @@
                     this.drawImage(img, item.id, event.offsetX, event.offsetY);
                 };
                 img.src = item.src;
-                img.dataset.itemId=item.id;
+                img.dataset.itemId = item.id;
             },
             drawImage(imageObj, id, x, y) {
                 // darth vader
@@ -229,16 +284,16 @@
                     x: x - imageObj.width / 8,
                     y: y - imageObj.height / 8,
                     draggable: true,
-                    width:imageObj.width / 4,
-                    height:imageObj.height / 4,
-                    "itemId":imageObj.dataset.itemId
+                    width: imageObj.width / 4,
+                    height: imageObj.height / 4,
+                    "itemId": imageObj.dataset.itemId
                 });
 
                 // add cursor styling
-                darthVaderImg.on("mouseover", function() {
+                darthVaderImg.on("mouseover", function () {
                     document.body.style.cursor = "pointer";
                 });
-                darthVaderImg.on("mouseout", function() {
+                darthVaderImg.on("mouseout", function () {
                     document.body.style.cursor = "default";
                 });
 
@@ -305,17 +360,24 @@
                 this.stage.find("Transformer").destroy();
                 this.layer.draw();
                 this.selected = null;
-                this.$router.push({ query: { popup: "create_set" } });
-                this.drawedItems=(this.stage.find('Image').map(function (image) {
+                this.drawedItems = (this.stage.find('Image').map(function (image) {
                     return {
-                        "item_id":image.attrs.itemId,
-                        "x":image.attrs.x,
-                        "y":image.attrs.y,
-                        "height":image.attrs.height,
-                        "width":image.attrs.width,
+                        "item_id": image.attrs.itemId,
+                        "x": image.attrs.x,
+                        "y": image.attrs.y,
+                        "height": image.attrs.height,
+                        "width": image.attrs.width,
                     };
                 }));
                 this.base64Img = this.stage.toDataURL();
+                let data={
+                    items:this.drawedItems,
+                    ...this.formData,
+                    image:   this.base64Img,
+                };
+                Api.post('editSet',data).then(()=>{
+                    this.$router.push({name:'set',"setId":this.$route.params.setId});
+                });
             }
         }
     };
