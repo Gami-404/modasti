@@ -60330,7 +60330,7 @@ var render = function() {
               src:
                 _vm.user.photo && _vm.user.photo.photo_name == "string"
                   ? _vm.user.photo.photo_name
-                  : "https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1",
+                  : "/images/male-user-shadow.png",
               alt: ""
             }
           })
