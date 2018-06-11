@@ -4,7 +4,7 @@
     <div class="gridContainer">
       <WrapperCardList>
         <div v-if="searchIn == 'item'">
-          <div v-for="item in itemSearchResults" :key='item' class="mycol-lg-3 mycol-sm-6">
+          <div v-for="item in itemSearchResults" :key='item' class="mycol-lg-3 mycol-xs-6">
             <ItemCard :item-id="item" />
           </div>
           <div v-if="itemSearchResults.length ===0" class="searchNoResults">

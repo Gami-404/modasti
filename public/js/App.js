@@ -54121,38 +54121,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["itemId"],
-  components: {
-    CardActions: __WEBPACK_IMPORTED_MODULE_0__CardActions___default.a
-  },
-  data: function data() {
-    return {
-      notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
-    };
-  },
-
-  computed: {
-    item: function item() {
-      return this.$store.getters.getItem(this.itemId);
+    props: ["itemId"],
+    components: {
+        CardActions: __WEBPACK_IMPORTED_MODULE_0__CardActions___default.a
     },
-    isAuth: function isAuth() {
-      return this.$store.getters.isAuth;
+    data: function data() {
+        return {
+            notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+        };
+    },
+
+    computed: {
+        item: function item() {
+            return this.$store.getters.getItem(this.itemId);
+        },
+        isAuth: function isAuth() {
+            return this.$store.getters.isAuth;
+        }
+    },
+    methods: {
+        getCurrencySymbolItem: function getCurrencySymbolItem(currency) {
+            return Object(__WEBPACK_IMPORTED_MODULE_1__pages_retailer_sub_currency_js__["b" /* getCurrencySymbol */])(currency);
+        }
+    },
+    watch: {
+        "item.is_liked": function itemIs_liked() {
+            this.$forceUpdate();
+        }
     }
-  },
-  methods: {
-    getCurrencySymbolItem: function getCurrencySymbolItem(currency) {
-      return Object(__WEBPACK_IMPORTED_MODULE_1__pages_retailer_sub_currency_js__["b" /* getCurrencySymbol */])(currency);
-    }
-  },
-  watch: {
-    "item.is_liked": function itemIs_liked() {
-      this.$forceUpdate();
-    }
-  }
 });
 
 /***/ }),
@@ -54493,7 +54497,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
+    { staticClass: "productCard" },
     [
       _c(
         "div",
@@ -54621,7 +54625,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.content[data-v-0749b026] {\n  min-height: 133px;\n}\n", ""]);
+exports.push([module.i, "\n.content[data-v-0749b026] {\n    min-height: 133px;\n}\n", ""]);
 
 // exports
 
@@ -54663,37 +54667,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["setId"],
-  components: {
-    CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
-  },
-  data: function data() {
-    return {
-      loading: false,
-      notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
-    };
-  },
+    props: ["setId"],
+    components: {
+        CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
+    },
+    data: function data() {
+        return {
+            loading: false,
+            notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+        };
+    },
 
-  computed: {
-    set: function set() {
-      return this.$store.getters.getSet(this.setId);
-    }
-  },
-  methods: {
-    remove: function remove() {
-      var _this = this;
+    computed: {
+        set: function set() {
+            return this.$store.getters.getSet(this.setId);
+        }
+    },
+    methods: {
+        remove: function remove() {
+            var _this = this;
 
-      this.loading = true;
-      this.$store.dispatch("remove_set", this.setId).then(function () {
-        _this.$router.push("/profile/me/sets");
-        window.location.reload();
-        _this.loading = false;
-      });
+            this.loading = true;
+            this.$store.dispatch("remove_set", this.setId).then(function () {
+                _this.$router.push("/profile/me/sets");
+                window.location.reload();
+                _this.loading = false;
+            });
+        }
     }
-  }
 });
 
 /***/ }),
@@ -54706,7 +54716,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
+    { staticClass: "productCard" },
     [
       _c(
         "router-link",
@@ -54795,13 +54805,15 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      _vm._s(
-                        (_vm.set["user"] &&
-                          _vm.set["user"]["fname"] +
-                            " " +
-                            _vm.set["user"]["lname"]) ||
-                          "Modasti"
-                      )
+                      "\n                " +
+                        _vm._s(
+                          (_vm.set["user"] &&
+                            _vm.set["user"]["fname"] +
+                              " " +
+                              _vm.set["user"]["lname"]) ||
+                            "Modasti"
+                        ) +
+                        "\n            "
                     )
                   ]
                 )
@@ -54866,21 +54878,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["contestId"],
-  components: {
-    CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
-  },
-  computed: {
-    contest: function contest() {
-      return this.$store.getters.contest(this.contestId);
+    props: ["contestId"],
+    components: {
+        CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
     },
-    isAuth: function isAuth() {
-      return this.$store.getters.isAuth;
+    computed: {
+        contest: function contest() {
+            return this.$store.getters.contest(this.contestId);
+        },
+        isAuth: function isAuth() {
+            return this.$store.getters.isAuth;
+        }
     }
-  }
 });
 
 /***/ }),
@@ -54893,7 +54914,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
+    { staticClass: "productCard" },
     [
       _c("div", { staticClass: "avatar" }, [
         _c(
@@ -54957,7 +54978,7 @@ var render = function() {
                           to: "?popup=join_contest&contestId=" + _vm.contestId
                         }
                       },
-                      [_vm._v("Join Contest")]
+                      [_vm._v("Join Contest\n            ")]
                     )
                   : _vm.contest._type == "old"
                     ? _c(
@@ -54966,7 +54987,7 @@ var render = function() {
                           staticClass: "mainBtn",
                           attrs: { to: "/contest/" + _vm.contest.id }
                         },
-                        [_vm._v(" Check Winner ")]
+                        [_vm._v(" Check\n                Winner\n            ")]
                       )
                     : _c(
                         "router-link",
@@ -54974,7 +54995,7 @@ var render = function() {
                           staticClass: "mainBtn",
                           attrs: { to: "/contest/" + _vm.contest.id }
                         },
-                        [_vm._v(" View ")]
+                        [_vm._v(" View")]
                       )
               ],
               1
@@ -55338,7 +55359,7 @@ var render = function() {
             _vm._l(_vm.itemsLatestTrends, function(itemId) {
               return _c(
                 "div",
-                { key: itemId, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: itemId, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("ItemCard", { attrs: { "item-id": itemId } })],
                 1
               )
@@ -55351,7 +55372,7 @@ var render = function() {
             _vm._l(_vm.setsBestFromCommunity, function(set) {
               return _c(
                 "div",
-                { key: set, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: set, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("SetCard", { attrs: { "set-id": set } })],
                 1
               )
@@ -55370,7 +55391,7 @@ var render = function() {
             _vm._l(_vm.itemsMostPopular, function(itemId) {
               return _c(
                 "div",
-                { key: itemId, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: itemId, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("ItemCard", { attrs: { "item-id": itemId } })],
                 1
               )
@@ -55389,7 +55410,7 @@ var render = function() {
             _vm._l(_vm.setsBestFromModasti, function(setId) {
               return _c(
                 "div",
-                { key: setId, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: setId, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("SetCard", { attrs: { "set-id": setId } })],
                 1
               )
@@ -55402,7 +55423,7 @@ var render = function() {
             _vm._l(_vm.homeContests, function(contest) {
               return _c(
                 "div",
-                { key: contest, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: contest, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("ContestCard", { attrs: { "contest-id": contest } })],
                 1
               )
@@ -56686,7 +56707,7 @@ var render = function() {
                 _vm._l(_vm.categoryItems, function(item) {
                   return _c(
                     "div",
-                    { key: item, staticClass: "mycol-lg-3 mycol-sm-6" },
+                    { key: item, staticClass: "mycol-lg-3 mycol-xs-6" },
                     [_c("ItemCard", { attrs: { "item-id": item } })],
                     1
                   )
@@ -57072,7 +57093,7 @@ var render = function() {
                 _vm._l(_vm.data.similar, function(item) {
                   return _c(
                     "div",
-                    { key: item, staticClass: "mycol-lg-3 mycol-sm-6" },
+                    { key: item, staticClass: "mycol-lg-3 mycol-xs-6" },
                     [_c("ItemCard", { attrs: { "item-id": item } })],
                     1
                   )
@@ -59261,7 +59282,7 @@ var render = function() {
         _vm._l(_vm.set["items"], function(item) {
           return _c(
             "div",
-            { key: item, staticClass: "mycol-lg-3 mycol-sm-6" },
+            { key: item, staticClass: "mycol-lg-3 mycol-xs-6" },
             [_c("ItemCard", { attrs: { "item-id": item } })],
             1
           )
@@ -59820,7 +59841,7 @@ var render = function() {
             _vm._l(_vm.collection["sets"], function(set) {
               return _c(
                 "div",
-                { key: set, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: set, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("SetCard", { attrs: { "set-id": set } })],
                 1
               )
@@ -59835,7 +59856,7 @@ var render = function() {
             _vm._l(_vm.collection["items"], function(item) {
               return _c(
                 "div",
-                { key: item, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: item, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("ItemCard", { attrs: { "item-id": item } })],
                 1
               )
@@ -60427,7 +60448,7 @@ var render = function() {
                     _vm._l(_vm.itemSearchResults, function(item) {
                       return _c(
                         "div",
-                        { key: item, staticClass: "mycol-lg-3 mycol-sm-6" },
+                        { key: item, staticClass: "mycol-lg-3 mycol-xs-6" },
                         [_c("ItemCard", { attrs: { "item-id": item } })],
                         1
                       )
@@ -65323,7 +65344,7 @@ var render = function() {
           _vm._l(_vm.items, function(itemId) {
             return _c(
               "div",
-              { key: itemId, staticClass: "mycol-lg-3 mycol-sm-6" },
+              { key: itemId, staticClass: "mycol-lg-3 mycol-xs-6" },
               [_c("ItemCard", { attrs: { "item-id": itemId } })],
               1
             )
@@ -68847,37 +68868,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["collectionId"],
-  components: {
-    CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
-  },
-  data: function data() {
-    return {
-      loading: false,
-      notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
-    };
-  },
+    props: ["collectionId"],
+    components: {
+        CardActions: __WEBPACK_IMPORTED_MODULE_0__components_CardActions___default.a
+    },
+    data: function data() {
+        return {
+            loading: false,
+            notFoundImg: "http://www.zusjes.cz/system/show_image.php?src=storage%2FMech%2Fakce-a-terminy%2F%2Flogo3-1510042365.jpg&size=250x450&blank=1"
+        };
+    },
 
-  computed: {
-    collection: function collection() {
-      return this.$store.getters.getCollection(this.collectionId);
-    }
-  },
-  methods: {
-    remove: function remove() {
-      var _this = this;
+    computed: {
+        collection: function collection() {
+            return this.$store.getters.getCollection(this.collectionId);
+        }
+    },
+    methods: {
+        remove: function remove() {
+            var _this = this;
 
-      this.loading = true;
-      this.$store.dispatch("remove_collection", this.collectionId).then(function () {
-        _this.$router.push("/profile/me/collections");
-        window.location.reload();
-        _this.loading = false;
-      });
+            this.loading = true;
+            this.$store.dispatch("remove_collection", this.collectionId).then(function () {
+                _this.$router.push("/profile/me/collections");
+                window.location.reload();
+                _this.loading = false;
+            });
+        }
     }
-  }
 });
 
 /***/ }),
@@ -68890,7 +68918,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
+    { staticClass: "productCard" },
     [
       _c(
         "router-link",
@@ -68928,7 +68956,7 @@ var render = function() {
                     ""
                 }
               },
-              [_vm._v(_vm._s(_vm.collection.title_en))]
+              [_vm._v(_vm._s(_vm.collection.title_en) + "\n            ")]
             )
           ],
           1
@@ -68989,11 +69017,13 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      _vm._s(
-                        (_vm.collection["user"] &&
-                          _vm.collection["user"]["username"]) ||
-                          "Modasti"
-                      )
+                      "\n                " +
+                        _vm._s(
+                          (_vm.collection["user"] &&
+                            _vm.collection["user"]["username"]) ||
+                            "Modasti"
+                        ) +
+                        "\n            "
                     )
                   ]
                 )

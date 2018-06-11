@@ -21,7 +21,7 @@
         </div>
       </div>
       <WrapperCardListTitled title="Similar" url="#" more="false">
-        <div v-for="item in data.similar" :key='item' class="mycol-lg-3 mycol-sm-6">
+        <div v-for="item in data.similar" :key='item' class="mycol-lg-3 mycol-xs-6">
           <ItemCard :item-id="item" />
         </div>
       </WrapperCardListTitled>
