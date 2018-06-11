@@ -60348,10 +60348,9 @@ var render = function() {
         _c("div", { staticClass: "avatar" }, [
           _c("img", {
             attrs: {
-              src:
-                _vm.user.photo && _vm.user.photo.photo_name == "string"
-                  ? _vm.user.photo.photo_name
-                  : "/images/male-user-shadow.png",
+              src: _vm.user.photo
+                ? _vm.user.photo.photo_name
+                : "/images/male-user-shadow.png",
               alt: ""
             }
           })
