@@ -65132,7 +65132,7 @@ var render = function() {
             _vm._l(_vm.trending, function(itemId) {
               return _c(
                 "div",
-                { key: itemId, staticClass: "mycol-lg-3 mycol-sm-6" },
+                { key: itemId, staticClass: "mycol-lg-3 mycol-xs-6" },
                 [_c("ItemCard", { attrs: { "item-id": itemId } })],
                 1
               )
@@ -81543,7 +81543,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#footer .menu{\n\tfloat: right;\n}\n", ""]);
+exports.push([module.i, "\n#footer .menu {\n    float: right;\n}\n", ""]);
 
 // exports
 
@@ -81565,6 +81565,16 @@ var render = function() {
         _vm._v(" "),
         _c("ul", [
           _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c("router-link", { attrs: { to: "/about" } }, [
+                _vm._v("About us ")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "li",
@@ -81612,7 +81622,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "A place where women from all over the world meet the widest selection of modest clothing, a place where designers, stylists, influencers, and shoppers meet and inspire each other with new fashion and trends. Indeed the era of modest fashion has just begun."
+          "A place where women from all over the world meet the widest selection of modest clothing, a place\n                    where designers, stylists, influencers, and shoppers meet and inspire each other with new fashion\n                    and trends. Indeed the era of modest fashion has just begun."
         )
       ]),
       _vm._v(" "),
