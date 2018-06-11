@@ -1,5 +1,5 @@
 <template>
-  <div class="productCard">
+  <div class="productCard mycol-lg-3 mycol-xs-6">
     <div class="avatar">
       <div class="verticalCentered">
         <router-link :to="isAuth?'/contest/'+contest.id:'?popup=login'" class="theCell"><img :src="(contest['photo'] && contest['photo']['photo_name']) || 'images/img5.jpg'" alt=""></router-link>

@@ -1,5 +1,5 @@
 <template>
-  <div class="productCard">
+  <div class="productCard mycol-lg-3 mycol-xs-6">
     <router-link :to="(set.id && '/set/'+set.id)||''">
       <div class="avatar">
         <div class="verticalCentered">

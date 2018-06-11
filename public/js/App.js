@@ -54493,7 +54493,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard" },
+    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
     [
       _c(
         "div",
@@ -54706,7 +54706,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard" },
+    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
     [
       _c(
         "router-link",
@@ -54893,7 +54893,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard" },
+    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
     [
       _c("div", { staticClass: "avatar" }, [
         _c(
@@ -68890,7 +68890,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "productCard" },
+    { staticClass: "productCard mycol-lg-3 mycol-xs-6" },
     [
       _c(
         "router-link",

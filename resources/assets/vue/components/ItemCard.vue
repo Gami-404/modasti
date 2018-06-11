@@ -1,5 +1,5 @@
 <template>
-  <div class="productCard">
+  <div class="productCard mycol-lg-3 mycol-xs-6">
     <div class="avatar">
       <router-link :to="(item.id?'/item/'+item.id : '')" class="verticalCentered">
         <div class="theCell"><img :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg" :alt="item.title_en"></div>

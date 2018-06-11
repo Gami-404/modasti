@@ -1,5 +1,5 @@
 <template>
-  <div class="productCard">
+  <div class="productCard mycol-lg-3 mycol-xs-6">
     <router-link :to="(collection.id && '/collection/'+collection.id)||''">
       <div class="avatar">
         <div class="verticalCentered">
