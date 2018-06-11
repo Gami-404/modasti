@@ -517,20 +517,20 @@ body {
 .productCard {
   background: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   margin: 0 0 20px; }
   .productCard .avatar {
     padding: 20px 20px 0;
-    height: 340px;
+    height: 180px;
     overflow: hidden; }
   .productCard .content {
     position: relative;
-    padding: 20px;
+    padding: 20px 10px;
     border-bottom: 1px solid #ccc; }
     .productCard .content h3 {
       text-align: center;
       font-size: 100%;
-      height: 44px;
+      height: 50px;
       overflow: hidden; }
       .productCard .content h3 a:hover {
         color: #ffbeb8; }
@@ -578,12 +578,11 @@ body {
       border: 1px solid #f2f2f2;
       background: #fff; }
   .productCard .likesAndComments {
-    padding: 20px; }
+    padding: 10px 5px; }
     .productCard .likesAndComments a {
-      margin: 0 10px; }
+      margin: 0 5px; }
       .productCard .likesAndComments a i {
-        color: #ffbeb8;
-        margin: 0 5px 0 0; }
+        color: #ffbeb8; }
       .productCard .likesAndComments a:hover {
         color: #ffbeb8; }
   .productCard.winners .avatar {
@@ -1824,7 +1823,28 @@ body {
 
   .popupPage .thePage .content .thanksPopup {
     font-size: 30px;
-    padding: 50px 0; } }
+    padding: 50px 0; }
+
+  .productCard {
+    font-size: 18px; }
+
+  .productCard .avatar {
+    height: 340px; }
+
+  .productCard .content {
+    padding: 20px; }
+
+  .productCard .content h3 {
+    height: 44px; }
+
+  .productCard .likesAndComments {
+    padding: 20px; }
+
+  .productCard .likesAndComments a {
+    margin: 0 10px; }
+
+  .productCard .likesAndComments a i {
+    margin: 0 5px 0 0; } }
 @media only screen and (min-width: 769px) {
   .secPaddLg {
     padding: 60px 0; }
