@@ -78787,6 +78787,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -80996,6 +81006,21 @@ var render = function() {
                   _vm.isAuth ? _c("span", [_c("UserActions")], 1) : _vm._e()
                 ]),
                 _vm._v(" "),
+                _c("nav", { attrs: { id: "nav-button" } }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "icon",
+                      on: {
+                        click: function($event) {
+                          _vm.navOpend = !_vm.navOpend
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-bars" })]
+                  )
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "search" }, [
                   _c(
                     "span",
@@ -81230,7 +81255,7 @@ var render = function() {
                   attrs: { to: _vm.isAuth ? "/contest" : "?popup=login" }
                 },
                 [
-                  _c("img", { attrs: { src: "images/new.png", alt: "" } }),
+                  _c("img", { attrs: { src: "/images/new.png", alt: "" } }),
                   _vm._v(" "),
                   _c("span", [_vm._v("CONTESTS")])
                 ]
@@ -81257,32 +81282,47 @@ var render = function() {
             _c("div", { staticClass: "nav" }, [
               _c(
                 "ul",
-                _vm._l(_vm.routes, function(route) {
-                  return !route.auth || _vm.isAuth
-                    ? _c(
-                        "li",
-                        { key: route.uri },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                "active-class": "active-header",
-                                to: route.uri,
-                                exact: ""
-                              }
-                            },
-                            [
-                              _c("i", { class: route.icon }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v(_vm._s(route.name))])
-                            ]
-                          )
-                        ],
-                        1
+                [
+                  _vm._l(_vm.routes, function(route) {
+                    return !route.auth || _vm.isAuth
+                      ? _c(
+                          "li",
+                          { key: route.uri },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  "active-class": "active-header",
+                                  to: route.uri,
+                                  exact: ""
+                                }
+                              },
+                              [
+                                _c("i", { class: route.icon }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v(_vm._s(route.name))])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/#/contest", exact: "" } },
+                        [_c("i"), _vm._v(" "), _c("span", [_vm._v("Contest")])]
                       )
-                    : _vm._e()
-                })
+                    ],
+                    1
+                  )
+                ],
+                2
               )
             ]),
             _vm._v(" "),
