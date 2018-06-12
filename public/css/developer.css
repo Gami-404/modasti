@@ -237,13 +237,13 @@
 
 @media only screen and (max-width: 376px) {
     .open-search form {
-        width: 354px !important;
+        width: 329px !important;
     }
 }
 
 @media only screen and (max-width: 321px) {
     .open-search form {
-        width: 308px !important;
+        width: 280px !important;
     }
 }
 
