@@ -210,7 +210,7 @@ class HomeController extends Controller
         $sets_best_from_community = Set::with('image')
             ->withCount('likes')
             ->where('created_at', '>=', Carbon::now()->subDay(10))
-            ->orderBy('likes', 'desc')
+            ->orderBy('likes_count', 'desc')
             ->take(4)->get();
         $data['sets_best_from_community'] = collect(\Maps\Set\sets($sets_best_from_community));
 
