@@ -8,11 +8,12 @@ use App\Model\Post;
 use App\Model\Set;
 use App\User;
 use App\Model\Category;
+use Carbon\Carbon;
 use Dot\Blocks\Models\Block;
 use Dot\I18n\Models\Place;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController as Controller ;
+use App\Http\Controllers\ApiController as Controller;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
@@ -206,7 +207,10 @@ class HomeController extends Controller
         $data['items_best_from_modasti'] = \Maps\Item\items($items_best_from_modasti);
 
 
-        $sets_best_from_community = Set::with('image')->orderBy('views', 'desc')
+        $sets_best_from_community = Set::with('image')
+            ->where('created_at', '>=', Carbon::now()->subDay(10))
+            ->orderBy('views', 'desc')
+            ->orderBy('likes', 'desc')
             ->take(4)->get();
         $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
 
