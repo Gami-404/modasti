@@ -61746,7 +61746,6 @@ var _this5 = this;
 //
 //
 //
-//
 
 
 
@@ -62646,18 +62645,6 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("ColorDropdown", {
-                attrs: { id: "set-select-colors" },
-                on: { change: _vm.changeCategory },
-                model: {
-                  value: _vm.color,
-                  callback: function($$v) {
-                    _vm.color = $$v
-                  },
-                  expression: "color"
-                }
-              }),
-              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -62902,7 +62889,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _this5 = this;
 
-//
 //
 //
 //
@@ -63529,18 +63515,6 @@ var render = function() {
                     _vm.category = $$v
                   },
                   expression: "category"
-                }
-              }),
-              _vm._v(" "),
-              _c("ColorDropdown", {
-                attrs: { id: "set-select-colors" },
-                on: { change: _vm.changeCategory },
-                model: {
-                  value: _vm.color,
-                  callback: function($$v) {
-                    _vm.color = $$v
-                  },
-                  expression: "color"
                 }
               }),
               _vm._v(" "),
@@ -78564,7 +78538,7 @@ exports = module.exports = __webpack_require__(1)(false);
 exports.push([module.i, "@import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css);", ""]);
 
 // module
-exports.push([module.i, "\n#pageContent {\n  min-width: 99vw;\n  min-height: 100vh;\n}\n.productCard .avatar {\n  height: 340px;\n}\n.topCategories a {\n  opacity: 0.5;\n}\n@media only screen and (max-width: 1350px) {\n#header .bottom #nav ul {\n    max-width: 90%;\n}\n}\n.btn{\n  padding: 20px;\n  background-color: #fbbeb9;\n}\n.btn-wrapper{\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n#pageContent {\n  min-width: 99vw;\n  min-height: 100vh;\n}\n.productCard .avatar {\n  height: 380px;\n}\n.topCategories a {\n  opacity: 0.5;\n}\n@media only screen and (max-width: 1350px) {\n#header .bottom #nav ul {\n    max-width: 90%;\n}\n}\n.btn{\n  padding: 20px;\n  background-color: #fbbeb9;\n}\n.btn-wrapper{\n  text-align: center;\n}\n", ""]);
 
 // exports
 

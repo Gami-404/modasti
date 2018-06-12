@@ -45,7 +45,6 @@
                 <div class="theTabs">
                     <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory"
                                         :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
-                    <ColorDropdown id="set-select-colors" @change="changeCategory" v-model="color"></ColorDropdown>
                     <input id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query"
                            placeholder="Search for item ..."/>
                 </div>
