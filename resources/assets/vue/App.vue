@@ -33,7 +33,7 @@ export default {
   min-height: 100vh;
 }
 .productCard .avatar {
-  height: 340px;
+  height: 380px;
 }
 .topCategories a {
   opacity: 0.5;

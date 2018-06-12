@@ -228,3 +228,8 @@
         height: 0;
     }
 }
+@media only screen and (max-width: 412px) {
+    .productCard .avatar {
+        height: 180px!important;
+    }
+}
