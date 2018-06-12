@@ -210,9 +210,10 @@ class HomeController extends Controller
         $sets_best_from_community = Set::with('image')
             ->where('created_at', '>=', Carbon::now()->subDay(10))
             ->orderBy('views', 'desc')
-            ->orderBy('likes', 'desc')
             ->take(4)->get();
-        $data['sets_best_from_community'] = \Maps\Set\sets($sets_best_from_community);
+        $data['sets_best_from_community'] = collect(\Maps\Set\sets($sets_best_from_community))->sortByDesc(function ($item) {
+            return $item->likes;
+        });
 
         // Contest
         $contests = Contest::with('image')->where(['status' => 1])
