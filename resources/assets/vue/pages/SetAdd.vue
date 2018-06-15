@@ -34,6 +34,12 @@
                 <i class="fa fa-trash"></i>
               </a>
             </div>
+            <div class="oneBtn">
+              <a @click.prevent="newBackground" href="#">
+                <i class="fa fa-fill"></i>
+              </a>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -104,6 +110,7 @@ export default {
       base64Img: "",
       setItems: [],
       loading: true,
+      background:"#fff",
       loadMoreLoading: false,
         query:'',
         category:0,
@@ -136,10 +143,13 @@ export default {
     this.stage = new Konva.Stage({
       container: "droparea",
       width: width,
-      height: height
-    });
+      height: height,
+    });    
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
+    
+    layer.add(stageRect);
+
     let drawImage = this.drawImage;
     let transformerFunction = e => {
       if (e.target === this.stage) {
@@ -318,6 +328,9 @@ export default {
           };
       }));
       this.base64Img = this.stage.toDataURL();
+    },
+    newBackground(){
+      this.layer.setFill("red");
     }
   }
 };
