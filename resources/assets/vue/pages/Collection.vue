@@ -54,12 +54,12 @@
       </div>
     </div>
     <WrapperCardListTitled v-if="collection['sets'].length > 0" title="Sets" more="false" url="#">
-      <div v-for="set in collection['sets']" :key='set' class="mycol-lg-3 mycol-sm-6">
+      <div v-for="set in collection['sets']" :key='set' class="mycol-lg-3 mycol-xs-6">
         <SetCard :set-id="set" />
       </div>
     </WrapperCardListTitled>
     <WrapperCardListTitled v-if="collection['items'].length > 0" title="Items" more="false" url="#">
-      <div v-for="item in collection['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
+      <div v-for="item in collection['items']" :key='item' class="mycol-lg-3 mycol-xs-6">
         <ItemCard :item-id="item" />
       </div>
     </WrapperCardListTitled>

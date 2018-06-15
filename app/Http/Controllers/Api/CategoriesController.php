@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Category;
 use App\Model\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController as Controller ;
+use App\Http\Controllers\ApiController as Controller;
 
 class CategoriesController extends Controller
 {
@@ -37,9 +38,14 @@ class CategoriesController extends Controller
             $data['errors'][] = 'Category not found';
             return response()->json($data);
         }
-        $items = collect();
+
         if ($category->parent != 0) {
-            $items = $category->items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+            // If first 8 items
+            if ($offset == 0) {
+                $items = $category->items()->with('image', 'brand', 'user')->orderBy('likes', 'DESC')->where('created_at', '>=', Carbon::now()->subDay(11))->take($limit)->offset($offset)->get();
+            } else {
+                $items = $category->items()->with('image', 'brand', 'user')->take($limit)->offset($offset)->get();
+            }
         } else {
             $categoriesIds = $category->categories()->get()->pluck('id')->toArray();
             $categoriesIds[] = $category->id;
@@ -51,7 +57,9 @@ class CategoriesController extends Controller
             if ($request->filled('q')) {
                 $query->search($request->get('q'));
             }
-
+            if ($offset == 0) {
+                $query->orderBy('likes', 'DESC')->where('created_at', '>=', Carbon::now()->subDay(11))->take($limit)->offset($offset);
+            }
             $items = $query->get();
         }
         $data['data'] = \Maps\Item\items($items);

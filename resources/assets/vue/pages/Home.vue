@@ -11,27 +11,27 @@
 		</div>
 		<div class="gridContainer">
 			<WrapperCardListTitled title="Latest Trends" url="/trending">
-				<div v-for="itemId in itemsLatestTrends" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+				<div v-for="itemId in itemsLatestTrends" :key='itemId' class="mycol-lg-3 mycol-xs-6">
 					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Most Viewed Sets" url="#" more="false">
-				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-sm-6">
+				<div v-for="set in setsBestFromCommunity" :key="set" class="mycol-lg-3 mycol-xs-6">
 					<SetCard :set-id="set" />
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Most Liked From Our Community" more="false" url="/trending">
-				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+				<div v-for="itemId in itemsMostPopular" :key='itemId' class="mycol-lg-3 mycol-xs-6">
 					<ItemCard :item-id="itemId" />
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Best From Modasti" more="false" url="/contest">
-				<div v-for="setId in setsBestFromModasti" :key="setId" class="mycol-lg-3 mycol-sm-6">
+				<div v-for="setId in setsBestFromModasti" :key="setId" class="mycol-lg-3 mycol-xs-6">
 					<SetCard :set-id="setId" />
 				</div>
 			</WrapperCardListTitled>
 			<WrapperCardListTitled title="Official Contests" url="/contest">
-				<div v-for="contest in homeContests" :key="contest" class="mycol-lg-3 mycol-sm-6">
+				<div v-for="contest in homeContests" :key="contest" class="mycol-lg-3 mycol-xs-6">
 					<ContestCard :contest-id="contest" />
 				</div>
 			</WrapperCardListTitled>

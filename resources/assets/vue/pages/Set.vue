@@ -55,7 +55,7 @@
       </div>
     </div>
     <WrapperCardListTitled title="Items" url="#" more="false">
-      <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-sm-6">
+      <div v-for="item in set['items']" :key='item' class="mycol-lg-3 mycol-xs-6">
         <ItemCard :item-id="item" />
       </div>
     </WrapperCardListTitled>

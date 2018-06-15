@@ -9,7 +9,7 @@
     </div>
     <div class="gridContainer">
       <WrapperCardList title="Latest Trends" url="#">
-        <div v-for="itemId in trending" :key='itemId' class="mycol-lg-3 mycol-sm-6">
+        <div v-for="itemId in trending" :key='itemId' class="mycol-lg-3 mycol-xs-6">
           <ItemCard :item-id="itemId" />
         </div>
       </WrapperCardList>

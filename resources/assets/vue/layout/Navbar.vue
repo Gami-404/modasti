@@ -15,6 +15,11 @@
                 <UserActions/>
               </span>
                         </div>
+                        <nav id="nav-button">
+                            <div @click="navOpend=!navOpend" class="icon">
+                                <i class="fa fa-bars"></i>
+                            </div>
+                        </nav>
                         <div class="search">
               <span class="icon" @click="openInMobile=!openInMobile">
                 <i class="fa fa-search" ></i>
@@ -67,7 +72,7 @@
                         </ul>
                     </nav>
                     <router-link :to="isAuth?'/contest':'?popup=login'" class="contest">
-                        <img src="images/new.png" alt="">
+                        <img src="/images/new.png" alt="">
                         <span>CONTESTS</span>
                     </router-link>
                 </div>
@@ -77,12 +82,17 @@
             <div class="in">
                 <div class="nav">
                     <ul>
+
                         <li v-for="route of routes" v-if="!route.auth || isAuth " :key="route.uri">
                             <router-link active-class="active-header" :to="route.uri" exact>
                                 <i :class="route.icon"></i>
                                 <span>{{route.name}}</span>
                             </router-link>
                         </li>
+                        <li><router-link :to="'/#/contest'" exact>
+                            <i></i>
+                            <span>Contest</span>
+                        </router-link></li>
                     </ul>
                 </div>
                 <div class="userArea">
