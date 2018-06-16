@@ -49,7 +49,7 @@
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-if="!loading&&category!==-1&&query!==''" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+            <div v-if="!loading&&category!==0&&query!==''" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
@@ -58,6 +58,18 @@
                 </div>
                 <div class="name">{{item.title_en}}</div>
               </div>
+            </div>
+            <div v-else v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+              <a @click.prevent="changeCategory(item.id)" href="#">
+                <div class="one">
+                  <div class="avatar">
+                    <div class="verticalCentered">
+                      <div class="theCell"><img :src="item['photo']"></div>
+                    </div>
+                  </div>
+                  <div class="name">{{item.name}}</div>
+                </div>
+              </a>
             </div>
             <div v-if="canloadmore&&!loading" class="getMore">
               <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
@@ -188,11 +200,11 @@ export default {
             this.loading = false;
         });
     },
-      changeCategory(){
+      changeCategory(id){
           this.loading = true;
           this.$store.dispatch("get_items_for_add_set",{
               query:this.query,
-              category:this.category,
+              category:this.category||id,
               color:this.color,
               clearOffset:true
           }).then(() => {
