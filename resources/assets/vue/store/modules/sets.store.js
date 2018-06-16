@@ -73,9 +73,9 @@ const actions = {
         }).then(() => dispatch("get_set_comments", setId));
     },
     get_default_items_for_add_set(){
-        commit("ITEMS_TO_ADD_SET", {
+        commit("ITEMS_TO_ADD_SET",[{
             
-        });
+        }]);
     },
     get_items_for_add_set({commit, state, rootGetters},q) {
         return API.post("/getSearchForAddSet", {

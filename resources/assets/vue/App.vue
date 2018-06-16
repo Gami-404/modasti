@@ -50,4 +50,8 @@ export default {
 .btn-wrapper{
   text-align: center;
 }
+
+.createSetPage .rightArea .theProducts .one .name{
+  height: 50px;
+}
 </style>
