@@ -34,11 +34,11 @@
                 <i class="fa fa-trash"></i>
               </a>
             </div>
-            <div class="oneBtn">
+            <div class="oneBtn colorPi">
               <a @click.prevent="newBackground" href="#">
                 <i class="fa fa-paint-brush"></i>
               </a>
-              <Chrome @input="backgroundChange" />
+              <Chrome :value="'#fff'" @input="backgroundChange" />
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
         
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-if="!loading&&category!==0&&query!==''" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+            <div v-if="!loading&&(category!==0||query!=='')" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
@@ -128,7 +128,7 @@ export default {
       background:"#fff",
       loadMoreLoading: false,
         query:'',
-        category:-1,
+        category:0,
         color:0,
         drawedItems:[],
     };
@@ -144,6 +144,7 @@ export default {
   created() {
     if(this.query==='' &&  this.category===0){
       this.$store.dispatch("get_default_items_for_add_set");
+      this.loading = false;
     }else{
       this.$store.dispatch("get_items_for_add_set",{
         query:this.query,
@@ -213,10 +214,11 @@ export default {
         });
     },
       changeCategory(id){
+        this.category = id || this.category;
           this.loading = true;
           this.$store.dispatch("get_items_for_add_set",{
               query:this.query,
-              category:this.category||id,
+              category:this.category,
               color:this.color,
               clearOffset:true
           }).then(() => {
@@ -359,8 +361,26 @@ export default {
     },
     backgroundChange(color){
       this.stageRect.setFill(color.hex||"#fff");
+      this.layer.draw();
       this.background = color.hex;
     }
   }
 };
 </script>
+
+<style <style scoped>
+  .createSetPage .leftArea .actionBtns .otherBtns .oneBtn{
+    width: 16.66666666%;
+  }
+  .vc-chrome{
+    display: none;
+    position: absolute;
+  }
+  .colorPi:hover .vc-chrome{
+    display: block;
+  }
+
+  .vc-chrome-alpha-wrapper{
+    display: none;
+  }
+</style>
