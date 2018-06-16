@@ -368,7 +368,12 @@ class ItemsController extends Controller
         $data = ['data' => [], 'errors' => []];
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 8);
-
+        
+        //nasser
+        if ($request->filled('category') && ($request->get('category') == 0)){
+            return response()->json($data);
+        }
+       
         $query = Post::with('image');
         if ($request->filled('color') && $request->get('color') != 0) {
             $query->where('color_id', $request->get('color'));

@@ -39,7 +39,6 @@
                 <i class="fa fa-paint-brush"></i>
               </a>
             </div>
-            
           </div>
         </div>
       </div>
@@ -50,7 +49,7 @@
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-if="!loading" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+            <div v-if="!loading&&category!==-1&&query!==''" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
@@ -65,6 +64,7 @@
             </div>
             <div v-if="loading" class="set-loading"><img src="images/loading.gif"  width="50px" alt="loading"></div>
             <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
+        
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ export default {
       background:"#fff",
       loadMoreLoading: false,
         query:'',
-        category:0,
+        category:-1,
         color:0,
         drawedItems:[],
     };
@@ -126,14 +126,19 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("get_items_for_add_set",{
+    if(this.query==='' &&  this.category===0){
+      this.$store.dispatch("get_default_items_for_add_set");
+    }else{
+      this.$store.dispatch("get_items_for_add_set",{
         query:this.query,
         category:this.category,
         color:this.color,
         clearOffset:true
-    }).then(() => {
-      this.loading = false;
-    });
+      }).then(() => {
+        this.loading = false;
+      });
+    }
+    
       $vm=this;
   },
   mounted() {
