@@ -36,7 +36,7 @@
             </div>
             <div class="oneBtn">
               <a @click.prevent="newBackground" href="#">
-                <i class="fa fa-fill"></i>
+                <i class="fa fa-paint-brush"></i>
               </a>
             </div>
             
