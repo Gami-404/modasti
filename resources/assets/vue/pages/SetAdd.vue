@@ -38,6 +38,7 @@
               <a @click.prevent="newBackground" href="#">
                 <i class="fa fa-paint-brush"></i>
               </a>
+              <Chrome @input="backgroundChange" />
             </div>
           </div>
         </div>
@@ -47,6 +48,7 @@
           <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
           <input  id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
         </div>
+        
         <div class="theProducts">
           <div class="myrow clearfix">
             <div v-if="!loading&&category!==0&&query!==''" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
@@ -96,6 +98,7 @@ import CategoriesDropdown from "@/components/CategoriesDropdown";
 import ColorDropdown from "@/components/ColorDropdown";
 import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
+import { Chrome } from "vue-color";
 import _ from 'lodash';
 import { mapGetters } from "vuex";
 
@@ -108,7 +111,8 @@ export default {
     SetCollectionAddPopup,
     WrapperPopups,
       CategoriesDropdown,
-      ColorDropdown
+      ColorDropdown,
+      Chrome
   },
 
   data() {
@@ -160,11 +164,19 @@ export default {
       container: "droparea",
       width: width,
       height: height,
-    });    
+    });   
+    this.stageRect = new Konva.Rect({
+      x : 0,
+      y : 0,
+      width: width,
+      height: height,
+      fill: '#fff',
+      draggable: false,
+      listen: false
+    });
     this.layer = new Konva.Layer();
-    this.stage.add(this.layer);
-    
-    layer.add(stageRect);
+    this.stage.add(this.layer);  
+    this.layer.add(this.stageRect);
 
     let drawImage = this.drawImage;
     let transformerFunction = e => {
@@ -345,8 +357,9 @@ export default {
       }));
       this.base64Img = this.stage.toDataURL();
     },
-    newBackground(){
-      this.layer.setFill("red");
+    backgroundChange(color){
+      this.stageRect.setFill(color.hex||"#fff");
+      this.background = color.hex;
     }
   }
 };
