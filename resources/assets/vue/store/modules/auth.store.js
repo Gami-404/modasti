@@ -31,7 +31,7 @@ const actions = {
         return res.data;
       })
       .catch(err => {
-        return err.response.data.errors;
+        return err.response.data;
       });
   },
   logout({ commit }, formData) {
@@ -44,7 +44,7 @@ const actions = {
         return res.data.errors;
       })
       .catch(err => {
-        return err.response.data.errors;
+        return err.response.data;
       });
   },
   get_users_messages({ commit }) {

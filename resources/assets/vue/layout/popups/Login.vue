@@ -55,6 +55,7 @@
                     })
                     .then(data => {
                         const errors = data.errors;
+                        console.log("WTFFF",data);
                         if (data.errors.length == 0) {
                             this.$router.push({path: this.$route.query.redirect, query: {}});
                             this.$router.go(this.$router.currentRoute);
