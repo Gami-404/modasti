@@ -61863,6 +61863,11 @@ var _this5 = this;
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -62857,150 +62862,150 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "theProducts" }, [
-            _c(
-              "div",
-              { staticClass: "myrow clearfix" },
-              [
-                _vm._l(_vm.items, function(item) {
-                  return !_vm.loading &&
-                    (_vm.category !== 0 || _vm.query !== "")
-                    ? _c("div", { key: item.id, staticClass: "mycol-sm-4" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "one",
-                            attrs: {
-                              draggable: "true",
-                              src: item["photos"][0]["photo_name"],
-                              "data-id": item.id
-                            },
-                            on: { dragstart: _vm.dragStart }
-                          },
-                          [
-                            _c("div", { staticClass: "avatar" }, [
-                              _c("div", { staticClass: "verticalCentered" }, [
-                                _c("div", { staticClass: "theCell" }, [
-                                  _c("img", {
-                                    attrs: {
-                                      src: item["photos"][0]["photo_name"],
-                                      "data-id": item.id,
-                                      alt: ""
-                                    }
-                                  })
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "name" }, [
-                              _vm._v(_vm._s(item.title_en))
-                            ])
-                          ]
-                        )
-                      ])
-                    : _vm._l(_vm.items, function(item) {
-                        return _c(
-                          "div",
-                          { key: item.id, staticClass: "mycol-sm-4" },
-                          [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    _vm.changeCategory(item.id)
-                                  }
-                                }
+            _c("div", { staticClass: "myrow clearfix" }, [
+              !_vm.loading && (_vm.category !== 0 || _vm.query !== "")
+                ? _c(
+                    "div",
+                    _vm._l(_vm.items, function(item) {
+                      return _c(
+                        "div",
+                        { key: item.id, staticClass: "mycol-sm-4" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "one",
+                              attrs: {
+                                draggable: "true",
+                                src: item["photos"][0]["photo_name"],
+                                "data-id": item.id
                               },
-                              [
-                                _c("div", { staticClass: "one" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "avatar",
-                                      attrs: { draggable: "false" }
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "verticalCentered",
-                                          attrs: { draggable: "false" }
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            { staticClass: "theCell" },
-                                            [
-                                              _c("img", {
-                                                attrs: {
-                                                  draggable: "false",
-                                                  src: item["photo"]
-                                                }
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "name" }, [
-                                    _vm._v(_vm._s(item.name))
+                              on: { dragstart: _vm.dragStart }
+                            },
+                            [
+                              _c("div", { staticClass: "avatar" }, [
+                                _c("div", { staticClass: "verticalCentered" }, [
+                                  _c("div", { staticClass: "theCell" }, [
+                                    _c("img", {
+                                      attrs: {
+                                        src: item["photos"][0]["photo_name"],
+                                        "data-id": item.id,
+                                        alt: ""
+                                      }
+                                    })
                                   ])
                                 ])
-                              ]
-                            )
-                          ]
-                        )
-                      })
-                }),
-                _vm._v(" "),
-                _vm.canloadmore && !_vm.loading
-                  ? _c("div", { staticClass: "getMore" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.loadmore($event)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            " " +
-                              _vm._s(_vm.loadMoreLoading ? "Loading" : "More") +
-                              " "
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "name" }, [
+                                _vm._v(_vm._s(item.title_en))
+                              ])
+                            ]
                           )
                         ]
                       )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.loading
-                  ? _c("div", { staticClass: "set-loading" }, [
-                      _c("img", {
-                        attrs: {
-                          src: "images/loading.gif",
-                          width: "50px",
-                          alt: "loading"
+                    })
+                  )
+                : _c(
+                    "div",
+                    _vm._l(_vm.items, function(item, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "mycol-sm-4" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.changeCategory(item.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "one" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "avatar",
+                                    attrs: { draggable: "false" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "verticalCentered",
+                                        attrs: { draggable: "false" }
+                                      },
+                                      [
+                                        _c("div", { staticClass: "theCell" }, [
+                                          _c("img", {
+                                            attrs: {
+                                              draggable: "false",
+                                              src: item["photo"]
+                                            }
+                                          })
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "name" }, [
+                                  _vm._v(_vm._s(item.name))
+                                ])
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    })
+                  ),
+              _vm._v(" "),
+              _vm.canloadmore && !_vm.loading
+                ? _c("div", { staticClass: "getMore" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.loadmore($event)
+                          }
                         }
-                      })
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.items && _vm.items.length == 0 && !_vm.loading
-                  ? _c("div", { staticClass: "set-no-found" }, [
-                      _vm._v("No found items")
-                    ])
-                  : _vm._e()
-              ],
-              2
-            )
+                      },
+                      [
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.loadMoreLoading ? "Loading" : "More") +
+                            " "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.loading
+                ? _c("div", { staticClass: "set-loading" }, [
+                    _c("img", {
+                      attrs: {
+                        src: "images/loading.gif",
+                        width: "50px",
+                        alt: "loading"
+                      }
+                    })
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.items && _vm.items.length == 0 && !_vm.loading
+                ? _c("div", { staticClass: "set-no-found" }, [
+                    _vm._v("No found items")
+                  ])
+                : _vm._e()
+            ])
           ])
         ])
       ]),
@@ -76931,7 +76936,9 @@ var mutations = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__API__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cats__ = __webpack_require__(389);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 
@@ -77038,11 +77045,7 @@ var actions = {
     get_default_items_for_add_set: function get_default_items_for_add_set(_ref10) {
         var commit = _ref10.commit;
 
-        commit("ITEMS_TO_ADD_SET", [{
-            id: 5,
-            name: "abaya",
-            photo: "/images/cats/abaya.jpg"
-        }]);
+        commit("ITEMS_TO_ADD_SET_RESET", __WEBPACK_IMPORTED_MODULE_1__cats__["a" /* default */]);
     },
     get_items_for_add_set: function get_items_for_add_set(_ref11, q) {
         var commit = _ref11.commit,
@@ -77086,6 +77089,9 @@ var mutations = {
     ITEMS_TO_ADD_SET: function ITEMS_TO_ADD_SET(state, data) {
         state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset += 6;
+    },
+    ITEMS_TO_ADD_SET_RESET: function ITEMS_TO_ADD_SET_RESET(state, data) {
+        state.itemsToAddSet = data;
     },
     ITEMS_TO_ADD_SET_OFFSET_CLEAR: function ITEMS_TO_ADD_SET_OFFSET_CLEAR(state) {
         state.itemsToAddSetOffset = 0;
@@ -82036,6 +82042,133 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-39f8b96c", module.exports)
   }
 }
+
+/***/ }),
+/* 389 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    id: 5,
+    name: "Abaya",
+    photo: "/images/cats/abaya.jpg"
+}, {
+    id: 28,
+    name: "Bags",
+    photo: "/images/cats/bags.jpg"
+}, {
+    id: 5,
+    name: "Belts",
+    photo: "/images/cats/belts.jpg"
+}, {
+    id: 5,
+    name: "Body, Hair lotions",
+    photo: "/images/cats/body, hair lotions.jpg"
+}, {
+    id: 5,
+    name: "Boots",
+    photo: "/images/cats/boots.jpg"
+}, {
+    id: 5,
+    name: "Cosmetics and Skincare",
+    photo: "/images/cats/cosmetics and skincare.jpg"
+}, {
+    id: 5,
+    name: "Dress",
+    photo: "/images/cats/dress.jpg"
+}, {
+    id: 5,
+    name: "Flats",
+    photo: "/images/cats/flats.jpg"
+}, {
+    id: 5,
+    name: "Fragrances",
+    photo: "/images/cats/fragrances.jpg"
+}, {
+    id: 5,
+    name: "Halal",
+    photo: "/images/cats/halal.png"
+}, {
+    id: 5,
+    name: "Hats",
+    photo: "/images/cats/hats.jpg"
+}, {
+    id: 5,
+    name: "Heels",
+    photo: "/images/cats/heels.jpg"
+}, {
+    id: 5,
+    name: "Hijab",
+    photo: "/images/cats/hijab.png"
+}, {
+    id: 5,
+    name: "Jakets and Coats",
+    photo: "/images/cats/jakets and coats.jpg"
+}, {
+    id: 5,
+    name: "Jeans",
+    photo: "/images/cats/jeans.jpg"
+}, {
+    id: 5,
+    name: "Jewelwry",
+    photo: "/images/cats/jewelwry.JPG"
+}, {
+    id: 5,
+    name: "Jumpsuit",
+    photo: "/images/cats/jumpsuit.jpg"
+}, {
+    id: 5,
+    name: "Kaftan",
+    photo: "/images/cats/kaftan.jpg"
+}, {
+    id: 5,
+    name: "Magazines and People",
+    photo: "/images/cats/magazines and people.PNG"
+}, {
+    id: 5,
+    name: "Makeup",
+    photo: "/images/cats/makeup.png"
+}, {
+    id: 5,
+    name: "Nightwears",
+    photo: "/images/cats/nightwears.jpg"
+}, {
+    id: 5,
+    name: "Palette",
+    photo: "/images/cats/palette.png"
+}, {
+    id: 5,
+    name: "pants",
+    photo: "/images/cats/pants.jpg"
+}, {
+    id: 5,
+    name: "Sandals",
+    photo: "/images/cats/sandals.jpg"
+}, {
+    id: 5,
+    name: "Skirt",
+    photo: "/images/cats/skirt.jpg"
+}, {
+    id: 5,
+    name: "Sneakers",
+    photo: "/images/cats/sneakers.jpg"
+}, {
+    id: 5,
+    name: "Sportswear",
+    photo: "/images/cats/sportswear.jpg"
+}, {
+    id: 5,
+    name: "Sunglasses",
+    photo: "/images/cats/sunglasses.jpg"
+}, {
+    id: 5,
+    name: "Tops",
+    photo: "/images/cats/tops.jpg"
+}, {
+    id: 5,
+    name: "Watches",
+    photo: "/images/cats/watches.jpg"
+}]);
 
 /***/ })
 /******/ ]);

@@ -1,4 +1,5 @@
 import API from "../API";
+import cats from "./cats";
 
 const state = {
     set: {},
@@ -73,13 +74,7 @@ const actions = {
         }).then(() => dispatch("get_set_comments", setId));
     },
     get_default_items_for_add_set({commit}){
-        commit("ITEMS_TO_ADD_SET",[
-            {
-                id:5,
-                name:"abaya",
-                photo:"/images/cats/abaya.jpg"
-            }
-        ]);
+        commit("ITEMS_TO_ADD_SET_RESET", cats );
     },
     get_items_for_add_set({commit, state, rootGetters},q) {
         return API.post("/getSearchForAddSet", {
@@ -121,6 +116,9 @@ const mutations = {
     ITEMS_TO_ADD_SET(state,data){
         state.itemsToAddSet = state.itemsToAddSet.concat(data);
         state.itemsToAddSetOffset+=6;
+    },
+    ITEMS_TO_ADD_SET_RESET(state,data){
+        state.itemsToAddSet = data;
     },
     ITEMS_TO_ADD_SET_OFFSET_CLEAR(state){
         state.itemsToAddSetOffset=0;
