@@ -7,7 +7,7 @@
           <div class="content">
             <div class="info">
               <div class="name">{{user.fname}}</div>
-              <div class="other">test</div>
+              <div class="other">{{user.profession||'Unknown'}} <br/> <span class="suboth" >  {{user.about}} </span> </div>
             </div>
             <div class="top_message">
               <div>Create 15 sets to become a STYLIST!</div>
@@ -130,13 +130,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .follow {
   background: #ffbeb8;
 }
 .profile-after img {
   width: 100%;
   height: 100%;
+}
+
+.suboth{
+  font-size: 1em;
+  color:#3b3b3b;
 }
 </style>
 

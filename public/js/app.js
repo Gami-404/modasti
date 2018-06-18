@@ -68160,7 +68160,14 @@ var render = function() {
                       _vm._v(_vm._s(_vm.user.fname))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "other" }, [_vm._v("test")])
+                    _c("div", { staticClass: "other" }, [
+                      _vm._v(_vm._s(_vm.user.profession || "Unknown") + " "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "sub" }, [
+                        _vm._v("  " + _vm._s(_vm.user.about) + " ")
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "top_message" }, [
@@ -70397,6 +70404,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -70404,9 +70421,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             form: {
-                firstName: this.$store.getters.user.name.split(" ")[0],
-                lastName: this.$store.getters.user.name.split(" ")[1],
+                firstName: this.$store.getters.user.name,
+                lastName: "",
                 // userName: "",
+                profession: "",
                 email: this.$store.getters.user.email,
                 currentPassword: "",
                 password: "",
@@ -70438,6 +70456,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 email: _this.user.email,
                 currentPassword: "",
                 password: "",
+                password2: "",
                 currency: _this.user.currency,
                 about: _this.user.about,
                 photo: _this.user.photo ? _this.user.photo.photo_name : '/images/male-user-shadow.png',
@@ -70454,6 +70473,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var _this2 = this;
 
             this.btnText = "Saving..";
+            if (this.form.password !== "" && this.form.password !== this.form.password2) {
+                this.errors = ["Passwords Not Match"];
+                this.btnText = "Save Edits";
+                return;
+            }
             this.$store.dispatch("update_user", this.form).then(function () {
                 _this2.btnText = "Saved";
                 if (_this2.form.password) {
@@ -70582,36 +70606,6 @@ var render = function() {
                 _c("div", { staticClass: "mycol-md-4" }, [
                   _c("div", { staticClass: "mrgBtmLg" }, [
                     _c("div", { staticClass: "mrgBtmMd" }, [
-                      _vm._v("Last name")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.lastName,
-                          expression: "form.lastName"
-                        }
-                      ],
-                      staticClass: "inputEle",
-                      attrs: { type: "text", required: "" },
-                      domProps: { value: _vm.form.lastName },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "lastName", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mycol-md-4" }, [
-                  _c("div", { staticClass: "mrgBtmLg" }, [
-                    _c("div", { staticClass: "mrgBtmMd" }, [
                       _vm._v("Edit Email")
                     ]),
                     _vm._v(" "),
@@ -70639,7 +70633,65 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "mycol-md-6" }, [
+                _c("div", { staticClass: "mycol-md-4" }, [
+                  _c("div", { staticClass: "mrgBtmLg" }, [
+                    _c("div", { staticClass: "mrgBtmMd" }, [_vm._v(" I'm.. ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.profession,
+                          expression: "form.profession"
+                        }
+                      ],
+                      staticClass: "inputEle",
+                      attrs: { type: "text", required: "" },
+                      domProps: { value: _vm.form.profession },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "profession", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mycol-md-9" }, [
+                  _c("div", { staticClass: "mrgBtmLg" }, [
+                    _c("div", { staticClass: "mrgBtmMd" }, [
+                      _vm._v("About me :")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.about,
+                          expression: "form.about"
+                        }
+                      ],
+                      staticClass: "inputEle",
+                      attrs: { row: "4" },
+                      domProps: { value: _vm.form.about },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "about", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mycol-md-3" }, [
                   _c("div", { staticClass: "mrgBtmLg" }, [
                     _c("div", { staticClass: "mrgBtmMd" }, [
                       _vm._v("Currency :")
@@ -70693,36 +70745,6 @@ var render = function() {
                       ],
                       2
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mycol-md-6" }, [
-                  _c("div", { staticClass: "mrgBtmLg" }, [
-                    _c("div", { staticClass: "mrgBtmMd" }, [
-                      _vm._v("About me :")
-                    ]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.about,
-                          expression: "form.about"
-                        }
-                      ],
-                      staticClass: "inputEle",
-                      attrs: { row: "4" },
-                      domProps: { value: _vm.form.about },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "about", $event.target.value)
-                        }
-                      }
-                    })
                   ])
                 ]),
                 _vm._v(" "),
@@ -70784,6 +70806,36 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.form, "password", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mycol-md-4" }, [
+                  _c("div", { staticClass: "mrgBtmLg" }, [
+                    _c("div", { staticClass: "mrgBtmMd" }, [
+                      _vm._v("Re-enter Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.password2,
+                          expression: "form.password2"
+                        }
+                      ],
+                      staticClass: "inputEle",
+                      attrs: { type: "password", required: "" },
+                      domProps: { value: _vm.form.password2 },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "password2", $event.target.value)
                         }
                       }
                     })
@@ -76356,7 +76408,7 @@ var actions = {
       commit("LOGIN", res.data);
       return res.data;
     }).catch(function (err) {
-      return err.response.data.errors;
+      return err.response.data;
     });
   },
   logout: function logout(_ref2, formData) {
@@ -76371,7 +76423,7 @@ var actions = {
       commit("REGISTER", res.data);
       return res.data.errors;
     }).catch(function (err) {
-      return err.response.data.errors;
+      return err.response.data;
     });
   },
   get_users_messages: function get_users_messages(_ref4) {
@@ -78983,6 +79035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: this.password
             }).then(function (data) {
                 var errors = data.errors;
+                console.log("WTFFF", data);
                 if (data.errors.length == 0) {
                     _this.$router.push({ path: _this.$route.query.redirect, query: {} });
                     _this.$router.go(_this.$router.currentRoute);

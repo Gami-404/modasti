@@ -25,19 +25,28 @@
                             <input v-model="form.firstName" type="text" class="inputEle" required>
                         </div>
                     </div>
-                    <div class="mycol-md-4">
-                        <div class="mrgBtmLg">
-                            <div class="mrgBtmMd">Last name</div>
-                            <input v-model="form.lastName" type="text" class="inputEle" required>
-                        </div>
-                    </div>
+                    
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Edit Email</div>
                             <input v-model="form.email" type="email" class="inputEle" required>
                         </div>
                     </div>
-                    <div class="mycol-md-6">
+                    
+                    <div class="mycol-md-4">
+                        <div class="mrgBtmLg">
+                            <div class="mrgBtmMd"> I'm.. </div>
+                            <input v-model="form.profession" type="text" class="inputEle" required>
+                        </div>
+                    </div>
+
+                    <div class="mycol-md-9">
+                        <div class="mrgBtmLg">
+                            <div class="mrgBtmMd">About me :</div>
+                            <textarea class="inputEle" v-model="form.about" row="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="mycol-md-3">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Currency :</div>
                             <select required v-model="form.currency" class="inputEle">
@@ -46,12 +55,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mycol-md-6">
-                        <div class="mrgBtmLg">
-                            <div class="mrgBtmMd">About me :</div>
-                            <textarea class="inputEle" v-model="form.about" row="4"></textarea>
-                        </div>
-                    </div>
+                    
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Your Current Password</div>
@@ -62,6 +66,12 @@
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Edit Password</div>
                             <input v-model="form.password" type="password" class="inputEle" required>
+                        </div>
+                    </div>
+                    <div class="mycol-md-4">
+                        <div class="mrgBtmLg">
+                            <div class="mrgBtmMd">Re-enter Password</div>
+                            <input v-model="form.password2" type="password" class="inputEle" required>
                         </div>
                     </div>
                 </div>
@@ -83,9 +93,10 @@
         data() {
             return {
                 form: {
-                    firstName: this.$store.getters.user.name.split(" ")[0],
-                    lastName: this.$store.getters.user.name.split(" ")[1],
+                    firstName: this.$store.getters.user.name,
+                    lastName:"",
                     // userName: "",
+                    profession:"",
                     email: this.$store.getters.user.email,
                     currentPassword: "",
                     password: "",
@@ -114,6 +125,7 @@
                     email: this.user.email,
                     currentPassword: "",
                     password: "",
+                    password2: "",
                     currency: this.user.currency,
                     about: this.user.about,
                     photo: this.user.photo ? this.user.photo.photo_name : '/images/male-user-shadow.png',
@@ -127,6 +139,11 @@
         methods: {
             saveEdits() {
                 this.btnText = "Saving..";
+                if(this.form.password!=="" && this.form.password !== this.form.password2){
+                    this.errors= ["Passwords Not Match"];
+                    this.btnText = "Save Edits";
+                    return;
+                }
                 this.$store
                     .dispatch("update_user", this.form)
                     .then(() => {
