@@ -28,13 +28,14 @@
 
 <script>
 export default {
-  props: ["submitType", "base64Img", "items", "sets"],
+  props: ["submitType", "base64Img", "items", "sets", "background"],
   data() {
     return {
       formData: {
         title: "",
         description: "",
         data: "",
+        backgound: this.backgound,
         items: this.items,
         image: this.base64Img,
         sets: this.sets

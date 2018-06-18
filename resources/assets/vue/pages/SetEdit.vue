@@ -2,12 +2,15 @@
   <div class="gridContainer">
     <div class="createSetPage secPaddLg clearfix">
       <div class="leftArea">
+        <form class="theForm" id="sets-edit-form">
+          <input type="test" class="formEle" placeholder="title" v-model="formData.title" required>
+          <input type="text" class="formEle" placeholder="Description" v-model="formData.description" required>
+        </form>
         <div class="areaToDrop">
-          <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
           <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div>
         </div>
         <div class="actionBtns">
-          <a href="#" @click.prevent="publish" class="publishBtn">Publish</a>
+          <a href="#" @click.prevent="publish" class="publishBtn">Save</a>
           <div class="otherBtns">
             <div class="oneBtn">
               <a @click.prevent="forward" href="#">
@@ -48,10 +51,9 @@
           <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
           <input id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
         </div>
-
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-if="!loading&&(category!==0||query!=='')" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+            <div v-if="!loading" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
               <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
                 <div class="avatar">
                   <div class="verticalCentered">
@@ -61,34 +63,16 @@
                 <div class="name">{{item.title_en}}</div>
               </div>
             </div>
-            <div v-else v-for="(item) of items" :key="item.id" class="mycol-sm-4">
-              <a @click.prevent="changeCategory(item.id)" href="#">
-                <div class="one">
-                  <div class="avatar" draggable="false">
-                    <div class="verticalCentered" draggable="false">
-                      <div class="theCell"><img draggable="false" :src="item['photo']"></div>
-                    </div>
-                  </div>
-                  <div class="name">{{item.name}}</div>
-                </div>
-              </a>
-            </div>
             <div v-if="canloadmore&&!loading" class="getMore">
               <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
             </div>
             <div v-if="loading" class="set-loading"><img src="images/loading.gif" width="50px" alt="loading"></div>
             <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
-
           </div>
         </div>
       </div>
     </div>
-    <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
-        <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :base64-img="base64Img" :items="drawedItems" :backgound="backgound" />
-      </WrapperPopups>
-    </transition>
-    <!--<Loading v-if="loading" />-->
+    <Loading v-if="pageLoad" />
   </div>
 </template>
 <script>
@@ -100,7 +84,7 @@ import WrapperPopups from "@/wrappers/WrapperPopups";
 import SetCollectionAddPopup from "@/layout/popups/SetCollectionAddPopup";
 import { Chrome } from "vue-color";
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import Api from "@/store/API";
 
 // vue Components
 var $vm = null;
@@ -125,12 +109,17 @@ export default {
       base64Img: "",
       setItems: [],
       loading: true,
-      background: "#fff",
       loadMoreLoading: false,
       query: "",
       category: 0,
       color: 0,
-      drawedItems: []
+      drawedItems: [],
+      pageLoad: true,
+      formData: {
+        title: "",
+        description: "",
+        background: "#fff"
+      }
     };
   },
   computed: {
@@ -144,22 +133,69 @@ export default {
     }
   },
   created() {
-    if (this.query === "" && this.category === 0) {
-      this.$store.dispatch("get_default_items_for_add_set");
-      this.loading = false;
-    } else {
-      this.$store
-        .dispatch("get_items_for_add_set", {
-          query: this.query,
-          category: this.category,
-          color: this.color,
-          clearOffset: true
-        })
-        .then(() => {
-          this.loading = false;
-        });
-    }
+    this.$store
+      .dispatch("get_items_for_add_set", {
+        query: this.query,
+        category: this.category,
+        color: this.color,
+        clearOffset: true
+      })
+      .then(() => {
+        this.loading = false;
+      });
+    Api.post("setDetails?forEdit=true", {
+      setId: this.$route.params.setId
+    }).then(res => {
+      if (res.data.data.set.user_id != this.$store.getters.user.userId) {
+        this.$router.push({ name: "set", setId: this.$route.params.setId });
+        return;
+      }
+      // this.editableItems=res.data.editableItems;
+      this.formData.title = res.data.data.set.title_en;
+      this.formData.description = res.data.data.set.text_en;
 
+      this.stageRect.setFill( res.background || "#fff");
+      this.layer.draw();
+      this.formData.background = res.background;
+
+      for (let item of res.data.data.editableItems) {
+        let img = new Image();
+        img.onload = () => {
+          // darth vader
+          var darthVaderImg = new Konva.Image({
+            image: img,
+            name: "img",
+            id: item.item_id,
+            x: item.x,
+            y: item.y,
+            draggable: true,
+            width: item.width,
+            height: item.height,
+            itemId: item.item_id
+          });
+
+          // add cursor styling
+          darthVaderImg.on("mouseover", function() {
+            document.body.style.cursor = "pointer";
+          });
+          darthVaderImg.on("mouseout", function() {
+            document.body.style.cursor = "default";
+          });
+
+          this.stage.find("Transformer").destroy();
+
+          var tr = new Konva.Transformer();
+          this.layer.add(darthVaderImg);
+          this.layer.add(tr);
+          tr.attachTo(darthVaderImg);
+          this.selected = darthVaderImg;
+          this.layer.draw();
+        };
+        img.src = item.image;
+        img.dataset.itemId = item.id;
+      }
+      this.pageLoad = false;
+    });
     $vm = this;
   },
   mounted() {
@@ -170,6 +206,7 @@ export default {
       width: width,
       height: height
     });
+    
     this.stageRect = new Konva.Rect({
       x: 0,
       y: 0,
@@ -200,7 +237,6 @@ export default {
         this.layer.draw();
       }
     };
-
     this.stage.on("click", transformerFunction);
     this.stage.on("dragstart", transformerFunction);
   },
@@ -219,8 +255,7 @@ export default {
           this.loading = false;
         });
     },
-    changeCategory(id) {
-      this.category = id || this.category;
+    changeCategory() {
       this.loading = true;
       this.$store
         .dispatch("get_items_for_add_set", {
@@ -259,8 +294,8 @@ export default {
     }, 500).bind(this),
     drop(event) {
       event.preventDefault();
-      let item = JSON.parse(event.dataTransfer.getData("item"));
       this.itemsCounter++;
+      let item = JSON.parse(event.dataTransfer.getData("item"));
       this.setItems.indexOf(item.id) === -1
         ? this.setItems.push(item.id)
         : null;
@@ -356,7 +391,6 @@ export default {
       this.stage.find("Transformer").destroy();
       this.layer.draw();
       this.selected = null;
-      this.$router.push({ query: { popup: "create_set" } });
       this.drawedItems = this.stage.find("Image").map(function(image) {
         return {
           item_id: image.attrs.itemId,
@@ -367,11 +401,20 @@ export default {
         };
       });
       this.base64Img = this.stage.toDataURL();
+      let data = {
+        items: this.drawedItems,
+        ...this.formData,
+        image: this.base64Img,
+        setId: this.$route.params.setId
+      };
+      Api.post("editSet", data).then(() => {
+        this.$router.push({ name: "set", setId: this.$route.params.setId });
+      });
     },
     backgroundChange(color) {
       this.stageRect.setFill(color.hex || "#fff");
       this.layer.draw();
-      this.background = color.hex;
+      this.formData.background = color.hex;
     }
   }
 };
