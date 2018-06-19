@@ -54,4 +54,7 @@ export default {
 .createSetPage .rightArea .theProducts .one .name{
   height: 50px;
 }
+.createSetPage .rightArea .theProducts{
+  height: 800px !important;
+}
 </style>

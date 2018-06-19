@@ -4,12 +4,14 @@
             <div class="gridContainer">
                 <div class="top_userProfile clearfix">
                     <div class="avatar"><img :src="form.photo" @click="chooseImage"></div>
-                    <input type="file" accept="image/*" ref="imageUpload" @change="selectImage" onclick=""
-                           style="display: none"/>
+                    <input type="file" accept="image/*" ref="imageUpload" @change="selectImage" onclick="" style="display: none" />
                     <div class="content">
                         <div class="info">
                             <div class="name">{{form.firstName}}</div>
-                            <div class="other">test</div>
+                            <div class="other">
+                                <span class="suboth0"> {{user.profession||'Unknown'}} </span> <br/>
+                                <span class="suboth1"> {{user.about}} </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -25,14 +27,14 @@
                             <input v-model="form.firstName" type="text" class="inputEle" required>
                         </div>
                     </div>
-                    
+
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Edit Email</div>
                             <input v-model="form.email" type="email" class="inputEle" required>
                         </div>
                     </div>
-                    
+
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd"> I'm.. </div>
@@ -55,7 +57,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
                             <div class="mrgBtmMd">Your Current Password</div>
@@ -87,114 +89,136 @@
 </template>
 
 <script>
-    import {currency} from "@/pages/retailer/sub/currency";
+import { currency } from "@/pages/retailer/sub/currency";
 
-    export default {
-        data() {
-            return {
-                form: {
-                    firstName: this.$store.getters.user.name,
-                    lastName:"",
-                    // userName: "",
-                    profession:"",
-                    email: this.$store.getters.user.email,
-                    currentPassword: "",
-                    password: "",
-                    currency: this.$store.getters.user.currency,
-                    about: this.$store.getters.user.about,
-                    photo: ''
-                },
-                btnText: "Save Edits",
-                errors: [],
-                currency,
-                loading: true,
-            };
-        },
-        computed: {
-            user() {
-                return this.$store.getters.userProfile;
-            },
-        },
-        created() {
-            this.load(() => {
-                this.loading = false;
-                this.form = {
-                    firstName: this.user.fname,
-                    lastName: this.user.lname,
-                    // userName: "",
-                    email: this.user.email,
-                    currentPassword: "",
-                    password: "",
-                    password2: "",
-                    currency: this.user.currency,
-                    about: this.user.about,
-                    photo: this.user.photo ? this.user.photo.photo_name : '/images/male-user-shadow.png',
-                    image: false,
-                }
-            }, (err) => {
-                this.loading = false;
-                this.errors = err.response.data.errors;
-            });
-        },
-        methods: {
-            saveEdits() {
-                this.btnText = "Saving..";
-                if(this.form.password!=="" && this.form.password !== this.form.password2){
-                    this.errors= ["Passwords Not Match"];
-                    this.btnText = "Save Edits";
-                    return;
-                }
-                this.$store
-                    .dispatch("update_user", this.form)
-                    .then(() => {
-                        this.btnText = "Saved";
-                        if (this.form.password) {
-                            setTimeout(() => {
-                                this.$store.dispatch("logout");
-                                this.$router.push({query: {popup: "login"}});
-                            }, 500);
-                        } else {
-                            let user = {...this.$store.getters.user};
-                            user.name = this.form.firstName + " " + this.form.lastName;
-                            user.email = this.form.email;
-                            user.currency = this.form.currency;
-                            user.about = this.form.about;
-                            this.$store.commit("EDIT_USER", user);
-                        }
-                    })
-                    .catch(err => {
-                        this.btnText = "Saved";
-                        this.errors = err.response.data.errors;
-                    });
-            },
-
-            load(cb, cb_err) {
-                this.$store.dispatch('get_user_profile', this.$store.getters.user.userId).then(cb).catch(cb_err);
-            },
-            chooseImage(event) {
-                this.$refs.imageUpload.click();
-
-            },
-            selectImage(event) {
-                var reader = new FileReader();
-                reader.readAsDataURL(event.target.files[0]);
-                reader.onloadend = () => {
-                    this.form.image = reader.result;
-                }
-                this.form.photo = window.URL.createObjectURL(event.target.files[0]);
-            }
-        }
+export default {
+  data() {
+    return {
+      form: {
+        firstName: this.$store.getters.user.name,
+        lastName: "",
+        // userName: "",
+        profession: "",
+        email: this.$store.getters.user.email,
+        currentPassword: "",
+        password: "",
+        currency: this.$store.getters.user.currency,
+        about: this.$store.getters.user.about,
+        photo: ""
+      },
+      btnText: "Save Edits",
+      errors: [],
+      currency,
+      loading: true
     };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.userProfile;
+    }
+  },
+  created() {
+    this.load(
+      () => {
+        this.loading = false;
+        this.form = {
+          firstName: this.user.fname,
+          lastName: this.user.lname,
+          // userName: "",
+          email: this.user.email,
+          currentPassword: "",
+          password: "",
+          password2: "",
+          currency: this.user.currency,
+          about: this.user.about,
+          photo: this.user.photo
+            ? this.user.photo.photo_name
+            : "/images/male-user-shadow.png",
+          image: false
+        };
+      },
+      err => {
+        this.loading = false;
+        this.errors = err.response.data.errors;
+      }
+    );
+  },
+  methods: {
+    saveEdits() {
+      this.btnText = "Saving..";
+      if (
+        this.form.password !== "" &&
+        this.form.password !== this.form.password2
+      ) {
+        this.errors = ["Passwords Not Match"];
+        this.btnText = "Save Edits";
+        return;
+      }
+      this.$store
+        .dispatch("update_user", this.form)
+        .then(() => {
+          this.btnText = "Saved";
+          if (this.form.password) {
+            setTimeout(() => {
+              this.$store.dispatch("logout");
+              this.$router.push({ query: { popup: "login" } });
+            }, 500);
+          } else {
+            let user = { ...this.$store.getters.user };
+            user.name = this.form.firstName + " " + this.form.lastName;
+            user.email = this.form.email;
+            user.currency = this.form.currency;
+            user.about = this.form.about;
+            this.$store.commit("EDIT_USER", user);
+          }
+        })
+        .catch(err => {
+          this.btnText = "Saved";
+          this.errors = err.response.data.errors;
+        });
+    },
+
+    load(cb, cb_err) {
+      this.$store
+        .dispatch("get_user_profile", this.$store.getters.user.userId)
+        .then(cb)
+        .catch(cb_err);
+    },
+    chooseImage(event) {
+      this.$refs.imageUpload.click();
+    },
+    selectImage(event) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onloadend = () => {
+        this.form.image = reader.result;
+      };
+      this.form.photo = window.URL.createObjectURL(event.target.files[0]);
+    }
+  }
+};
 </script>
 
 <style scoped>
-    .errors {
-        color: red;
-    }
+.errors {
+  color: red;
+}
 
-    .avatar img {
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-    }
+.avatar img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.suboth1{
+  font-size: 1em;
+  font-weight: 300;
+  color:#555454;
+}
+.suboth0
+{
+  font-size: 1.3em;
+  font-weight: 900;
+  color:#3b3b3b;
+}
+
 </style>
