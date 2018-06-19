@@ -4,7 +4,7 @@
             <div class="leftArea">
                 <div class="areaToDrop">
                     <div class="intialText" v-if="itemsCounter == 0">Drag sets or items here</div>
-                    <div @drop="drop" ref="droparea" @dragover.prevent="nothing" id="droparea" style="background:#fff; height:100%; width:100%;"></div>
+                    <div @drop="drop" ref="dropareaC" @dragover.prevent="nothing" id="dropareaC" style="background:#fff; height:100%; width:100%;"></div>
                 </div>
                 <div class="actionBtns">
                     <a href="#" @click.prevent="publish" class="publishBtn">Publish</a>
@@ -156,10 +156,10 @@ export default {
     $vm = this;
   },
   mounted() {
-    var width = this.$refs.droparea.offsetWidth - 20;
-    var height = this.$refs.droparea.offsetHeight - 20;
+    var width = this.$refs.dropareaC.offsetWidth - 15;
+    var height = this.$refs.dropareaC.offsetHeight - 15;
     this.stage = new Konva.Stage({
-      container: "droparea",
+      container: "dropareaC",
       width: width,
       height: height
     });
