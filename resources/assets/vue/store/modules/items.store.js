@@ -13,6 +13,7 @@ const state = {
     trending: [],
     feed: [],
     categories: [],
+    mainCategories: [],
     category: {items: []},
     catIdMap: {},
     searchResults: {
@@ -45,6 +46,7 @@ const getters = {
     homeContests: state => state.home.homeContests,
     trending: state => state.trending,
     categories: stable => state.categories,
+    mainCategories: stable => state.mainCategories,
     category: state => state.category,
     categoryItems: state => state.category.items,
     itemSearchResults: state => state.searchResults.items,
@@ -241,6 +243,7 @@ const mutations = {
         state.offsets.feed += 8;
     },
     CATEGORIES(state, data) {
+        state.mainCategories = {...data};
         let temp = {};
         for (let key in data) {
             temp[data[key].id] = data[key];
@@ -284,7 +287,7 @@ const mutations = {
         filters.coverage = {
             1: {id: 1, title: "low"},
             2: {id: 2, title: "medium"},
-            3: {id: 3, title: "high"},
+            // 3: {id: 3, title: "high"},
             4: {id: 4, title: "full"}
         };
         state.filters = filters;

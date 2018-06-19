@@ -7,16 +7,16 @@
 						<div class="myrow clearfix">
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Item title :</div>
+									<div class="mrgBtmMd fontLarger">Item title* :</div>
 									<input required v-model="form.title" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Category :</div>
+									<div class="mrgBtmMd fontLarger">Category* :</div>
 									<select required v-model="form.category" type="text" class="inputEle" placeholder="set category">
 										<option hidden value="">...</option>
-										<optgroup v-for="cat in categories" :key="cat.id" :label="cat.title">
+										<optgroup v-for="cat in mainCategories" :key="cat.id" :label="cat.title">
 											<option v-for="subcat in cat.subcategories" :key="subcat.id" :value="subcat.id">{{subcat.title}}</option>
 										</optgroup>
 									</select>
@@ -24,50 +24,46 @@
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Short description :</div>
+									<div class="mrgBtmMd fontLarger">Short description* :</div>
 									<input required v-model="form.description" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Coverage :</div>
+									<div class="mrgBtmMd fontLarger">Coverage* :</div>
 									<select required v-model="form.coverage" class="inputEle">
 										<option hidden value="">...</option>
 										<option value="1">low</option>
 										<option value="2">medium</option>
-										<option value="3">high</option>
+										<!-- <option value="3">high</option> -->
 										<option value="4">full</option>
 									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Item Brand :</div>
+									<div class="mrgBtmMd fontLarger">Item Brand* :</div>
 									<input required v-model="form.brand" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Color :</div>
-										<div class="retailer-dropdown">
-											<div required type="text" class="inputEle">
-											<div v-for="color of selectedColors" :key="color.id" :style="colorBlockStyle(color.value)"></div>
-											</div>
-											<div class="retailer-dropdown-content">
-											<div v-for="color of getColors" :key="color.id" :style="colorBlockStyle(color.value)" @click="toggleSelectColor(color.id)"></div>
-											</div>
-										</div>
+									<div class="mrgBtmMd fontLarger">Color* :</div>
+									<select required v-model="form.color" type="text" class="inputEle" placeholder="set category">
+										<option hidden value="">...</option>
+										<option v-for="color of getColors" :key="color.id" :value="color.id" >{{color.value}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Web shop url :</div>
+									<div class="mrgBtmMd fontLarger">Web shop url* :</div>
 									<input required v-model="form.shop_url" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Size :</div>
+									<div class="mrgBtmMd fontLarger">Size* :</div>
 									<vue-tags-input v-model="size" :tags="selectedSizes" :autocompleteItems="getSizesFilterd" :addOnlyFromAutocomplete="true" placeholder="Add Size" @tags-changed="newTags => selectedSizes = newTags">
 										<div slot="tagActions" slot-scope="props">
 											&nbsp;
@@ -78,14 +74,14 @@
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Price :</div>
+									<div class="mrgBtmMd fontLarger">Price* :</div>
 									<input required v-model="form.price" type="text" class="inputEle">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Size System :</div>
-									<select required v-model="form.sizeSystem" class="inputEle">
+									<select v-model="form.sizeSystem" class="inputEle">
 										<option hidden value="">...</option>
 										<option value="eu">EU</option>
 										<option value="uk">UK</option>
@@ -96,12 +92,12 @@
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
 									<div class="mrgBtmMd fontLarger">Sale price :</div>
-									<input required v-model="form.sale_price" type="text" class="inputEle" placeholder="Ex: 15.00">
+									<input  v-model="form.sale_price" type="text" class="inputEle" placeholder="Ex: 15.00">
 								</div>
 							</div>
 							<div class="mycol-md-6">
 								<div class="mrgBtmLg">
-									<div class="mrgBtmMd fontLarger">Currency :</div>
+									<div class="mrgBtmMd fontLarger">Currency* :</div>
 									<select required v-model="form.currency" class="inputEle">
 										<option hidden value="">...</option>
 										<option v-for="curr of currency" :key="curr" :value="curr">{{curr}}</option>
@@ -187,7 +183,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getColors", "getSizes", "categories"]),
+    ...mapGetters(["getColors", "getSizes", "mainCategories"]),
     getSizesFilterd() {
       return (
         this.getSizes

@@ -166,6 +166,7 @@ export default {
 .selected {
   color: #181717;
   opacity: 1;
+  border-width: 2px !important;
 }
 .filteri {
   width: auto;
