@@ -63,9 +63,12 @@
                   <div class="name">{{item.title_en}}</div>
                 </div>
               </div>
+              <div v-if="canloadmore&&!loading" class="getMore">
+                <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
+              </div>
             </div>
             <div v-else>
-              <div v-for="(item,index) of items" :key="index" class="mycol-sm-4">
+              <div v-for="item of items" :key="item.id" class="mycol-sm-4">
                 <a @click.prevent="changeCategory(item.id)" href="#">
                   <div class="one">
                     <div class="avatar" draggable="false">
@@ -78,9 +81,7 @@
                 </a>
               </div>
             </div>
-            <div v-if="canloadmore&&!loading" class="getMore">
-              <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
-            </div>
+
             <div v-if="loading" class="set-loading"><img src="images/loading.gif" width="50px" alt="loading"></div>
             <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
 

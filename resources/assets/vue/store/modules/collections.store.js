@@ -1,4 +1,5 @@
 import API from "../API";
+import cats from './cats';
 
 const state = {
   collection: {},
@@ -71,6 +72,9 @@ const actions = {
     return API.post("/deleteCollectionComment", payload).then(() =>
       dispatch("get_collection_comments", payload.collectionId)
     );
+  },
+  get_default_items_for_add_collection({ commit, state, rootGetters }){
+    commit("ITEMS_FOR_ADD_COLLECTION",cats);
   },
   get_items_for_add_collection({ commit, state, rootGetters }) {
     return Promise.all(itemsToAdd(rootGetters.userId)).then(resArray => {
