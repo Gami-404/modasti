@@ -2,18 +2,26 @@
   <div>
     <component :is="theComponent" :contest="contest"></component>
     <Loading v-if="loading" />
+    
+    <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth && $route.query.popup=='image'">
+          <ContestImage v-if="$route.query.popup=='image'"></ContestImage>
+    </WrapperPopups>
   </div>
 </template>
 <script>
 import DetailsNew from "./DetailsNew";
 import DetailsOld from "./DetailsOld";
+import ContestImage from "@/layout/popups/ContestImage"
 import Loading from "@/components/Loading";
+import WrapperPopups from "@/wrappers/WrapperPopups";
 
 export default {
   components: {
     DetailsNew,
     DetailsOld,
-    Loading
+    Loading,
+    ContestImage,
+    WrapperPopups
   },
   data() {
     return {

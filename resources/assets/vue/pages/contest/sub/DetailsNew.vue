@@ -37,7 +37,7 @@
 					<div class="productCard">
 						<div class="avatar">
 							<div class="verticalCentered">
-								<div class="theCell"><img :src="(photo['photo']&&photo['photo']['photo_name'])||notFoundImg" alt=""></div>
+								<router-link :to="'?popup=image&imgURL='+(photo['photo']&&photo['photo']['photo_name'])" class="theCell"><img :src="(photo['photo']&&photo['photo']['photo_name'])||notFoundImg" alt=""></router-link>
 							</div>
 						</div>
 						<div class="content">
