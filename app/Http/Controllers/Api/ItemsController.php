@@ -171,10 +171,9 @@ class ItemsController extends Controller
             'sale_price' => 'required|numeric',
             'size' => 'required',
             'currency' => 'required',
-            'coverage' => 'required|in:1,2,3,4',
-            'sizeSystem' => 'required|in:eu,uk,us',
+            'coverage' => 'required|in:1,2,4',
+            'sizeSystem' => 'required|in:eu,uk,us,jp,cn',
             'image' => 'required',
-
         ]);
         $media = new Media();
         if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {

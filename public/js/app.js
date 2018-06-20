@@ -2059,55 +2059,10 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return currency; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCurrencySymbol; });
 var symbols = {
-    "XOF": '$',
-    "EUR": '€',
     "USD": '$',
-    "MUR": "'₨",
-    "MXN": '$',
-    "MNT": '₮',
-    "XCD": '$',
-    "MZN": 'MT',
-    "NAD": '$',
-    "ZAR": 'R',
-    "AUD": '$',
-    "NPR": '₨',
-    "NZD": "$",
-    "NIO": "C$",
-    "NGN": "₦",
-    "OMR": "﷼",
-    "PKR": "₨",
-    "PAB": "B/.",
-    "PYG": "Gs",
-    "PEN": 'S/.',
-    "PHP": '₱',
-    "PLN": 'zł',
-    "QAR": "﷼",
-    "RON": "lei",
-    "RUB": "₽",
-    "SHP": '£',
-    "SOS": 'S',
-    "SAR": '﷼',
-    "RSD": 'Дин',
-    "SCR": '₨',
-    "SGD": "$",
-    "ANG": "ƒ",
-    "SBD": '$',
-    "LKR": '₨',
-    "SRD": '$',
-    "NOK": 'kr',
-    "SEK": "kr",
-    "CHF": "CHF",
-    "SYP": "£",
-    "TWD": "NT$",
-    "THB": '฿',
-    "TTD": "TT$",
-    "UAH": '₴',
+    "EUR": '€',
     "GBP": '£',
-    "UYU": '$U',
-    "UZS": 'лв',
-    "VEF": 'Bs',
-    "VND": '₫',
-    "YER": "﷼"
+    "IDR": 'Rp'
 };
 
 var arr = [];
@@ -74811,6 +74766,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -75144,15 +75101,15 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "1" } }, [
-                            _vm._v("low")
+                            _vm._v("Low")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("medium")
+                            _vm._v("Medium")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "4" } }, [
-                            _vm._v("full")
+                            _vm._v("Full")
                           ])
                         ]
                       )
@@ -75417,6 +75374,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("option", { attrs: { value: "us" } }, [
                             _vm._v("US")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "jp" } }, [
+                            _vm._v("JP")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "cn" } }, [
+                            _vm._v("CN")
                           ])
                         ]
                       )

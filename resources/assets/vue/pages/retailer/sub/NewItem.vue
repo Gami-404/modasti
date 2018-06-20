@@ -33,10 +33,10 @@
 									<div class="mrgBtmMd fontLarger">Coverage* :</div>
 									<select required v-model="form.coverage" class="inputEle">
 										<option hidden value="">...</option>
-										<option value="1">low</option>
-										<option value="2">medium</option>
+										<option value="1">Low</option>
+										<option value="2">Medium</option>
 										<!-- <option value="3">high</option> -->
-										<option value="4">full</option>
+										<option value="4">Full</option>
 									</select>
 								</div>
 							</div>
@@ -86,6 +86,8 @@
 										<option value="eu">EU</option>
 										<option value="uk">UK</option>
 										<option value="us">US</option>
+										<option value="jp">JP</option>
+										<option value="cn">CN</option> 
 									</select>
 								</div>
 							</div>
