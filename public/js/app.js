@@ -81509,8 +81509,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         logout: function logout() {
-            this.$store.dispatch("logout");
             this.$router.push("/");
+            this.$store.dispatch("logout");
         }
     },
     computed: {
