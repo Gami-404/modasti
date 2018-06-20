@@ -68,7 +68,7 @@
               </div>
             </div>
             <div v-else>
-              <div v-for="item of items" :key="item.id" class="mycol-sm-4">
+              <div v-for="item of items" :key="item.id" class="mycol-sm-3">
                 <a @click.prevent="changeCategory(item.id)" href="#">
                   <div class="one">
                     <div class="avatar" draggable="false">

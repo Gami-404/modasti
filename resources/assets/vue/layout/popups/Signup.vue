@@ -9,7 +9,11 @@
           </span>
         </router-link>
       </div>
-      <div class="content">
+      <div v-if="done" class="content">
+        <h1 style="font-size: 2em; padding:20px;" >Thank you</h1>
+        <h3 style="padding:20px;" >Please check your email to verify your account, then <router-link class="mainBtn" to="?popup=login" >LOGIN</router-link></h3>
+      </div>
+      <div v-else class="content">
         <form @submit="signUp" class="theForm">
           <input type="text" class="formEle" placeholder="Full Name" v-model="name" required>
           <input type="email" class="formEle" placeholder="Email" v-model="email" required>
@@ -37,7 +41,8 @@ export default {
       password: "",
       password2: "",
       loading: false,
-      errors: []
+      errors: [],
+      done: false
     };
   },
   methods: {
@@ -52,7 +57,7 @@ export default {
             name: this.name
           })
           .then(errors => {
-            if (errors.length == 0) this.$router.push("?popup=login");
+            if (errors.length == 0) this.done = true;
             else this.errors = errors;
           })
           .finally(() => {
