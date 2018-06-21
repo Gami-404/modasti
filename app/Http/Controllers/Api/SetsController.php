@@ -198,7 +198,8 @@ class SetsController extends Controller
                 'lang' => 'en',
                 'image_id' => $media->id,
                 'user_id' => fauth()->id(),
-                'front_page' => '1'
+                'front_page' => '1',
+                "background"=> $request->get('background')
             ]
         );
         $items = array_map(function ($item) {
@@ -308,6 +309,7 @@ class SetsController extends Controller
             'title' => $request->get('title'),
             'excerpt' => $request->get('description'),
             'image_id' => $media->id,
+            "background"=> $request->get('backgound')
         ]);
         $items = array_map(function ($item) {
             $item['post_id'] = $item['item_id'];
