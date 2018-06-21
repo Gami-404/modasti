@@ -8,7 +8,7 @@ use App\Model\Media;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController as Controller ;
+use App\Http\Controllers\ApiController as Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,7 +54,7 @@ class UserController extends Controller
 
         $response['data'] = \Maps\User\login($user);
         $response['data']->currency = $user->currency;
-        $response['data']->last_login = isset($user->last_login)&&!empty($user->last_login)? $user->last_login->timestamp : null;
+        $response['data']->last_login = isset($user->last_login) && !empty($user->last_login) ? $user->last_login->timestamp : null;
         $response['data']->about = $user->about;
         $response['token'] = $user->api_token;
         $user->last_login = Carbon::now();
@@ -297,6 +297,9 @@ class UserController extends Controller
         }
         if ($request->filled('about')) {
             $user->about = $request->get('about');
+        }
+        if ($request->filled('profession')) {
+            $user->about = $request->get('profession');
         }
         if ($request->get('image', false)) {
             $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
