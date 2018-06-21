@@ -61824,7 +61824,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-5f8873de] {\r\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-5f8873de] {\r\n  display: none;\r\n  position: absolute;\n}\n.colorPi:hover .vc-chrome[data-v-5f8873de] {\r\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-5f8873de] {\r\n  display: none;\n}\n.avatar[data-v-5f8873de]{\r\n  height: 130px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-5f8873de] {\r\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-5f8873de] {\r\n  display: none;\r\n  position: absolute;\r\n  z-index: 200;\n}\n.colorPi:hover .vc-chrome[data-v-5f8873de] {\r\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-5f8873de] {\r\n  display: none;\n}\n.avatar[data-v-5f8873de]{\r\n  height: 130px !important;\n}\r\n", ""]);
 
 // exports
 
@@ -70894,7 +70894,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.errors[data-v-7f58230f] {\r\n  color: red;\n}\n.avatar img[data-v-7f58230f] {\r\n  width: 100%;\r\n  height: 100%;\r\n  cursor: pointer;\n}\n.suboth1[data-v-7f58230f]{\r\n  font-size: 1em;\r\n  font-weight: 300;\r\n  color:#555454;\n}\n.suboth0[data-v-7f58230f]\r\n{\r\n  font-size: 1.3em;\r\n  font-weight: 900;\r\n  color:#3b3b3b;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.errors[data-v-7f58230f] {\r\n  color: red;\n}\n.avatar img[data-v-7f58230f] {\r\n  width: 100%;\r\n  height: 100%;\r\n  cursor: pointer;\n}\n.suboth1[data-v-7f58230f] {\r\n  font-size: 1em;\r\n  font-weight: 300;\r\n  color: #555454;\n}\n.suboth0[data-v-7f58230f] {\r\n  font-size: 1.3em;\r\n  font-weight: 900;\r\n  color: #3b3b3b;\n}\r\n", ""]);
 
 // exports
 
@@ -70908,6 +70908,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_retailer_sub_currency__ = __webpack_require__(12);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -71019,6 +71021,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       btnText: "Save Edits",
       errors: [],
       currency: __WEBPACK_IMPORTED_MODULE_0__pages_retailer_sub_currency__["a" /* currency */],
+      hoverImage: false,
       loading: true
     };
   },
@@ -71114,12 +71117,30 @@ var render = function() {
         _c("div", { staticClass: "secPaddLg whiteBg" }, [
           _c("div", { staticClass: "gridContainer" }, [
             _c("div", { staticClass: "top_userProfile clearfix" }, [
-              _c("div", { staticClass: "avatar" }, [
-                _c("img", {
-                  attrs: { src: _vm.form.photo },
-                  on: { click: _vm.chooseImage }
-                })
-              ]),
+              _c(
+                "div",
+                {
+                  staticClass: "avatar",
+                  on: {
+                    mouseover: function($event) {
+                      _vm.hoverImage = true
+                    },
+                    mouseout: function($event) {
+                      _vm.hoverImage = false
+                    }
+                  }
+                },
+                [
+                  _c("img", {
+                    attrs: {
+                      src: _vm.hoverImage
+                        ? "https://itavo.nl/img/placeholder.jpg"
+                        : _vm.form.photo
+                    },
+                    on: { click: _vm.chooseImage }
+                  })
+                ]
+              ),
               _vm._v(" "),
               _c("input", {
                 ref: "imageUpload",

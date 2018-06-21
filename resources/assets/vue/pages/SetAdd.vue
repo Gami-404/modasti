@@ -391,6 +391,7 @@ export default {
 .vc-chrome {
   display: none;
   position: absolute;
+  z-index: 200;
 }
 .colorPi:hover .vc-chrome {
   display: block;

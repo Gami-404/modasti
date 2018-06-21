@@ -3,7 +3,9 @@
         <div class="secPaddLg whiteBg">
             <div class="gridContainer">
                 <div class="top_userProfile clearfix">
-                    <div class="avatar"><img :src="form.photo" @click="chooseImage"></div>
+                    <div class="avatar" @mouseover="hoverImage=true" @mouseout="hoverImage=false" >
+                        <img :src="hoverImage?'https://itavo.nl/img/placeholder.jpg': form.photo" @click="chooseImage">
+                    </div>
                     <input type="file" accept="image/*" ref="imageUpload" @change="selectImage" onclick="" style="display: none" />
                     <div class="content">
                         <div class="info">
@@ -109,6 +111,7 @@ export default {
       btnText: "Save Edits",
       errors: [],
       currency,
+      hoverImage:false,
       loading: true
     };
   },
@@ -209,16 +212,14 @@ export default {
   height: 100%;
   cursor: pointer;
 }
-.suboth1{
+.suboth1 {
   font-size: 1em;
   font-weight: 300;
-  color:#555454;
+  color: #555454;
 }
-.suboth0
-{
+.suboth0 {
   font-size: 1.3em;
   font-weight: 900;
-  color:#3b3b3b;
+  color: #3b3b3b;
 }
-
 </style>
