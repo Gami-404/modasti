@@ -61824,7 +61824,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-5f8873de] {\r\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-5f8873de] {\r\n  display: none;\r\n  position: absolute;\n}\n.colorPi:hover .vc-chrome[data-v-5f8873de] {\r\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-5f8873de] {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-5f8873de] {\r\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-5f8873de] {\r\n  display: none;\r\n  position: absolute;\n}\n.colorPi:hover .vc-chrome[data-v-5f8873de] {\r\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-5f8873de] {\r\n  display: none;\n}\n.avatar[data-v-5f8873de]{\r\n  height: 130px !important;\n}\r\n", ""]);
 
 // exports
 

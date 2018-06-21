@@ -71,7 +71,7 @@
               <div v-for="item of items" :key="item.id" class="mycol-sm-3">
                 <a @click.prevent="changeCategory(item.id)" href="#">
                   <div class="one">
-                    <div class="avatar" draggable="false">
+                    <div class="avatar"  draggable="false">
                       <div class="verticalCentered" draggable="false">
                         <div class="theCell"><img draggable="false" :src="item['photo']"></div>
                       </div>
@@ -398,5 +398,9 @@ export default {
 
 .vc-chrome-alpha-wrapper {
   display: none;
+}
+
+.avatar{
+  height: 130px !important;
 }
 </style>
