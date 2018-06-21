@@ -27,6 +27,7 @@ class Set extends Model
         'image_id',
         'user_id',
         'front_page',
+        'background'
     ];
 
     /**

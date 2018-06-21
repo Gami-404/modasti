@@ -21,7 +21,7 @@ namespace Maps\User {
         $std->userId = $user->id;
         $std->email = $user->email;
         $std->name = $user->first_name . ' ' . $user->last_name;
-        $std->avater = $user->photo?uploads_url($user->photo->path):null;
+        $std->avater = $user->photo ? uploads_url($user->photo->path) : null;
         $std->user_type = $user->role_id == 2 ? "RETAILER" : "USER";
         return $std;
     }
@@ -52,6 +52,7 @@ namespace Maps\User {
             $newUser->is_followed = $user->follower()->where('following_id', fauth()->id())->count() ? true : false;
             $newUser->is_blocked = DB::table('users_blocked')->where(['user_id' => fauth()->id(), 'blocked_id' => $user->id])->count() ? true : false;
             $newUser->sets_count = Set::where('user_id', $user->id)->count();
+            $newUser->profession = $user->profession;
             $newUser->photo = null;
             if ($user->photo) {
                 $newUser->photo = new \stdClass();
@@ -82,6 +83,7 @@ namespace Maps\User {
         $newUser->currency = $user->currency;
         $newUser->email = $user->email;
         $newUser->sets_count = Set::where('user_id', $user->id)->count();
+        $newUser->profession = $user->profession;
         $newUser->photo = null;
         if ($user->photo) {
             $newUser->photo = new \stdClass();
@@ -143,7 +145,7 @@ namespace Maps\Item {
             $newItem->currency = $item->currency;
             $newItem->text_en = $item->content;
             $newItem->url_en = $item->url;
-            $newItem->user_id =  $item->user_id;
+            $newItem->user_id = $item->user_id;
             $newItem->user_url = $item->user->website ? $item->user->website : null;
             $newItem->brand = $item->brand ? $item->brand->title : "";
             $newItem->likes = $item->likes()->count();
@@ -176,7 +178,7 @@ namespace Maps\Item {
         $newItem->currency = $item->currency;
         $newItem->text_en = $item->content;
         $newItem->url_en = $item->url;
-        $newItem->user_id =  $item->user_id;
+        $newItem->user_id = $item->user_id;
         $newItem->brand = $item->brand ? $item->brand->title : "";
         $newItem->likes = $item->likes()->count();
         $newItem->user_url = $item->user->website ? $item->user->website : null;
@@ -217,6 +219,8 @@ namespace Maps\Set {
         $newSet->is_liked = $set->likes()->where('id', fauth()->id())->count() ? true : false;
         $newSet->comments_counter = $set->comments()->count();
         $newSet->group = [];
+        $newSet->background = $set->background;
+
         $newSet->photo = null;
         if ($set->image) {
             $photo = new \stdClass();
@@ -270,11 +274,9 @@ namespace Maps\Set {
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photos = [];
-            $newItem->user_id =  $item->user_id;
+            $newItem->user_id = $item->user_id;
             $newItem->user_url = $item->user->website ? $item->user->website : null;
             $newItem->brand = $item->brand ? $item->brand->title : "";
-
-
             if ($item->image) {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
@@ -329,7 +331,7 @@ namespace Maps\Collection {
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->photo = [];
-            $newItem->user_id =  $item->user_id;
+            $newItem->user_id = $item->user_id;
 
             if ($item->image) {
                 $photo = new \stdClass();
@@ -489,7 +491,7 @@ namespace Maps\Contest {
             $newItem->user_currency = $item->user->currency ? $item->user->currency : "";
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
-            $newItem->user_id =  $item->user_id;
+            $newItem->user_id = $item->user_id;
             if ($item->image) {
                 $photo = new \stdClass();
                 $photo->table_id = $item->image->id;
