@@ -61979,6 +61979,7 @@ var $vm = null;
 
   data: function data() {
     return {
+      me: this,
       stage: {},
       layer: {},
       selected: null,
@@ -62523,7 +62524,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["submitType", "base64Img", "items", "sets", "background"],
+  props: ["submitType", "base64Img", "items", "sets", "background", "me"],
   data: function data() {
     return {
       formData: {
@@ -62550,6 +62551,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           path: "/profile/me/" + _this.submitType + "s",
           query: {}
         });
+        _this.me.$destroy();
         // window.location.reload();
       }).catch(function (err) {
         _this.errors = err.response.data.errors;
@@ -63117,6 +63119,7 @@ var render = function() {
                     ? _c("SetCollectionAddPopup", {
                         attrs: {
                           "submit-type": "set",
+                          me: _vm.me,
                           "base64-img": _vm.base64Img,
                           items: _vm.drawedItems,
                           background: _vm.background

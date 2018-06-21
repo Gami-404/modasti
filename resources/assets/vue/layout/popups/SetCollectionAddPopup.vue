@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  props: ["submitType", "base64Img", "items", "sets", "background"],
+  props: ["submitType", "base64Img", "items", "sets", "background","me"],
   data() {
     return {
       formData: {
@@ -54,6 +54,7 @@ export default {
             path: "/profile/me/" + this.submitType + "s",
             query: {}
           });
+          this.me.$destroy();
           // window.location.reload();
         })
         .catch(err => {

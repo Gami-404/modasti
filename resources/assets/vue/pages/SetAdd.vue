@@ -91,7 +91,7 @@
     </div>
     <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth">
-        <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :base64-img="base64Img" :items="drawedItems" :background="background" />
+        <SetCollectionAddPopup v-if="$route.query.popup=='create_set'" submit-type="set" :me="me" :base64-img="base64Img" :items="drawedItems" :background="background" />
       </WrapperPopups>
     </transition>
     <!--<Loading v-if="loading" />-->
@@ -123,6 +123,7 @@ export default {
 
   data() {
     return {
+      me: this,
       stage: {},
       layer: {},
       selected: null,
