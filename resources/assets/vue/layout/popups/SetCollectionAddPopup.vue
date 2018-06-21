@@ -35,7 +35,7 @@ export default {
         title: "",
         description: "",
         data: "",
-        backgound: this.background,
+        background: this.background,
         items: this.items,
         image: this.base64Img,
         sets: this.sets
