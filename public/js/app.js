@@ -62530,7 +62530,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: "",
         description: "",
         data: "",
-        backgound: this.backgound,
+        backgound: this.background,
         items: this.items,
         image: this.base64Img,
         sets: this.sets
@@ -63119,7 +63119,7 @@ var render = function() {
                           "submit-type": "set",
                           "base64-img": _vm.base64Img,
                           items: _vm.drawedItems,
-                          backgound: _vm.backgound
+                          background: _vm.background
                         }
                       })
                     : _vm._e()
