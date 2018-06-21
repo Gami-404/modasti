@@ -259,3 +259,11 @@
         max-width: 60%;
     }
 }
+
+.productCard .likesAndComments a i , .proudctDetails .content .in .likesAndComments a i , .proudctDetails .content .in .info .price {
+    color:#222222;
+}
+
+.productCard .content .createdBy , .sectionName .second{
+    color: #474544;
+}
