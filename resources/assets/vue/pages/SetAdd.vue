@@ -291,7 +291,6 @@ export default {
         height: imageObj.height / 4,
         itemId: imageObj.dataset.itemId
       });
-
       // add cursor styling
       darthVaderImg.on("mouseover", function() {
         document.body.style.cursor = "pointer";
@@ -356,7 +355,7 @@ export default {
       var tr = new Konva.Transformer();
       this.layer.add(tr);
       tr.attachTo(cloned);
-      this.layer.draw();
+        this.layer.draw();
       this.itemsCounter++;
     },
     publish() {
@@ -369,10 +368,11 @@ export default {
           item_id: image.attrs.itemId,
           x: image.attrs.x,
           y: image.attrs.y,
-          height: image.attrs.height,
-          width: image.attrs.width
+          height: image.attrs.height*image.attrs.scaleY,
+          width: image.attrs.width*image.attrs.scaleX
         };
       });
+      console.log(this.drawedItems);
       this.base64Img = this.stage.toDataURL();
     },
     backgroundChange(color) {
