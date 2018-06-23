@@ -3,7 +3,7 @@
 @section("content")
 
     <form action="" method="post">
-
+        {{csrf_field()}}
         <div class="row wrapper border-bottom white-bg page-heading">
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
@@ -78,8 +78,7 @@
                         <div class="panel-body">
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
                                     class="form-control">
-                                <option value>-- select action</option>
-
+                                <option value> -- Select action</option>
                                 @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'] as $key=>$text)
                                     <option
                                         value="{{$key}}" {{$report->action_id==$key?'selected':''}}>{{$text}}</option>
