@@ -162,6 +162,7 @@ class ReportsController extends Controller
 
         if ($action_id == 2) {
             $user->suspended = 1;
+            dd("for ever suspended ");
         }
 
         if ($action_id == 3) {
