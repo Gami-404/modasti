@@ -70,6 +70,24 @@
                     @endforeach
 
                 </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Actions</h3>
+                        </div>
+                        <div class="panel-body">
+                            <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
+                                    class="form-control">
+                                @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'] as $key=>$text)
+                                    <option value="{{$key}}">{{$text}}</option>
+                                @endforeach
+                            </select>
+                            @if($report->action_id!=0)
+                                <button type="submit" class="btn btn-primary">Save Action</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
