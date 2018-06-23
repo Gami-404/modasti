@@ -57606,7 +57606,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -57615,6 +57614,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             title: "",
+            format: 0,
             loading: false,
             errors: [],
             upload: false,
@@ -57637,7 +57637,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 message: this.message,
                 url: this.url,
                 type: this.type,
-                object_id: this.objectId
+                object_id: this.objectId,
+                format: this.format
             }).then(function (res) {
                 _this.loading = false;
                 _this.upload = true;
@@ -58580,12 +58581,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: { active: _vm.title === "Copyright Violations" },
+                        class: { active: _vm.format === 1 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Copyright Violations"
-                            _vm.others = false
+                            _vm.format = 1
                           }
                         }
                       },
@@ -58597,20 +58598,16 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: { active: _vm.title === "Copying other sets" },
+                        class: { active: _vm.format === 2 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Copying other sets"
-                            _vm.others = false
+                            _vm.format = 2
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "Copying\n                            other sets"
-                        )
-                      ]
+                      [_vm._v("Copying other sets")]
                     )
                   ]),
                   _vm._v(" "),
@@ -58618,12 +58615,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: { active: _vm.title === "Privacy Violation" },
+                        class: { active: _vm.format === 3 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Privacy Violation"
-                            _vm.others = false
+                            _vm.format = 3
                           }
                         }
                       },
@@ -58635,12 +58632,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: { active: _vm.title === "Adult content" },
+                        class: { active: _vm.format === 4 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Adult content"
-                            _vm.others = false
+                            _vm.format = 4
                           }
                         }
                       },
@@ -58652,14 +58649,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: {
-                          active: _vm.title === "Violation of community rules"
-                        },
+                        class: { active: _vm.format === 5 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Violation of community rules"
-                            _vm.others = false
+                            _vm.format = 5
                           }
                         }
                       },
@@ -58675,14 +58670,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: {
-                          active: _vm.title === "Racist and hate speech"
-                        },
+                        class: { active: _vm.format === 6 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Racist and hate speech"
-                            _vm.others = false
+                            _vm.format = 6
                           }
                         }
                       },
@@ -58698,14 +58691,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: {
-                          active: _vm.title === "Using photos of others."
-                        },
+                        class: { active: _vm.format === 7 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = "Using photos of others."
-                            _vm.others = false
+                            _vm.format = 7
                           }
                         }
                       },
@@ -58721,12 +58712,12 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        class: { active: _vm.others },
+                        class: { active: _vm.format === 8 },
                         attrs: { href: "javascript:void(0)" },
                         on: {
                           click: function($event) {
                             _vm.title = ""
-                            _vm.others = true
+                            _vm.format = 8
                           }
                         }
                       },
@@ -58757,8 +58748,8 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.others,
-                              expression: "others"
+                              value: _vm.format === 8,
+                              expression: "format===8"
                             }
                           ],
                           ref: "title",

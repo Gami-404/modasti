@@ -475,7 +475,7 @@
                         <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="content-cell" align="center">
-                                    <p class="sub align-center">&copy; 2017 Modasti. All rights reserved.</p>
+                                    <p class="sub align-center">&copy; {{date('Y')}} Modasti. All rights reserved.</p>
                                 </td>
                             </tr>
                         </table>

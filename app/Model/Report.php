@@ -12,5 +12,5 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['url', 'message', 'title', 'user_id', 'type', 'object_id'];
+    protected $fillable = ['url', 'message', 'title', 'user_id', 'type', 'object_id', 'report'];
 }

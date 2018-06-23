@@ -35,7 +35,8 @@ class ReportsController extends Controller
             'message' => $request->get('message'),
             'user_id' => fauth()->id(),
             'type' => $request->get('type'),
-            'object_id' => $request->get('object_id')
+            'object_id' => $request->get('object_id'),
+            'format'=>$request->get('format')
         ]);
         return response()->json($data);
     }
