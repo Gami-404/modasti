@@ -123,10 +123,6 @@ class ReportsController extends Controller
 
             Action::fire("report.change", $report);
 
-            if (!$report->validate()) {
-                return Redirect::back()->withErrors($report->errors())->withInput(Request::all());
-            }
-
             $report->save();
             $this->doActions($report, Request::get('action_id'));
 
