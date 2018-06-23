@@ -71,7 +71,7 @@
               <div v-for="item of items" :key="item.id" class="mycol-sm-3">
                 <a @click.prevent="changeCategory(item.id)" href="#">
                   <div class="one">
-                    <div class="avatar" draggable="false">
+                    <div class="avatar"  draggable="false">
                       <div class="verticalCentered" draggable="false">
                         <div class="theCell"><img draggable="false" :src="item['photo']"></div>
                       </div>
@@ -291,7 +291,6 @@ export default {
         height: imageObj.height / 4,
         itemId: imageObj.dataset.itemId
       });
-
       // add cursor styling
       darthVaderImg.on("mouseover", function() {
         document.body.style.cursor = "pointer";
@@ -356,7 +355,7 @@ export default {
       var tr = new Konva.Transformer();
       this.layer.add(tr);
       tr.attachTo(cloned);
-      this.layer.draw();
+        this.layer.draw();
       this.itemsCounter++;
     },
     publish() {
@@ -369,10 +368,11 @@ export default {
           item_id: image.attrs.itemId,
           x: image.attrs.x,
           y: image.attrs.y,
-          height: image.attrs.height,
-          width: image.attrs.width
+          height: image.attrs.height*image.attrs.scaleY,
+          width: image.attrs.width*image.attrs.scaleX
         };
       });
+      console.log(this.drawedItems);
       this.base64Img = this.stage.toDataURL();
     },
     backgroundChange(color) {
@@ -391,6 +391,7 @@ export default {
 .vc-chrome {
   display: none;
   position: absolute;
+  z-index: 200;
 }
 .colorPi:hover .vc-chrome {
   display: block;
@@ -398,5 +399,9 @@ export default {
 
 .vc-chrome-alpha-wrapper {
   display: none;
+}
+
+.avatar{
+  height: 130px !important;
 }
 </style>

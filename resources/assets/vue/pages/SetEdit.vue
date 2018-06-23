@@ -154,9 +154,9 @@ export default {
       this.formData.title = res.data.data.set.title_en;
       this.formData.description = res.data.data.set.text_en;
 
-      this.stageRect.setFill( res.background || "#fff");
+      this.stageRect.setFill( res.data.data.set.background || "#fff");
       this.layer.draw();
-      this.formData.background = res.background;
+      this.formData.background = res.data.data.set.background;
 
       for (let item of res.data.data.editableItems) {
         let img = new Image();
@@ -396,8 +396,8 @@ export default {
           item_id: image.attrs.itemId,
           x: image.attrs.x,
           y: image.attrs.y,
-          height: image.attrs.height,
-          width: image.attrs.width
+          height: image.attrs.height*image.attrs.scaleY,
+          width: image.attrs.width*image.attrs.scaleX
         };
       });
       this.base64Img = this.stage.toDataURL();
