@@ -57,7 +57,7 @@ class UserController extends Controller
         }
 
         if (fauth()->user()->suspended_to&&fauth()->user()->suspended_to->getTimestamp() >= Carbon::now()->getTimestamp()) {
-            $response['errors'] = ["Your account suspended for " . fauth()->user()->suspended_at->format('l jS \\of F Y h:i:s A')];
+            $response['errors'] = ["Your account suspended for " . fauth()->user()->suspended_to->format('l jS \\of F Y h:i:s A')];
             return response()->json($response, '400');
         }
         $user = fauth()->user();
