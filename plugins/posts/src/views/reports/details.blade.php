@@ -82,7 +82,7 @@
                                     <option value="{{$key}}">{{$text}}</option>
                                 @endforeach
                             </select>
-                            @if($report->action_id!=0)
+                            @if($report->action_id==0)
                                 <button type="submit" class="btn btn-primary">Save Action</button>
                             @endif
                         </div>
