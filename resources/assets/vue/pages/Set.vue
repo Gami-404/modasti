@@ -61,7 +61,7 @@
     </WrapperCardListTitled>
     <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth&&$route.query.popup=='report'" >
-        <Report v-if="$route.query.popup=='report'" :url="url"></Report>
+        <Report v-if="$route.query.popup=='report'" :url="url" type="set" :object-id="set.id"></Report>
       </WrapperPopups>
     </transition>
     <Loading v-if="loading" />
