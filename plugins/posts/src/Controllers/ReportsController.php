@@ -130,7 +130,7 @@ class ReportsController extends Controller
 
             Action::fire("report.saved", $report);
 
-            return Redirect::route("admin.posts.reports.edit", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
+            return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
         $this->data["report"] = $report;
