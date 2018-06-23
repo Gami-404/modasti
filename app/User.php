@@ -37,7 +37,7 @@ class User extends \Dot\Users\Models\User
      *
      * @var array
      */
-    protected $dates = ['last_login', 'created_at', 'updated_at'];
+    protected $dates = ['last_login', 'created_at', 'updated_at','suspended_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
