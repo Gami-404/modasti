@@ -149,7 +149,7 @@ class ReportsController extends Controller
             $object = Set::find($report->object_id);
         }
 
-        if ($report->type == "set") {
+        if ($report->type == "collection") {
             $object = Collection::find($report->object_id);
         }
 
