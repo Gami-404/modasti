@@ -170,6 +170,7 @@ class ReportsController extends Controller
             $user->suspended_to = Carbon::now()->addMonth();
         }
         Mail::to($user->email)->send(new ReportMail($user, $report));
+        $user->api_token = str_random(60);
         $user->save();
     }
 
