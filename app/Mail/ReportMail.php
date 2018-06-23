@@ -13,17 +13,18 @@ class ReportMail extends Mailable
 
     public $mesg = '';
     public $user = null;
+    public $report = null;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $mesg)
+    public function __construct($user,$report)
     {
         //
         $this->user = $user;
-        $this->mesg = $mesg;
+        $this->report = $report;
     }
 
     /**
@@ -33,6 +34,6 @@ class ReportMail extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@modasti.com')->view('emails.report', ['mesg' => $this->mesg, 'user' => $this->user]);
+        return $this->from('no-reply@modasti.com')->view('emails.report', ['user' => $this->user,'format'=>$this->report->format]);
     }
 }

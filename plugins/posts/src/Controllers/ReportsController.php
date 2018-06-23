@@ -3,12 +3,14 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
+use App\Mail\ReportMail;
 use App\Model\Set;
 use Dot\Platform\Classes\Carbon;
 use Dot\Posts\Models\Collection;
 use Dot\Posts\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
+use Illuminate\Support\Facades\Mail;
 use Redirect;
 use Request;
 use View;
@@ -167,6 +169,7 @@ class ReportsController extends Controller
         if ($action_id == 3) {
             $user->suspended_to = Carbon::now()->addMonth();
         }
+        Mail::to($user->email)->send(new ReportMail($user, $report));
         $user->save();
     }
 

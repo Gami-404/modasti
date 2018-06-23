@@ -63,25 +63,55 @@ return [
     "custom_name" => "الإسم",
     "custom_value" => "القيمة",
     "sure_delete_field" => "هل أنت متأكد من الحذف ؟",
-    'confirmed'=>'مؤاكد',
-    'unconfirmed'=>'غير مؤاكد',
+    'confirmed' => 'مؤاكد',
+    'unconfirmed' => 'غير مؤاكد',
     "add_block" => "أضف إلي أماكن التقارير",
     "no_blocks" => "لا توجد أماكن التقارير",
 
     "add_gallery" => "أضف ألبوم",
     "no_galleries_found" => "لا توجد ألبومات",
-    'select_coverage'=>'اختر التغطية ',
-    "select_color"=>'اختر اللون',
-    'sales'=>'مبيعات',
-    'select_size_system'=>' اختر نظام حجم',
-    'brand'=>'علامة تجارية',
-    'report_url_brand'=>'أدخل العلامة التجارية و الرابط',
-    'coverage'=>[
-        'low'=>'منخفض',
-        'medium'=>'متوسط',
-        'high'=>'عالى'
+    'select_coverage' => 'اختر التغطية ',
+    "select_color" => 'اختر اللون',
+    'sales' => 'مبيعات',
+    'select_size_system' => ' اختر نظام حجم',
+    'brand' => 'علامة تجارية',
+    'report_url_brand' => 'أدخل العلامة التجارية و الرابط',
+    'coverage' => [
+        'low' => 'منخفض',
+        'medium' => 'متوسط',
+        'high' => 'عالى'
     ],
+    "messages" => [
+        1=>"You have been reported by other members of Modasti community for copyright infringement.
+Modasti takes very serious copyright issues and your account has been temporary blocked.
 
+Please review Modasti terms of service to learn more about our policies, and contact our customer support at help@modasti.net if you want to get access to your account. Remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        2=>" You have been reported by other members of Modasti community for copying on others sets.
+We have to inform you that your set will be temporary delated.
+If you think that your set has been reported as an error please contact the customer service at help@modasti.net
+Please review Modasti terms of service to learn more about our policies, and remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        3=>"You have been reported by other members of Modasti community for privacy violation.
+Modasti takes very seriously privacy issues and your account has been temporary blocked.
+Please review Modasti terms of service to learn more about our policies, and contact our customer support at help@modasti.net  if you want to restore your account.
+Remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        4=>"You have been reported by members of Modasti community for promoting pornographic and adult content.
+We have to inform you that such content has been permanently delated.
+ 
+Please review Modasti terms of service to learn more about our policies, and remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        5=>"You have been reported by members of Modasti community for violation of community rules.
+We have to inform you that your account has been temporary blocked.
+
+Please review Modasti terms of service to learn more about our policies, and contact our customer service at help@modasti.net if you want to restore your account. Remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        6=>" You have been reported by members of Modasti community for promoting racist and hateful content.
+We have to inform you that such content has been permanently delated.
+
+Please review Modasti terms of service to learn more about our policies, and remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        7=>"You have been reported from members of Modasti community for using photos of other people.
+Modasti takes such issues very seriously and we have to inform you that your account has been blocked temporary.
+Please review Modasti terms of service to learn more about our policy, and contact our customer service if you want to restore your account. 
+Remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
+        ]
+    ,
     'attributes' => [
         'title' => 'العنوان',
         'excerpt' => 'المقتطف',
@@ -93,16 +123,16 @@ return [
         'template' => 'القالب',
         'default' => 'إفتراضى',
         "format" => "نوع الخبر",
-        'url'=>'الرابط',
-        'front_page'=>'الصفحة الامامية',
-        'coverage'=>'تغطية',
-        'reason'=>'السبب',
-        'color_id'=>'اللون',
-        'price'=>'سعر',
-        'sale_price'=>'سعر البيع',
-        'image_id'=>'صورة',
-        'size_system'=>'نظام الحجم',
-        'sizes'=>'الاحجام'
+        'url' => 'الرابط',
+        'front_page' => 'الصفحة الامامية',
+        'coverage' => 'تغطية',
+        'reason' => 'السبب',
+        'color_id' => 'اللون',
+        'price' => 'سعر',
+        'sale_price' => 'سعر البيع',
+        'image_id' => 'صورة',
+        'size_system' => 'نظام الحجم',
+        'sizes' => 'الاحجام'
 
 
     ],

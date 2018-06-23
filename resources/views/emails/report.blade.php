@@ -17,10 +17,14 @@
             <tbody>
             <tr>
                 <td style="font-family:Open Sans,Calibri,sans-serif;font-size:14px;color:#777">
-                    {!! $mesg !!}
+                    {!! trans("posts::reports.messages.$format") !!}
                     <br>
-                    We thank you for choosing to advertise your store on Modasti and we wish a lasting relationship with
-                    you.
+                    <br>
+                    <br>
+                    <br>
+                    Thanks
+                    Community operations
+                    Modasti
                 </td>
             </tr>
             </tbody>
