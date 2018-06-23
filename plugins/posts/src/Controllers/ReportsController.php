@@ -156,6 +156,7 @@ class ReportsController extends Controller
         if ($report->type == "set") {
             $object = Collection::find($report->object_id);
         }
+
         if ($action_id == 1) {
             $object->delete();
         }
@@ -166,7 +167,6 @@ class ReportsController extends Controller
         if ($action_id == 2) {
             $user->suspended = 1;
         }
-
 
         if ($action_id == 3) {
             $user->suspended_to = Carbon::now()->addMonth();
