@@ -71,7 +71,6 @@ class ReportsController extends Controller
         $this->data["reports"] = $query->paginate($this->data['per_page']);
 
 
-
         return View::make("posts::reports.show", $this->data);
     }
 
@@ -113,22 +112,20 @@ class ReportsController extends Controller
 
         $question = Report::findOrFail($id);
 
-        if (Request::isMethod("post")) {
-
-            $question->title = Request::get('title');
-            $question->answer = Request::get('answer');
-            $question->status = Request::get('status',0);
+        if (Request::isMethod("post") && $question->action_id == 0) {
 
 
+            $question->action_id = Request::get('action_id');
             // Fire saving action
 
-            Action::fire("report.saving", $question);
+            Action::fire("report.change", $question);
 
             if (!$question->validate()) {
                 return Redirect::back()->withErrors($question->errors())->withInput(Request::all());
             }
 
             $question->save();
+
             // Fire saved action
 
             Action::fire("report.saved", $question);
@@ -138,6 +135,15 @@ class ReportsController extends Controller
 
         $this->data["report"] = $question;
         return View::make("posts::reports.details", $this->data);
+    }
+
+    /**
+     * @param $report
+     * @param $action_id
+     */
+    protected function doActions($report, $action_id)
+    {
+
     }
 
 }

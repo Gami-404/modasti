@@ -78,8 +78,11 @@
                         <div class="panel-body">
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
                                     class="form-control">
+                                <option value>-- select action</option>
+
                                 @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'] as $key=>$text)
-                                    <option value="{{$key}}">{{$text}}</option>
+                                    <option
+                                        value="{{$key}}" {{$report->action_id==$key?'selected':''}}>{{$text}}</option>
                                 @endforeach
                             </select>
                             @if($report->action_id==0)
