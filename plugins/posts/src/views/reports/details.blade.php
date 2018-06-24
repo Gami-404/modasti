@@ -90,7 +90,7 @@
 
                             @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
                             ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
-                                <input type="submit"  class="btn btn-primary" value="Unblock"/>
+                                <input type="submit"  class="btn btn-primary"  name="test" value="Unblock"/>
                             @endif
                         </div>
                     </div>
