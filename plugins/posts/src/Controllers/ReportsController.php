@@ -135,9 +135,12 @@ class ReportsController extends Controller
             return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
-        if(Request::isMethod("post")){
-            dd(Request::all());
-
+        if (Request::isMethod("post") && Request::get('action') == 'unblock') {
+            $user = $report->target->user;
+            $user->suspended = 0;
+            $user->suspended_to = Carbon::now()->subDay(1);
+            $user->save();
+            return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
         $this->data["report"] = $report;
