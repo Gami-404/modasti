@@ -175,6 +175,9 @@
     float: right;
 }
 
+.category-grid{
+    border: none !important;
+}
 @media only screen and (max-width: 999px) {
     #header .bottom .contest {
         padding: 4px 13px;

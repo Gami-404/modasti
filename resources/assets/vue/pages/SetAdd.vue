@@ -68,9 +68,9 @@
               </div>
             </div>
             <div v-else>
-              <div v-for="item of items" :key="item.id" class="mycol-sm-3">
+              <div v-for="item of items" :key="item.id" class="mycol-sm-2 col-category">
                 <a @click.prevent="changeCategory(item.id)" href="#">
-                  <div class="one">
+                  <div class="one category-grid">
                     <div class="avatar"  draggable="false">
                       <div class="verticalCentered" draggable="false">
                         <div class="theCell"><img draggable="false" :src="item['photo']"></div>

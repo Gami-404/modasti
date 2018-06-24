@@ -62981,7 +62981,10 @@ var render = function() {
                     _vm._l(_vm.items, function(item) {
                       return _c(
                         "div",
-                        { key: item.id, staticClass: "mycol-sm-3" },
+                        {
+                          key: item.id,
+                          staticClass: "mycol-sm-2 col-category"
+                        },
                         [
                           _c(
                             "a",
@@ -62995,7 +62998,7 @@ var render = function() {
                               }
                             },
                             [
-                              _c("div", { staticClass: "one" }, [
+                              _c("div", { staticClass: "one category-grid" }, [
                                 _c(
                                   "div",
                                   {
