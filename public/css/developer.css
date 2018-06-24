@@ -137,6 +137,7 @@
     font-size: 12px;
     color: red;
 }
+
 .report-title {
     font-size: 22px;
     margin-top: 20px;
@@ -251,19 +252,28 @@
 @media only screen and (max-width: 412px) {
     .productCard .avatar {
         height: 180px !important;
+        padding: 0 20px 0;
+    }
+
+    .productCard .content {
+        padding: 5px 10px !important;
+    }
+
+    .productCard .content h3 {
+        height: 30px;
     }
 }
 
-@media only screen and (min-width: 1230px){
+@media only screen and (min-width: 1230px) {
     .top_userProfile .info {
         max-width: 60%;
     }
 }
 
-.productCard .likesAndComments a i , .proudctDetails .content .in .likesAndComments a i , .proudctDetails .content .in .info .price {
-    color:#222222;
+.productCard .likesAndComments a i, .proudctDetails .content .in .likesAndComments a i, .proudctDetails .content .in .info .price {
+    color: #222222;
 }
 
-.productCard .content .createdBy , .sectionName .second{
+.productCard .content .createdBy, .sectionName .second {
     color: #474544;
 }
