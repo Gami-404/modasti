@@ -135,6 +135,11 @@ class ReportsController extends Controller
             return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
+        dd(Request::all());
+        if(Request::isMethod("post")&&Request::get('submit')=='Unblock'){
+
+        }
+
         $this->data["report"] = $report;
         return View::make("posts::reports.details", $this->data);
     }
