@@ -384,7 +384,7 @@ export default {
 };
 </script>
 
-<style <style scoped>
+<style scoped>
 .createSetPage .leftArea .actionBtns .otherBtns .oneBtn {
   width: 16.66666666%;
 }
@@ -402,6 +402,6 @@ export default {
 }
 
 .avatar{
-  height: 130px !important;
+  height: 210px !important;
 }
 </style>

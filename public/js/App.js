@@ -61779,7 +61779,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-2aea3ed2] {\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-2aea3ed2] {\n  display: none;\n  position: absolute;\n  z-index: 200;\n}\n.colorPi:hover .vc-chrome[data-v-2aea3ed2] {\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-2aea3ed2] {\n  display: none;\n}\n.avatar[data-v-2aea3ed2]{\n  height: 130px !important;\n}\n", ""]);
+exports.push([module.i, "\n.createSetPage .leftArea .actionBtns .otherBtns .oneBtn[data-v-2aea3ed2] {\n  width: 16.66666666%;\n}\n.vc-chrome[data-v-2aea3ed2] {\n  display: none;\n  position: absolute;\n  z-index: 200;\n}\n.colorPi:hover .vc-chrome[data-v-2aea3ed2] {\n  display: block;\n}\n.vc-chrome-alpha-wrapper[data-v-2aea3ed2] {\n  display: none;\n}\n.avatar[data-v-2aea3ed2]{\n  height: 210px !important;\n}\n", ""]);
 
 // exports
 
