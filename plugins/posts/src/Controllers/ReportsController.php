@@ -135,7 +135,7 @@ class ReportsController extends Controller
             return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
-        if(Request::isMethod("post")&&Request::get('submit')=='Unblock'){
+        if(Request::isMethod("post")){
             dd(Request::all());
 
         }
