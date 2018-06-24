@@ -145,15 +145,8 @@ class ReportsController extends Controller
      */
     protected function doActions($report, $action_id)
     {
-        $object = null;
+        $object = $report->target;
 
-        if ($report->type == "set") {
-            $object = Set::find($report->object_id);
-        }
-
-        if ($report->type == "collection") {
-            $object = Collection::find($report->object_id);
-        }
 
         if ($action_id == 1) {
             $object->delete();

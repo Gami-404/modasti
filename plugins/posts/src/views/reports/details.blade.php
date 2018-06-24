@@ -87,6 +87,11 @@
                             @if($report->action_id==0)
                                 <button type="submit" class="btn btn-primary">Save Action</button>
                             @endif
+
+                            @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
+                            ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()))
+                                <input type="submit" class="btn btn-primary" value="Unblock"/>
+                            @endif
                         </div>
                     </div>
                 </div>
