@@ -25,6 +25,10 @@
     margin-bottom: 20px;
 }
 
+.createSetPage .rightArea .theProducts .one {
+    padding: 20px 35px;
+}
+
 #header .bottom #nav ul li a i {
     color: #e74c3c;
 }
