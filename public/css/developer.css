@@ -1,3 +1,39 @@
+
+
+@font-face {
+    font-family: ChronicleDisplay;
+    font-display: swap;
+    font-weight: 400;
+    src: url(fonts/chronicledisplay-b7d97994.woff2) format("woff2"), url(fonts/chronicledisplay-2ce9327c.woff) format("woff")
+}
+
+@font-face {
+    font-family: ChronicleDisplay;
+    font-display: swap;
+    font-style: italic;
+    src: url(fonts/chronicledisplayitalic-feee88a9.woff2) format("woff2"), url(fonts/chronicledisplayitalic-745947ff.woff) format("woff")
+}
+
+@font-face {
+    font-family: ChronicleDisplay;
+    font-display: swap;
+    font-weight: 300;
+    src: url(fonts/chronicledisplaylight-5b36dc6f.woff2) format("woff2"), url(fonts/chronicledisplaylight-55c81ded.woff) format("woff")
+}
+
+@font-face {
+    font-family: ChronicleDisplay;
+    font-display: swap;
+    font-style: italic;
+    font-weight: 300;
+    src: url(fonts/chronicledisplaylightitalic-7989bd35.woff2) format("woff2"), url(fonts/chronicledisplaylightitalic-a6cf6831.woff) format("woff")
+}
+
+
+body, button, input, select, textarea {
+    font-family:ChronicleDisplay-Roman,serif !important;
+
+}
 #header .top .rightArea .search form input[type='text'] {
     width: 100%;
 }
@@ -29,9 +65,6 @@
     padding: 20px 35px;
 }
 
-#header .bottom #nav ul li a i {
-    color: #e74c3c;
-}
 
 #set-select-categories {
     color: #fff;
@@ -45,6 +78,9 @@
     color: red;
 }
 
+#header .bottom #nav ul li a i {
+    color: red;
+}
 #set-select-colors {
     color: #fff;
     height: 40px;
@@ -179,13 +215,14 @@
     float: right;
 }
 
-.category-grid{
+.category-grid {
     border: none !important;
     padding: 0px !important;
 }
 
-.col-category{
+.col-category {
 }
+
 @media only screen and (max-width: 999px) {
     #header .bottom .contest {
         padding: 4px 13px;
