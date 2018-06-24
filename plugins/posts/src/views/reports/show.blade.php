@@ -163,7 +163,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                {{[1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'][$report->action_id]}}
+                                                {{ $report->action_id!=0?[1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'][$report->action_id]:'No action Taken'}}
                                             </td>
                                             <td class="center">
                                                 <a data-toggle="tooltip" data-placement="bottom"
