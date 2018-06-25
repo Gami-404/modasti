@@ -11,8 +11,8 @@
                         <div class="info">
                             <div class="name">{{form.firstName}}</div>
                             <div class="other">
-                                <span class="suboth0"> {{user.profession||'Unknown'}} </span> <br/>
-                                <span class="suboth1"> {{user.about}} </span>
+                                <span class="suboth0"> {{form.profession||'Unknown'}} </span> <br/>
+                                <span class="suboth1"> {{form.about}} </span>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export default {
         firstName: this.$store.getters.user.name,
         lastName: "",
         // userName: "",
-        profession: "",
+        profession: this.$store.getters.user.profession,
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
@@ -168,15 +168,17 @@ export default {
             }, 500);
           } else {
             let user = { ...this.$store.getters.user };
-            user.name = this.form.firstName + " " + this.form.lastName;
+            user.name = this.form.firstName;
             user.email = this.form.email;
             user.currency = this.form.currency;
             user.about = this.form.about;
+            user.profession = this.form.profession
             this.$store.commit("EDIT_USER", user);
+
           }
         })
         .catch(err => {
-          this.btnText = "Saved";
+          this.btnText = "Save Edits";
           this.errors = err.response.data.errors;
         });
     },
