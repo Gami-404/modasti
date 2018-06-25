@@ -69,6 +69,8 @@ export default {
   watch: {
     "$route.params"({name,subCat}) {
       if (!name) return;
+      this.$store.commit("RESET_FILTERS");
+      this.$store.dispatch("map_filters");
       this.loadItems(name,subCat);
     }
   },

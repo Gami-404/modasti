@@ -11,7 +11,7 @@
                         <div class="info">
                             <div class="name">{{form.firstName}}</div>
                             <div class="other">
-                                <span class="suboth0"> {{form.profession||'Unknown'}} </span> <br/>
+                                <span class="suboth0"> {{form.profession||''}} </span> <br/>
                                 <span class="suboth1"> {{form.about}} </span>
                             </div>
                         </div>
@@ -100,7 +100,7 @@ export default {
         firstName: this.$store.getters.user.name,
         lastName: "",
         // userName: "",
-        profession: this.$store.getters.user.profession,
+        profession: this.$store.getters.user.profession||"sss",
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
@@ -128,6 +128,7 @@ export default {
           firstName: this.user.fname,
           lastName: this.user.lname,
           // userName: "",
+            profession: this.user.profession,
           email: this.user.email,
           currentPassword: "",
           password: "",

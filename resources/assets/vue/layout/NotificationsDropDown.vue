@@ -9,10 +9,10 @@
         <div class="itsTitle clearfix">
           <span> Notifications </span>
           <span class="pull-right">
-            <label class="switch">
+            <!-- <label class="switch">
               <input type="checkbox" checked>
               <span class="slider round"></span>
-            </label>
+            </label> -->
           </span>
         </div>
         <div class="allNotifications">

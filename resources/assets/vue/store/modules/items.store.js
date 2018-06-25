@@ -214,9 +214,9 @@ const actions = {
         let sizes = {};
         rootGetters.getSizes.forEach(size => size && (sizes[size] = {id: size}));
         let colors = {};
-        rootGetters.getColors.forEach(color => (colors[color.id] = color));
+        rootGetters.getColors.forEach(color => (colors[color.id] = {...color }));
         let brands = {};
-        rootGetters.getBrands.forEach(brand => (brands[brand.id] = brand));
+        rootGetters.getBrands.forEach(brand => (brands[brand.id] = {...brand} ));
         commit("MAP_FILTERS", {sizes, colors, brands});
     }
 };
@@ -265,6 +265,15 @@ const mutations = {
     },
     APPLY_FILTERS(state, filter) {
         state.appliedFilters = filter;
+    },
+    RESET_FILTERS(state){
+        state.appliedFilters = {};
+        state.filters = {
+            brands: {},
+            colors: {},
+            sizes: {},
+            priceOrder: {}
+        };
     },
     SEARCH_RESULTS_OFFSET({searchResults}) {
         searchResults.offset += 8;
