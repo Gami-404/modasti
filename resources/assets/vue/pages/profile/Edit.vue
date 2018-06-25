@@ -11,7 +11,7 @@
                         <div class="info">
                             <div class="name">{{form.firstName}}</div>
                             <div class="other">
-                                <span class="suboth0"> {{form.profession||'Unknown'}} </span> <br/>
+                                <span class="suboth0"> {{form.profession||''}} </span> <br/>
                                 <span class="suboth1"> {{form.about}} </span>
                             </div>
                         </div>

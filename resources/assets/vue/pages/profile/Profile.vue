@@ -7,7 +7,7 @@
           <div class="content">
             <div class="info">
               <div class="name">{{user.fname}}</div>
-              <div class="other"> <span class="suboth0" > {{user.profession||'Unknown'}} </span> <br/> <span class="suboth1" >  {{user.about}} </span> </div>
+              <div class="other"> <span class="suboth0" > {{user.profession||''}} </span> <br/> <span class="suboth1" >  {{user.about}} </span> </div>
             </div>
             <div class="top_message">
               <div>Create 15 sets to become a STYLIST!</div>
