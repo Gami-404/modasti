@@ -25,7 +25,7 @@
                 <div class="myrow clearfix">
                     <div class="mycol-md-4">
                         <div class="mrgBtmLg">
-                            <div class="mrgBtmMd">First name</div>
+                            <div class="mrgBtmMd">Name</div>
                             <input v-model="form.firstName" type="text" class="inputEle" required>
                         </div>
                     </div>
