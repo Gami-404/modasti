@@ -423,10 +423,6 @@
                             <!-- Body content -->
                             <tr>
                                 <td class="content-cell">
-                                    <p>You recently requested to reset your password for your Modasti account. Use the
-                                        button below to reset it.
-                                        <strong>This password reset is only valid for the next 24 hours.</strong>
-                                    </p>
                                     <!-- Action -->
                                     <table class="body-action" align="center" width="100%" cellpadding="0"
                                            cellspacing="0">
