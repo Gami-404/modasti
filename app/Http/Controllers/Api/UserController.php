@@ -50,6 +50,16 @@ class UserController extends Controller
             $response['errors'] = ["Please Verification your mail (check your e-mail)."];
             return response()->json($response, '400');
         }
+
+        if (fauth()->user()->suspended == 1) {
+            $response['errors'] = ["Your account suspended for ever "];
+            return response()->json($response, '400');
+        }
+
+        if (fauth()->user()->suspended_to&&fauth()->user()->suspended_to->getTimestamp() >= Carbon::now()->getTimestamp()) {
+            $response['errors'] = ["Your account suspended for " . fauth()->user()->suspended_to->format('l jS \\of F Y h:i:s A')];
+            return response()->json($response, '400');
+        }
         $user = fauth()->user();
 
         $response['data'] = \Maps\User\login($user);

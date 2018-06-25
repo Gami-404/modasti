@@ -3,9 +3,14 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
+use App\Mail\ReportMail;
+use App\Model\Set;
+use Dot\Platform\Classes\Carbon;
+use Dot\Posts\Models\Collection;
 use Dot\Posts\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
+use Illuminate\Support\Facades\Mail;
 use Redirect;
 use Request;
 use View;
@@ -71,7 +76,6 @@ class ReportsController extends Controller
         $this->data["reports"] = $query->paginate($this->data['per_page']);
 
 
-
         return View::make("posts::reports.show", $this->data);
     }
 
@@ -87,17 +91,17 @@ class ReportsController extends Controller
 
         foreach ($ids as $ID) {
 
-            $question = Report::findOrFail($ID);
+            $report = Report::findOrFail($ID);
 
             // Fire deleting action
 
-            Action::fire("post.report.deleting", $question);
+            Action::fire("post.report.deleting", $report);
 
-            $question->delete();
+            $report->delete();
 
             // Fire deleted action
 
-            Action::fire("post.report.deleted", $question);
+            Action::fire("post.report.deleted", $report);
         }
 
         return Redirect::back()->with("message", trans("posts::reports.events.deleted"));
@@ -111,33 +115,64 @@ class ReportsController extends Controller
     public function details($id)
     {
 
-        $question = Report::findOrFail($id);
+        $report = Report::findOrFail($id);
 
-        if (Request::isMethod("post")) {
-
-            $question->title = Request::get('title');
-            $question->answer = Request::get('answer');
-            $question->status = Request::get('status',0);
+        if (Request::isMethod("post") && $report->action_id == 0) {
 
 
+            $report->action_id = Request::get('action_id');
             // Fire saving action
 
-            Action::fire("report.saving", $question);
+            Action::fire("report.change", $report);
 
-            if (!$question->validate()) {
-                return Redirect::back()->withErrors($question->errors())->withInput(Request::all());
-            }
+            $report->save();
+            $this->doActions($report, Request::get('action_id'));
 
-            $question->save();
             // Fire saved action
 
-            Action::fire("report.saved", $question);
+            Action::fire("report.saved", $report);
 
-            return Redirect::route("admin.posts.reports.edit", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
+            return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
 
-        $this->data["report"] = $question;
+        if (Request::isMethod("post") && Request::get('action') == 'unblock') {
+            $user = $report->target->user;
+            $user->suspended = 0;
+            $user->suspended_to = Carbon::now()->subDay(1);
+            $user->save();
+            return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
+        }
+
+        $this->data["report"] = $report;
         return View::make("posts::reports.details", $this->data);
+    }
+
+    /**
+     * @param $report
+     * @param $action_id
+     */
+    protected function doActions($report, $action_id)
+    {
+        $object = $report->target;
+
+
+        if ($action_id == 1) {
+            $object->delete();
+        }
+
+
+        $user = $object->user;
+
+        if ($action_id == 2) {
+            $user->suspended = 1;
+        }
+
+        if ($action_id == 3) {
+            $user->suspended_to = Carbon::now()->addMonth();
+        }
+        Mail::to($user->email)->send(new ReportMail($user, $report));
+        $user->api_token = str_random(60);
+        $user->save();
     }
 
 }

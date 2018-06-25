@@ -131,6 +131,7 @@
                                         <th>{{ trans("posts::reports.attributes.title") }}</th>
                                         <th>{{ trans("posts::reports.attributes.created_at") }}</th>
                                         <th>{{ trans("posts::reports.user") }}</th>
+                                        <th>Response</th>
                                         <th>{{ trans("posts::reports.actions") }}</th>
                                     </tr>
                                     </thead>
@@ -160,6 +161,9 @@
                                                 <a href="?user_id={{ @$report->user->id }}" class="text-navy">
                                                     <small> {{ @$report->user->first_name }}</small>
                                                 </a>
+                                            </td>
+                                            <td>
+                                                {{ $report->action_id!=0?[1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'][$report->action_id]:'No action Taken'}}
                                             </td>
                                             <td class="center">
                                                 <a data-toggle="tooltip" data-placement="bottom"
@@ -207,7 +211,7 @@
     <link href="{{ assets('admin::css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}"
           rel="stylesheet" type="text/css">
     <style>
-        .img-responsive{
+        .img-responsive {
             height: 72px;
             width: 72px;
         }

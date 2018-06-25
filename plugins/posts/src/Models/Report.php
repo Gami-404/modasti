@@ -101,5 +101,23 @@ class Report extends Model
         return $this->hasOne(User::class, "id", "user_id");
     }
 
+    /**
+     * @return null
+     */
+    public function getTargetAttribute()
+    {
+        $object = null;
+
+        if ($this->type == "set") {
+            $object = Set::find($this->object_id);
+        }
+
+        if ($this->type == "collection") {
+            $object = Collection::find($this->object_id);
+        }
+
+        return $object;
+    }
+
 //    public function
 }

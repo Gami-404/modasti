@@ -3,7 +3,7 @@
 @section("content")
 
     <form action="" method="post">
-
+        {{csrf_field()}}
         <div class="row wrapper border-bottom white-bg page-heading">
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
@@ -69,6 +69,31 @@
                         {!!  $output !!}
                     @endforeach
 
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Actions</h3>
+                        </div>
+                        <div class="panel-body">
+                            <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
+                                    class="form-control">
+                                <option value> -- Select action</option>
+                                @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'] as $key=>$text)
+                                    <option
+                                        value="{{$key}}" {{$report->action_id==$key?'selected':''}}>{{$text}}</option>
+                                @endforeach
+                            </select>
+                            @if($report->action_id==0)
+                                <button type="submit" class="btn btn-primary">Save Action</button>
+                            @endif
+
+                            @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
+                            ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
+                                <input type="submit"  class="btn btn-primary"  name="action" value="unblock"/>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 

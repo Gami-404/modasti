@@ -68,9 +68,9 @@
               </div>
             </div>
             <div v-else>
-              <div v-for="item of items" :key="item.id" class="mycol-sm-3">
+              <div v-for="item of items" :key="item.id" class="mycol-sm-2 col-category">
                 <a @click.prevent="changeCategory(item.id)" href="#">
-                  <div class="one">
+                  <div class="one category-grid">
                     <div class="avatar"  draggable="false">
                       <div class="verticalCentered" draggable="false">
                         <div class="theCell"><img draggable="false" :src="item['photo']"></div>
@@ -384,7 +384,7 @@ export default {
 };
 </script>
 
-<style <style scoped>
+<style scoped>
 .createSetPage .leftArea .actionBtns .otherBtns .oneBtn {
   width: 16.66666666%;
 }
@@ -402,6 +402,6 @@ export default {
 }
 
 .avatar{
-  height: 130px !important;
+  height: 210px !important;
 }
 </style>
