@@ -73606,7 +73606,7 @@ var render = function() {
             {
               attrs: {
                 href:
-                  "/files/Point Number 21 in meeting minutes  Data feed guidelines and specifications.docx",
+                  "/files/Point Number 21 in meeting minutes  Data feed guidelines and specifications.pdf",
                 target: "_blank",
                 "active-class": "active-retailer-nav"
               }
@@ -81597,7 +81597,7 @@ var render = function() {
                   "active-class": "active-header"
                 }
               },
-              [_vm._v("LIKES")]
+              [_vm._v("Likes")]
             ),
             _vm._v(" "),
             _c(
