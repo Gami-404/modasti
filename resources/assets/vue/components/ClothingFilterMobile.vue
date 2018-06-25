@@ -7,7 +7,7 @@
           <i class="fa fa-angle-down"></i>
         </a>
         <div class="thesubTab">
-          <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
+            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{val.name}}</a>
         </div>
       </div>
       <div class="one" :class="{'opened':filter==='coverage'}">

@@ -42,7 +42,9 @@
       <div v-if="filter" class="topCategories whiteBg filterops">
         <div class="gridContainer">
           <div v-if="filter==='colors'">
-            <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div>
+            <!-- <div v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :style="colorBlockStyle(val.id)"></div> -->
+            <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{val.name}}</a>
+          
           </div>
           <div v-else>
             <a v-for="val in vals" :key="val.id" @click.prevent="toggleFilter(val.id)" :class="{'filteri':true ,'selected' : filters[filter][val.id]&&filters[filter][val.id].isSelected }" href="#">{{filter==='sizes'?val.id:val.title}}</a>
