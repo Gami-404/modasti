@@ -309,7 +309,7 @@ class UserController extends Controller
             $user->about = $request->get('about');
         }
         if ($request->filled('profession')) {
-            $user->about = $request->get('profession');
+            $user->profession = $request->get('profession');
         }
         if ($request->get('image', false)) {
             $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
