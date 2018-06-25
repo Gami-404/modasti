@@ -67,10 +67,12 @@
     import API from "@/store/API";
 
     export default {
-        props: ['url', 'type', 'objectId'],
         data() {
             return {
                 title: "",
+                objectId: this.$route.query.objid ,
+                type: this.$route.query.type,
+                url: this.$route.query.url,
                 format: 0,
                 loading: false,
                 errors: [],
@@ -86,6 +88,15 @@
                     this.errors = ['Please Select Reason form list']
                 }
                 this.loading = true;
+                console.log({
+                    title: this.title,
+                    message: this.message,
+                    url: this.url,
+                    type: this.type,
+                    object_id: this.objectId,
+                    format:this.format
+                });
+                
                 API.post('/pushReport', {
                     title: this.title,
                     message: this.message,
