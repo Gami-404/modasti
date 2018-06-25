@@ -78,6 +78,7 @@ class UserController extends Controller
      * POST /api/register
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function register(Request $request)
     {
@@ -103,7 +104,7 @@ class UserController extends Controller
         $user->status = 0;
         $user->role_id = 3;
         $user->save();
-//        event(new VerificationMail($user));
+        event(new VerificationMail($user));
         $this->sendVerify($user);
 
         $response['data'] = \Maps\User\login($user);
@@ -114,6 +115,7 @@ class UserController extends Controller
 
     /**
      * @param $user
+     * @throws \Throwable
      */
     private function sendVerify($user)
     {
@@ -122,7 +124,13 @@ class UserController extends Controller
             'token' => $token = str_random(60),
         ]);
         \Log::debug('send mail for :' . $user->email);
-        Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
+//        Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: <info@modasti.com>' . "\r\n";
+
+        mail($user->email, 'Modsiti', view('emails.verification', ['url' => route('verification.mail', ['token' => $token])])->render(), $headers);
     }
 
     /**

@@ -40,5 +40,4 @@ if (!function_exists('getBrandId')) {
         $brand->save();
         return $brand->id;
     }
-
 }
