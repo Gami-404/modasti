@@ -41,7 +41,8 @@
       "Dot\\Colors\\": "plugins/colors/src/",
       "Dot\\Categories\\": "plugins/categories/src/",
       "Dot\\Blocks\\":"plugins/blocks/src/",
-      "Dot\\Pages\\":"plugins/pages/src/"
+      "Dot\\Pages\\":"plugins/pages/src/",
+      "Dot\\Users\\":"plugins/users/src/"
     }
   },
   "autoload-dev": {

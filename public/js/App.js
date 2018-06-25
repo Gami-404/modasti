@@ -70968,7 +70968,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         firstName: this.$store.getters.user.name,
         lastName: "",
         // userName: "",
-        profession: "",
+        profession: this.$store.getters.user.profession,
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
@@ -71032,14 +71032,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           }, 500);
         } else {
           var user = _extends({}, _this2.$store.getters.user);
-          user.name = _this2.form.firstName + " " + _this2.form.lastName;
+          user.name = _this2.form.firstName;
           user.email = _this2.form.email;
           user.currency = _this2.form.currency;
           user.about = _this2.form.about;
+          user.profession = _this2.form.profession;
           _this2.$store.commit("EDIT_USER", user);
         }
       }).catch(function (err) {
-        _this2.btnText = "Saved";
+        _this2.btnText = "Save Edits";
         _this2.errors = err.response.data.errors;
       });
     },
@@ -71116,14 +71117,14 @@ var render = function() {
                   _c("div", { staticClass: "other" }, [
                     _c("span", { staticClass: "suboth0" }, [
                       _vm._v(
-                        " " + _vm._s(_vm.user.profession || "Unknown") + " "
+                        " " + _vm._s(_vm.form.profession || "Unknown") + " "
                       )
                     ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
                     _c("span", { staticClass: "suboth1" }, [
-                      _vm._v(" " + _vm._s(_vm.user.about) + " ")
+                      _vm._v(" " + _vm._s(_vm.form.about) + " ")
                     ])
                   ])
                 ])
@@ -71150,9 +71151,7 @@ var render = function() {
               _c("div", { staticClass: "myrow clearfix" }, [
                 _c("div", { staticClass: "mycol-md-4" }, [
                   _c("div", { staticClass: "mrgBtmLg" }, [
-                    _c("div", { staticClass: "mrgBtmMd" }, [
-                      _vm._v("First name")
-                    ]),
+                    _c("div", { staticClass: "mrgBtmMd" }, [_vm._v("Name")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -73588,10 +73587,12 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "router-link",
+            "a",
             {
               attrs: {
-                to: "/retailer/help",
+                href:
+                  "/files/Point Number 21 in meeting minutes  Data feed guidelines and specifications.docx",
+                target: "_blank",
                 "active-class": "active-retailer-nav"
               }
             },
