@@ -80103,7 +80103,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-6adcaa48]:invalid {\n  background-color: #fff;\n}\n.errors[data-v-6adcaa48] {\n  font-family: \"Cheque-Black\";\n  color: RED;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-6adcaa48]:invalid {\n    background-color: #fff;\n}\n.errors[data-v-6adcaa48] {\n    font-family: \"Cheque-Black\";\n    color: RED;\n}\n", ""]);
 
 // exports
 
@@ -80148,49 +80148,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      name: "",
-      email: "",
-      password: "",
-      password2: "",
-      loading: false,
-      errors: [],
-      done: false
-    };
-  },
+    data: function data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            loading: false,
+            errors: [],
+            done: false
+        };
+    },
 
-  methods: {
-    signUp: function signUp(e) {
-      var _this = this;
+    methods: {
+        signUp: function signUp(e) {
+            var _this = this;
 
-      e.preventDefault();
-      this.loading = true;
-      if (this.password == this.password2 && this.password.length >= 6) {
-        this.$store.dispatch("register", {
-          email: this.email,
-          password: this.password,
-          name: this.name
-        }).then(function (errors) {
-          if (errors.length == 0) _this.done = true;else _this.errors = errors;
-        }).finally(function () {
-          _this.loading = false;
-        });
-      } else {
-        this.errors = [];
-        if (this.password != this.password2) this.errors.push("Passwords not matching");
-        if (this.password.length < 6) this.errors.push("Minimum Password length is 6 characters or numbers");
-        this.loading = false;
-      }
+            e.preventDefault();
+            this.loading = true;
+            if (this.password == this.password2 && this.password.length >= 6) {
+                this.$store.dispatch("register", {
+                    email: this.email,
+                    password: this.password,
+                    name: this.name
+                }).then(function (errors) {
+                    if (errors.length == 0) {
+
+                        _this.done = true;
+                    } else _this.errors = errors;
+                }).finally(function () {
+                    _this.loading = false;
+                });
+            } else {
+                this.errors = [];
+                if (this.password != this.password2) this.errors.push("Passwords not matching");
+                if (this.password.length < 6) this.errors.push("Minimum Password length is 6 characters or numbers");
+                this.loading = false;
+            }
+        }
+    },
+    computed: {
+        isLoading: function isLoading() {
+            return this.loading ? "Loading.." : "Sign Up";
+        }
     }
-  },
-  computed: {
-    isLoading: function isLoading() {
-      return this.loading ? "Loading.." : "Sign Up";
-    }
-  }
 });
 
 /***/ }),
@@ -80238,7 +80243,7 @@ var render = function() {
                 { staticStyle: { padding: "20px" } },
                 [
                   _vm._v(
-                    "Please check your email to verify your account, then "
+                    "Please check your email to verify your account, then\n                "
                   ),
                   _c(
                     "router-link",
@@ -80362,7 +80367,9 @@ var render = function() {
                     return _c("div", { key: i }, [
                       _c("h4", { staticClass: "errors" }, [
                         _vm._v(
-                          "\n            " + _vm._s(error) + "\n          "
+                          "\n                        " +
+                            _vm._s(error) +
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
