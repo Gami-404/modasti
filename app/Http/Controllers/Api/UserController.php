@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\UserFollowing;
+use App\Events\VerificationMail;
 use App\Model\Media;
 use App\User;
 use Carbon\Carbon;
@@ -103,7 +104,7 @@ class UserController extends Controller
         $user->status = 0;
         $user->role_id = 3;
         $user->save();
-//        event(new VerificationMail($user));
+        event(new VerificationMail($user));
         $this->sendVerify($user);
 
         $response['data'] = \Maps\User\login($user);
@@ -127,7 +128,7 @@ class UserController extends Controller
 
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= 'From: <info@dubarter.com>' . "\r\n";
+        $headers .= 'From: <info@modasti.com>' . "\r\n";
 
         mail($user->email, 'Modsiti', view('emails.verification', ['url' => route('verification.mail', ['token' => $token])])->render(), $headers);
     }
