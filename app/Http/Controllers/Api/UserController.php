@@ -77,6 +77,7 @@ class UserController extends Controller
      * POST /api/register
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function register(Request $request)
     {

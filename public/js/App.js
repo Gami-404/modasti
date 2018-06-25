@@ -55958,6 +55958,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -56219,16 +56221,26 @@ var render = function() {
               "div",
               { staticClass: "thesubTab" },
               _vm._l(_vm.vals, function(val) {
-                return _c("div", {
-                  key: val.id,
-                  style: _vm.colorBlockStyle(val.id),
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.toggleFilter(val.id)
+                return _c(
+                  "a",
+                  {
+                    key: val.id,
+                    class: {
+                      filteri: true,
+                      selected:
+                        _vm.filters[_vm.filter][val.id] &&
+                        _vm.filters[_vm.filter][val.id].isSelected
+                    },
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.toggleFilter(val.id)
+                      }
                     }
-                  }
-                })
+                  },
+                  [_vm._v(_vm._s(val.name))]
+                )
               })
             )
           ]
@@ -56628,16 +56640,26 @@ var render = function() {
                   ? _c(
                       "div",
                       _vm._l(_vm.vals, function(val) {
-                        return _c("div", {
-                          key: val.id,
-                          style: _vm.colorBlockStyle(val.id),
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              _vm.toggleFilter(val.id)
+                        return _c(
+                          "a",
+                          {
+                            key: val.id,
+                            class: {
+                              filteri: true,
+                              selected:
+                                _vm.filters[_vm.filter][val.id] &&
+                                _vm.filters[_vm.filter][val.id].isSelected
+                            },
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.toggleFilter(val.id)
+                              }
                             }
-                          }
-                        })
+                          },
+                          [_vm._v(_vm._s(val.name))]
+                        )
                       })
                     )
                   : _c(
