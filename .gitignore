@@ -15,3 +15,4 @@ composer.lock
 .env
 /public/js/App.js
 /public/js/app.js
+/public/mix-manifest.json

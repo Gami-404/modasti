@@ -11,7 +11,7 @@
                 <router-link to="/profile/me/sets" class="addlinks" active-class="active-header">Sets</router-link>
                 <router-link to="/profile/me/collections" class="addlinks" active-class="active-header">Collections
                 </router-link>
-                <router-link to="/profile/me/likes" class="addlinks" active-class="active-header">LIKES</router-link>
+                <router-link to="/profile/me/likes" class="addlinks" active-class="active-header">Likes</router-link>
                 <router-link to="/profile/me/Following" class="addlinks" active-class="active-header">Following
                 </router-link>
                 <router-link to="/profile/me/Followers" class="addlinks" active-class="active-header">Followers
