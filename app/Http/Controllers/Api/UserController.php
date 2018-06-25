@@ -117,7 +117,6 @@ class UserController extends Controller
      */
     private function sendVerify($user)
     {
-        Mail::to($user->email)->send(new VerificationMail($user));
         DB::table('verification_tokens')->insert([
             'user_id' => $user->id,
             'token' => $token = str_random(60),
