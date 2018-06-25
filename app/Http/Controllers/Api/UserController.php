@@ -121,6 +121,7 @@ class UserController extends Controller
             'user_id' => $user->id,
             'token' => $token = str_random(60),
         ]);
+        \Log::debug('send mail for :' . $user->mail);
         Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
     }
 
