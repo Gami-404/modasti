@@ -70968,7 +70968,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         firstName: this.$store.getters.user.name,
         lastName: "",
         // userName: "",
-        profession: "",
+        profession: this.$store.getters.user.profession,
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
@@ -71032,14 +71032,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           }, 500);
         } else {
           var user = _extends({}, _this2.$store.getters.user);
-          user.name = _this2.form.firstName + " " + _this2.form.lastName;
+          user.name = _this2.form.firstName;
           user.email = _this2.form.email;
           user.currency = _this2.form.currency;
           user.about = _this2.form.about;
+          user.profession = _this2.form.profession;
           _this2.$store.commit("EDIT_USER", user);
         }
       }).catch(function (err) {
-        _this2.btnText = "Saved";
+        _this2.btnText = "Save Edits";
         _this2.errors = err.response.data.errors;
       });
     },
@@ -71116,14 +71117,14 @@ var render = function() {
                   _c("div", { staticClass: "other" }, [
                     _c("span", { staticClass: "suboth0" }, [
                       _vm._v(
-                        " " + _vm._s(_vm.user.profession || "Unknown") + " "
+                        " " + _vm._s(_vm.form.profession || "Unknown") + " "
                       )
                     ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
                     _c("span", { staticClass: "suboth1" }, [
-                      _vm._v(" " + _vm._s(_vm.user.about) + " ")
+                      _vm._v(" " + _vm._s(_vm.form.about) + " ")
                     ])
                   ])
                 ])
@@ -71150,9 +71151,7 @@ var render = function() {
               _c("div", { staticClass: "myrow clearfix" }, [
                 _c("div", { staticClass: "mycol-md-4" }, [
                   _c("div", { staticClass: "mrgBtmLg" }, [
-                    _c("div", { staticClass: "mrgBtmMd" }, [
-                      _vm._v("First name")
-                    ]),
+                    _c("div", { staticClass: "mrgBtmMd" }, [_vm._v("Name")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -73588,10 +73587,12 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "router-link",
+            "a",
             {
               attrs: {
-                to: "/retailer/help",
+                href:
+                  "/files/Point Number 21 in meeting minutes  Data feed guidelines and specifications.docx",
+                target: "_blank",
                 "active-class": "active-retailer-nav"
               }
             },
@@ -80103,7 +80104,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\ninput[data-v-6adcaa48]:invalid {\n    background-color: #fff;\n}\n.errors[data-v-6adcaa48] {\n    font-family: \"Cheque-Black\";\n    color: RED;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-6adcaa48]:invalid {\n  background-color: #fff;\n}\n.errors[data-v-6adcaa48] {\n  font-family: \"Cheque-Black\";\n  color: RED;\n}\n", ""]);
 
 // exports
 
@@ -80148,54 +80149,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            name: "",
-            email: "",
-            password: "",
-            password2: "",
-            loading: false,
-            errors: [],
-            done: false
-        };
-    },
+  data: function data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+      loading: false,
+      errors: [],
+      done: false
+    };
+  },
 
-    methods: {
-        signUp: function signUp(e) {
-            var _this = this;
+  methods: {
+    signUp: function signUp(e) {
+      var _this = this;
 
-            e.preventDefault();
-            this.loading = true;
-            if (this.password == this.password2 && this.password.length >= 6) {
-                this.$store.dispatch("register", {
-                    email: this.email,
-                    password: this.password,
-                    name: this.name
-                }).then(function (errors) {
-                    if (errors.length == 0) {
-
-                        _this.done = true;
-                    } else _this.errors = errors;
-                }).finally(function () {
-                    _this.loading = false;
-                });
-            } else {
-                this.errors = [];
-                if (this.password != this.password2) this.errors.push("Passwords not matching");
-                if (this.password.length < 6) this.errors.push("Minimum Password length is 6 characters or numbers");
-                this.loading = false;
-            }
-        }
-    },
-    computed: {
-        isLoading: function isLoading() {
-            return this.loading ? "Loading.." : "Sign Up";
-        }
+      e.preventDefault();
+      this.loading = true;
+      if (this.password == this.password2 && this.password.length >= 6) {
+        this.$store.dispatch("register", {
+          email: this.email,
+          password: this.password,
+          name: this.name
+        }).then(function (errors) {
+          if (errors.length == 0) _this.done = true;else _this.errors = errors;
+        }).finally(function () {
+          _this.loading = false;
+        });
+      } else {
+        this.errors = [];
+        if (this.password != this.password2) this.errors.push("Passwords not matching");
+        if (this.password.length < 6) this.errors.push("Minimum Password length is 6 characters or numbers");
+        this.loading = false;
+      }
     }
+  },
+  computed: {
+    isLoading: function isLoading() {
+      return this.loading ? "Loading.." : "Sign Up";
+    }
+  }
 });
 
 /***/ }),
@@ -80243,7 +80239,7 @@ var render = function() {
                 { staticStyle: { padding: "20px" } },
                 [
                   _vm._v(
-                    "Please check your email to verify your account, then\n                "
+                    "Please check your email to verify your account, then "
                   ),
                   _c(
                     "router-link",
@@ -80367,9 +80363,7 @@ var render = function() {
                     return _c("div", { key: i }, [
                       _c("h4", { staticClass: "errors" }, [
                         _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
+                          "\n            " + _vm._s(error) + "\n          "
                         )
                       ]),
                       _vm._v(" "),
