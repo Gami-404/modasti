@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController as Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -56,7 +57,7 @@ class UserController extends Controller
             return response()->json($response, '400');
         }
 
-        if (fauth()->user()->suspended_to&&fauth()->user()->suspended_to->getTimestamp() >= Carbon::now()->getTimestamp()) {
+        if (fauth()->user()->suspended_to && fauth()->user()->suspended_to->getTimestamp() >= Carbon::now()->getTimestamp()) {
             $response['errors'] = ["Your account suspended for " . fauth()->user()->suspended_to->format('l jS \\of F Y h:i:s A')];
             return response()->json($response, '400');
         }
@@ -102,12 +103,27 @@ class UserController extends Controller
         $user->status = 0;
         $user->role_id = 3;
         $user->save();
-        event(new VerificationMail($user));
+//        event(new VerificationMail($user));
+        $this->sendVerify($user);
+
         $response['data'] = \Maps\User\login($user);
         $response['token'] = $user->api_token;
         return response()->json($response);
     }
 
+
+    /**
+     * @param $user
+     */
+    private function sendVerify($user)
+    {
+        DB::table('verification_tokens')->insert([
+            'user_id' => $user->id,
+            'token' => $token = str_random(60),
+        ]);
+        \Log::debug('send mail for :' . $user->email);
+        Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
+    }
 
     /**
      * POST /api/registerDesigner

@@ -55753,6 +55753,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           subCat = _ref.subCat;
 
       if (!name) return;
+      this.$store.commit("RESET_FILTERS");
+      this.$store.dispatch("map_filters");
       this.loadItems(name, subCat);
     }
   },
@@ -66220,13 +66222,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "top" }, [
       _c("span", [_vm._v(" Notifications ")]),
       _vm._v(" "),
-      _c("span", { staticClass: "pull-right" }, [
-        _c("label", { staticClass: "switch" }, [
-          _c("input", { attrs: { type: "checkbox" } }),
-          _vm._v(" "),
-          _c("span", { staticClass: "slider round" })
-        ])
-      ])
+      _c("span", { staticClass: "pull-right" })
     ])
   }
 ]
@@ -68697,9 +68693,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "other" }, [
                       _c("span", { staticClass: "suboth0" }, [
-                        _vm._v(
-                          " " + _vm._s(_vm.user.profession || "Unknown") + " "
-                        )
+                        _vm._v(" " + _vm._s(_vm.user.profession || "") + " ")
                       ]),
                       _vm._v(" "),
                       _c("br"),
@@ -70968,7 +70962,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         firstName: this.$store.getters.user.name,
         lastName: "",
         // userName: "",
-        profession: this.$store.getters.user.profession,
+        profession: this.$store.getters.user.profession || "sss",
         email: this.$store.getters.user.email,
         currentPassword: "",
         password: "",
@@ -70998,6 +70992,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         firstName: _this.user.fname,
         lastName: _this.user.lname,
         // userName: "",
+        profession: _this.user.profession,
         email: _this.user.email,
         currentPassword: "",
         password: "",
@@ -71116,9 +71111,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "other" }, [
                     _c("span", { staticClass: "suboth0" }, [
-                      _vm._v(
-                        " " + _vm._s(_vm.form.profession || "Unknown") + " "
-                      )
+                      _vm._v(" " + _vm._s(_vm.form.profession || "") + " ")
                     ]),
                     _vm._v(" "),
                     _c("br"),
@@ -78272,11 +78265,11 @@ var actions = {
         });
         var colors = {};
         rootGetters.getColors.forEach(function (color) {
-            return colors[color.id] = color;
+            return colors[color.id] = _extends({}, color);
         });
         var brands = {};
         rootGetters.getBrands.forEach(function (brand) {
-            return brands[brand.id] = brand;
+            return brands[brand.id] = _extends({}, brand);
         });
         commit("MAP_FILTERS", { sizes: sizes, colors: colors, brands: brands });
     }
@@ -78329,6 +78322,15 @@ var mutations = {
     },
     APPLY_FILTERS: function APPLY_FILTERS(state, filter) {
         state.appliedFilters = filter;
+    },
+    RESET_FILTERS: function RESET_FILTERS(state) {
+        state.appliedFilters = {};
+        state.filters = {
+            brands: {},
+            colors: {},
+            sizes: {},
+            priceOrder: {}
+        };
     },
     SEARCH_RESULTS_OFFSET: function SEARCH_RESULTS_OFFSET(_ref17) {
         var searchResults = _ref17.searchResults;
@@ -81339,13 +81341,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "itsTitle clearfix" }, [
       _c("span", [_vm._v(" Notifications ")]),
       _vm._v(" "),
-      _c("span", { staticClass: "pull-right" }, [
-        _c("label", { staticClass: "switch" }, [
-          _c("input", { attrs: { type: "checkbox", checked: "" } }),
-          _vm._v(" "),
-          _c("span", { staticClass: "slider round" })
-        ])
-      ])
+      _c("span", { staticClass: "pull-right" })
     ])
   }
 ]
