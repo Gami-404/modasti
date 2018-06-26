@@ -54,6 +54,7 @@ Route::group([
         $route->any('/create', ["as" => "admin.posts.contests.create", "uses" => "ContestsController@create"]);
         $route->any('/{id}/edit', ["as" => "admin.posts.contests.edit", "uses" => "ContestsController@edit"]);
         $route->any('/delete', ["as" => "admin.posts.contests.delete", "uses" => "ContestsController@delete"]);
+        $route->any('/deleteItem', ["as" => "admin.posts.contests.items.delete", "uses" => "ContestsController@deleteItem"]);
         $route->any('/{status}/status', ["as" => "admin.posts.contests.status", "uses" => "ContestsController@status"]);
     });
 

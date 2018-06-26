@@ -2,6 +2,7 @@
 
 namespace Dot\Posts\Models;
 
+use App\Model\ContestItem;
 use Cache;
 use Dot\Media\Models\Media;
 use Dot\Platform\Model;
@@ -119,4 +120,11 @@ class Contest extends Model
         return $this->hasOne(User::class, "id", "user_id");
     }
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items(){
+        return $this->hasMany(ContestItem::class,'contest_id','id');
+    }
 }

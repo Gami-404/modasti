@@ -54640,8 +54640,8 @@ var render = function() {
             "a",
             {
               attrs: {
-                href: _vm.item.website
-                  ? _vm.item.website
+                href: _vm.item.url_en
+                  ? _vm.item.url_en
                   : "#/profile/" + _vm.item.user_id
               }
             },
@@ -57155,8 +57155,8 @@ var render = function() {
                             {
                               staticClass: "link",
                               attrs: {
-                                to: _vm.data.website
-                                  ? _vm.data.website
+                                to: _vm.data.url_en
+                                  ? _vm.data.url_en
                                   : "/profile/" + _vm.data.user_id
                               }
                             },
@@ -57168,8 +57168,8 @@ var render = function() {
                             {
                               staticClass: "item-buy",
                               attrs: {
-                                to: _vm.data.website
-                                  ? _vm.data.website
+                                to: _vm.data.url_en
+                                  ? _vm.data.url_en
                                   : "/profile/" + _vm.data.user_id
                               }
                             },
@@ -57288,13 +57288,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardListTitled___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardListTitled__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ItemCard__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ItemCard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_ItemCard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_popups_Report__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_popups_Report___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__layout_popups_Report__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wrappers_WrapperPopups__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__wrappers_WrapperPopups__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_popups_SetCollectionEditPopup__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_popups_SetCollectionEditPopup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__layout_popups_SetCollectionEditPopup__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(5);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -57363,11 +57361,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-
 
 
 
@@ -57378,93 +57371,92 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Loading: __WEBPACK_IMPORTED_MODULE_0__components_Loading___default.a,
-    CardActions: __WEBPACK_IMPORTED_MODULE_1__components_CardActions___default.a,
-    WrapperCardListTitled: __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardListTitled___default.a,
-    ItemCard: __WEBPACK_IMPORTED_MODULE_3__components_ItemCard___default.a,
-    Report: __WEBPACK_IMPORTED_MODULE_4__layout_popups_Report___default.a,
-    WrapperPopups: __WEBPACK_IMPORTED_MODULE_5__wrappers_WrapperPopups___default.a,
-    SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_6__layout_popups_SetCollectionEditPopup___default.a
-  },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["userId", "setComments", "set", "setTotalPrice"]), {
-    url: function url() {
-      return window.location.origin + '/#/set/' + this.set.id;
+    components: {
+        Loading: __WEBPACK_IMPORTED_MODULE_0__components_Loading___default.a,
+        CardActions: __WEBPACK_IMPORTED_MODULE_1__components_CardActions___default.a,
+        WrapperCardListTitled: __WEBPACK_IMPORTED_MODULE_2__wrappers_WrapperCardListTitled___default.a,
+        ItemCard: __WEBPACK_IMPORTED_MODULE_3__components_ItemCard___default.a,
+        WrapperPopups: __WEBPACK_IMPORTED_MODULE_4__wrappers_WrapperPopups___default.a,
+        SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_5__layout_popups_SetCollectionEditPopup___default.a
+    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["userId", "setComments", "set", "setTotalPrice"]), {
+        url: function url() {
+            return window.location.origin + "/#/set/" + this.set.id;
+        }
+    }),
+    data: function data() {
+        return {
+            loading: true,
+            sending: false,
+            commentToAdd: "",
+            loadingComments: true,
+            showNumOfComments: 3
+        };
+    },
+    created: function created() {
+        this.load();
+    },
+
+    watch: {
+        "$route.params.setId": function $routeParamsSetId(setId) {
+            if (!setId) return;
+            this.load();
+        }
+    },
+    methods: {
+        load: function load() {
+            var _this = this;
+
+            this.loading = true;
+            this.loadingComments = true;
+            this.$store.dispatch("get_set_details", this.$route.params.setId).then(function () {
+                return _this.loading = false;
+            }).catch(function (err) {
+                if (_this.$store.getters.isAuth) _this.$router.replace({ path: "/404" });
+            });
+            this.$store.dispatch("get_set_comments", this.$route.params.setId).then(function () {
+                return _this.loadingComments = false;
+            });
+        },
+        remove: function remove() {
+            var _this2 = this;
+
+            this.loading = true;
+            this.$store.dispatch("remove_set", this.set.id).then(function () {
+                _this2.$router.push("/profile/me/sets");
+                window.location.reload();
+                _this2.loading = false;
+            });
+        },
+        addComment: function addComment() {
+            var _this3 = this;
+
+            this.sending = true;
+            this.loadingComments = true;
+            this.$store.dispatch("add_comment_to_set", {
+                setId: this.set.id,
+                comment: this.commentToAdd
+            }).then(function () {
+                _this3.commentToAdd = "";
+                _this3.sending = false;
+                _this3.loadingComments = false;
+            });
+        },
+        deleteComment: function deleteComment(id) {
+            var _this4 = this;
+
+            this.loadingComments = true;
+            this.$store.dispatch("delete_comment_from_set", {
+                commentId: id,
+                setId: this.set.id
+            }).then(function () {
+                return _this4.loadingComments = false;
+            });
+        },
+        showMoreComments: function showMoreComments() {
+            this.showNumOfComments += 3;
+        }
     }
-  }),
-  data: function data() {
-    return {
-      loading: true,
-      sending: false,
-      commentToAdd: "",
-      loadingComments: true,
-      showNumOfComments: 3
-    };
-  },
-  created: function created() {
-    this.load();
-  },
-
-  watch: {
-    "$route.params.setId": function $routeParamsSetId(setId) {
-      if (!setId) return;
-      this.load();
-    }
-  },
-  methods: {
-    load: function load() {
-      var _this = this;
-
-      this.loading = true;
-      this.loadingComments = true;
-      this.$store.dispatch("get_set_details", this.$route.params.setId).then(function () {
-        return _this.loading = false;
-      }).catch(function (err) {
-        if (_this.$store.getters.isAuth) _this.$router.replace({ path: "/404" });
-      });
-      this.$store.dispatch("get_set_comments", this.$route.params.setId).then(function () {
-        return _this.loadingComments = false;
-      });
-    },
-    remove: function remove() {
-      var _this2 = this;
-
-      this.loading = true;
-      this.$store.dispatch("remove_set", this.set.id).then(function () {
-        _this2.$router.push("/profile/me/sets");
-        window.location.reload();
-        _this2.loading = false;
-      });
-    },
-    addComment: function addComment() {
-      var _this3 = this;
-
-      this.sending = true;
-      this.loadingComments = true;
-      this.$store.dispatch("add_comment_to_set", {
-        setId: this.set.id,
-        comment: this.commentToAdd
-      }).then(function () {
-        _this3.commentToAdd = "";
-        _this3.sending = false;
-        _this3.loadingComments = false;
-      });
-    },
-    deleteComment: function deleteComment(id) {
-      var _this4 = this;
-
-      this.loadingComments = true;
-      this.$store.dispatch("delete_comment_from_set", {
-        commentId: id,
-        setId: this.set.id
-      }).then(function () {
-        return _this4.loadingComments = false;
-      });
-    },
-    showMoreComments: function showMoreComments() {
-      this.showNumOfComments += 3;
-    }
-  }
 });
 
 /***/ }),
@@ -57634,10 +57626,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['url', 'type', 'objectId'],
     data: function data() {
         return {
             title: "",
+            objectId: this.$route.query.objid,
+            type: this.$route.query.type,
+            url: this.$route.query.url,
             format: 0,
             loading: false,
             errors: [],
@@ -57656,6 +57650,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.errors = ['Please Select Reason form list'];
             }
             this.loading = true;
+            console.log({
+                title: this.title,
+                message: this.message,
+                url: this.url,
+                type: this.type,
+                object_id: this.objectId,
+                format: this.format
+            });
+
             __WEBPACK_IMPORTED_MODULE_0__store_API__["a" /* default */].post('/pushReport', {
                 title: this.title,
                 message: this.message,
@@ -59157,7 +59160,13 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "report set-report",
-                        attrs: { to: "?popup=report" }
+                        attrs: {
+                          to:
+                            "?popup=report&objid=" +
+                            _vm.set.id +
+                            "&type=set&url=" +
+                            _vm.url
+                        }
                       },
                       [_vm._v("Report")]
                     )
@@ -59340,7 +59349,20 @@ var render = function() {
                                   },
                                   [_vm._v("Delete")]
                                 )
-                              : _vm._e(),
+                              : _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "deleteComment",
+                                    attrs: {
+                                      to:
+                                        "?popup=report&objid=" +
+                                        comment.id +
+                                        "&type=comment&url=" +
+                                        _vm.url
+                                    }
+                                  },
+                                  [_vm._v("Report")]
+                                ),
                             _vm._v(" "),
                             _c("div", { staticClass: "itsContent" }, [
                               _c("div", { staticClass: "message" }, [
@@ -59395,39 +59417,6 @@ var render = function() {
             1
           )
         })
-      ),
-      _vm._v(" "),
-      _c(
-        "transition",
-        {
-          attrs: {
-            name: "popups",
-            "enter-active-class": "animated fadeIn",
-            "leave-active-class": "animated fadeOut"
-          }
-        },
-        [
-          _vm.$route.query.popup &&
-          _vm.$store.getters.isAuth &&
-          _vm.$route.query.popup == "report"
-            ? _c(
-                "WrapperPopups",
-                [
-                  _vm.$route.query.popup == "report"
-                    ? _c("Report", {
-                        attrs: {
-                          url: _vm.url,
-                          type: "set",
-                          "object-id": _vm.set.id
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
       ),
       _vm._v(" "),
       _vm.loading ? _c("Loading") : _vm._e()
@@ -72177,7 +72166,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -72216,64 +72205,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["contestId"],
-  data: function data() {
-    return {
-      sending: false,
-      commentToAdd: "",
-      loadingComments: true,
-      showNumOfComments: 3
-    };
-  },
+    props: ["contestId"],
+    data: function data() {
+        return {
+            sending: false,
+            commentToAdd: "",
+            loadingComments: true,
+            showNumOfComments: 3
+        };
+    },
 
-  computed: {
-    contestComments: function contestComments() {
-      return this.$store.getters.contestComments;
+    computed: {
+        contestComments: function contestComments() {
+            return this.$store.getters.contestComments;
+        },
+        url: function url() {
+            return window.location.origin + "/#/contest/" + this.contestId;
+        }
+    },
+    created: function created() {
+        this.load();
+    },
+
+    methods: {
+        load: function load() {
+            var _this = this;
+
+            this.$store.dispatch("get_contest_comments", this.contestId).then(function () {
+                return _this.loadingComments = false;
+            });
+        },
+        addComment: function addComment() {
+            var _this2 = this;
+
+            this.sending = true;
+            this.loadingComments = true;
+            this.$store.dispatch("add_comment_to_contest", {
+                contestId: this.contestId,
+                text: this.commentToAdd
+            }).then(function () {
+                _this2.commentToAdd = "";
+                _this2.sending = false;
+                _this2.loadingComments = false;
+            });
+        },
+        deleteComment: function deleteComment(id) {
+            var _this3 = this;
+
+            this.loadingComments = true;
+            this.$store.dispatch("delete_comment_from_contest", {
+                contestId: this.contestId,
+                commentId: id
+            }).then(function () {
+                return _this3.loadingComments = false;
+            });
+        },
+        showMoreComments: function showMoreComments() {
+            this.showNumOfComments += 3;
+        }
     }
-  },
-  created: function created() {
-    this.load();
-  },
-
-  methods: {
-    load: function load() {
-      var _this = this;
-
-      this.$store.dispatch("get_contest_comments", this.contestId).then(function () {
-        return _this.loadingComments = false;
-      });
-    },
-    addComment: function addComment() {
-      var _this2 = this;
-
-      this.sending = true;
-      this.loadingComments = true;
-      this.$store.dispatch("add_comment_to_contest", {
-        contestId: this.contestId,
-        text: this.commentToAdd
-      }).then(function () {
-        _this2.commentToAdd = "";
-        _this2.sending = false;
-        _this2.loadingComments = false;
-      });
-    },
-    deleteComment: function deleteComment(id) {
-      var _this3 = this;
-
-      this.loadingComments = true;
-      this.$store.dispatch("delete_comment_from_contest", {
-        contestId: this.contestId,
-        commentId: id
-      }).then(function () {
-        return _this3.loadingComments = false;
-      });
-    },
-    showMoreComments: function showMoreComments() {
-      this.showNumOfComments += 3;
-    }
-  }
 });
 
 /***/ }),
@@ -72385,7 +72378,20 @@ var render = function() {
                         },
                         [_vm._v("Delete")]
                       )
-                    : _vm._e(),
+                    : _c(
+                        "router-link",
+                        {
+                          staticClass: "deleteComment",
+                          attrs: {
+                            to:
+                              "?popup=report&objid=" +
+                              comment.id +
+                              "&type=comment&url=" +
+                              _vm.url
+                          }
+                        },
+                        [_vm._v("Report")]
+                      ),
                   _vm._v(" "),
                   _c("div", { staticClass: "itsContent" }, [
                     _c("div", { staticClass: "message" }, [
@@ -79429,7 +79435,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.active-header {\n    border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n    z-index: 50;\n}\n.mobileMenu .in {\n    overflow: scroll;\n}\n#header .top .rightArea .search form select {\n    text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n    color: #df6262;\n    cursor: pointer;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.active-header {\n    border-bottom-color: #ffbeb8 !important;\n}\n.popupPage {\n    z-index: 50;\n}\n.mobileMenu .in {\n    overflow: scroll;\n}\n#header .top .rightArea .search form select {\n    text-transform: uppercase;\n}\n#header .top .rightArea .search form select:hover {\n    color: #df6262;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -79454,9 +79460,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__UserActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__UserActions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__ = __webpack_require__(374);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_popups_Report__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_popups_Report___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__layout_popups_Report__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__NavbarRoutes__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -79584,6 +79592,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -79604,12 +79616,13 @@ var $vm = null;
         WrapperPopups: __WEBPACK_IMPORTED_MODULE_6__wrappers_WrapperPopups___default.a,
         UserActions: __WEBPACK_IMPORTED_MODULE_5__UserActions___default.a,
         SetCollectionEditPopup: __WEBPACK_IMPORTED_MODULE_4__popups_SetCollectionEditPopup___default.a,
-        ContestUpload: __WEBPACK_IMPORTED_MODULE_3__popups_ContestUpload___default.a
+        ContestUpload: __WEBPACK_IMPORTED_MODULE_3__popups_ContestUpload___default.a,
+        Report: __WEBPACK_IMPORTED_MODULE_7__layout_popups_Report___default.a
     },
     data: function data() {
         return {
             navOpend: false,
-            routes: __WEBPACK_IMPORTED_MODULE_7__NavbarRoutes__["a" /* default */],
+            routes: __WEBPACK_IMPORTED_MODULE_8__NavbarRoutes__["a" /* default */],
             area: "item",
             searchString: "",
             source: [],
@@ -79652,18 +79665,24 @@ var $vm = null;
             this.firsttime = false;
             if (this.area === "item") {
                 this.source = data.map(function (item) {
-                    return _extends({}, item, { label: item.title_en, id: item.id + '_item' });
+                    return _extends({}, item, {
+                        label: item.title_en,
+                        id: item.id + "_item"
+                    });
                 });
             }
             if (this.area === "user") {
-                console.log('user', data);
+                console.log("user", data);
                 this.source = data.map(function (user) {
-                    return _extends({}, user, { label: user.fname + ' ' + user.lname, id: user.id + '_user' });
+                    return _extends({}, user, {
+                        label: user.fname + " " + user.lname,
+                        id: user.id + "_user"
+                    });
                 });
             }
         },
 
-        searchAutocomplete: __WEBPACK_IMPORTED_MODULE_8_lodash___default.a.debounce(function () {
+        searchAutocomplete: __WEBPACK_IMPORTED_MODULE_9_lodash___default.a.debounce(function () {
             if ($vm.searchString.length == 0) {
                 return;
             }
@@ -79677,7 +79696,7 @@ var $vm = null;
                 });
             }
             if ($vm.area === "user") {
-                console.log('users');
+                console.log("users");
                 $vm.$store.dispatch("search_user_autocomplete", $vm.searchString, true).then(function (data) {
                     $vm.autoCompleteUpdate(data);
                     $vm.searching = false;
@@ -82250,6 +82269,29 @@ var render = function() {
                     ? _c("ContestUpload")
                     : _vm._e()
                 ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        {
+          attrs: {
+            name: "popups",
+            "enter-active-class": "animated fadeIn",
+            "leave-active-class": "animated fadeOut"
+          }
+        },
+        [
+          _vm.$route.query.popup &&
+          _vm.$store.getters.isAuth &&
+          _vm.$route.query.popup == "report"
+            ? _c(
+                "WrapperPopups",
+                [_vm.$route.query.popup == "report" ? _c("Report") : _vm._e()],
                 1
               )
             : _vm._e()
