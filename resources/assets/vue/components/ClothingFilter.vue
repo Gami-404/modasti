@@ -34,6 +34,7 @@
               <i class="fa fa-angle-down"></i>
             </div>
           </div>
+          <a href="#" @click.prevent="reset" class="theBtn" style="background:#000; color : #fff" >Reset</a>
           <a href="#" @click.prevent="apply" class="theBtn">Apply</a>
         </div>
       </div>
@@ -56,6 +57,7 @@
       <ClothingFilterMobile>
         <div class="submitDiv">
           <input @click.prevent="apply" type="submit" value="apply">
+          <a href="#" @click.prevent="reset" type="submit" style="background:#000; color : #fff" >Reset</a>
           <input @click.prevent="mfilter =false" type="submit" value="Cancel" style="background:#000;color:#fff;">
         </div>
       </ClothingFilterMobile>
@@ -138,6 +140,15 @@ export default {
     apply() {
       this.loading = true;
       this.mfilter = false;
+      this.$store.dispatch("applyFilters");
+      this.$store.dispatch("get_category_items").then(() => {
+        this.loading = false;
+      });
+    },
+    reset(){
+      this.loading = true;      
+      this.$store.commit("RESET_FILTERS");
+      this.$store.dispatch("map_filters");
       this.$store.dispatch("applyFilters");
       this.$store.dispatch("get_category_items").then(() => {
         this.loading = false;
