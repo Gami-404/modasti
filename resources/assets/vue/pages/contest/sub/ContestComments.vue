@@ -12,7 +12,7 @@
         <div class="one clearfix">
           <router-link :to="'/profile/'+comment.from_id"> <img :src="comment.user.photo && comment.user.photo.photo_name == 'string' ? user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" class="avatar" alt=""> </router-link>
           <a href="#" v-if="comment.from_id===$store.getters.userId" @click.prevent="deleteComment(comment.id)" class="deleteComment">Delete</a>
-          <router-link v-else :to="`?popup=report&objid=${comment.id}&type=contest_comment&url=${url}`" class="deleteComment">Report</router-link>
+          <router-link v-else :to="`?popup=report&objid=${comment.id}&type=contest_comment&url=${url}`" class="deleteComment" style="color:red">Report</router-link>
           <div class="itsContent">
             <div class="message">{{comment.text_en}}</div>
             <div class="time">{{comment.created}}</div>

@@ -41,7 +41,7 @@
                 <span class="comment-user-name">{{ comment.user.fname +' ' + comment.user.lname}}</span>
               </router-link>
               <a v-if="userId === comment.from_id" href="#" @click.prevent="deleteComment(comment.id)" class="deleteComment">Delete</a>
-              <router-link v-else :to="`?popup=report&objid=${comment.id}&type=set_comment&url=${url}`" class="deleteComment">Report</router-link>
+              <router-link v-else :to="`?popup=report&objid=${comment.id}&type=set_comment&url=${url}`" class="deleteComment" style="color:red" >Report</router-link>
               <div class="itsContent">
                 <div class="message">{{comment.text_en}}</div>
                 <div class="time">{{comment.created}}</div>
