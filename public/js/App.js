@@ -59397,6 +59397,7 @@ var render = function() {
                                   "router-link",
                                   {
                                     staticClass: "deleteComment",
+                                    staticStyle: { color: "red" },
                                     attrs: {
                                       to:
                                         "?popup=report&objid=" +
@@ -72426,6 +72427,7 @@ var render = function() {
                         "router-link",
                         {
                           staticClass: "deleteComment",
+                          staticStyle: { color: "red" },
                           attrs: {
                             to:
                               "?popup=report&objid=" +
