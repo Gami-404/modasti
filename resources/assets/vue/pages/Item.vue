@@ -13,8 +13,8 @@
             <div v-html="data.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{data.price}} {{getCurrencySymbolItem(data.currency)}}</div>
-              <router-link class="link" :to="(data.website?data.website :'/profile/'+data.user_id)">{{data.brand}}</router-link>
-              <router-link class="item-buy" :to="(data.website?data.website :'/profile/'+data.user_id)">Buy</router-link>
+              <router-link class="link" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">{{data.brand}}</router-link>
+              <router-link class="item-buy" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">Buy</router-link>
             </div>
             <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
           </div>

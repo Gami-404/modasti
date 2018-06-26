@@ -43,7 +43,7 @@ body, button, input, select, textarea {
 }
 
 
-#footer , .PD_comments .theComments .one ,#header .bottom #nav,.proudctDetails .content .in .description , .proudctDetails .content .in .info .link , .proudctDetails .content .in .paging , #header .top .rightArea .userActions .theUser span {
+#footer , .productCard .content .link , .PD_comments .theComments .one ,#header .bottom #nav,.proudctDetails .content .in .description , .proudctDetails .content .in .info .link , .proudctDetails .content .in .paging , #header .top .rightArea .userActions .theUser span {
     font-family:GillSans,serif !important;
 }
 

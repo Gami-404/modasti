@@ -14,7 +14,7 @@
                 <hr>
                 <div class="price">{{item.price}} {{getCurrencySymbolItem(item.currency)}}</div>
                 <div class="link">
-                    <a :href=" (item.website?item.website :'#/profile/'+item.user_id)">{{item.brand||"Unknown"}}</a>
+                    <a :href=" (item.url_en?item.url_en :'#/profile/'+item.user_id)">{{item.brand||"Unknown"}}</a>
                 </div>
             </div>
             <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true"
