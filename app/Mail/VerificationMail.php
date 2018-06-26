@@ -41,6 +41,6 @@ class VerificationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.verification', ['url' => route('verification.mail', ['token' => $this->token])]);
+        return $this->from('no-reply@modasti.com',"Modasti Support")->view('emails.verification', ['url' => route('verification.mail', ['token' => $this->token])]);
     }
 }
