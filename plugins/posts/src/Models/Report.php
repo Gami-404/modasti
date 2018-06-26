@@ -2,6 +2,8 @@
 
 namespace Dot\Posts\Models;
 
+use App\Model\ContestComment;
+use App\Model\SetComment;
 use Cache;
 use Dot\Media\Models\Media;
 use Dot\Platform\Model;
@@ -114,6 +116,14 @@ class Report extends Model
 
         if ($this->type == "collection") {
             $object = Collection::find($this->object_id);
+        }
+
+        if ($this->type == "set_comment") {
+            $object = SetComment::find($this->object_id);
+        }
+
+        if ($this->type == "contest_comment") {
+            $object = ContestComment::find($this->object_id);
         }
 
         return $object;

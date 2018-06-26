@@ -78,8 +78,7 @@
                                             </p>
                                             <p style="text-align: right;">
                                                 <a href="javascript:void(0)" class="btn btn-danger action-delete"
-                                                   data-key="{{$item->id}}"><i class="fa fa-trash"
-                                                                               hidden="true"></i></a>
+                                                   data-key="{{$item->id}}"><i class="fa fa-trash" hidden="true"></i></a>
                                             </p>
                                         </div>
                                     </div>
