@@ -39,7 +39,7 @@ class CategoriesController extends Controller
         $this->data["order"] = (Request::filled("order")) ? Request::get("order") : "ASC";
         $this->data['per_page'] = (Request::filled("per_page")) ? Request::get("per_page") : NULL;
 
-        $query = Category::parent($parent)->orderBy($this->data["sort"], $this->data["order"]);
+        $query = Category::parent($parent)->orderBy('order','ASC');
 
         if (Request::filled("q")) {
             $query->search(urldecode(Request::get("q")));
@@ -177,4 +177,14 @@ class CategoriesController extends Controller
 
     }
 
+    /**
+     *
+     */
+    public function reorder()
+    {
+        foreach (Request::get('order') as $order){
+           Category::where('id',$order['id'])->update(['order'=>$order['order']]);
+        }
+
+    }
 }

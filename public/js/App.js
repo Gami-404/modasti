@@ -55960,6 +55960,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -56019,6 +56021,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.$store.dispatch("applyFilters");
       this.$store.dispatch("get_category_items").then(function () {
         _this.loading = false;
+      });
+    },
+    reset: function reset() {
+      var _this2 = this;
+
+      this.loading = true;
+      this.$store.commit("RESET_FILTERS");
+      this.$store.dispatch("map_filters");
+      this.$store.dispatch("applyFilters");
+      this.$store.dispatch("get_category_items").then(function () {
+        _this2.loading = false;
       });
     }
   }
@@ -56616,6 +56629,22 @@ var render = function() {
                 "a",
                 {
                   staticClass: "theBtn",
+                  staticStyle: { background: "#000", color: "#fff" },
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.reset($event)
+                    }
+                  }
+                },
+                [_vm._v("Reset")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "theBtn",
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
@@ -56714,6 +56743,21 @@ var render = function() {
                       }
                     }
                   }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticStyle: { background: "#000", color: "#fff" },
+                      attrs: { href: "#", type: "submit" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.reset($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Reset")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     staticStyle: { background: "#000", color: "#fff" },
@@ -59357,7 +59401,7 @@ var render = function() {
                                       to:
                                         "?popup=report&objid=" +
                                         comment.id +
-                                        "&type=comment&url=" +
+                                        "&type=set_comment&url=" +
                                         _vm.url
                                     }
                                   },
@@ -72386,7 +72430,7 @@ var render = function() {
                             to:
                               "?popup=report&objid=" +
                               comment.id +
-                              "&type=comment&url=" +
+                              "&type=contest_comment&url=" +
                               _vm.url
                           }
                         },

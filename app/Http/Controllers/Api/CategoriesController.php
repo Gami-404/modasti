@@ -18,7 +18,9 @@ class CategoriesController extends Controller
     public function getItemsCategories(Request $request)
     {
         $data = ['data' => [], 'errors' => []];
-        $categories = Category::with('categories', 'image')->where('parent', 0)->get();
+        $categories = Category::with(['categories' => function ($query) {
+            $query->orderBy('order','ASC');
+        }, 'image'])->orderBy('order', 'ASC')->where('parent', 0)->get();
         $data['data'] = \Maps\Category\categories($categories);
         return response()->json($data);
     }
