@@ -120,7 +120,7 @@
         </transition>
         <transition name="popups" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
             <WrapperPopups v-if="$route.query.popup && $store.getters.isAuth&&$route.query.popup=='report'">
-                <Report v-if="$route.query.popup=='report'"/>
+                <Report v-if="$route.query.popup=='report'" />
             </WrapperPopups>
         </transition>
     </div>
@@ -173,17 +173,19 @@ export default {
             if (search2.length > 0) {
                 this.$router.push(`/search/${this.area}/${search2}`);
                 this.searchString = search2;
-                this.area == "item"
+                (this.area == "item"
                     ? this.$store.dispatch("search_item_offset_reset")
-                    : this.$store.dispatch("search_user_offset_reset");
+                    : this.$store.dispatch("search_user_offset_reset")
+                ).then(() => (this.searchString = ""));
             }
         },
         searchSubmit() {
             if (this.searchString.length > 0) {
                 this.$router.push(`/search/${this.area}/${this.searchString}`);
-                this.area == "item"
+                (this.area == "item"
                     ? this.$store.dispatch("search_item_offset_reset")
-                    : this.$store.dispatch("search_user_offset_reset");
+                    : this.$store.dispatch("search_user_offset_reset")
+                ).then(() => (this.searchString = ""));
             } else {
                 this.openInMobile = false;
             }
