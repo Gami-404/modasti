@@ -3,6 +3,7 @@
 namespace Dot\Posts\Controllers;
 
 use Action;
+use App\Model\ContestItem;
 use Dot\Posts\Models\Contest;
 use Dot\Posts\Models\PostSize;
 use Illuminate\Support\Facades\Auth;
@@ -245,6 +246,31 @@ class ContestsController extends Controller
 
 
         return View::make("posts::contests.edit", $this->data);
+    }
+
+
+    public function deleteItem()
+    {
+        $ids = Request::get("id");
+
+        $ids = is_array($ids) ? $ids : [$ids];
+
+        foreach ($ids as $ID) {
+
+            $contest = ContestItem::findOrFail($ID);
+
+            // Fire deleting action
+
+            Action::fire("post.contest.item.deleting", $contest);
+
+            $contest->delete();
+
+
+            // Fire deleted action
+
+            Action::fire("post.contest.item.deleted", $contest);
+        }
+
     }
 
 }

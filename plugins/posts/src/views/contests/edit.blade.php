@@ -29,7 +29,8 @@
             <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 text-right">
 
                 @if ($contest->id)
-                    <a href="{{ route("admin.posts.contests.create") }}" class="btn btn-primary btn-labeled btn-main"> <span
+                    <a href="{{ route("admin.posts.contests.create") }}"
+                       class="btn btn-primary btn-labeled btn-main"> <span
                             class="btn-label icon fa fa-plus"></span>
                         {{ trans("posts::contests.add_new") }}</a>
                 @endif
@@ -60,7 +61,33 @@
                             <div class="form-group">
                                 @include("admin::partials.editor", ["name" => "content", "id" => "postcontent", "value" => $contest->content])
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @foreach($contest->items as $item)
+                                <div class="col-md-3 item-card">
+                                    <div class="thumbnail">
+                                        <img src="{{thumbnail($item->image->path)}}" alt="Iems"
+                                             title="{{$item->title}}">
+                                        <div class="caption">
+                                            <h3>{{$item->title}}</h3>
+                                            <p>
+                                                Created by:{{$item->user->first_name.' '.$item->user->last_name}}
+                                            </p>
+                                            <p style="text-align: right;">
+                                                <a href="javascript:void(0)" class="btn btn-danger action-delete"
+                                                   data-key="{{$item->id}}"><i class="fa fa-trash"
+                                                                               hidden="true"></i></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            @if(count($contest->items)==0)
+                                <p>No items found</p>
+                            @endif
                         </div>
                     </div>
 
@@ -434,6 +461,22 @@
 
         });
 
+
+        $(function () {
+            $('.action-delete').click(function () {
+                $self = $(this);
+                $.ajax({
+                    url: "{{route('admin.posts.contests.items.delete')}}",
+                    data: {
+                        id: $self.data('key'),
+                    },
+                    "type": 'POST',
+                    success: function () {
+                        $self.closest('.item-card').fadeOut(500);
+                    }
+                });
+            });
+        })
 
     </script>
 
