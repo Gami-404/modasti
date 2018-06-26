@@ -67,6 +67,7 @@ class UserController extends Controller
         $response['data']->currency = $user->currency;
         $response['data']->last_login = isset($user->last_login) && !empty($user->last_login) ? $user->last_login->timestamp : null;
         $response['data']->about = $user->about;
+        $response['data']->email_verify = $user->email_verify;
         $response['token'] = $user->api_token;
         $user->last_login = Carbon::now();
         $user->save();
@@ -320,6 +321,10 @@ class UserController extends Controller
             $user->last_name = $request->get('lastName');
         }
         if ($request->filled('email')) {
+            if ($request->get('email') != $user->email) {
+                $user->email_verify = 0;
+                event(new VerificationMail($user));
+            }
             $user->email = $request->get('email');
             $user->username = $request->get('email');
         }

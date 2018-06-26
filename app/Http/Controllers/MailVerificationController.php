@@ -26,6 +26,7 @@ class MailVerificationController extends Controller
             return response('This link not exist or expired', 404);
         }
         $user->status = 1;
+        $user->email_verify = 1;
         $user->save();
         DB::table('verification_tokens')->where(['token'=>$token,'user_id'=>$user->id])->delete();
         return redirect('/#/?popup=login');
