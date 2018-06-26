@@ -35,22 +35,7 @@
                 <input type="hidden" name="per_page" value="{{ Request::get('per_page') }}"/>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="form-group">
-                            <select name="sort" class="form-control chosen-select chosen-rtl">
-
-                                <option value="name"
-                                        @if($sort == "name") selected='selected' @endif>{{ trans("categories::categories.attributes.name") }}</option>
-                            </select>
-                            <select name="order" class="form-control chosen-select chosen-rtl">
-                                <option value="DESC"
-                                        @if($order == "DESC") selected='selected' @endif>{{ trans("categories::categories.desc") }}</option>
-                                <option value="ASC"
-                                        @if($order == "ASC") selected='selected' @endif>{{ trans("categories::categories.asc") }}</option>
-                            </select>
-                            <button type="submit"
-                                    class="btn btn-primary">{{ trans("categories::categories.order") }}</button>
-                        </div>
+                    <div class="col-lg-4 col-md-4" style="min-height: 100px">
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <div class="form-group">
@@ -122,7 +107,7 @@
                                         <th>{{ trans("categories::categories.actions") }}</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="sortable">
                                     @foreach ($categories as $category)
                                         <tr>
                                             <td>
@@ -210,6 +195,24 @@
                 $(".filter-form input[name=per_page]").val(per_page);
                 $(".filter-form").submit();
             });
+
+            $("#sortable").sortable({
+                update: function (event, ui) {
+                    var data = [];
+                    ($('tr td input[class=i-checks]').map(function (index, input) {
+                        data.push({
+                            id: input.value,
+                            order: index + 1
+                        });
+                    }));
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{route('admin.categories.reorder')}}",
+                        data: {"order":data}
+                    });
+                }
+            });
+            $("#sortable").disableSelection();
         });
 
     </script>
