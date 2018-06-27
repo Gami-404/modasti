@@ -93,7 +93,7 @@
                                 <input type="submit" class="btn btn-primary" name="action" value="unblock"/>
                             @endif
                             <br>
-                            <div class="form-group date-time-pick" style=" display:{{$report->action==3?'block':'none'}};" id="suspended_to">
+                            <div class="form-group date-time-pick" style=" display:{{$report->action_id==3?'block':'none'}};" id="suspended_to">
                                 <label class="col-sm-3 control-label">Suspended to</label>
                                 <div class="input-group date datetimepick">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
