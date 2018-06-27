@@ -56,7 +56,8 @@
                     </form>
                 </div>
 
-                <p style="color: green" v-if="upload">You report Submit</p>
+                <p style="color: Black;text-transform: uppercase" v-if="upload">Thanks for helping us keeping Modasti a
+                    friendly and safe place</p>
             </div>
         </div>
     </transition>
@@ -70,7 +71,7 @@
         data() {
             return {
                 title: "",
-                objectId: this.$route.query.objid ,
+                objectId: this.$route.query.objid,
                 type: this.$route.query.type,
                 url: this.$route.query.url,
                 format: 0,
@@ -94,16 +95,16 @@
                     url: this.url,
                     type: this.type,
                     object_id: this.objectId,
-                    format:this.format
+                    format: this.format
                 });
-                
+
                 API.post('/pushReport', {
                     title: this.title,
                     message: this.message,
                     url: this.url,
                     type: this.type,
                     object_id: this.objectId,
-                    format:this.format
+                    format: this.format
                 }).then((res) => {
                     this.loading = false;
                     this.upload = true;
