@@ -73,7 +73,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Actions</h3>
+                            <h3 class="panel-title">Actions for ({{$report->target->user->first_name.' '.$report->target->user->last_name}})</h3>
                         </div>
                         <div class="panel-body">
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
@@ -92,6 +92,7 @@
                             ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
                                 <input type="submit" class="btn btn-primary" name="action" value="unblock"/>
                             @endif
+                            <br>
                             <div class="form-group date-time-pick" style=" display:{{$report->action==3?'block':'none'}};" id="suspended_to">
                                 <label class="col-sm-3 control-label">Suspended to</label>
                                 <div class="input-group date datetimepick">

@@ -117,6 +117,7 @@ class ReportsController extends Controller
 
         $report = Report::findOrFail($id);
 
+
         if (Request::isMethod("post") && $report->action_id == 0) {
 
 
@@ -139,6 +140,14 @@ class ReportsController extends Controller
             $user = $report->target->user;
             $user->suspended = 0;
             $user->suspended_to = Carbon::now()->subDay(1);
+            $user->save();
+            return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
+        }
+
+        if (Request::isMethod("post")){
+            $user = $report->target->user;
+            $user->suspended = 0;
+            $user->suspended_to = Request::get('suspended_to');
             $user->save();
             return Redirect::route("admin.posts.reports.details", array("id" => $id))->with("message", trans("posts::reports.events.updated"));
         }
@@ -168,7 +177,7 @@ class ReportsController extends Controller
         }
 
         if ($action_id == 3) {
-            $user->suspended_to = Carbon::now()->addMonth();
+            $user->suspended_to = Request::get('suspended_to');
         }
         Mail::to($user->email)->send(new ReportMail($user, $report));
         $user->api_token = str_random(60);
