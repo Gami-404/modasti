@@ -79,7 +79,7 @@
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
                                     class="form-control">
                                 <option value> -- Select action</option>
-                                @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend for month'] as $key=>$text)
+                                @foreach([1=>'Delete Reported '.$report->type,2=>'Suspend for ever',3=>'Suspend to'] as $key=>$text)
                                     <option
                                         value="{{$key}}" {{$report->action_id==$key?'selected':''}}>{{$text}}</option>
                                 @endforeach
@@ -90,8 +90,18 @@
 
                             @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
                             ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
-                                <input type="submit"  class="btn btn-primary"  name="action" value="unblock"/>
+                                <input type="submit" class="btn btn-primary" name="action" value="unblock"/>
                             @endif
+                            <div class="form-group date-time-pick" style=" display:{{$report->action==3?'block':'none'}};" id="suspended_to">
+                                <label class="col-sm-3 control-label">Suspended to</label>
+                                <div class="input-group date datetimepick">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input name="suspended_to" type="text"
+                                           value="{{ (!isset($report->target->user)) ? date("Y-m-d H:i:s") : @Request::old('suspended_to',$report->target->user->suspended_to) }}"
+                                           class="form-control" id="input-suspended_to"
+                                           placeholder="Suspended to">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -346,35 +356,11 @@
                     alert(media_path + " is not an image");
                 }
             });
-            $("body").on("click", ".remove_gallery", function () {
-                var base = $(this);
-                var data_gallery = base.parents(".post_gallery");
-                var data_gallery_id = data_gallery.attr("data-gallery-id");
-                bootbox.dialog({
-                    message: "هل أنت متأكد من الحذف ؟",
-                    buttons: {
-                        success: {
-                            label: "موافق",
-                            className: "btn-success",
-                            callback: function () {
-                                data_gallery.remove();
-                                if ($(".post_galleries [data-gallery-id]").length != 0) {
-                                    $(".iwell.add_gallery").slideUp();
-                                } else {
-                                    $(".iwell.add_gallery").slideDown();
-                                }
 
-                            }
-                        },
-                        danger: {
-                            label: "إلغاء",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        },
-                    },
-                    className: "bootbox-sm"
-                });
+            $('#select-action').change(function (e) {
+                if($(this).val()==3){
+                    $('#suspended_to').fadeIn(1000);
+                }
             });
 
         });
