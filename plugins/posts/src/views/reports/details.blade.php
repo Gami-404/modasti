@@ -88,11 +88,7 @@
                                 <button type="submit" class="btn btn-primary">Save Action</button>
                             @endif
 
-                            @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
-                            ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
-                                <input type="submit" class="btn btn-primary" name="action" value="unblock"/>
-                            @endif
-                            <br>
+
                             <div class="form-group date-time-pick" style=" display:{{$report->action_id==3?'block':'none'}};" id="suspended_to">
                                 <label class="col-sm-3 control-label">Suspended to</label>
                                 <div class="input-group date datetimepick">
@@ -103,6 +99,12 @@
                                            placeholder="Suspended to">
                                 </div>
                             </div>
+
+                            @if(($report->action_id==3||$report->action_id==2)&&($report->target->user->suspended==1
+                          ||(new Carbon\Carbon($report->target->user->suspended_to))->getTimestamp()>=Carbon\Carbon::now()->getTimestamp()))
+                                <input type="submit" class="btn btn-primary" name="action" value="unblock"/>
+                            @endif
+                            <br>
                         </div>
                     </div>
                 </div>
