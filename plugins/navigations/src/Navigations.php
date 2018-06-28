@@ -25,7 +25,7 @@ class Navigations extends \Dot\Platform\Plugin
         Navigation::menu("sidebar", function ($menu) {
             if (Auth::user()->can("blocks.manage")) {
                 $menu->item('navigations', trans("navigations::navigations.module"), route("admin.navigations.show"))
-                    ->order(1)
+                    ->order(.1)
                     ->icon("fa-th-large");
             }
         });
