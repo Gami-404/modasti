@@ -43,7 +43,8 @@
       "Dot\\Blocks\\":"plugins/blocks/src/",
       "Dot\\Pages\\":"plugins/pages/src/",
       "Dot\\Users\\":"plugins/users/src/",
-      "Dot\\Media\\":"plugins/media/src/"
+      "Dot\\Media\\":"plugins/media/src/",
+      "Dot\\Navigations\\":"plugins/navigations/src/"
     }
   },
   "autoload-dev": {

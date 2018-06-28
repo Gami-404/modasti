@@ -40,5 +40,6 @@ return [
         "colors" => Dot\Colors\Colors::class,
         "blocks" => Dot\Blocks\Blocks::class,
         "pages" => Dot\Pages\Pages::class,
+        "navigations" => Dot\Navigations\Navigations::class,
     ]
 ];
