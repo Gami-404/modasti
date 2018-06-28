@@ -237,9 +237,10 @@
                             <tr>
                                 <td class="content-cell">
                                     <p>
-                                        Hi {{$user->first_name}} {{$user->last_name}}
+                                        Hi {{$user->first_name}} {{$user->last_name}}<br>
                                         Thanks for becoming a member of Modasti community!
-                                        Verify your profile by clicking on the link below.
+                                        Verify your profile or your email by clicking on the link below.
+
                                         <a style="text-decoration:underline;font-weight:bold;color:#212121"
                                            href="{{$url}}" target="_blank">Login</a>
                                     </p>
