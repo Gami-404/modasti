@@ -74,8 +74,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Actions
-                                ({{$report->target?' for '.$report->target->user->first_name.' '.$report->target->user->last_name:''}}
-                                )</h3>
+                                {{$report->target?' for ('.$report->target->user->first_name.' '.$report->target->user->last_name.')':''}}
+                            </h3>
                         </div>
                         <div class="panel-body">
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
