@@ -303,7 +303,7 @@ class UserController extends Controller
         $validator->sometimes('currentPassword', 'required|min:6', function () use ($request) {
             return $request->filled('password') || $request->filled('currentPassword');
         });
-        $validator->sometimes('email', 'required|email|unique:users,email,[id],id', function () use ($request, $user) {
+        $validator->sometimes('email', 'required|email|unique:users,email', function () use ($request, $user) {
             return $request->filled('email') && (trim($request->get('email')) != trim($user->email));
         });
 
