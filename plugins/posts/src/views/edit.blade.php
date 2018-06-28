@@ -85,7 +85,7 @@
                                 <div class="panel-body form-group">
                                     <div class="row post-image-block">
                                         <input type="hidden" name="image_id" class="post-image-id"
-                                               value="{{ ($post->image) ? $post->image->id : 0 }}">
+                                               value="{{ ($post->image) ? $post->image->id : 0 }}" id="post-image-id">
 
                                         <a class="change-post-image label" href="javascript:void(0)">
                                             <i class="fa fa-pencil text-navy"></i>
@@ -501,21 +501,9 @@
                 },
                 error: function (media_path) {
                     alert_box("{{ trans("posts::posts.not_image_file") }}");
-                }
-            });
-
-            $(".change-post-media").filemanager({
-                types: "video",
-                panel: "media",
-                done: function (result, base) {
-                    if (result.length) {
-                        var file = result[0];
-                        base.parents(".post-media-block").find(".post-media-id").first().val(file.id);
-                        base.parents(".post-media-block").find(".post-media").first().attr("src", file.thumbnail);
-                    }
                 },
-                error: function (media_path) {
-                    alert_box("{{ trans("posts::posts.not_media_file") }}");
+                media_id:function () {
+                    return $('#post-image-id').val();
                 }
             });
 

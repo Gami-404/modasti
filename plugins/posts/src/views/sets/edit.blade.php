@@ -114,7 +114,7 @@
                         </div>
                         <div class="panel-body form-group">
                             <div class="row post-image-block">
-                                <input type="hidden" name="image_id" class="post-image-id"
+                                <input type="hidden" name="image_id" class="post-image-id" id="post-image-id"
                                        value="{{ ($set->image) ? $set->image->id : 0 }}">
 
                                 <a class="change-post-image label" href="javascript:void(0)">

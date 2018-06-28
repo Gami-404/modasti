@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PasswordChangeMail;
 use App\Mail\ResetPasswordMail;
 use App\User;
 use Carbon\Carbon;
@@ -62,6 +63,9 @@ class ResetPasswordController extends Controller
         $user = User::where(['backend' => 0, 'email' => $token->email])->firstOrFail();
         $user->password = $request->get('password');
         $user->save();
+
+        Mail::to($user->email)->send(new PasswordChangeMail($user));
+
         DB::table('password_resets')->where(['token' => $token->token])->delete();
         return redirect('/#/?popup=login');
     }
