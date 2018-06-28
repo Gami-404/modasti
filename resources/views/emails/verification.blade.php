@@ -9,6 +9,7 @@
             font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
             box-sizing: border-box;
         }
+
         body {
             width: 100% !important;
             height: 100%;
@@ -18,6 +19,7 @@
             color: #74787E;
             -webkit-text-size-adjust: none;
         }
+
         p,
         ul,
         ol,
@@ -37,6 +39,7 @@
         td {
             word-break: break-word;
         }
+
         .email-wrapper {
             width: 100%;
             margin: 0;
@@ -46,6 +49,7 @@
             -premailer-cellspacing: 0;
             background-color: #F2F4F6;
         }
+
         .email-content {
             width: 100%;
             margin: 0;
@@ -54,10 +58,12 @@
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
         }
+
         .email-masthead {
             padding: 25px 0;
             text-align: center;
         }
+
         .email-masthead_name {
             font-size: 16px;
             font-weight: bold;
@@ -65,6 +71,7 @@
             text-decoration: none;
             text-shadow: 0 1px 0 white;
         }
+
         .email-body {
             width: 100%;
             margin: 0;
@@ -96,9 +103,11 @@
             -premailer-cellspacing: 0;
             text-align: center;
         }
+
         .email-footer p {
             color: #AEAEAE;
         }
+
         .body-action {
             width: 100%;
             margin: 30px auto;
@@ -130,20 +139,24 @@
             opacity: 0;
             overflow: hidden;
         }
+
         .align-center {
             text-align: center;
         }
+
         @media only screen and (max-width: 600px) {
             .email-body_inner,
             .email-footer {
                 width: 100% !important;
             }
         }
+
         @media only screen and (max-width: 500px) {
             .button {
                 width: 100% !important;
             }
         }
+
         .button {
             background-color: #3869D4;
             border-top: 10px solid #3869D4;
@@ -165,6 +178,7 @@
             border-bottom: 10px solid #22BC66;
             border-left: 18px solid #22BC66;
         }
+
         h1 {
             margin-top: 0;
             color: #2F3133;
@@ -223,20 +237,14 @@
                             <tr>
                                 <td class="content-cell">
                                     <p>
-                                        Congratulations, you have
-                                        meet the criteria to become an official brand on Modasti!
-
-                                        Click on the link below to get access to your profile.
-                                        We thank you for choosing to advertise your store on Modasti and we wish a
-                                        lasting relationship with
-                                        you.
-                                        Modasti.
-                                        <br>Now you can<a
-                                                style="text-decoration:underline;font-weight:bold;color:#212121"
-                                                href="{{$url}}" target="_blank">Login</a>
+                                        Hi {{$user->first_name}} {{$user->last_name}}
+                                        Thanks for becoming a member of Modasti community!
+                                        Verify your profile by clicking on the link below.
+                                        <a style="text-decoration:underline;font-weight:bold;color:#212121"
+                                           href="{{$url}}" target="_blank">Login</a>
                                     </p>
                                     <p>Thanks,
-                                        <br>The Modasti Team</p>
+                                        <br>The Modasti</p>
                                 </td>
                             </tr>
                         </table>

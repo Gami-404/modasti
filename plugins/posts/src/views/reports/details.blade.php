@@ -73,7 +73,9 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Actions for ({{$report->target->user->first_name.' '.$report->target->user->last_name}})</h3>
+                            <h3 class="panel-title">Actions
+                                ({{$report->target?' for '.$report->target->user->first_name.' '.$report->target->user->last_name:''}}
+                                )</h3>
                         </div>
                         <div class="panel-body">
                             <select name="action_id" {{$report->action_id!=0?'disabled':''}} id="select-action"
@@ -89,12 +91,13 @@
                             @endif
 
 
-                            <div class="form-group date-time-pick" style=" display:{{$report->action_id==3?'block':'none'}};" id="suspended_to">
+                            <div class="form-group date-time-pick"
+                                 style=" display:{{$report->action_id==3?'block':'none'}};" id="suspended_to">
                                 <label class="col-sm-3 control-label">Suspended to</label>
                                 <div class="input-group date datetimepick">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <input name="suspended_to" type="text"
-                                           value="{{ (!isset($report->target->user)) ? date("Y-m-d H:i:s") : @Request::old('suspended_to',$report->target->user->suspended_to) }}"
+                                           value="{{ (!isset($report->target)||!isset($report->target->user)) ? date("Y-m-d H:i:s") : @Request::old('suspended_to',$report->target->user->suspended_to) }}"
                                            class="form-control" id="input-suspended_to"
                                            placeholder="Suspended to">
                                 </div>
@@ -361,7 +364,7 @@
             });
 
             $('#select-action').change(function (e) {
-                if($(this).val()==3){
+                if ($(this).val() == 3) {
                     $('#suspended_to').fadeIn(1000);
                 }
             });
