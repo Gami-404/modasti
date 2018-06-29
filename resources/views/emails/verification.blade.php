@@ -5,8 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Verification Mail</title>
     <style type="text/css" rel="stylesheet" media="all">
-        /* Base ------------------------------ */
-
         *:not(br):not(tr):not(html) {
             font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
             box-sizing: border-box;
@@ -42,8 +40,6 @@
             word-break: break-word;
         }
 
-        /* Layout ------------------------------ */
-
         .email-wrapper {
             width: 100%;
             margin: 0;
@@ -63,15 +59,9 @@
             -premailer-cellspacing: 0;
         }
 
-        /* Masthead ----------------------- */
-
         .email-masthead {
             padding: 25px 0;
             text-align: center;
-        }
-
-        .email-masthead_logo {
-            width: 94px;
         }
 
         .email-masthead_name {
@@ -81,8 +71,6 @@
             text-decoration: none;
             text-shadow: 0 1px 0 white;
         }
-
-        /* Body ------------------------------ */
 
         .email-body {
             width: 100%;
@@ -152,163 +140,9 @@
             overflow: hidden;
         }
 
-        /* Attribute list ------------------------------ */
-
-        .attributes {
-            margin: 0 0 21px;
-        }
-
-        .attributes_content {
-            background-color: #EDEFF2;
-            padding: 16px;
-        }
-
-        .attributes_item {
-            padding: 0;
-        }
-
-        /* Related Items ------------------------------ */
-
-        .related {
-            width: 100%;
-            margin: 0;
-            padding: 25px 0 0 0;
-            -premailer-width: 100%;
-            -premailer-cellpadding: 0;
-            -premailer-cellspacing: 0;
-        }
-
-        .related_item {
-            padding: 10px 0;
-            color: #74787E;
-            font-size: 15px;
-            line-height: 18px;
-        }
-
-        .related_item-title {
-            display: block;
-            margin: .5em 0 0;
-        }
-
-        .related_item-thumb {
-            display: block;
-            padding-bottom: 10px;
-        }
-
-        .related_heading {
-            border-top: 1px solid #EDEFF2;
-            text-align: center;
-            padding: 25px 0 10px;
-        }
-
-        /* Discount Code ------------------------------ */
-
-        .discount {
-            width: 100%;
-            margin: 0;
-            padding: 24px;
-            -premailer-width: 100%;
-            -premailer-cellpadding: 0;
-            -premailer-cellspacing: 0;
-            background-color: #EDEFF2;
-            border: 2px dashed #9BA2AB;
-        }
-
-        .discount_heading {
-            text-align: center;
-        }
-
-        .discount_body {
-            text-align: center;
-            font-size: 15px;
-        }
-
-        /* Social Icons ------------------------------ */
-
-        .social {
-            width: auto;
-        }
-
-        .social td {
-            padding: 0;
-            width: auto;
-        }
-
-        .social_icon {
-            height: 20px;
-            margin: 0 8px 10px 8px;
-            padding: 0;
-        }
-
-        /* Data table ------------------------------ */
-
-        .purchase {
-            width: 100%;
-            margin: 0;
-            padding: 35px 0;
-            -premailer-width: 100%;
-            -premailer-cellpadding: 0;
-            -premailer-cellspacing: 0;
-        }
-
-        .purchase_content {
-            width: 100%;
-            margin: 0;
-            padding: 25px 0 0 0;
-            -premailer-width: 100%;
-            -premailer-cellpadding: 0;
-            -premailer-cellspacing: 0;
-        }
-
-        .purchase_item {
-            padding: 10px 0;
-            color: #74787E;
-            font-size: 15px;
-            line-height: 18px;
-        }
-
-        .purchase_heading {
-            padding-bottom: 8px;
-            border-bottom: 1px solid #EDEFF2;
-        }
-
-        .purchase_heading p {
-            margin: 0;
-            color: #9BA2AB;
-            font-size: 12px;
-        }
-
-        .purchase_footer {
-            padding-top: 15px;
-            border-top: 1px solid #EDEFF2;
-        }
-
-        .purchase_total {
-            margin: 0;
-            text-align: right;
-            font-weight: bold;
-            color: #2F3133;
-        }
-
-        .purchase_total--label {
-            padding: 0 15px 0 0;
-        }
-
-        /* Utilities ------------------------------ */
-
-        .align-right {
-            text-align: right;
-        }
-
-        .align-left {
-            text-align: left;
-        }
-
         .align-center {
             text-align: center;
         }
-
-        /*Media Queries ------------------------------ */
 
         @media only screen and (max-width: 600px) {
             .email-body_inner,
@@ -322,8 +156,6 @@
                 width: 100% !important;
             }
         }
-
-        /* Buttons ------------------------------ */
 
         .button {
             background-color: #3869D4;
@@ -346,16 +178,6 @@
             border-bottom: 10px solid #22BC66;
             border-left: 18px solid #22BC66;
         }
-
-        .button--red {
-            background-color: #FF6136;
-            border-top: 10px solid #FF6136;
-            border-right: 18px solid #FF6136;
-            border-bottom: 10px solid #FF6136;
-            border-left: 18px solid #FF6136;
-        }
-
-        /* Type ------------------------------ */
 
         h1 {
             margin-top: 0;
@@ -393,9 +215,6 @@
             font-size: 12px;
         }
 
-        p.center {
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -418,20 +237,15 @@
                             <tr>
                                 <td class="content-cell">
                                     <p>
-                                        Congratulations, you have
-                                        meet the criteria to become an official brand on Modasti!
+                                        Hi {{$user->first_name}} {{$user->last_name}}<br>
+                                        Thanks for becoming a member of Modasti community!
+                                        Verify your profile or your email by clicking on the link below.
 
-                                        Click on the link below to get access to your profile.
-                                        We thank you for choosing to advertise your store on Modasti and we wish a
-                                        lasting relationship with
-                                        you.
-                                        Modasti.
-                                        <br>Now you can<a
-                                                style="text-decoration:underline;font-weight:bold;color:#212121"
-                                                href="{{$url}}" target="_blank">Login</a>
+                                        <a style="text-decoration:underline;font-weight:bold;color:#212121"
+                                           href="{{$url}}" target="_blank">Login</a>
                                     </p>
                                     <p>Thanks,
-                                        <br>The Modasti Team</p>
+                                        <br>The Modasti</p>
                                 </td>
                             </tr>
                         </table>

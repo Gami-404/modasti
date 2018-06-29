@@ -33,6 +33,6 @@ class VerificationMailListener
             'user_id' => $event->user->id,
             'token' => $token = str_random(60),
         ]);
-        Mail::to($event->user->email)->send(new MailEvent($event->user->email, $token));
+        Mail::to($event->user->email)->send(new MailEvent($event->user->email, $token,$event->user));
     }
 }

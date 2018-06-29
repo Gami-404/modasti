@@ -204,7 +204,7 @@
                         </div>
                         <div class="panel-body form-group">
                             <div class="row post-image-block">
-                                <input type="hidden" name="image_id" class="post-image-id"
+                                <input type="hidden" name="image_id" class="post-image-id" id="post-image-id"
                                        value="{{ ($contest->image) ? $contest->image->id : 0 }}">
 
                                 <a class="change-post-image label" href="javascript:void(0)">
@@ -371,23 +371,12 @@
                 },
                 error: function (media_path) {
                     alert_box("{{ trans("posts::contests.not_image_file") }}");
+                },
+                media_id:function () {
+                    return $('#post-image-id').val();
                 }
             });
 
-            $(".change-post-media").filemanager({
-                types: "video",
-                panel: "media",
-                done: function (result, base) {
-                    if (result.length) {
-                        var file = result[0];
-                        base.parents(".post-media-block").find(".post-media-id").first().val(file.id);
-                        base.parents(".post-media-block").find(".post-media").first().attr("src", file.thumbnail);
-                    }
-                },
-                error: function (media_path) {
-                    alert_box("{{ trans("posts::contests.not_media_file") }}");
-                }
-            });
 
             $(".remove-post-image").click(function () {
                 var base = $(this);
@@ -401,62 +390,6 @@
                 $(".post-media").attr("src", "{{ assets("admin::default/media.gif") }}");
             });
 
-            $(".add_gallery").filemanager({
-                types: "image|video|audio|pdf",
-                panel: "galleries",
-                gallery_id: function () {
-                    return 0;
-                },
-                galleries: function (result) {
-                    result.forEach(function (row) {
-                        if ($(".post_galleries [data-gallery-id=" + row.id + "]").length == 0) {
-                            var html = '<div class="iwell post_gallery" data-gallery-id="' + row.id + '">' + row.name
-                                + '<input type="hidden" name="galleries[]" value="' + row.id + '" />'
-                                + '<a href="javascript:void(0)" class="remove_gallery pull-right text-navy"><i class="fa fa-times"></i></a></div>';
-                            $(".post_galleries").html(html);
-                        }
-                    });
-                    if ($(".post_galleries [data-gallery-id]").length != 0) {
-                        $(".iwell.add_gallery").slideUp();
-                    } else {
-                        $(".iwell.add_gallery").slideDown();
-                    }
-
-                },
-                error: function (media_path) {
-                    alert(media_path + " is not an image");
-                }
-            });
-            $("body").on("click", ".remove_gallery", function () {
-                var base = $(this);
-                var data_gallery = base.parents(".post_gallery");
-                var data_gallery_id = data_gallery.attr("data-gallery-id");
-                bootbox.dialog({
-                    message: "هل أنت متأكد من الحذف ؟",
-                    buttons: {
-                        success: {
-                            label: "موافق",
-                            className: "btn-success",
-                            callback: function () {
-                                data_gallery.remove();
-                                if ($(".post_galleries [data-gallery-id]").length != 0) {
-                                    $(".iwell.add_gallery").slideUp();
-                                } else {
-                                    $(".iwell.add_gallery").slideDown();
-                                }
-
-                            }
-                        },
-                        danger: {
-                            label: "إلغاء",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        },
-                    },
-                    className: "bootbox-sm"
-                });
-            });
 
         });
 

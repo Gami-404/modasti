@@ -109,7 +109,11 @@ Please review Modasti terms of service to learn more about our policies, and rem
 Modasti takes such issues very seriously and we have to inform you that your account has been blocked temporary.
 Please review Modasti terms of service to learn more about our policy, and contact our customer service if you want to restore your account. 
 Remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended.",
-    ],
+
+        8=>" You have been reported by members of Modasti community for content that violates our terms of service.
+We have to inform you that such content has been delated permanently.
+Please review Modasti terms of service to learn more about our policies, and remember that if you continue engaging on actions that violates our terms, your account will be permanently suspended."
+        ],
 
     'confirmed'=>'Confirmed',
     'unconfirmed'=>'Unconfirmed',

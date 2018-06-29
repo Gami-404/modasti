@@ -43,6 +43,6 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.reset', ['url' => route('_password.reset', ['token' => $this->token]), 'user' => $this->user]);
+        return $this->from('no-reply@modasti.com',"Modasti Support")->view('emails.reset', ['url' => route('_password.reset', ['token' => $this->token]), 'user' => $this->user]);
     }
 }

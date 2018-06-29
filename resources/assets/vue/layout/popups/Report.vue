@@ -61,7 +61,8 @@
                     </form>
                 </div>
 
-                <p style="color: green" v-if="upload">You report Submit</p>
+                <p style="color: Black;text-transform: uppercase" v-if="upload">Thanks for helping us keeping Modasti a
+                    friendly and safe place</p>
             </div>
         </div>
     </transition>
@@ -71,47 +72,46 @@
 <script>
 import API from "@/store/API";
 
-export default {
-    data() {
-        return {
-            title: "",
-            objectId: this.$route.query.objid,
-            type: this.$route.query.type,
-            url: this.$route.query.url,
-            format: 0,
-            loading: false,
-            errors: [],
-            upload: false,
-            message: "",
-            others: false,
-            sent: false
-        };
-    },
-    methods: {
-        send(e) {
-            e.preventDefault();
-            if (this.title.length == 0) {
-                this.errors = ["Please Select Reason form list"];
-            }
-            this.loading = true;
-            console.log({
-                title: this.title,
-                message: this.message,
-                url: this.url,
-                type: this.type,
-                object_id: this.objectId,
-                format: this.format
-            });
+    export default {
+        data() {
+            return {
+                title: "",
+                objectId: this.$route.query.objid,
+                type: this.$route.query.type,
+                url: this.$route.query.url,
+                format: 0,
+                loading: false,
+                errors: [],
+                upload: false,
+                message: "",
+                others: false,
+                sent: false
+            };
+        },
+        methods: {
+            send(e) {
+                e.preventDefault();
+                if (this.title.length == 0) {
+                    this.errors = ['Please Select Reason form list']
+                }
+                this.loading = true;
+                console.log({
+                    title: this.title,
+                    message: this.message,
+                    url: this.url,
+                    type: this.type,
+                    object_id: this.objectId,
+                    format: this.format
+                });
 
-            API.post("/pushReport", {
-                title: this.title,
-                message: this.message,
-                url: this.url,
-                type: this.type,
-                object_id: this.objectId,
-                format: this.format
-            })
-                .then(res => {
+                API.post('/pushReport', {
+                    title: this.title,
+                    message: this.message,
+                    url: this.url,
+                    type: this.type,
+                    object_id: this.objectId,
+                    format: this.format
+                }).then((res) => {
                     this.loading = false;
                     this.upload = true;
                     this.sent = true;

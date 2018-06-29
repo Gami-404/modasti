@@ -1,7 +1,7 @@
 <?php
 return [
 
-    'module' => 'questions',
+    'module' => 'Help',
 
     'questions' => 'questions',
     'videos' => 'Videos',

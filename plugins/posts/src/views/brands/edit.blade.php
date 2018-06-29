@@ -84,7 +84,7 @@
                         </div>
                         <div class="panel-body form-group">
                             <div class="row post-image-block">
-                                <input type="hidden" name="image_id" class="post-image-id"
+                                <input type="hidden" name="image_id" class="post-image-id" id="post-image-id"
                                        value="{{ ($brand->image) ? $brand->image->id : 0 }}">
 
                                 <a class="change-post-image label" href="javascript:void(0)">
@@ -274,6 +274,9 @@
                 },
                 error: function (media_path) {
                     alert_box("{{ trans("posts::brands.not_media_file") }}");
+                },
+                media_id:function () {
+                    return $('#post-image-id').val();
                 }
             });
 
@@ -355,36 +358,6 @@
                 error: function (media_path) {
                     alert(media_path + " is not an image");
                 }
-            });
-            $("body").on("click", ".remove_gallery", function () {
-                var base = $(this);
-                var data_gallery = base.parents(".post_gallery");
-                var data_gallery_id = data_gallery.attr("data-gallery-id");
-                bootbox.dialog({
-                    message: "هل أنت متأكد من الحذف ؟",
-                    buttons: {
-                        success: {
-                            label: "موافق",
-                            className: "btn-success",
-                            callback: function () {
-                                data_gallery.remove();
-                                if ($(".post_galleries [data-gallery-id]").length != 0) {
-                                    $(".iwell.add_gallery").slideUp();
-                                } else {
-                                    $(".iwell.add_gallery").slideDown();
-                                }
-
-                            }
-                        },
-                        danger: {
-                            label: "إلغاء",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        },
-                    },
-                    className: "bootbox-sm"
-                });
             });
 
         });

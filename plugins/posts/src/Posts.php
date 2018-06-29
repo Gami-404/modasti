@@ -93,7 +93,7 @@ class Posts extends \Dot\Platform\Plugin
 
             if (Auth::user()->can("posts.manage")) {
 
-                $menu->item('questions', trans("posts::questions.questions"), route("admin.posts.questions.show"))
+                $menu->item('galleries',"Help", route("admin.posts.questions.show"))
                     ->order(2)
                     ->icon("fa-question");
             }

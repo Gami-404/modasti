@@ -34,6 +34,6 @@ class ReportMail extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@modasti.com')->view('emails.report', ['user' => $this->user,'format'=>$this->report->format]);
+        return $this->from('no-reply@modasti.com','Modasti Support ')->view('emails.report', ['user' => $this->user,'format'=>$this->report->format]);
     }
 }
