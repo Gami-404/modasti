@@ -10,10 +10,10 @@
               <router-link  :to="'/category/'+data.categories[0].name.toLowerCase()+'/'+data.categories[1].id">{{data.categories[1].name}}</router-link>
             </div>
             <h2 class="title">{{data.title_en}}</h2>
+              <router-link class="link" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">{{data.brand}}</router-link>
             <div v-html="data.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{data.price}} {{getCurrencySymbolItem(data.currency)}}</div>
-              <router-link class="link" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">{{data.brand}}</router-link>
               <router-link class="item-buy" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">Buy</router-link>
             </div>
             <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
