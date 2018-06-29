@@ -10,26 +10,6 @@
                     <a href="#" @click.prevent="publish" class="publishBtn">Publish</a>
                     <div class="otherBtns">
                         <div class="oneBtn">
-                            <a @click.prevent="forward" href="#">
-                                <i class="fa fa-arrow-circle-up"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="backward" href="#">
-                                <i class="fa fa-arrow-circle-down"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="flip" href="#">
-                                <i class="icon-flip"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="copy" href="#">
-                                <i class="icon-changeindex"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
                             <a @click.prevent="remove" href="#">
                                 <i class="fa fa-trash"></i>
                             </a>
