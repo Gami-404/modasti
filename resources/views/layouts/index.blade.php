@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mygrid.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/developer.css') }}">
+    <link rel="icon" href="/images/fav.jpg">
+
     <script src="{{ asset('js/respond.min.js') }}"></script>
 
 </head>
