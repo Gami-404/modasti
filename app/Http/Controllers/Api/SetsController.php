@@ -41,6 +41,7 @@ class SetsController extends Controller
                 $newItems->x = $item->pivot->x;
                 $newItems->y = $item->pivot->y;
                 $newItems->height = $item->pivot->height;
+                $newItems->rotation = $item->pivot->rotation;
                 $newItems->width = $item->pivot->width;
                 $newItems->image = uploads_url($item->image->path);
                 $data['data']['editableItems'][] = $newItems;

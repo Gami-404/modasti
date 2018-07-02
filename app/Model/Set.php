@@ -66,7 +66,7 @@ class Set extends Model
      */
     public function items()
     {
-        return $this->belongsToMany(Post::class, 'sets_posts', "set_id", "post_id")->withPivot(['x','y','width','height']);
+        return $this->belongsToMany(Post::class, 'sets_posts', "set_id", "post_id")->withPivot(['x','y','width','height','rotation']);
     }
 
 }

@@ -418,7 +418,8 @@ export default {
           x: image.attrs.x,
           y: image.attrs.y,
           height: image.attrs.height*image.attrs.scaleY,
-          width: image.attrs.width*image.attrs.scaleX
+          width: image.attrs.width*image.attrs.scaleX,
+            rotation: image.attrs.rotation,
         };
       });
       this.base64Img = this.stage.toDataURL();
