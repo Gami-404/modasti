@@ -192,7 +192,8 @@ export default {
             draggable: true,
             width: item.width,
             height: item.height,
-            itemId: item.item_id
+            itemId: item.item_id,
+              rotation:item.rotation
           });
 
           // add cursor styling
