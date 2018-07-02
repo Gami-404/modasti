@@ -303,6 +303,15 @@ body, button, input, select, textarea {
     .open-search form {
         width: 388px !important;
     }
+
+    #footer .footerTitle:before {
+        margin-left: 40%;
+    }
+    #footer .menu {
+        float: right;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media only screen and (max-width: 376px) {
