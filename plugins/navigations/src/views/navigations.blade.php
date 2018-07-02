@@ -261,7 +261,7 @@
                             <div class="panel-group" id="accordion">
 
 
-                                @foreach (["post", "page", "category", "tag"] as $type)
+                                @foreach ([ "page", "category"] as $type)
                                     <?php
                                     if ($type == "post") {
                                         $icon = "fa-newspaper-o";
