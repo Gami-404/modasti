@@ -464,4 +464,8 @@ export default {
   font-size: 1.2em;
   margin-top: -20px;
 }
+
+.createSetPage .rightArea .theProducts {
+  height: 921px !important;
+}
 </style>
