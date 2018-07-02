@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\VerificationMail;
 use App\Mail\VerificationMail as MailEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 

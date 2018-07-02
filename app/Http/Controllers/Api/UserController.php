@@ -105,7 +105,6 @@ class UserController extends Controller
         $user->status = 0;
         $user->role_id = 3;
         $user->save();
-        $this->sendVerify($user);
         event(new VerificationMail($user));
 
         $response['data'] = \Maps\User\login($user);
@@ -125,7 +124,7 @@ class UserController extends Controller
             'token' => $token = str_random(60),
         ]);
         \Log::debug('send mail for :' . $user->email);
-        Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
+//        Mail::to($user->email)->send(new \App\Mail\VerificationMail($user->email, $token));
 
 //        $headers = "MIME-Version: 1.0" . "\r\n";
 //        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";

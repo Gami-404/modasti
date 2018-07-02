@@ -47,7 +47,7 @@ class Nav extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new NavScope);
+//        static::addGlobalScope(new NavScope);
     }
 
     /*

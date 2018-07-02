@@ -15,4 +15,12 @@ class Category extends Model
     {
         return $this->belongsToMany(Post::class, "posts_categories", "category_id",'post_id');
     }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    function parentCategory(){
+        return $this->belongsTo(Category::class,'parent');
+    }
 }

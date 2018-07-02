@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Collection;
 use App\Model\Contest;
+use App\Model\Nav;
 use App\Model\Post;
 use App\Model\Set;
 use App\User;
@@ -333,8 +334,28 @@ class HomeController extends Controller
     {
         $data = ['data' => [], 'errors' => []];
 
-
-
+        $items = Nav::find(1)->children;
+        $newItems = [];
+        foreach ($items as $item) {
+            $newItem = new \stdClass();
+            $newItem->name = $item->name;
+            switch ($item->type) {
+                case 'url':
+                    $newItem->url = $item->url;
+                    break;
+                case 'category':
+                    $category = Category::find($item->type_id);
+                    if ($category->parent == 0) {
+                        $newItem->url = '/#/category/' . trim(strtolower($category->name));
+                        break;
+                    }
+                    $newItem->url = '/#/category/' . trim(strtolower($category->parentCategory->name)) . '/' . $item->type_id;
+                    break;
+            }
+            $newItems[] = $newItem;
+        }
+        $data['data']['items']=$newItems;
+        return response()->json($data);
     }
 
 }
