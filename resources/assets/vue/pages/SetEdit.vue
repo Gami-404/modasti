@@ -49,7 +49,7 @@
       <div class="rightArea">
         <div class="theTabs">
           <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
-          <input id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
+          <input id="set-item-search" type="search" col="50" @input="searchItems" v-model.trim="query" placeholder="Search for item ..." />
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
@@ -443,7 +443,7 @@ export default {
 };
 </script>
 
-<style <style scoped>
+<style scoped>
 .createSetPage .leftArea .actionBtns .otherBtns .oneBtn {
   width: 16.66666666%;
 }

@@ -46,7 +46,7 @@
       <div class="rightArea">
         <div class="theTabs">
           <CategoriesDropdown id="set-select-categories" v-model="category" @change="changeCategory" :options="[{id:'liked_items',label:'Liked item'}]"></CategoriesDropdown>
-          <input id="set-item-search" type="search" col="50" @input="changeCategory" v-model.trim="query" placeholder="Search for item ..." />
+          <input id="set-item-search" type="search" col="50" @input="searchItems" v-model.trim="query" placeholder="Search for item ..." />
         </div>
 
         <div class="theProducts">
@@ -251,8 +251,8 @@ export default {
       );
     },
     searchItems: _.debounce(event => {
-      this.loading = true;
-
+        $vm.loading = true;
+      console.log($vm.category);
       $vm.$store
         .dispatch("get_items_for_add_set", {
           query: $vm.query,
