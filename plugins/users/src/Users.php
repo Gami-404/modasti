@@ -5,6 +5,7 @@ namespace Dot\Users;
 use Action;
 use Dot\Users\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Navigation;
 
 class Users extends \Dot\Platform\Plugin
@@ -43,6 +44,16 @@ class Users extends \Dot\Platform\Plugin
                 $users = User::orderBy("created_at", "DESC")->limit(5)->get();
                 return view("users::widgets.users", ["users" => $users]);
             }
+        });
+        Action::listen("user.deleting", function ($user) {
+            $tables = ['posts', 'brands', 'collections', 'collection_comments',
+                'contests', 'contests_comments', 'contests_items', 'reports', 'sets', 'set_comments'];
+            foreach ($tables as $table) {
+                DB::table($table)->where('user_id', $user->id)->delete();
+            }
+            DB::table('messages')->where('sender_id', $user->id)->delete();
+            DB::table('channels')->where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->delete();
+            DB::table('notifications')->where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->delete();
         });
 
     }
