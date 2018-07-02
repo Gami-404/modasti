@@ -163,61 +163,8 @@ export default {
         .then(() => {
           this.loading = false;
         });
-    } 
-    Api.post("setDetails?forEdit=true", {
-      setId: this.$route.params.setId
-    }).then(res => {
-      if (res.data.data.set.user_id != this.$store.getters.user.userId) {
-        this.$router.push({ name: "set", setId: this.$route.params.setId });
-        return;
-      }
-      // this.editableItems=res.data.editableItems;
-      this.formData.title = res.data.data.set.title_en;
-      this.formData.description = res.data.data.set.text_en;
-
-      this.stageRect.setFill( res.data.data.set.background || "#fff");
-      this.layer.draw();
-      this.formData.background = res.data.data.set.background;
-
-      for (let item of res.data.data.editableItems) {
-        let img = new Image();
-        img.onload = () => {
-          // darth vader
-          var darthVaderImg = new Konva.Image({
-            image: img,
-            name: "img",
-            id: item.item_id,
-            x: item.x,
-            y: item.y,
-            draggable: true,
-            width: item.width,
-            height: item.height,
-            itemId: item.item_id,
-              rotation:item.rotation
-          });
-
-          // add cursor styling
-          darthVaderImg.on("mouseover", function() {
-            document.body.style.cursor = "pointer";
-          });
-          darthVaderImg.on("mouseout", function() {
-            document.body.style.cursor = "default";
-          });
-
-          this.stage.find("Transformer").destroy();
-
-          var tr = new Konva.Transformer();
-          this.layer.add(darthVaderImg);
-          this.layer.add(tr);
-          tr.attachTo(darthVaderImg);
-          this.selected = darthVaderImg;
-          this.layer.draw();
-        };
-        img.src = item.image;
-        img.dataset.itemId = item.id;
-      }
-      this.pageLoad = false;
-    });
+    }
+    this.loadSet();
     $vm = this;
   },
   mounted() {
@@ -438,8 +385,70 @@ export default {
       this.stageRect.setFill(color.hex || "#fff");
       this.layer.draw();
       this.formData.background = color.hex;
-    }
-  }
+    },
+      loadSet(){
+          Api.post("setDetails?forEdit=true", {
+              setId: this.$route.params.setId
+          }).then(res => {
+              if (res.data.data.set.user_id != this.$store.getters.user.userId) {
+                  this.$router.push({ name: "set", setId: this.$route.params.setId });
+                  return;
+              }
+              // this.editableItems=res.data.editableItems;
+              this.formData.title = res.data.data.set.title_en;
+              this.formData.description = res.data.data.set.text_en;
+
+              this.stageRect.setFill( res.data.data.set.background || "#fff");
+              this.layer.draw();
+              this.formData.background = res.data.data.set.background;
+
+              console.log('Created Views',res.data.data.set.id);
+              for (let item of res.data.data.editableItems) {
+                  let img = new Image();
+                  img.onload = () => {
+                      // darth vader
+                      var darthVaderImg = new Konva.Image({
+                          image: img,
+                          name: "img",
+                          id: item.item_id,
+                          x: item.x,
+                          y: item.y,
+                          draggable: true,
+                          width: item.width,
+                          height: item.height,
+                          itemId: item.item_id,
+                          rotation:item.rotation
+                      });
+
+                      // add cursor styling
+                      darthVaderImg.on("mouseover", function() {
+                          document.body.style.cursor = "pointer";
+                      });
+                      darthVaderImg.on("mouseout", function() {
+                          document.body.style.cursor = "default";
+                      });
+
+                      this.stage.find("Transformer").destroy();
+
+                      var tr = new Konva.Transformer();
+                      this.layer.add(darthVaderImg);
+                      this.layer.add(tr);
+                      tr.attachTo(darthVaderImg);
+                      this.selected = darthVaderImg;
+                      this.layer.draw();
+                  };
+                  img.src = item.image;
+                  img.dataset.itemId = item.id;
+              }
+              this.pageLoad = false;
+          });
+      }
+  },
+    watch: {
+        "$route.params.setId"(setId) {
+           this.loadSet();
+        }
+    },
 };
 </script>
 
