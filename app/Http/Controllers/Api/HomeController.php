@@ -324,4 +324,17 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * GET api/getFooterLinks
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFooterLinks()
+    {
+        $data = ['data' => [], 'errors' => []];
+
+
+
+    }
+
 }
