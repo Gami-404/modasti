@@ -76,7 +76,7 @@
                         <div class="theCell"><img draggable="false" :src="item['photo']"></div>
                       </div>
                     </div>
-                    <div class="name">{{item.name}}</div>
+                    <div class="name nameS">{{item.name}}</div>
                   </div>
                 </a>
               </div>
@@ -403,5 +403,11 @@ export default {
 
 .avatar{
   height: 210px !important;
+}
+
+.nameS{
+  color: #4646fc;
+  font-size: 1.2em;
+  margin-top: -20px;
 }
 </style>

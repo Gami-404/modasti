@@ -151,8 +151,8 @@ const actions = {
     get_more_category_items({commit, state}) {
         return API.post("/filter", {
             categoryId: state.currentCategoryId,
-            offset: state.offsets.category + 8,
-            limit:24,
+            offset: state.offsets.category + 20,
+            limit:20,
             ...state.appliedFilters
         }).then(res => {
             commit("ADD_ITEMS", res.data.data);
@@ -260,7 +260,7 @@ const mutations = {
         };
     },
     MORE_CATEGORY_ITEMS(state, items) {
-        state.offsets.category += 8;
+        state.offsets.category += 20;
         state.category.items = state.category.items.concat(items);
     },
     APPLY_FILTERS(state, filter) {

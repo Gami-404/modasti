@@ -47,7 +47,7 @@ body, button, input, select, textarea {
     font-family:GillSans,serif !important;
 }
 
-.item-buy , .contestTop a , .followBtn , .categoriesTop  , .PD_comments .theComments .one .deleteComment{
+.item-buy , .createSetPage .leftArea .actionBtns .publishBtn , .contestTop a , .followBtn , .categoriesTop  , .PD_comments .theComments .one .deleteComment{
     text-transform: uppercase;
     font-family:GillSans,serif !important;    
 }

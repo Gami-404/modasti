@@ -13,7 +13,7 @@
             <div v-if="!loadingMessages">
               <div v-for="(message,i) of messages" :key="i" class="oneMessage clearfix" :class="{'second': message.sender_id == $store.getters.user.userId}">
                 <div class="avatar">
-                  <img src="https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1" alt="">
+                  <img :src="otherAvatar||'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt="">
                   <div class="textCentered">{{message.created_at.substr(10)}}</div>
                 </div>
                 <div class="theMessage">{{message.message}}</div>
@@ -33,8 +33,8 @@
         <div class="onlinePersons">
           <div class="title">Chats</div>
           <div class="content">
-            <a v-for="channel of messagesFromUsers" :key="channel.user.id" href="#" @click.prevent="loadMessages(channel.user.id)" class="item" :class="{'selected-user': channel.user.id == currMessagingUserId}">
-              <span class="avatar"><img :src="channel.user.photo && channel.user.photo.photo_name == 'string' ? channel.user.photo.photo_name : 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
+            <a v-for="channel of messagesFromUsers" :key="channel.user.id" href="#" @click.prevent="loadMessages(channel.user.id,false,channel.user.avatar)" class="item" :class="{'selected-user': channel.user.id == currMessagingUserId}">
+              <span class="avatar"><img :src="channel.user.avatar || 'https://i.stack.imgur.com/1gPh1.jpg?s=328&g=1'" alt=""></span>
               <span> {{ (channel.user.first_name +' '+ channel.user.last_name) || channel.user.username}}</span>
             </a>
           </div>
@@ -64,7 +64,8 @@ export default {
       messageToSend: "",
       sending: false,
       loading: true,
-      loadingMessages: false
+      loadingMessages: false,
+      otherAvatar:''
     };
   },
   computed: {
@@ -97,7 +98,8 @@ export default {
     }
   },
   methods: {
-    loadMessages(userId, loadingMessages) {
+    loadMessages(userId, loadingMessages,avatar) {
+      this.otherAvatar = avatar;
       this.$router.push("/messages/" + userId);
       this.loadingMessages = loadingMessages;
       return this.$store

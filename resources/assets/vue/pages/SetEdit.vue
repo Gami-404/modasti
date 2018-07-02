@@ -53,18 +53,34 @@
         </div>
         <div class="theProducts">
           <div class="myrow clearfix">
-            <div v-if="!loading" v-for="(item) of items" :key="item.id" class="mycol-sm-4">
-              <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
-                <div class="avatar">
-                  <div class="verticalCentered">
-                    <div class="theCell"><img :src="item['photos'][0]['photo_name']" :data-id="item.id" alt=""></div>
+            <div v-if="!loading&&(category!==0||query!=='')">
+              <div v-for="(item) of items" :key="item.id" class="mycol-sm-4">
+                <div @dragstart="dragStart" draggable="true" :src="item['photos'][0]['photo_name']" :data-id="item.id" class="one">
+                  <div class="avatar">
+                    <div class="verticalCentered">
+                      <div class="theCell"><img :src="item['photos'][0]['photo_name']" :data-id="item.id" alt=""></div>
+                    </div>
                   </div>
+                  <div class="name">{{item.title_en}}</div>
                 </div>
-                <div class="name">{{item.title_en}}</div>
+              </div>
+              <div v-if="canloadmore&&!loading" class="getMore">
+                <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
               </div>
             </div>
-            <div v-if="canloadmore&&!loading" class="getMore">
-              <a @click.prevent="loadmore" href="#"> {{ loadMoreLoading ? 'Loading' : 'More' }} </a>
+            <div v-else>
+              <div v-for="item of items" :key="item.id" class="mycol-sm-2 col-category">
+                <a @click.prevent="changeCategory(item.id)" href="#">
+                  <div class="one category-grid">
+                    <div class="avatar"  draggable="false">
+                      <div class="verticalCentered" draggable="false">
+                        <div class="theCell"><img draggable="false" :src="item['photo']"></div>
+                      </div>
+                    </div>
+                    <div class="name nameS">{{item.name}}</div>
+                  </div>
+                </a>
+              </div>
             </div>
             <div v-if="loading" class="set-loading"><img src="images/loading.gif" width="50px" alt="loading"></div>
             <div v-if="items&&items.length==0&&!loading" class="set-no-found">No found items</div>
@@ -133,16 +149,21 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch("get_items_for_add_set", {
-        query: this.query,
-        category: this.category,
-        color: this.color,
-        clearOffset: true
-      })
-      .then(() => {
-        this.loading = false;
-      });
+    if (this.query === "" && this.category === 0) {
+      this.$store.dispatch("get_default_items_for_add_set");
+      this.loading = false;
+    } else {
+      this.$store
+        .dispatch("get_items_for_add_set", {
+          query: this.query,
+          category: this.category,
+          color: this.color,
+          clearOffset: true
+        })
+        .then(() => {
+          this.loading = false;
+        });
+    } 
     Api.post("setDetails?forEdit=true", {
       setId: this.$route.params.setId
     }).then(res => {
@@ -434,5 +455,11 @@ export default {
 
 .vc-chrome-alpha-wrapper {
   display: none;
+}
+
+.nameS{
+  color: #4646fc;
+  font-size: 1.2em;
+  margin-top: -20px;
 }
 </style>

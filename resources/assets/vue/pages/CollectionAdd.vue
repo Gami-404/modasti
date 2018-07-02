@@ -10,26 +10,6 @@
                     <a href="#" @click.prevent="publish" class="publishBtn">Publish</a>
                     <div class="otherBtns">
                         <div class="oneBtn">
-                            <a @click.prevent="forward" href="#">
-                                <i class="fa fa-arrow-circle-up"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="backward" href="#">
-                                <i class="fa fa-arrow-circle-down"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="flip" href="#">
-                                <i class="icon-flip"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
-                            <a @click.prevent="copy" href="#">
-                                <i class="icon-changeindex"></i>
-                            </a>
-                        </div>
-                        <div class="oneBtn">
                             <a @click.prevent="remove" href="#">
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -69,7 +49,7 @@
                                                 <div class="theCell"><img draggable="false" :src="item['photo']"></div>
                                             </div>
                                         </div>
-                                        <div class="name">{{item.name}}</div>
+                                        <div class="name nameS">{{item.name}}</div>
                                     </div>
                                 </a>
                             </div>
@@ -349,3 +329,12 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+.nameS{
+  color: #4646fc;
+  font-size: 1.2em;
+  margin-top: -20px;
+}
+</style>
