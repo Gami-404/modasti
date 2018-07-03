@@ -14,7 +14,8 @@
             <div v-html="data.text_en" class="description"></div>
             <div class="info clearfix">
               <div class="price">{{data.price}} {{getCurrencySymbolItem(data.currency)}}</div>
-              <router-link class="item-buy" :to="(data.url_en?data.url_en :'/profile/'+data.user_id)">Buy</router-link>
+              <!--<router-link class="item-buy" :to="">Buy</router-link>-->
+              <a :href="(data.url_en?data.url_en :'#')" class="item-buy">Buy</a>
             </div>
             <CardActions :is-liked="data.is_liked" :obj-id="data.id" :context="'item'" :likebale="true" :num-of-likes="data.likes" :sharable="true" />
           </div>
