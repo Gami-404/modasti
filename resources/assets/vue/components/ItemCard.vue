@@ -1,25 +1,25 @@
 <template>
-        <div class="productCard">
-            <div class="avatar">
-                <router-link :to="(item.id?'/item/'+item.id : '')" class="verticalCentered">
-                    <div class="theCell"><img
-                            :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg"
-                            :alt="item.title_en"></div>
-                </router-link>
-            </div>
-            <div class="content">
-                <h3>
-                    <router-link :to="(item.id?'/item/'+item.id : '')">{{item.title_en}}</router-link>
-                </h3>
-                <hr>
-                <div class="price">{{item.price}} {{getCurrencySymbolItem(item.currency)}}</div>
-                <div class="link">
-                    <a :href=" (item.url_en?item.url_en :'#/profile/'+item.user_id)">{{item.brand||"Unknown"}}</a>
-                </div>
-            </div>
-            <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true"
-                         :is-liked="item.is_liked" :obj-id="item.id" :context="'item'"/>
+    <div class="productCard">
+        <div class="avatar">
+            <router-link :to="(item.id?'/item/'+item.id : '')" class="verticalCentered">
+                <div class="theCell"><img
+                        :src="(item['photos'] && item['photos'][0]&&item['photos'][0]['photo_name'])||notFoundImg"
+                        :alt="item.title_en"></div>
+            </router-link>
         </div>
+        <div class="content">
+            <h3>
+                <router-link :to="(item.id?'/item/'+item.id : '')">{{item.title_en}}</router-link>
+                <a class="content-brand-name">{{item.brand}}</a>
+            </h3>
+            <div class="price">{{item.price}} {{getCurrencySymbolItem(item.currency)}}</div>
+            <div class="link">
+                <a :href=" (item.url_en?item.url_en :'#/profile/'+item.user_id)">{{ domainName}}</a>
+            </div>
+        </div>
+        <CardActions :sharable="true" :num-of-likes="item.likes||item.likes_counter" :likebale="true"
+                     :is-liked="item.is_liked" :obj-id="item.id" :context="'item'"/>
+    </div>
 </template>
 
 <script>
@@ -44,6 +44,9 @@
             isAuth() {
                 return this.$store.getters.isAuth;
             },
+            domainName(){
+                return (new URL(this.item.url_en)).hostname;
+            }
         },
         methods: {
             getCurrencySymbolItem(currency) {

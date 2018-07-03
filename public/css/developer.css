@@ -242,6 +242,14 @@ body, button, input, select, textarea {
 .col-category {
 }
 
+
+.content-brand-name{
+    display: block;
+}
+
+.proudctDetails .content .in .description {
+    color: rgba(0, 0, 0, 0.71);
+}
 @media only screen and (max-width: 999px) {
     #header .bottom .contest {
         padding: 4px 13px;
