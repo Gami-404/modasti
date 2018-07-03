@@ -57,7 +57,7 @@ namespace Maps\User {
             if ($user->photo) {
                 $newUser->photo = new \stdClass();
                 $newUser->photo->table_id = $user->photo->id;
-                $newUser->photo->photo_name = uploads_url($user->photo->path);
+                $newUser->photo->photo_name = thumbnail($user->photo->path,'small');
             }
             $newArray[] = $newUser;
         }
@@ -88,7 +88,7 @@ namespace Maps\User {
         if ($user->photo) {
             $newUser->photo = new \stdClass();
             $newUser->photo->table_id = $user->photo->id;
-            $newUser->photo->photo_name = uploads_url($user->photo->path);
+            $newUser->photo->photo_name = thumbnail($user->photo->path,'small');
         }
         return $newUser;
     }
