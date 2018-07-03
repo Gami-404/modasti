@@ -90,8 +90,8 @@
                     "user_type": {
                       "type": "string",
                       "enum": [
-                        "user",
-                        "designer"
+                        "USER",
+                        "RETAILER"
                       ]
                     },
                     "avatar": {
@@ -103,92 +103,15 @@
                     "currency_id": {
                       "type": "integer"
                     },
-                    "last_login":{
+                    "last_login": {
                       "type": "string"
                     },
-                    "about":{
-                      "type": "string"
-                    }
-                  }
-                },
-                "errors": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fbSignIn": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "facebook login",
-        "description": "",
-        "operationId": "fbLogin",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Client Login",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "fbToken": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "type": "string"
-                },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "userId": {
-                      "type": "integer"
-                    },
-                    "name": {
+                    "about": {
                       "type": "string"
                     },
-                    "email": {
-                      "type": "string"
-                    },
-                    "user_type": {
-                      "type": "string",
-                      "enum": [
-                        "user",
-                        "designer"
-                      ]
-                    },
-                    "avatar": {
-                      "type": "string"
-                    },
-                    "currency": {
-                      "type": "string"
-                    },
-                    "currency_id": {
-                      "type": "integer"
+                    "email_verify": {
+                      "type": "integer",
+                      "description": "1 if your email verified"
                     }
                   }
                 },
@@ -373,15 +296,15 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "object",
                   "properties": {
+
                     "items": {
                       "$ref": "#/definitions/Items"
                     }
                   }
                 }
-
               }
             }
           }
@@ -428,399 +351,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/SetShort3"
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/groupDetails": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "group details",
-        "description": "",
-        "operationId": "groupDetails",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Home Group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "number",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "group": {
-                  "type": "object",
-                  "$ref": "#/definitions/Group"
-                },
-                "photos": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "photo_id": {
-                        "type": "number"
-                      },
-                      "photo": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "photo_name": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/createGroup": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "create group",
-        "description": "",
-        "operationId": "createGroup",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Create Group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "required": true
-                },
-                "description": {
-                  "type": "string"
-                },
-                "isPrivate": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/Group"
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/editGroup": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "edit group",
-        "description": "",
-        "operationId": "editGroup",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Edit Group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "string",
-                  "required": true
-                },
-                "name": {
-                  "type": "string",
-                  "required": true
-                },
-                "description": {
-                  "type": "string"
-                },
-                "isPrivate": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/Group"
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/deleteGroup": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "delete group",
-        "description": "",
-        "operationId": "deleteGroup",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Delete Group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "string",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/getGroupMembers": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "group members",
-        "description": "",
-        "operationId": "getGroupMembers",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Group Members",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "number",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/removeGroupMember": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "remove group members",
-        "description": "",
-        "operationId": "removeGroupMembers",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Remove Group Members",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "number",
-                  "required": true
-                },
-                "memberId": {
-                  "type": "number",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/getInvitedMembers": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "get invited members",
-        "description": "",
-        "operationId": "getInvitedMembers",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Remove Group Members",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "groupId": {
-                  "type": "number",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "invited_id": {
-                    "type": "number"
-                  },
-                  "joined": {
-                    "type": "boolean"
-                  },
-                  "want_join": {
-                    "type": "boolean"
-                  },
-                  "user": {
-                    "$ref": "#/definitions/User"
-                  }
-                }
-              }
+              "$ref": "#/definitions/setDetails"
             }
           }
         },
@@ -2553,6 +2084,9 @@
         },
         "contest_id": {
           "type": "integer"
+        },
+        "background":{
+          "type": "string"
         }
       }
     },
@@ -2916,6 +2450,59 @@
         "$ref": "#/definitions/User"
       }
     },
+    "setDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "title_en": {
+          "type": "string"
+        },
+        "text_en": {
+          "type": "string"
+        },
+        "likes": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string"
+        },
+        "is_liked": {
+          "type": "boolean"
+        },
+        "comments_counter": {
+          "type": "integer"
+        },
+        "likes_counter": {
+          "type": "integer"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Group"
+          }
+        },
+        "photo": {
+          "$ref": "#/definitions/Photo"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "contest_id": {
+          "type": "integer"
+        },
+        "background":{
+          "type": "string"
+        },
+        "items":{
+          "$ref": "#/definitions/Items"
+        }
+      }
+    },
     "User": {
       "type": "object",
       "properties": {
@@ -2955,11 +2542,11 @@
         "sets_count": {
           "type": "integer"
         },
-        "currency":{
+        "currency": {
           "type": "string"
         },
-        "email":{
-            "type": "string"
+        "email": {
+          "type": "string"
         }
       }
     },
