@@ -38,7 +38,7 @@ return [
 
     'sizes' => [
         'medium' => array(460, 307),
-        'small' => array(234, 156),
+        'small' => array(140, 140),
         'thumbnail' => array(165, 108)
     ],
 
