@@ -49,22 +49,23 @@ export default {
     }
   },
   created() {
+      var cats_id=[this.$store.getters.catIdMap[this.$route.params.name]];
+      if(this.$route.params.subCat){
+          cats_id=[(parseInt(this.$route.params.subCat))];
+      }
+      Promise.all([
+          this.$store.dispatch("get_colors",true),
+          this.$store.dispatch("get_brands",cats_id),
+          this.$store.dispatch("get_sizes")
+      ]).then(() => {
+          this.loading = false;
+          this.$store.dispatch("map_filters");
+      });
     this.$store.dispatch("get_categories").then(() => {
       this.loadItems(this.$route.params.name,this.$route.params.subCat).then(() => {
-          var cats_id=[this.$store.getters.catIdMap[this.$route.params.name]];
-          if(this.$route.params.subCat){
-              cats_id=[(parseInt(this.$route.params.subCat))];
-          }
-          Promise.all([
-            this.$store.dispatch("get_colors",true),
-            this.$store.dispatch("get_brands",cats_id),
-            this.$store.dispatch("get_sizes")
-          ]).then(() => {
-            this.loading = false;
-            this.$store.dispatch("map_filters");
-          });
         });
     });
+
   },
   watch: {
     "$route.params"({name,subCat}) {
@@ -72,6 +73,18 @@ export default {
       this.$store.commit("RESET_FILTERS");
       this.$store.dispatch("map_filters");
       this.loadItems(name,subCat);
+        var cats_id=[this.$store.getters.catIdMap[this.$route.params.name]];
+        if(this.$route.params.subCat){
+            cats_id=[(parseInt(this.$route.params.subCat))];
+        }
+        Promise.all([
+            this.$store.dispatch("get_colors",true),
+            this.$store.dispatch("get_brands",cats_id),
+            this.$store.dispatch("get_sizes")
+        ]).then(() => {
+            this.loading = false;
+            this.$store.dispatch("map_filters");
+        });
     }
   },
   methods: {
