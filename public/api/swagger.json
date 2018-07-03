@@ -299,7 +299,6 @@
                 "data": {
                   "type": "object",
                   "properties": {
-
                     "items": {
                       "$ref": "#/definitions/Items"
                     }
@@ -351,15 +350,16 @@
           "200": {
             "description": "Success",
             "schema": {
+              "type": "object",
               "properties": {
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "$ref": "#/definitions/setDetails"
-                  }
+                  "$ref": "#/definitions/setDetails"
                 },
-                "errors":{
-                  "type": "array"
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -406,12 +406,20 @@
           "200": {
             "description": "Success",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "users": {
-                    "$ref": "#/definitions/Users"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "$ref": "#/definitions/Users"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
                   }
                 }
               }
@@ -459,66 +467,24 @@
           "200": {
             "description": "Success",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "users": {
-                    "$ref": "#/definitions/Users"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/inviteMembers": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "invite members",
-        "description": "",
-        "operationId": "inviteMembers",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Invite Members To Group",
-            "required": true,
-            "schema": {
               "type": "object",
               "properties": {
-                "groupId": {
-                  "type": "number",
-                  "required": true
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "$ref": "#/definitions/Users"
+                    }
+                  }
                 },
-                "users": {
+                "errors": {
                   "type": "array",
-                  "required": true,
                   "items": {
-                    "type": "number"
+                    "type": "string"
                   }
                 }
               }
             }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
           }
         },
         "security": [
@@ -533,7 +499,7 @@
         "tags": [
           "api"
         ],
-        "summary": "get sets",
+        "summary": "get user's sets",
         "description": "",
         "operationId": "getSets",
         "consumes": [
@@ -568,7 +534,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/MySets"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Sets"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -584,7 +561,7 @@
         "tags": [
           "api"
         ],
-        "summary": "get items categories",
+        "summary": "get categories",
         "description": "",
         "operationId": "getItemsCategories",
         "produces": [
@@ -631,6 +608,12 @@
                 "categoryId": {
                   "type": "number",
                   "required": true
+                },
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
                 }
               }
             }
@@ -640,7 +623,21 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Items"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Items"
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -690,8 +687,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "items": {
-                  "$ref": "#/definitions/Items"
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Items"
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -739,7 +745,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Item&Similar"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Item&Similar"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -775,6 +792,12 @@
               "properties": {
                 "userId": {
                   "type": "number"
+                },
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
                 }
               }
             }
@@ -784,7 +807,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Collections"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Collections"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -801,7 +835,7 @@
           "api"
         ],
         "summary": "create collection",
-        "description": "",
+        "description": "Create Collection",
         "operationId": "createCollection",
         "consumes": [
           "application/json"
@@ -825,6 +859,25 @@
                 "description": {
                   "type": "string",
                   "required": true
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "required": true
+                },
+                "sets": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "image": {
+                  "type": "Image Data in base64 format",
+                  "description": "Image Data in base64 format",
+                  "default": "Image Data in base64 format",
+                  "required": true
                 }
               }
             }
@@ -836,8 +889,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "collection_id": {
-                  "type": "number"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "collection_id": {
+                      "type": "number"
+                    }
+                  }
                 }
               }
             }
@@ -883,7 +941,21 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -932,7 +1004,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Collection"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Collection"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -982,7 +1065,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Collection"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Collection"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -1082,6 +1176,12 @@
                 "setId": {
                   "type": "number",
                   "required": true
+                },
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
                 }
               }
             }
@@ -1091,7 +1191,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Comments"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "comments": {
+                      "$ref": "#/definitions/Comments"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -1142,7 +1258,21 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1183,10 +1313,7 @@
                   "type": "string",
                   "enum": [
                     "sets",
-                    "collections",
-                    "members",
-                    "groups",
-                    "shop"
+                    "users"
                   ],
                   "required": "true"
                 },
@@ -1206,8 +1333,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "items": {
-                  "$ref": "#/definitions/Items"
+                "data": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/definitions/Items"
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1251,19 +1387,25 @@
                   "type": "string",
                   "required": true
                 },
-                "data": {
-                  "type": "string",
-                  "required": true
-                },
                 "items": {
                   "type": "array",
                   "required": true,
                   "items": {
-                    "type": "number"
+                    "type": "object",
+                    "properties":{
+                      "item_id":{
+                        "type": "integer"
+                      },
+                      "height":{"type": "string"},
+                      "width":{"type": "string"},
+                      "x":{"type": "string"},
+                      "y":{"type": "string"},
+                      "rotation":{"type": "string"}
+                    }
                   }
                 },
                 "image": {
-                  "type": "string"
+                  "type": "base64 format"
                 }
               }
             }
@@ -1272,57 +1414,6 @@
         "responses": {
           "200": {
             "description": "Success"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/getSetData": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "get set data",
-        "description": "",
-        "operationId": "getSetData",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Get Set Data",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "setId": {
-                  "type": "number",
-                  "required": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "string"
-                }
-              }
-            }
           }
         },
         "security": [
@@ -1389,45 +1480,6 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Add Comment To Set",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "setId": {
-                  "type": "number",
-                  "required": true
-                },
-                "title": {
-                  "type": "string",
-                  "required": true
-                },
-                "description": {
-                  "type": "string",
-                  "required": true
-                },
-                "data": {
-                  "type": "string",
-                  "required": true
-                },
-                "items": {
-                  "type": "array",
-                  "required": true,
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "image": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -1482,8 +1534,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "items": {
-                  "$ref": "#/definitions/Items"
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Items"
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1538,8 +1599,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "items": {
-                  "$ref": "#/definitions/SetsUserPhoto"
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Sets"
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1586,7 +1656,18 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/User"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -1726,54 +1807,10 @@
                 },
                 "password": {
                   "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/uploadPhoto": {
-      "post": {
-        "tags": [
-          "api"
-        ],
-        "summary": "upload photo",
-        "description": "",
-        "operationId": "uploadPhoto",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "uploadPhoto",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "imageName": {
-                  "type": "string",
-                  "required": "true"
                 },
-                "image": {
-                  "type": "string",
-                  "required": "true"
-                }
+                "profession":{"type": "string"},
+                "about":{"type":"string"},
+                "image":{"type": "base64 format"}
               }
             }
           }
@@ -1801,11 +1838,41 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create Collection",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Contests"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Contests"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -1853,8 +1920,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "items": {
-                  "$ref": "#/definitions/ContestPhotos"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "$ref": "#/definitions/ContestPhotos"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1899,7 +1977,7 @@
                   "required": "true"
                 },
                 "image": {
-                  "type": "string",
+                  "type": "base64 format",
                   "required": "true"
                 }
               }
@@ -1958,6 +2036,7 @@
         ]
       }
     }
+
   },
   "securityDefinitions": {
     "api_key": {
@@ -1988,7 +2067,36 @@
         "currency": {
           "type": "string"
         },
+        "text_en": {
+          "type": "string"
+        },
+        "url_en": {
+          "type": "string",
+          "description": "Item url"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "user_url": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Brand name"
+        },
+        "likes": {
+          "type": "integer"
+        },
+        "is_liked": {
+          "type": "boolean"
+        },
         "user_currency": {
+          "type": "string"
+        },
+        "color_id": {
+          "type": "integer"
+        },
+        "color": {
           "type": "string"
         },
         "photos": {
@@ -2011,22 +2119,40 @@
         "currency": {
           "type": "string"
         },
+        "text_en": {
+          "type": "string"
+        },
+        "url_en": {
+          "type": "string",
+          "description": "Item url"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "user_url": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Brand name"
+        },
+        "likes": {
+          "type": "integer"
+        },
+        "is_liked": {
+          "type": "boolean"
+        },
         "user_currency": {
           "type": "string"
         },
+        "color_id": {
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        },
         "photos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "table_id": {
-                "type": "integer"
-              },
-              "photo_name": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/Photos"
         },
         "similar": {
           "type": "array",
@@ -2041,13 +2167,6 @@
       "items": {
         "type": "object",
         "$ref": "#/definitions/Set"
-      }
-    },
-    "MySets": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "$ref": "#/definitions/MySet"
       }
     },
     "Set": {
@@ -2095,322 +2214,9 @@
         "contest_id": {
           "type": "integer"
         },
-        "background":{
+        "background": {
           "type": "string"
         }
-      }
-    },
-    "SetsUserPhoto": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "$ref": "#/definitions/SetUserPhoto"
-      }
-    },
-    "SetUserPhoto": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "title_en": {
-          "type": "string"
-        },
-        "text_en": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "integer"
-        },
-        "created": {
-          "type": "string"
-        },
-        "is_liked": {
-          "type": "boolean"
-        },
-        "comments_counter": {
-          "type": "integer"
-        },
-        "likes_counter": {
-          "type": "integer"
-        },
-        "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
-        },
-        "user": {
-          "type": "object",
-          "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "MySet": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "title_en": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "integer"
-        },
-        "created": {
-          "type": "string"
-        },
-        "is_liked": {
-          "type": "boolean"
-        },
-        "comments_counter": {
-          "type": "integer"
-        },
-        "likes_counter": {
-          "type": "integer"
-        },
-        "groups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Group"
-          }
-        },
-        "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "SetShort": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "title_en": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "integer"
-        },
-        "created": {
-          "type": "string"
-        },
-        "is_liked": {
-          "type": "boolean"
-        },
-        "comments_counter": {
-          "type": "integer"
-        },
-        "likes_counter": {
-          "type": "integer"
-        },
-        "groups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Group"
-          }
-        },
-        "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "SetShort2": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "title_en": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "integer"
-        },
-        "created": {
-          "type": "string"
-        },
-        "is_liked": {
-          "type": "boolean"
-        },
-        "comments_counter": {
-          "type": "integer"
-        },
-        "likes_counter": {
-          "type": "integer"
-        },
-        "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "SetShort3": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "title_en": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "integer"
-        },
-        "created": {
-          "type": "string"
-        },
-        "is_liked": {
-          "type": "boolean"
-        },
-        "comments_counter": {
-          "type": "integer"
-        },
-        "likes_counter": {
-          "type": "integer"
-        },
-        "groups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Group"
-          }
-        },
-        "photo": {
-          "type": "object",
-          "properties": {
-            "table_id": {
-              "type": "integer"
-            },
-            "photo_name": {
-              "type": "string"
-            }
-          }
-        },
-        "user": {
-          "type": "object",
-          "$ref": "#/definitions/User"
-        },
-        "items": {
-          "$ref": "#/definitions/Items"
-        },
-        "contest": {
-          "$ref": "#/definitions/Contest"
-        }
-      }
-    },
-    "Feeds": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "user_id": {
-            "type": "integer"
-          },
-          "title_en": {
-            "type": "string"
-          },
-          "likes": {
-            "type": "number"
-          },
-          "created": {
-            "type": "string"
-          },
-          "is_liked": {
-            "type": "boolean"
-          },
-          "comments_counter": {
-            "type": "integer"
-          },
-          "photo": {
-            "type": "object",
-            "properties": {
-              "table_id": {
-                "type": "integer"
-              },
-              "photo_name": {
-                "type": "string"
-              }
-            }
-          },
-          "user": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "fname": {
-                "type": "string"
-              },
-              "lname": {
-                "type": "string"
-              },
-              "photo": {
-                "type": "object",
-                "properties": {
-                  "table_id": {
-                    "type": "integer"
-                  },
-                  "photo_name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Groups": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Group"
       }
     },
     "Group": {
@@ -2505,10 +2311,10 @@
         "contest_id": {
           "type": "integer"
         },
-        "background":{
+        "background": {
           "type": "string"
         },
-        "items":{
+        "items": {
           "$ref": "#/definitions/Items"
         }
       }
@@ -2633,10 +2439,20 @@
         "items": {
           "$ref": "#/definitions/Items"
         },
+        "image": {
+          "type": "string",
+          "description": "Image url"
+        },
+        "is_liked": {
+          "type": "boolean"
+        },
+        "likes": {
+          "type": "integer"
+        },
         "sets": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SetShort2"
+            "$ref": "#/definitions/Sets"
           }
         },
         "created": {
@@ -2724,69 +2540,6 @@
         },
         "user": {
           "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "PrivateMessages": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/PrivateMessage"
-      }
-    },
-    "PrivateMessage": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "parent_msg": {
-          "type": "integer"
-        },
-        "from_id": {
-          "type": "integer"
-        },
-        "to_id": {
-          "type": "integer"
-        },
-        "text_en": {
-          "type": "string"
-        },
-        "procitano": {
-          "type": "boolean"
-        },
-        "created": {
-          "type": "string"
-        },
-        "user_from": {
-          "type": "object",
-          "$ref": "#/definitions/User"
-        },
-        "user_to": {
-          "type": "object",
-          "$ref": "#/definitions/User"
-        }
-      }
-    },
-    "GroupMessages": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/GroupMessage"
-      }
-    },
-    "GroupMessage": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user": {
-          "type": "string"
-        },
-        "chat": {
-          "type": "string"
-        },
-        "d_t": {
-          "type": "string"
         }
       }
     },
