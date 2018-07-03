@@ -230,7 +230,7 @@ namespace Maps\Set {
         }
         $newSet->user = \Maps\User\user($set->user);
         if ($withItem) {
-            $newSet->items = \Maps\Set\items($set->items, $set->id);
+            $newSet->items = \Maps\Item\items($set->items, $set->id);
             $newSet->contest = null;
         }
         return $newSet;
@@ -308,8 +308,6 @@ namespace Maps\Set {
 
 namespace Maps\Collection {
 
-
-    use Dot\Colors\Models\Color;
 
     /**
      * @param $items
