@@ -1392,15 +1392,25 @@
                   "required": true,
                   "items": {
                     "type": "object",
-                    "properties":{
-                      "item_id":{
+                    "properties": {
+                      "item_id": {
                         "type": "integer"
                       },
-                      "height":{"type": "string"},
-                      "width":{"type": "string"},
-                      "x":{"type": "string"},
-                      "y":{"type": "string"},
-                      "rotation":{"type": "string"}
+                      "height": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "string"
+                      },
+                      "x": {
+                        "type": "string"
+                      },
+                      "y": {
+                        "type": "string"
+                      },
+                      "rotation": {
+                        "type": "string"
+                      }
                     }
                   }
                 },
@@ -1808,9 +1818,15 @@
                 "password": {
                   "type": "string"
                 },
-                "profession":{"type": "string"},
-                "about":{"type":"string"},
-                "image":{"type": "base64 format"}
+                "profession": {
+                  "type": "string"
+                },
+                "about": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "base64 format"
+                }
               }
             }
           }
@@ -2023,6 +2039,205 @@
                   },
                   "currency": {
                     "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/getChannels": {
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Get all my Message 's channels",
+        "description": "Get all my available channels",
+        "operationId": "getChannels",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create Collection",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data":{
+                  "type": "object",
+                  "properties": {
+                    "channels":{
+                      "$ref": "#/definitions/Channels"
+                    }
+                  }
+                },
+                "errors":{
+                  "type": "array",
+                  "items": {
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/getChannelMessages": {
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Get all my channel 's messages",
+        "description": "Get all my channel 's messages you can send userId or channelId to get messages",
+        "operationId": "getChannelMessages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create Collection",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id":{
+                  "type": "integer",
+                  "description": "Get messages with this user"
+                },
+                "channel_id":{
+                  "type": "integer",
+                  "description": "Get messages with this channel"
+                },
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data":{
+                  "type": "object",
+                  "properties": {
+                    "channel":{
+                      "$ref": "#/definitions/Channel"
+                    },
+                    "messages":{
+                      "$ref": "#/definitions/Messages"
+                    }
+                  }
+                },
+                "errors":{
+                  "type": "array",
+                  "items": {
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/pushMessage": {
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Get all my channel 's messages",
+        "description": "Get all my channel 's messages you can send userId or channelId to get messages",
+        "operationId": "getChannelMessages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create Collection",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id":{
+                  "type": "integer",
+                  "description": "Push message to this  user"
+                },
+                "channel_id":{
+                  "type": "integer",
+                  "description": "Push message to this  channel"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data":{
+                  "type": "object",
+                  "properties": {
+                    "channel":{
+                      "$ref": "#/definitions/Channel"
+                    },
+                    "status":{
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "errors":{
+                  "type": "array",
+                  "items": {
+                    "type":"string"
                   }
                 }
               }
@@ -2637,6 +2852,137 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Photo"
+      }
+    },
+    "Channel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "sender_id": {
+          "type": "integer"
+        },
+        "receiver_id": {
+          "type": "integer"
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "Last update in  Channel"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "since_update": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/BaseUser"
+        }
+      }
+    },
+    "Channels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Channel"
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "seen": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "sender_id": {
+          "type": "integer"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Messages":{
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Message"
+      }
+
+    },
+    "BaseUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "email_verify": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "avater": {
+          "type": "string",
+          "description": "Avater url"
+        },
+        "about": {
+          "type": "string"
+        },
+        "backend": {
+          "type": "integer"
+        },
+        "brand_name": {
+          "type": "string"
+        },
+        "city_name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "country_id": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string",
+          "description": "Websit url"
+        }
       }
     }
   }
