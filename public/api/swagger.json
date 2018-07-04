@@ -2088,18 +2088,18 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "object",
                   "properties": {
-                    "channels":{
+                    "channels": {
                       "$ref": "#/definitions/Channels"
                     }
                   }
                 },
-                "errors":{
+                "errors": {
                   "type": "array",
                   "items": {
-                    "type":"string"
+                    "type": "string"
                   }
                 }
               }
@@ -2133,11 +2133,11 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user_id":{
+                "user_id": {
                   "type": "integer",
                   "description": "Get messages with this user"
                 },
-                "channel_id":{
+                "channel_id": {
                   "type": "integer",
                   "description": "Get messages with this channel"
                 },
@@ -2157,21 +2157,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "object",
                   "properties": {
-                    "channel":{
+                    "channel": {
                       "$ref": "#/definitions/Channel"
                     },
-                    "messages":{
+                    "messages": {
                       "$ref": "#/definitions/Messages"
                     }
                   }
                 },
-                "errors":{
+                "errors": {
                   "type": "array",
                   "items": {
-                    "type":"string"
+                    "type": "string"
                   }
                 }
               }
@@ -2205,11 +2205,11 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user_id":{
+                "user_id": {
                   "type": "integer",
                   "description": "Push message to this  user"
                 },
-                "channel_id":{
+                "channel_id": {
                   "type": "integer",
                   "description": "Push message to this  channel"
                 }
@@ -2223,21 +2223,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "object",
                   "properties": {
-                    "channel":{
+                    "channel": {
                       "$ref": "#/definitions/Channel"
                     },
-                    "status":{
+                    "status": {
                       "type": "boolean"
                     }
                   }
                 },
-                "errors":{
+                "errors": {
                   "type": "array",
                   "items": {
-                    "type":"string"
+                    "type": "string"
                   }
                 }
               }
@@ -2251,7 +2251,7 @@
         ]
       }
     },
-    "/getNotifications":{
+    "/getNotifications": {
       "post": {
         "tags": [
           "api"
@@ -2287,22 +2287,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "object",
                   "properties": {
-                    "notifications":{
+                    "notifications": {
                       "$ref": "#/definitions/Notifications"
                     },
-                    "unseen_count":{
+                    "unseen_count": {
                       "type": "number",
                       "description": "number of unseen notifications"
                     }
                   }
                 },
-                "errors":{
+                "errors": {
                   "type": "array",
                   "items": {
-                    "type":"string"
+                    "type": "string"
                   }
                 }
               }
@@ -2316,7 +2316,7 @@
         ]
       }
     },
-    "/setNotificationSeen":{
+    "/setNotificationSeen": {
       "post": {
         "tags": [
           "api"
@@ -2350,13 +2350,95 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data":{
+                "data": {
                   "type": "string"
                 },
-                "errors":{
+                "errors": {
                   "type": "array",
                   "items": {
-                    "type":"string"
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/pushReport": {
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Push Report ",
+        "description": "Push Report",
+        "operationId": "pushReport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "pushReport",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "required": true
+                },
+                "url": {
+                  "type": "string",
+                  "required": true
+                },
+                "message": {
+                  "type": "string",
+                  "required": true
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "set",
+                    "collection",
+                    "set_comment",
+                    "contest_comment"
+                  ],
+                  "required": true
+                },
+                "object_id": {
+                  "type": "number",
+                  "required": true
+                },
+                "format": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
                   }
                 }
               }
@@ -2370,7 +2452,6 @@
         ]
       }
     }
-
   },
   "securityDefinitions": {
     "api_key": {
@@ -3036,12 +3117,11 @@
         }
       }
     },
-    "Messages":{
+    "Messages": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Message"
       }
-
     },
     "BaseUser": {
       "type": "object",
@@ -3104,45 +3184,49 @@
         }
       }
     },
-    "Notification":{
+    "Notification": {
       "type": "object",
       "properties": {
-        "id":{
+        "id": {
           "type": "number"
         },
-        "message":{
+        "message": {
           "type": "string"
         },
-        "seen":{
+        "seen": {
           "type": "number",
           "enum": [
-            1,2
+            1,
+            2
           ]
         },
-        "action":{
-          "type":"string"
+        "action": {
+          "type": "string"
         },
-        "object_id":{
+        "object_id": {
           "type": "integer"
         },
-        "sender_id":{
+        "sender_id": {
           "type": "number"
         },
-        "receiver_id":{
+        "receiver_id": {
           "type": "number"
-        },"created_at":{
+        },
+        "created_at": {
           "type": "string"
         },
-        "updated_at":{
+        "updated_at": {
           "type": "string"
         },
-        "since":{
+        "since": {
           "type": "string"
+        },
+        "sender":{
+          "$ref": "#/definitions/BaseUser"
         }
-
       }
     },
-    "Notifications":{
+    "Notifications": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Notification"
