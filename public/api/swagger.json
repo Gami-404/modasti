@@ -2067,7 +2067,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Create Collection",
+            "description": "Get channels",
             "required": true,
             "schema": {
               "type": "object",
@@ -2128,7 +2128,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Create Collection",
+            "description": "Get channel 's message using userId or channelId",
             "required": true,
             "schema": {
               "type": "object",
@@ -2192,7 +2192,7 @@
         ],
         "summary": "Get all my channel 's messages",
         "description": "Get all my channel 's messages you can send userId or channelId to get messages",
-        "operationId": "getChannelMessages",
+        "operationId": "pushMessage",
         "produces": [
           "application/json"
         ],
@@ -2200,7 +2200,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Create Collection",
+            "description": "Push  Message",
             "required": true,
             "schema": {
               "type": "object",
@@ -2233,6 +2233,125 @@
                       "type": "boolean"
                     }
                   }
+                },
+                "errors":{
+                  "type": "array",
+                  "items": {
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/getNotifications":{
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Get least my notifications",
+        "description": "Get least my notifications",
+        "operationId": "getNotifications",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get get notifications",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "number"
+                },
+                "limit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data":{
+                  "type": "object",
+                  "properties": {
+                    "notifications":{
+                      "$ref": "#/definitions/Notifications"
+                    },
+                    "unseen_count":{
+                      "type": "number",
+                      "description": "number of unseen notifications"
+                    }
+                  }
+                },
+                "errors":{
+                  "type": "array",
+                  "items": {
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/setNotificationSeen":{
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "set notification seen ",
+        "description": "set notification seen ",
+        "operationId": "setNotificationSeen",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "set notification seen ",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notificationId": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data":{
+                  "type": "string"
                 },
                 "errors":{
                   "type": "array",
@@ -2983,6 +3102,50 @@
           "type": "string",
           "description": "Websit url"
         }
+      }
+    },
+    "Notification":{
+      "type": "object",
+      "properties": {
+        "id":{
+          "type": "number"
+        },
+        "message":{
+          "type": "string"
+        },
+        "seen":{
+          "type": "number",
+          "enum": [
+            1,2
+          ]
+        },
+        "action":{
+          "type":"string"
+        },
+        "object_id":{
+          "type": "integer"
+        },
+        "sender_id":{
+          "type": "number"
+        },
+        "receiver_id":{
+          "type": "number"
+        },"created_at":{
+          "type": "string"
+        },
+        "updated_at":{
+          "type": "string"
+        },
+        "since":{
+          "type": "string"
+        }
+
+      }
+    },
+    "Notifications":{
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Notification"
       }
     }
   }
