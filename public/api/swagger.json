@@ -2451,6 +2451,61 @@
           }
         ]
       }
+    },
+    "/setPushToken": {
+      "post": {
+        "tags": [
+          "api"
+        ],
+        "summary": "Push firebase 's token for mobile notification ",
+        "description": "Push firebase 's token for mobile notification",
+        "operationId": "setPushToken",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "setPushToken",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pushToken":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
     }
   },
   "securityDefinitions": {
