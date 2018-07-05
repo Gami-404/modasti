@@ -450,4 +450,18 @@ class UserController extends Controller
         $data['data'] = $user;
         return response()->json($data['data']);
     }
+
+
+    /**
+     * GET or POST 'api/setPushToken'
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setPushToken(Request $request){
+        $id = fauth()->id();
+        $user = User::find($id);
+        $user->device_token=$request->get('pushToken');
+        $user->save();
+        return response()->json(['success'=>true]);
+    }
 }

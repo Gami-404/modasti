@@ -30,7 +30,6 @@ Route::any('/home', 'Api\HomeController@home');
 Route::any('/homeTrends', 'Api\HomeController@home');
 
 
-
 Route::any('/trending', 'Api\HomeController@trending');
 
 // Search
@@ -111,6 +110,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('listBlocked', 'Api\UserController@listBlocked');
     $router->post('recommendedUser', 'Api\UserController@recommendedUser');
     $router->post('myProfile', 'Api\UserController@myProfile');
+    $router->any('setPushToken', 'Api\UserController@setPushToken');
 
     //Notifications
     $router->post('getNotifications', 'Api\NotificationsController@getNotifications');
