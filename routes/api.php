@@ -56,6 +56,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
 
     // Home
     $router->post('/feed', 'Api\HomeController@feed');
+    $router->post('/homeFeeds', 'Api\HomeController@feed');
     // Collection
     $router->post('createCollection', 'Api\CollectionController@createCollection');
     $router->post('getCollections', 'Api\CollectionController@getCollections');
