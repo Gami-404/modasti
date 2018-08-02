@@ -328,4 +328,27 @@ class GroupController extends Controller
         (DB::table('groups_users')->where(['group_id' => $group->id])->delete());
         return response()->json($data);
     }
+
+    /**
+     * POST api/homeGroups
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function homeGroups(Request $request)
+    {
+        $data = ['data' => [], 'errors' => []];
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 8);
+
+        $data['data']['mine'] = \Maps\Group\groups($ownerGroups = Group::where(['user_id' => fauth()->id()])->take($limit)->offset($offset)->get());
+        $data['data']['in'] = \Maps\Group\groups($inGroups = Group::whereHas('members', function ($query) {
+            $query->where('users.id', fauth()->id());
+        })->take($limit)->offset($offset)->get());
+
+        $ids = $ownerGroups->concat($inGroups)->pluck('id')->toArray();
+        $data['data']['other'] = \Maps\Group\groups(Group::whereNotIn('id', $ids)->take($limit)->offset($offset)->get());
+        return response()->json($data);
+    }
+
+
 }

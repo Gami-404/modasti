@@ -139,6 +139,7 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     $router->post('/getGroupMembers', 'Api\GroupController@getGroupMembers');
     $router->post('/removeGroupMember', 'Api\GroupController@removeGroupMember');
     $router->post('/deleteGroup', 'Api\GroupController@deleteGroup');
+    $router->post('/homeGroups', 'Api\GroupController@homeGroups');
 
 });
 
