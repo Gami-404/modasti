@@ -126,6 +126,20 @@ Route::group(["middleware" => ['api-auth']], function ($router) {
     // Reports
     $router->post('pushReport', 'Api\ReportsController@pushReport');
 
+
+    // Groups
+    $router->post('/createGroup', 'Api\GroupController@createGroup');
+    $router->post('/inviteMembers', 'Api\GroupController@inviteMembers');
+    $router->post('/groupDetails', 'Api\GroupController@groupDetails');
+    $router->post('/getUserGroups', 'Api\GroupController@getUserGroups');
+    $router->post('/joinToGroup', 'Api\GroupController@joinToGroup');
+    $router->post('/getJoinInvites', 'Api\GroupController@getJoinInvites');
+    $router->post('/approveJoinInvite', 'Api\GroupController@approveJoinInvite');
+    $router->post('/leaveGroup', 'Api\GroupController@leaveGroup');
+    $router->post('/getGroupMembers', 'Api\GroupController@getGroupMembers');
+    $router->post('/removeGroupMember', 'Api\GroupController@removeGroupMember');
+    $router->post('/deleteGroup', 'Api\GroupController@deleteGroup');
+
 });
 
 Route::group(["middleware" => ['api-auth:designer']], function ($router) {

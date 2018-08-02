@@ -57,7 +57,7 @@ namespace Maps\User {
             if ($user->photo) {
                 $newUser->photo = new \stdClass();
                 $newUser->photo->table_id = $user->photo->id;
-                $newUser->photo->photo_name = thumbnail($user->photo->path,'small');
+                $newUser->photo->photo_name = thumbnail($user->photo->path, 'small');
             }
             $newArray[] = $newUser;
         }
@@ -71,6 +71,7 @@ namespace Maps\User {
     function user($user)
     {
         $newUser = new \stdClass();
+        $newUser->id = $user->id;
         $newUser->fname = $user->first_name;
         $newUser->lname = $user->last_name;
         $newUser->username = $user->username;
@@ -88,7 +89,7 @@ namespace Maps\User {
         if ($user->photo) {
             $newUser->photo = new \stdClass();
             $newUser->photo->table_id = $user->photo->id;
-            $newUser->photo->photo_name = thumbnail($user->photo->path,'small');
+            $newUser->photo->photo_name = thumbnail($user->photo->path, 'small');
         }
         return $newUser;
     }
@@ -485,8 +486,8 @@ namespace Maps\Contest {
             $newItem->date_created = $item->created_at->toDateTimeString();
             $newItem->date_likes = $item->created_at->toDateTimeString();
             $newItem->brand = $item->brand ? $item->brand->title : "";
-            $newItem->user_url = isset($item->user)&&$item->user->website ? $item->user->website : null;
-            $newItem->user_currency =  isset($item->user)&&$item->user->currency ? $item->user->currency : "";
+            $newItem->user_url = isset($item->user) && $item->user->website ? $item->user->website : null;
+            $newItem->user_currency = isset($item->user) && $item->user->currency ? $item->user->currency : "";
             $newItem->is_liked = $item->likes()->where('id', fauth()->id())->count() ? true : false;
             $newItem->photo = null;
             $newItem->user_id = $item->user_id;
@@ -501,4 +502,76 @@ namespace Maps\Contest {
         }
         return $newCollections;
     }
+}
+
+namespace Maps\Group {
+
+    /**
+     * @param $group
+     * @param bool $details
+     * @return \stdClass
+     */
+    function group($group, $details = false)
+    {
+        $newGroup = new \stdClass();
+
+        $newGroup->id = $group->id;
+        $newGroup->name = $group->name;
+        $newGroup->description = $group->description;
+        $newGroup->is_private = $group->is_private;
+        $newGroup->admin_id = $group->user_id;
+        $newGroup->members_counter = $group->members()->count() + 1;
+
+        $newGroup->is_invited = $group->invites()->where('user_id', fauth()->id())->count() ? true : false;
+        $newGroup->is_member = $group->members()->where('user_id', fauth()->id())->count() ? true : false;
+
+        $newGroup->image = "https://modasti.uniative.com/uploads/2018/08/1635001808440559630.png";
+
+        $newGroup->wins_counter = 0;
+        $newGroup->request_counter = $group->invites()->count();
+        $newGroup->photo_counter = 0;
+        $newGroup->contests_counter = 0;
+
+        if ($details) {
+            $newGroup->owner = \Maps\User\users($group->user);
+            $newGroup->photo = [];
+        }
+
+        return $newGroup;
+    }
+
+    /**
+     * @param $groups
+     * @return array
+     */
+    function groups($groups)
+    {
+        $newGroups = [];
+        foreach ($groups as $group) {
+            $newGroups[] = \Maps\Group\group($group, false);
+        }
+        return $newGroups;
+    }
+
+    /**
+     * @param $invitations
+     * @return array
+     */
+    function invitations($invitations)
+    {
+        $newInvites = [];
+        foreach ($invitations as $invite) {
+            $newInvite = new \stdClass();
+
+            $newInvite->invited_id = $invite->id;
+            $newInvite->group_id = $invite->group_id;
+
+            $newInvite->user = $invite->user?\Maps\User\users($invite->user):new \stdClass();
+            $newInvite->group = \Maps\Group\group($invite->group);
+
+            $newInvites[] = $newInvite;
+        }
+        return $newInvites;
+    }
+
 }
