@@ -6,7 +6,7 @@ use App\Model\Collection;
 use App\Model\CollectionComment;
 use App\Model\Media;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController as Controller ;
+use App\Http\Controllers\ApiController as Controller;
 use Validator;
 
 class CollectionController extends Controller
@@ -31,11 +31,13 @@ class CollectionController extends Controller
         });
 
         $media = new Media();
-        if ($validator->fails() && ($request->filled('image') && !$media->isBase64($request->get('image')))) {
+        if ($validator->fails() || ($request->filled('image') && !$media->isBase64($request->get('image')))) {
             $data['errors'] = ($validator->errors()->all());
             return response()->json($data, 400);
         }
-        $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        if ($request->filled('image')) {
+            $media = $media->saveContent(explode('base64,', $request->get('image'))[1]);
+        }
         $collection = Collection::create([
             'user_id' => fauth()->user()->id,
             'title' => $request->get('title'),
@@ -43,6 +45,7 @@ class CollectionController extends Controller
             'image_id' => isset($media->id) ? $media->id : 0,
             'lang' => 'en',
         ]);
+
         $data['data']['collection_id'] = $collection->id;
 
         $collection->items()->attach($request->get('items', []));
