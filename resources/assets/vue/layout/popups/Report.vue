@@ -37,7 +37,7 @@
                         <li>
                             <a href="javascript:void(0)" :class="{'active':format===6}" @click="title='Racist and hate speech';format=6">Racist and hate speech.</a>
                         </li>
-                        <li>
+                        <li>Violations
                             <a href="javascript:void(0)" :class="{'active':format===7}" @click="title='Using photos of others.';format=7">Using photos of others.
                             </a>
                         </li>

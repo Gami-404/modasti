@@ -21,6 +21,7 @@ Route::post('/registerDesigner', 'Api\UserController@registerDesigner');
 // Sizes
 Route::post('/getSizes', 'Api\HomeController@getSizes');
 Route::get('/getQuestions', 'Api\QuestionsController@getQuestions');
+Route::any('/getReportTypes', 'Api\HomeController@getReportTypes');
 // Colors
 Route::post('/getColors', 'Api\ColorController@getColors');
 // Countries

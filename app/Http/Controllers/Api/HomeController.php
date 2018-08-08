@@ -354,7 +354,31 @@ class HomeController extends Controller
             }
             $newItems[] = $newItem;
         }
-        $data['data']['items']=$newItems;
+        $data['data']['items'] = $newItems;
+        return response()->json($data);
+    }
+
+
+    /**
+     * GET api/getReportTypes
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getReportTypes()
+    {
+        $data = ['data' => [], 'errors' => []];
+        $format=[
+            1=>'Copyright Violations',
+            'Copying other sets',
+            'Privacy Violation',
+            'Adult content',
+            'Violation of community rules',
+            'Racist and hate speech',
+            'Using photos of others.',
+            'Others',
+        ];
+        foreach ($format as $key => $message) {
+            $data['data'][] = ['id' => $key, "title_en" => $message];
+        }
         return response()->json($data);
     }
 
