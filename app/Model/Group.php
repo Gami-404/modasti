@@ -48,4 +48,14 @@ class Group extends Model
     {
         return $this->hasOne(User::class, "id", "user_id");
     }
+
+    /**
+     * @param $query
+     * @param $q
+     * @return
+     */
+    function scopeSearch($query,$q)
+    {
+        return $query->where('name','LIKE','%'.$q.'%');
+    }
 }

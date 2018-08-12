@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Collection;
 use App\Model\Contest;
+use App\Model\Group;
 use App\Model\Nav;
 use App\Model\Post;
 use App\Model\Set;
@@ -70,7 +71,7 @@ class HomeController extends Controller
         $for = $request->get('searchArea', "items");
         $validator = Validator::make($request->all(), [
             'searchString' => 'required',
-            'searchArea' => 'required|in:items,users',
+            'searchArea' => 'required|in:items,users,sets,groups',
         ]);
         if ($validator->fails()) {
             $data['errors'] = ($validator->errors()->all());
@@ -79,10 +80,14 @@ class HomeController extends Controller
         $classes = [
             "items" => Post::class,
             "users" => User::class,
+            "sets" => Set::class,
+            "groups" => Group::class,
         ];
         $maps = [
             "users" => '\Maps\User\users',
             "items" => '\Maps\Item\items',
+            "sets" => '\Maps\Set\sets',
+            "groups" => '\Maps\Group\groups',
         ];
         $class = $classes[$for];
         $objects = [];
